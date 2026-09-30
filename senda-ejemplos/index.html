@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07120d">
+  <meta name="description" content="La Senda de los Ejemplos. Una misión interactiva del Bosque de los Conceptos para observar, interpretar y diseñar gamificación con criterio.">
+  <title>La Senda de los Ejemplos · GamiAula</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="assets/bosque.webp" as="image">
+</head>
+<body>
+  <a class="skip" href="#stage">Ir a la misión</a>
+  <div id="world" class="world" aria-hidden="true"></div>
+  <div class="world-shade" aria-hidden="true"></div>
+  <div id="fireflies" aria-hidden="true"></div>
+  <header class="hud">
+    <button class="brand quiet" data-action="map" aria-label="Abrir índice de la misión"><span class="brand-mark" aria-hidden="true">✧</span><span>GAMIAULA<small>BUSCADORES DE LA GAMIFICACIÓN PERDIDA</small></span></button>
+    <div class="hud-right"><div id="seal-status" class="seal-status" aria-label="Estado de los tres candados"></div><button class="icon-button" data-action="notebook" aria-label="Abrir cuaderno de la misión" title="Cuaderno"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM9 3v18M12 7h4M12 11h4"/></svg></button><button class="icon-button" data-action="fullscreen" aria-label="Pantalla completa" title="Pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button></div>
+  </header>
+  <main id="stage" class="stage" tabindex="-1"></main>
+  <footer class="navigation"><button id="previous" class="nav-button" aria-label="Pantalla anterior"><span aria-hidden="true">‹</span><span class="nav-word">Anterior</span></button><div class="route-progress"><div class="route-label"><button class="quiet" data-action="map">Bosque de los Conceptos</button><span id="page-number"></span></div><div id="route-dots" class="route-dots" aria-label="Pantallas de la misión"></div></div><button id="next" class="nav-button"><span id="next-label">Siguiente</span><span aria-hidden="true">›</span></button></footer>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="modal" aria-labelledby="modal-title"><div class="modal-top"><span class="eyebrow">EL ARCHIVO DE THÉOL</span><button class="icon-button" data-action="close" aria-label="Cerrar ventana">×</button></div><div id="modal-body"></div></dialog>
+  <noscript><div class="noscript">Activa JavaScript para explorar las pistas y resolver los desafíos.</div></noscript>
+  <script src="cases.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
