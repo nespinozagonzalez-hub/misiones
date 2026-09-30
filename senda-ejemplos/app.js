@@ -83,10 +83,13 @@ function go(page){
   render(true);
 }
 function showModal(title,body){
-  opener=document.activeElement;
-  if(!opener || opener===document.body || opener===document.documentElement) opener=document.querySelector('#stage [data-action]');
+  if(!$('modal').open){
+    opener=document.activeElement;
+    if(!opener || opener===document.body || opener===document.documentElement) opener=document.querySelector('#stage [data-action]');
+  }
   $('modal-body').innerHTML=`<h2 id="modal-title">${title}</h2>${body}`;
   if(!$('modal').open)$('modal').showModal();
+  $('modal').querySelector('[data-action="close"]').focus();
 }
 function closeModal(){if($('modal').open)$('modal').close();}
 $('modal').addEventListener('close',()=>{if(opener&&document.contains(opener))opener.focus();});
