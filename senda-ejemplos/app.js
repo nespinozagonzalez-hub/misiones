@@ -142,7 +142,9 @@ function notebook(){
 }
 function download(){
   const text=['BUSCADORES DE LA GAMIFICACIÓN PERDIDA','La Senda de los Ejemplos · Misión secundaria 1 del Bosque de los Conceptos','Fecha: '+new Date().toLocaleDateString('es-CL'),'','SELLOS DE PRÁCTICA',...sealNames.map((n,i)=>`${n}: ${statusName(state.seals[i])} · pistas consultadas: ${state.hints[i]||0}`),'',...Object.entries(fieldNames).flatMap(([id,title])=>[title.toUpperCase(),state.fields[id]||'(Sin registro)','','']), 'Los sellos corresponden a las actividades cerradas. Este registro no sustituye la valoración del facilitador.','','FUENTES',C.a.citation,'',C.b.citation].join('\n');
-  const blob=new Blob(['\ufeff'+text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Bitacora_Senda_de_los_Ejemplos.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);toast('Registro descargado. Puedes compartirlo con tu facilitador.');
+  const blob=new Blob(['\ufeff'+text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob);
+  showModal('Tu bitácora está lista',`<p>Descarga tu registro para conservarlo y compartirlo con el facilitador.</p><div class="actions"><a class="button" href="${url}" download="Bitacora_Senda_de_los_Ejemplos.txt">Descargar archivo TXT</a></div><label class="field" for="export-text" style="margin-top:24px">También puedes seleccionar y copiar tu registro<textarea id="export-text" rows="10" readonly>${esc(text)}</textarea></label><p class="note">Si la descarga está restringida al incrustar la misión, abre la experiencia en una pestaña o copia este texto.</p>`);
+  setTimeout(()=>URL.revokeObjectURL(url),300000);
 }
 function handle(actionName,el){
   const i=Number(el.dataset.seal);
