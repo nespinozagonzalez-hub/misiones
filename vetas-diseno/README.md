@@ -26,7 +26,7 @@ Esta misión no entrega el Fragmento II del Orbe: el cierre del módulo correspo
 
 El cuaderno guarda notas y decisiones bajo `ludaria_vetas_diseno_v1` en localStorage. Si el navegador bloquea el almacenamiento, el registro sigue descargable durante la sesión. Es independiente de la misión 0 y de las otras misiones. El reinicio solo borra esta clave.
 
-El docente recoge las respuestas abiertas mediante el registro TXT o su canal de clase; no se califican por coincidencias de palabras. En `config.js`, `closingFormUrl` está vacío hasta que exista el formulario real de cierre. Se informa al participante que el docente compartirá ese formulario y el código. El receptor de la misión 0 no se utiliza para esta misión.
+El docente recoge las respuestas abiertas mediante el registro TXT o su canal de clase; no se califican por coincidencias de palabras. El cuaderno también permite ver el registro completo en pantalla y copiarlo manualmente si el navegador o la incrustación limitan las descargas o el portapapeles. En `config.js`, `closingFormUrl` está vacío hasta que exista el formulario real de cierre. Se informa al participante que el docente compartirá ese formulario y el código. El receptor de la misión 0 no se utiliza para esta misión.
 
 ## Publicación e incrustación
 
