@@ -30,6 +30,7 @@ Esta presentación adapta esa ficha a doce pantallas. Los tres candados son prá
 
 Abre `index.html` con los archivos de esta carpeta. No requiere dependencias, instalación ni compilación. El paquete descargable incluye también `El_Claro_del_Debate.html`, una copia de un único archivo con estilos, código e imágenes integrados.
 
+- `preparar_publicacion.py`: después de editar el código, genera copias versionadas de los scripts y la entrada `presentacion.html`, para que cada revisión cargue su código actual.
 - `app.js`: guion de las doce pantallas, votos, candados, diálogo, temporizador y registro.
 - `content.js`: afirmaciones, lecturas, referencias, actividades cerradas y configuración del formulario.
 - `styles.css`: diseño compartido con la primera misión y estilos propios del debate.
@@ -62,7 +63,7 @@ Carpeta independiente `claro-debate/` en el repositorio existente `nespinozagonz
 
 ```html
 <iframe
-  src="https://nespinozagonzalez-hub.github.io/misiones/claro-debate/"
+  src="https://nespinozagonzalez-hub.github.io/misiones/claro-debate/presentacion.html"
   title="El Claro del Debate — misión interactiva"
   width="100%"
   height="880"
