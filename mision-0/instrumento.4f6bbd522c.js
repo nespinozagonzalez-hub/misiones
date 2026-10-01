@@ -1,0 +1,79 @@
+window.LUDARIA_INSTRUMENT = {
+  "version": "anexo-d-v1",
+  "source": "TFM Nicolás Espinoza González. Anexo D, página 60; narrativa Anexo A, página 57; sesión 1, página 38.",
+  "elements": [
+    "puntos",
+    "insignias",
+    "niveles",
+    "narrativa",
+    "avatares",
+    "misiones",
+    "clasificaciones"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "text",
+      "label": "¿Cómo definiría, con sus palabras, la gamificación educativa?"
+    },
+    {
+      "id": "q2",
+      "type": "text",
+      "label": "¿Ha implementado alguna experiencia con elementos de juego en sus clases? Descríbala brevemente."
+    },
+    {
+      "id": "q3",
+      "type": "multiple",
+      "label": "De la siguiente lista, marque los elementos de juego que conoce: puntos, insignias, niveles, narrativa, avatares, misiones, clasificaciones."
+    },
+    {
+      "id": "q4",
+      "type": "text",
+      "label": "¿Qué diferencia cree que existe entre gamificar y usar un juego en clase?"
+    },
+    {
+      "id": "q5",
+      "type": "text",
+      "label": "¿Qué herramientas digitales utiliza habitualmente en su práctica?"
+    },
+    {
+      "id": "q6",
+      "type": "text",
+      "label": "¿Qué espera lograr al finalizar este programa?"
+    },
+    {
+      "id": "q7",
+      "type": "scale",
+      "label": "En una escala de 1 a 5, ¿cuán cómodo se siente diseñando actividades con tecnología?"
+    },
+    {
+      "id": "q8",
+      "type": "text",
+      "label": "¿Qué dificultades anticipa para participar de una formación a distancia?"
+    }
+  ],
+  "headers": [
+    "Fecha de recepción",
+    "ID de envío",
+    "Nombre o alias",
+    "Área docente",
+    "P1 Definición",
+    "P2 Experiencia",
+    "P3 Elementos conocidos",
+    "P3 Puntos",
+    "P3 Insignias",
+    "P3 Niveles",
+    "P3 Narrativa",
+    "P3 Avatares",
+    "P3 Misiones",
+    "P3 Clasificaciones",
+    "P4 Diferencia",
+    "P5 Herramientas",
+    "P6 Expectativas",
+    "P7 Comodidad (1–5)",
+    "P8 Dificultades",
+    "Versión del instrumento",
+    "Huella del envío",
+    "Huella del recibo"
+  ]
+};
