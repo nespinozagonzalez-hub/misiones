@@ -1,0 +1,432 @@
+{
+  "version": 1,
+  "proyecto": "Buscadores de la Gamificación Perdida",
+  "universo": "Ludaria",
+  "repositorio": "nespinozagonzalez-hub/misiones",
+  "rama": "main",
+  "actualizado_en": "2026-10-01T22:53:43Z",
+  "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
+  "automatizacion": {
+    "titulo": "Continuar misiones de Ludaria",
+    "id": null,
+    "estado": "pendiente_activacion",
+    "intervalo_horas": 5,
+    "zona_horaria": "America/Santiago",
+    "motivo": "La creación no pudo completarse por el límite de tareas programadas. Se necesita un espacio libre.",
+    "rrule": "FREQ=HOURLY;INTERVAL=5",
+    "detener_al_terminar": true
+  },
+  "fuentes": {
+    "tesis": {
+      "library_file_id": "libfile_268097aa09648191a2a106e4d5902679",
+      "nombre": "TFM Nicolás Espinoza Entrega Deposito .pdf",
+      "modified_at": "2026-09-07T02:59:54.150364Z"
+    },
+    "matriz": {
+      "library_file_id": "libfile_45dfc60b34008191b5316f853bb1de77",
+      "nombre": "Matriz_y_prompt_Genially_14_sesiones.md",
+      "modified_at": "2026-09-30T11:53:51.385924Z"
+    }
+  },
+  "preferencias": {
+    "sin_marca_gamiaula": true,
+    "html_github_genially": true,
+    "estilo": "Fantasía sobria para docentes adultos; verde bosque, jade, marfil y oro antiguo.",
+    "candados": "Solo recursos complementarios; contenido esencial y navegación siempre accesibles.",
+    "evaluacion": "Citas y respaldo teórico; revisión humana de respuestas abiertas."
+  },
+  "base_aprobada": {
+    "secundarias": [
+      "senda-ejemplos/",
+      "claro-debate/",
+      "tallado-mecanicas/"
+    ],
+    "principales": [
+      "vetas-diseno/"
+    ],
+    "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
+  },
+  "ejecucion_actual": null,
+  "siguiente_sesion": 7,
+  "misiones": [
+    {
+      "sesion": 7,
+      "titulo": "La Gema Motivacional",
+      "slug": "gema-motivacional",
+      "modulo": 2,
+      "tipo": "secundaria 2 y cierre",
+      "locacion": "Cantera de los Elementos",
+      "mentor": "Maestra Bryn",
+      "atributo": "Maestría",
+      "estado": "en_preparacion",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 0,
+      "pantallas_orientativas": [
+        10,
+        12
+      ],
+      "tesis_paginas": [
+        42,
+        43
+      ],
+      "anexos_a_consultar": [],
+      "objetivo": "Necesidades psicológicas y riesgos éticos; analizar dilemas y justificar un rediseño.",
+      "fragmento_cierre": 2,
+      "checkpoint": "produccion/borradores/gema-motivacional/",
+      "proximo_paso": "Crear la ilustración y programar el HTML a partir del prompt y guion preparados; después probar y publicar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 8,
+      "titulo": "Los Planos del Arquitecto",
+      "slug": "planos-arquitecto",
+      "modulo": 3,
+      "tipo": "principal",
+      "locacion": "Forja del Arquitecto",
+      "mentor": "Forjador Ondal",
+      "atributo": "Creación",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 60,
+      "pantallas_orientativas": [
+        12,
+        14
+      ],
+      "tesis_paginas": [
+        43,
+        44
+      ],
+      "anexos_a_consultar": [],
+      "objetivo": "Canvas 6D con un ejemplo resuelto; iniciar objetivos pedagógicos y conductas esperadas.",
+      "fragmento_cierre": null,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 9,
+      "titulo": "El Yunque",
+      "slug": "yunque",
+      "modulo": 3,
+      "tipo": "secundaria 1",
+      "locacion": "Forja del Arquitecto",
+      "mentor": "Forjador Ondal",
+      "atributo": "Creación",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 90,
+      "pantallas_orientativas": [
+        8,
+        10
+      ],
+      "tesis_paginas": [
+        44,
+        44
+      ],
+      "anexos_a_consultar": [],
+      "objetivo": "Taller de prototipado: narrativa, progresión, misiones y componentes propios.",
+      "fragmento_cierre": null,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 10,
+      "titulo": "El Templado entre Pares",
+      "slug": "templado-pares",
+      "modulo": 3,
+      "tipo": "secundaria 2 y cierre",
+      "locacion": "Forja del Arquitecto",
+      "mentor": "Forjador Ondal",
+      "atributo": "Creación",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 0,
+      "pantallas_orientativas": [
+        8,
+        10
+      ],
+      "tesis_paginas": [
+        44,
+        45
+      ],
+      "anexos_a_consultar": [
+        "H"
+      ],
+      "objetivo": "Cada docente recibe observaciones de dos pares con la pauta del Anexo H y ajusta su canvas.",
+      "fragmento_cierre": 3,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 11,
+      "titulo": "El Reflejo del Diseño",
+      "slug": "reflejo-diseno",
+      "modulo": 4,
+      "tipo": "principal",
+      "locacion": "Santuario del Espejo",
+      "mentor": "Guardiana Mira",
+      "atributo": "Evaluación",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 45,
+      "pantallas_orientativas": [
+        10,
+        12
+      ],
+      "tesis_paginas": [
+        45,
+        46
+      ],
+      "anexos_a_consultar": [
+        "E"
+      ],
+      "objetivo": "Interpretar y aplicar la rúbrica exacta del Anexo E a un caso modelo.",
+      "fragmento_cierre": null,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 12,
+      "titulo": "El Pulido del Prototipo",
+      "slug": "pulido-prototipo",
+      "modulo": 4,
+      "tipo": "secundaria 1",
+      "locacion": "Santuario del Espejo",
+      "mentor": "Guardiana Mira",
+      "atributo": "Evaluación",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 60,
+      "pantallas_orientativas": [
+        8,
+        10
+      ],
+      "tesis_paginas": [
+        46,
+        46
+      ],
+      "anexos_a_consultar": [
+        "E"
+      ],
+      "objetivo": "Autoevaluación, ajustes y plan de implementación con curso, tiempos y recursos.",
+      "fragmento_cierre": null,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 13,
+      "titulo": "El Espejo Compartido",
+      "slug": "espejo-compartido",
+      "modulo": 4,
+      "tipo": "secundaria 2 y cierre",
+      "locacion": "Santuario del Espejo",
+      "mentor": "Guardiana Mira",
+      "atributo": "Evaluación",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 0,
+      "pantallas_orientativas": [
+        6,
+        8
+      ],
+      "tesis_paginas": [
+        46,
+        47
+      ],
+      "anexos_a_consultar": [
+        "E",
+        "H"
+      ],
+      "objetivo": "Presentaciones de cinco minutos por docente y retroalimentación cruzada con pauta.",
+      "fragmento_cierre": 4,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    },
+    {
+      "sesion": 14,
+      "titulo": "La Defensa del Orbe",
+      "slug": "defensa-orbe",
+      "modulo": null,
+      "tipo": "cierre sin misión formal",
+      "locacion": "Bóveda del Orbe",
+      "mentor": null,
+      "atributo": "Todos",
+      "estado": "pendiente",
+      "minutos_sincronicos": 90,
+      "minutos_asincronicos": 0,
+      "pantallas_orientativas": [
+        10,
+        12
+      ],
+      "tesis_paginas": [
+        47,
+        49
+      ],
+      "anexos_a_consultar": [
+        "E",
+        "F",
+        "G"
+      ],
+      "objetivo": "Entrega y evaluación final del prototipo, autoevaluación, valoración y restauración del Orbe.",
+      "fragmento_cierre": null,
+      "checkpoint": "",
+      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "url_publicada": null,
+      "iframe": null,
+      "commit_publicacion": null,
+      "verificacion": {
+        "contenido": false,
+        "interacciones": false,
+        "escritorio": false,
+        "movil": false,
+        "iframe": false,
+        "github_pages": false
+      },
+      "entregables": {
+        "html": null,
+        "zip": null,
+        "guia": null,
+        "vista": null
+      },
+      "dependencias_pendientes": [],
+      "bloqueos": []
+    }
+  ],
+  "historial": [
+    {
+      "fecha": "2026-10-01T22:53:43Z",
+      "accion": "Cola de ocho sesiones preparada; fuentes accesibles y carpetas existentes comprobadas. Automatización intentada sin éxito por límite del plan. Guion y prompt de sesión 7 preparados. Ninguna de las ocho entregas está terminada todavía."
+    }
+  ]
+}
