@@ -1,7 +1,7 @@
 'use strict';
 (() => {
 const KEY='gamiaula_claro_debate_v1',C=window.CLARO_CONTENT,CONFIG=window.CLARO_CONFIG;
-const titles=['El Claro del Debate','El encargo de Théol','Antes de abrir el archivo','Las lecturas del claro','La promesa absoluta','La huella y el aprendizaje','Los adornos del juego','Distintas miradas','El círculo de argumentos','El hilo de una buena defensa','La síntesis del mentor','El Fragmento I del Orbe'];
+const titles=['El Claro del Debate','El encargo de Théol','Antes de abrir el archivo','Las lecturas del claro','Una tendencia favorable','La huella y el aprendizaje','Los adornos del juego','Distintas miradas','El círculo de argumentos','El hilo de una buena defensa','La síntesis del mentor','El Fragmento I del Orbe'];
 const seals=['Alcance','Inferencia','Argumento'];
 const minutes=[3,5,8,10,7,7,7,7,12,8,10,6];
 const fieldNames={initial:'Una afirmación que nos hizo dudar',argument:'Nuestra afirmación revisada',evidence:'La evidencia que la sostiene',limit:'Un límite o explicación alternativa',decision:'Una decisión para el aula',peer:'Una pregunta de otro equipo y nuestro ajuste',synthesis:'Una idea que mantenemos, una que matizamos y una pregunta pendiente',exit:'Mi aprendizaje del módulo y mi próximo paso'};

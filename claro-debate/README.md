@@ -16,7 +16,7 @@ Esta presentación adapta esa ficha a doce pantallas. Los tres candados son prá
 | 2 | Encargo de Théol y reglas | 5 |
 | 3 | Primera postura ante cuatro afirmaciones | 8 |
 | 4 | Tres lecturas y sus límites | 10 |
-| 5 | Ronda 1: promesa absoluta; candado Alcance | 7 |
+| 5 | Ronda 1: tendencia favorable; candado Alcance | 7 |
 | 6 | Ronda 2: participación y aprendizaje | 7 |
 | 7 | Ronda 3: componentes; candado Inferencia | 7 |
 | 8 | Ronda 4: experiencias diferentes | 7 |

@@ -8,7 +8,7 @@ La interacción específica será: primera postura → lectura revelada → segu
 
 Utilizar las investigaciones que aparecen en la tesis: Sailer y Homner (2020), Bai, Hew y Huang (2020), y Zainuddin et al. (2020). Verificar sus publicaciones originales. Presentar síntesis breves, tipos de resultados, alcance y límites. Los tamaños de efecto no son porcentajes de mejora. Distinguir una descripción, una interpretación posible y una atribución causal que excede la evidencia.
 
-Cuatro afirmaciones para debatir: universalidad del efecto; participación como prueba suficiente de aprendizaje; puntos e insignias como garantía de eficacia; equivalencia de experiencias ante recompensas y comparación. Las posturas son abiertas y se revisan con una pauta humana. Los ejemplos ficticios deben identificarse como tales.
+Cuatro afirmaciones para debatir: tendencia media favorable; participación como prueba suficiente de aprendizaje; puntos e insignias como garantía de eficacia; equivalencia de experiencias ante recompensas y comparación. Las posturas son abiertas y se revisan con una pauta humana. Los ejemplos ficticios deben identificarse como tales.
 
 Implementar tres candados funcionales: Alcance (elección de una conclusión defendible); Inferencia (clasificación de tres afirmaciones ficticias); Argumento (construcción por clic y teclado de afirmación–evidencia–límite–decisión). Dos pistas graduadas, reintentos ilimitados, feedback explicativo y apertura acompañada distinguida de respuesta correcta. Cada candado revela una pauta complementaria; nunca bloquea las fuentes o la navegación esencial.
 
