@@ -27,7 +27,7 @@ La apertura original contempla 90 minutos sincrónicos, incluyendo conversacione
 
 ## Activación
 
-Consulta `Activar_Mision_0.md` y `Receptor_Mision_0.gs`, incluidos en el paquete del docente. La hoja receptora está creada. Falta desplegar el receptor en la cuenta del propietario y configurar su URL `/exec` en `config.js`.
+Consulta `Activar_Mision_0.md` y `Receptor_Mision_0.gs`, incluidos en el paquete del docente. La hoja receptora está creada y la URL `/exec` entregada por el propietario está configurada en `config.js`. El receptor está implementado; la prueba de recepción se documenta al finalizar su verificación.
 
 `forgeUrl` está pendiente: la tesis no contiene un enlace directo a la Forja. Mientras no se configure, aparece una explicación para abrirla desde el Portal, sin inventar un destino. `attendanceCode` permanece vacío hasta que el facilitador decida compartir un código real. No se sincroniza el diagnóstico con el Libro de Stats.
 
