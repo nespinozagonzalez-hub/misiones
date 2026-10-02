@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T01:26:53.791Z",
+  "actualizado_en": "2026-10-02T01:46:06.910Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -48,7 +48,11 @@
     ],
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
-  "ejecucion_actual": null,
+  "ejecucion_actual": {
+    "sesion": 9,
+    "slug": "yunque",
+    "fase": "codigo_implementado_pendiente_pruebas_reales"
+  },
   "siguiente_sesion": 9,
   "misiones": [
     {
@@ -230,7 +234,7 @@
       "locacion": "Forja del Arquitecto",
       "mentor": "Forjador Ondal",
       "atributo": "Creación",
-      "estado": "pendiente",
+      "estado": "en_revision",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 90,
       "pantallas_orientativas": [
@@ -244,8 +248,8 @@
       "anexos_a_consultar": [],
       "objetivo": "Taller de prototipado: narrativa, progresión, misiones y componentes propios.",
       "fragmento_cierre": null,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "checkpoint": "produccion/borradores/yunque/",
+      "proximo_paso": "Verificar en navegador real todas las pantallas y las interacciones; corregir y publicar; empaquetar y guardar entregables antes de declarar terminada.",
       "url_publicada": null,
       "iframe": null,
       "commit_publicacion": null,
@@ -263,7 +267,9 @@
         "guia": null,
         "vista": null
       },
-      "dependencias_pendientes": [],
+      "dependencias_pendientes": [
+        "Configurar canvasExterno y bitacoraExterna con enlaces reales si se usan; prototipo y bitácora locales completos."
+      ],
       "bloqueos": []
     },
     {

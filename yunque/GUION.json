@@ -1,0 +1,99 @@
+{
+  "sesion": 9,
+  "titulo": "El Yunque",
+  "estado": "implementado_pendiente_revision_navegador",
+  "sincronico_minutos": 90,
+  "asincronico_minutos": 90,
+  "base": "Tesis tabla 10 p.44 y matriz aprobada. Anexos E–H leídos para evitar crear instrumentos sustitutos.",
+  "pantallas": [
+    {
+      "title": "El Yunque",
+      "time": 4,
+      "prompt": "Retomamos el primer canvas para dar forma al prototipo.",
+      "product": "Propósito personal del taller."
+    },
+    {
+      "title": "Trae tu primer plano",
+      "time": 6,
+      "prompt": "Recupera objetivo y conductas de tu canvas. No se importan automáticamente entre presentaciones.",
+      "product": "Punto de partida explícito."
+    },
+    {
+      "title": "Una primera forma posible",
+      "time": 8,
+      "prompt": "Observa un ejemplo breve y decide qué parte de tu prototipo desarrollarás primero.",
+      "product": "Decisión de trabajo propia."
+    },
+    {
+      "title": "Forjar la narrativa",
+      "time": 18,
+      "prompt": "Redacta una invitación y un desafío que den sentido a las actividades. Consulta al facilitador durante el trabajo.",
+      "product": "Narrativa inicial conectada con el aprendizaje."
+    },
+    {
+      "title": "Dar forma a una misión",
+      "time": 14,
+      "prompt": "Escribe una misión: consigna, acción, evidencia y feedback previsto.",
+      "product": "Primera misión del prototipo."
+    },
+    {
+      "title": "Diseñar cómo se avanza",
+      "time": 15,
+      "prompt": "Relaciona los hitos y explica cómo se puede revisar un intento o pedir apoyo.",
+      "product": "Progresión inicial con revisión accesible."
+    },
+    {
+      "title": "Elegir los componentes",
+      "time": 10,
+      "prompt": "Selecciona los recursos que necesitas y justifica su función. Explicita el reconocimiento de avances.",
+      "product": "Componentes y reglas de reconocimiento justificados."
+    },
+    {
+      "title": "Una prueba de coherencia",
+      "time": 8,
+      "prompt": "Contrasta una decisión del ejemplo y vuelve a tu propia misión.",
+      "product": "Decisión explicada y ajuste por precisar."
+    },
+    {
+      "title": "La huella del taller",
+      "time": 4,
+      "prompt": "Registra qué avanzaste, qué necesitas consultar y cuál será el próximo paso.",
+      "product": "Entrada de bitácora y prototipo conservados."
+    },
+    {
+      "title": "Antes del templado",
+      "time": 3,
+      "prompt": "Conserva la primera versión y acuerda cómo continuar el trabajo autónomo.",
+      "product": "Versión lista para seguir desarrollando."
+    }
+  ],
+  "fuentes": [
+    {
+      "title": "Tesis · ficha de sesión 9",
+      "apa": "Espinoza González, N. (s. f.). Buscadores de la Gamificación Perdida: Propuesta de innovación educativa gamificada para la formación docente en gamificación educativa [Trabajo de fin de máster proporcionado por el autor]. Tabla 10, p. 44.",
+      "use": "Taller de prototipado con acompañamiento individualizado: narrativa, misiones, sistema de puntos, progresión y componentes. Registro en bitácora. 90 minutos sincrónicos y 90 asincrónicos. Pantallas y pausas son organización didáctica propia.",
+      "url": ""
+    },
+    {
+      "title": "Werbach y Hunter · marco 6D",
+      "apa": "Werbach, K., & Hunter, D. (2012). For the win: How game thinking can revolutionize your business. Wharton Digital Press.",
+      "use": "Se verificó la entrevista original a los autores de 2012 y el programa del curso de Werbach, unidad 7. No se afirma lectura íntegra del libro. El canvas educativo es una adaptación propia de los seis pasos; no una plantilla oficial ni una prueba de eficacia.",
+      "url": "https://knowledge.wharton.upenn.edu/article/for-the-win-how-gamification-can-transform-your-business/"
+    },
+    {
+      "title": "Toda y colaboradores · taxonomía",
+      "apa": "Toda, A. M., Oliveira, W., Klock, A. C., Palomino, P. T., Pimenta, M., Gasparini, I., Shi, L., Bittencourt, I., Isotani, S., & Cristea, A. I. (2019). A taxonomy of game elements for gamification in educational contexts: Proposal and evaluation. In 2019 IEEE 19th International Conference on Advanced Learning Technologies (ICALT) (pp. 84–88). https://doi.org/10.1109/ICALT.2019.00028",
+      "use": "Texto original consultado en copia depositada por el autor. Propone 21 elementos y evaluación por expertos. Su aceptación no prueba mejoras de aprendizaje en cada aula ni obliga a incluir todos los elementos.",
+      "url": "https://doi.org/10.1109/ICALT.2019.00028"
+    }
+  ],
+  "decisiones": [
+    "Taller de aplicación con bloques largos y consultas al facilitador.",
+    "Reutilizar arte original de la Forja para mantener continuidad visual.",
+    "Cada docente diseña su narrativa, misiones, progresión y reconocimiento; sin valores de puntos asignados.",
+    "Un candado de recordatorio complementario, sin bloqueo de escritura o navegación.",
+    "Bitácora y canvas locales, con enlaces externos configurables y sin envío simulado.",
+    "Sin fragmento del Orbe en sesión secundaria 1."
+  ],
+  "proximo_paso": "Publicar y probar diez pantallas, temporizador, campos, inventario, práctica y bitácora; empaquetar y guardar antes de cerrar."
+}
