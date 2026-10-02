@@ -1,3 +1,3 @@
-# El Templado entre Pares · borrador implementado
+# El Templado entre Pares · entrega terminada
 
-Código en templado-pares/. Ficha pp.44–45 y Anexo H pp.65–66 leídos. Nueve pantallas, 90 minutos, dos pautas con siete criterios exactos y niveles, bitácora. No terminada hasta pruebas reales y cuatro entregables. Probar todas las pantallas en iframe 1280×720 y móvil 375×800; edición/niveles/registro/recarga, práctica incorrecta y reintento correcto, ceremonia, foco y reinicio. Corregir, guardar entregables y actualizar resumen antes de sesión 11. URLs reales pendientes con alternativa local. Fuente de feedback verificada solo como resumen institucional; límites en guía.
+Nueve pantallas y dos pautas exactas del Anexo H probadas en navegador real. Cuatro entregables guardados con IDs en ESTADO.json. Mantener esta entrega. Próxima sesión: El Reflejo del Diseño. Leer pp.45–46 y Anexo E antes de elaborar rúbrica o ejemplos. No inventar niveles, descriptores ni pesos. Conservar URLs externas pendientes con alternativas locales.

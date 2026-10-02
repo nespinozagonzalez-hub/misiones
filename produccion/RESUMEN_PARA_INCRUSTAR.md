@@ -2,14 +2,14 @@
 
 Producción de las ocho sesiones restantes de **Buscadores de la Gamificación Perdida**. Se conservan el portal y las presentaciones anteriores.
 
-**Estado:** 3 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Templado entre Pares**.
+**Estado:** 4 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Reflejo del Diseño**.
 
 | Orden | Presentación | Módulo / tipo | Estado |
 |---|---|---|---|
 | 7 | La Gema Motivacional | 2 · secundaria 2 y cierre | Terminada y verificada |
 | 8 | Los Planos del Arquitecto | 3 · principal | Terminada y verificada |
 | 9 | El Yunque | 3 · secundaria 1 | Terminada y verificada |
-| 10 | El Templado entre Pares | 3 · secundaria 2 y cierre | Pendiente |
+| 10 | El Templado entre Pares | 3 · secundaria 2 y cierre | Terminada y verificada |
 | 11 | El Reflejo del Diseño | 4 · principal | Pendiente |
 | 12 | El Pulido del Prototipo | 4 · secundaria 1 | Pendiente |
 | 13 | El Espejo Compartido | 4 · secundaria 2 y cierre | Pendiente |
@@ -97,3 +97,28 @@ Secundaria 1 del módulo 3. Diez pantallas, 90 minutos sincrónicos y 90 autóno
 | El_Yunque_Vista.jpg | libfile_731cd1a846f88191b404d474e0f78522 |
 
 **Dependencia pendiente:** enlaces reales canvasExterno y bitacoraExterna; prototipo y bitácora locales permiten trabajar y compartir por el canal indicado. Una instancia activa por dispositivo; no hay colaboración ni envío desde el HTML.
+
+## 10 · El Templado entre Pares
+
+Secundaria 2 y cierre del módulo 3. Forja del Arquitecto · Forjador Ondal · Creación. Nueve pantallas, 90 minutos sincrónicos, sin carga autónoma adicional. Producto: dos revisiones realizadas, dos observaciones reales recibidas y canvas ajustado con una razón explícita.
+
+Dos pautas independientes con los siete criterios, tres niveles y comentarios finales exactos del Anexo H. Bitácora editable, ensayo de comentario con feedback y reintentos, fuentes, guía por pantalla y cierre acompañado del Fragmento III. El facilitador organiza las rondas reales; no se simulan recepción o envío.
+
+**Enlace publicado y probado:** [Abrir El Templado entre Pares](https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1)
+
+```html
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1" title="El Templado entre Pares · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+```
+
+**Pruebas:** nueve pantallas en iframe 1280×720 (cada altura inicial 720px) y móvil 375×800; sin desbordamiento horizontal. Dos rondas editadas con niveles y comentarios independientes, registro completo, recarga y persistencia, ocho campos de bitácora, edición móvil, ensayo, ceremonia, Escape y reinicio. Pages workflow 36969729550 success. Registro visible como alternativa si se restringe descarga TXT. Detalle en templado-pares/PRUEBAS.md.
+
+**Fuentes:** tesis tabla 11 pp.44–45 y Anexo H pp.65–66. Nicol y Macfarlane-Dick (2006), resumen de autor y metadatos del repositorio institucional; no se afirma lectura íntegra ni resultados del taller. Protocolo y ensayo son adaptación didáctica propia.
+
+| Archivo | Identificador durable |
+|---|---|
+| El_Templado_entre_Pares.html | libfile_73a976b8d60c8191b37bd4fa0da2c29f |
+| El_Templado_entre_Pares.zip | libfile_6e9114e744f4819199ff59e889703b04 |
+| Guia_docente_El_Templado_entre_Pares.md | libfile_7074c22bff7c8191a95357a02d15721d |
+| El_Templado_entre_Pares_Vista.jpg | libfile_0d50e8efdf288191a94075677f75ba78 |
+
+**Dependencia:** URLs reales de canvas y canal externo de coevaluación pendientes. Configurar en config.js y regenerar recursos. Pautas y bitácora locales permiten trabajar; compartirlas por el canal indicado. Una instancia activa por dispositivo. Siguiente: El Reflejo del Diseño.

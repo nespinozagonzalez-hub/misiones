@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T05:36:33.077Z",
+  "actualizado_en": "2026-10-02T05:42:54.256Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -49,11 +49,11 @@
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
   "ejecucion_actual": {
-    "sesion": 10,
-    "slug": "templado-pares",
-    "fase": "codigo_implementado_pendiente_pruebas"
+    "sesion": 11,
+    "slug": "reflejo-diseno",
+    "fase": "pendiente_lectura_ficha_anexo_E"
   },
-  "siguiente_sesion": 10,
+  "siguiente_sesion": 11,
   "misiones": [
     {
       "sesion": 7,
@@ -319,7 +319,7 @@
       "locacion": "Forja del Arquitecto",
       "mentor": "Forjador Ondal",
       "atributo": "Creación",
-      "estado": "en_revision",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 0,
       "pantallas_orientativas": [
@@ -336,26 +336,66 @@
       "objetivo": "Cada docente recibe observaciones de dos pares con la pauta del Anexo H y ajusta su canvas.",
       "fragmento_cierre": 3,
       "checkpoint": "produccion/borradores/templado-pares/",
-      "proximo_paso": "Probar nueva presentación publicada en navegador real; verificar las dos pautas, persistencia, móvil, iframe y cierre local; guardar entregables.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
+      "proximo_paso": "Conservar esta entrega. Configurar enlaces reales si corresponde. Retomar sesión 11 con ficha y Anexo E completos.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1\" title=\"El Templado entre Pares · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
+      "commit_publicacion": "610024c88e68f8a4e466f827dce30734a6adc4d0",
       "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
+        "contenido": true,
+        "interacciones": true,
+        "escritorio": true,
+        "movil": true,
+        "iframe": true,
+        "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "El_Templado_entre_Pares.html",
+          "library_file_id": "libfile_73a976b8d60c8191b37bd4fa0da2c29f",
+          "file_id": "file_000000001e3881fb94f636097dc33ffd",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "El_Templado_entre_Pares.zip",
+          "library_file_id": "libfile_6e9114e744f4819199ff59e889703b04",
+          "file_id": "file_00000000fb6881fbb6930d5576ecb7bc",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "Guia_docente_El_Templado_entre_Pares.md",
+          "library_file_id": "libfile_7074c22bff7c8191a95357a02d15721d",
+          "file_id": "file_000000009ec081fb91b4b60474800e5f",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "El_Templado_entre_Pares_Vista.jpg",
+          "library_file_id": "libfile_0d50e8efdf288191a94075677f75ba78",
+          "file_id": "file_000000000d7481fb8db4839a3aad61dd",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
-      "dependencias_pendientes": [],
-      "bloqueos": []
+      "dependencias_pendientes": [
+        "Enlaces reales canvasExterno y coevaluacionExterna pendientes; pautas y bitácora locales disponibles."
+      ],
+      "bloqueos": [],
+      "pruebas": {
+        "fecha_utc": "2026-10-02T05:42:54.256Z",
+        "navegador": "Chrome real",
+        "escritorio": "9 pantallas, iframe 1280×720: altura inicial 720px y sin desbordamiento horizontal.",
+        "movil": "9 pantallas 375×800, sin desbordamiento horizontal; edición de comentario y nivel confirmada en registro.",
+        "detalle": "templado-pares/PRUEBAS.md",
+        "workflow_run_id": 36969729550,
+        "workflow_conclusion": "success",
+        "nota": "Dos rondas independientes editadas, registro y persistencia; 8 campos de bitácora; ensayo y reintento; cierre acompañado, Escape y reinicio. Registro visible como alternativa; descarga TXT no acreditada."
+      }
     },
     {
       "sesion": 11,
@@ -583,6 +623,11 @@
       "fecha": "2026-10-02T05:30:32.858Z",
       "sesion": 9,
       "accion": "Reanudadas y completadas pruebas funcionales reales tras recuperar entorno. Cuatro entregables guardados. El Yunque terminado; siguiente sesión 10."
+    },
+    {
+      "fecha": "2026-10-02T05:42:54.256Z",
+      "sesion": 10,
+      "accion": "Sesión 10 terminada: pauta H exacta, pruebas reales de nueve pantallas y dos rondas, Pages verificado, cuatro entregables guardados. Próxima sesión 11."
     }
   ]
 }
