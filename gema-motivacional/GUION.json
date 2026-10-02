@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "estado": "implementado_en_revision_navegador",
+  "estado": "terminada_verificada",
   "titulo": "La Gema Motivacional",
   "sesion": 7,
   "minutos_total": 90,
@@ -129,6 +129,6 @@
   ],
   "formulario_cierre_url": null,
   "clave_local": "ludaria_gema_motivacional_v1",
-  "proximo_paso": "Verificar ajuste de altura en iframe, exportar y guardar las cuatro entregas; cerrar estado con pruebas reales.",
+  "proximo_paso": "Sesión 8: Los Planos del Arquitecto. Mantener esta misión y configurar el formulario de cierre cuando el autor entregue su URL real.",
   "revisado_con_fuentes_el": "2026-10-01"
 }

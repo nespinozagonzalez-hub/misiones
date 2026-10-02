@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T00:39:11.619Z",
+  "actualizado_en": "2026-10-02T00:57:47.350Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -48,13 +48,8 @@
     ],
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
-  "ejecucion_actual": {
-    "sesion": 7,
-    "inicio": "2026-10-02T00:39:11.619Z",
-    "fase": "publicacion_para_revision",
-    "detalle": "Arte, contenido e implementación preparados; falta navegador, paquete y verificación final."
-  },
-  "siguiente_sesion": 7,
+  "ejecucion_actual": null,
+  "siguiente_sesion": 8,
   "misiones": [
     {
       "sesion": 7,
@@ -65,7 +60,7 @@
       "locacion": "Cantera de los Elementos",
       "mentor": "Maestra Bryn",
       "atributo": "Maestría",
-      "estado": "en_revision",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 0,
       "pantallas_orientativas": [
@@ -80,28 +75,66 @@
       "objetivo": "Necesidades psicológicas y riesgos éticos; analizar dilemas y justificar un rediseño.",
       "fragmento_cierre": 2,
       "checkpoint": "produccion/borradores/gema-motivacional/",
-      "proximo_paso": "Comprobar las doce pantallas y actividades en escritorio, móvil e iframe; corregir, guardar entregables y cerrar la sesión 7.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
+      "proximo_paso": "Conservar la entrega. Configurar la URL real del formulario de cierre del módulo 2 cuando el autor la proporcione.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1\" title=\"La Gema Motivacional · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
+      "commit_publicacion": "a1477a574b9600f1af6d05ea0ae195efb6c52427",
       "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
+        "contenido": true,
+        "interacciones": true,
+        "escritorio": true,
+        "movil": true,
+        "iframe": true,
+        "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "La_Gema_Motivacional.html",
+          "library_file_id": "libfile_cc9e44ad7c308191acad1fe14bba8082",
+          "file_id": "file_00000000c30881f5aac4b708ec39f4b4",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "La_Gema_Motivacional.zip",
+          "library_file_id": "libfile_527fe08f58bc8191bbe7f30ebaf94f27",
+          "file_id": "file_00000000f99881f59b0436545796954e",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "Guia_docente_La_Gema_Motivacional.md",
+          "library_file_id": "libfile_ff8c98720b0881919242747a72bb1d1c",
+          "file_id": "file_000000004bec81f5959a7f3984f609fb",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "La_Gema_Motivacional_Vista.jpg",
+          "library_file_id": "libfile_611b6bb28bdc819191bed1c8ad389ca4",
+          "file_id": "file_00000000785881f59f76dab205197d2b",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
       "dependencias_pendientes": [
         "Configurar la URL real del formulario de cierre del módulo 2; el registro local está disponible como alternativa."
       ],
-      "bloqueos": []
+      "bloqueos": [],
+      "pruebas": {
+        "fecha_utc": "2026-10-02T00:57:47.350Z",
+        "navegador": "Chrome real",
+        "escritorio": "12 pantallas; iframe 1280 × 720; sin desbordamiento horizontal; vistas iniciales en 720px.",
+        "movil": "12 pantallas en iframe 375 × 800; sin desbordamiento horizontal; ficha y registro funcionales.",
+        "detalle": "gema-motivacional/PRUEBAS.md",
+        "workflow_run_id": 36948209345,
+        "workflow_conclusion": "success",
+        "nota": "Pistas y feedback pueden aumentar la altura; desplazamiento vertical accesible. Copia y descarga dependen de permisos del marco; registro visible como alternativa."
+      }
     },
     {
       "sesion": 8,
@@ -444,6 +477,10 @@
     {
       "fecha": "2026-10-02T00:39:11.619Z",
       "accion": "Sesión 7 implementada con doce pantallas y arte original. Pendiente comprobación real en navegador antes de anunciar entrega."
+    },
+    {
+      "fecha": "2026-10-02T00:57:47.350Z",
+      "accion": "Sesión 7 terminada: contenido y doce pantallas verificadas en navegador, persistencia y candados probados, GitHub Pages comprobado, cuatro entregables guardados. Próxima sesión 8; dependencia de formulario informada."
     }
   ]
 }
