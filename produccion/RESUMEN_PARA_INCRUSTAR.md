@@ -2,7 +2,7 @@
 
 Producción de las ocho sesiones restantes de **Buscadores de la Gamificación Perdida**. Se conservan el portal y las presentaciones anteriores.
 
-**Estado:** 4 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Reflejo del Diseño**.
+**Estado:** 5 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Pulido del Prototipo**.
 
 | Orden | Presentación | Módulo / tipo | Estado |
 |---|---|---|---|
@@ -10,7 +10,7 @@ Producción de las ocho sesiones restantes de **Buscadores de la Gamificación P
 | 8 | Los Planos del Arquitecto | 3 · principal | Terminada y verificada |
 | 9 | El Yunque | 3 · secundaria 1 | Terminada y verificada |
 | 10 | El Templado entre Pares | 3 · secundaria 2 y cierre | Terminada y verificada |
-| 11 | El Reflejo del Diseño | 4 · principal | Pendiente |
+| 11 | El Reflejo del Diseño | 4 · principal | Terminada y verificada |
 | 12 | El Pulido del Prototipo | 4 · secundaria 1 | Pendiente |
 | 13 | El Espejo Compartido | 4 · secundaria 2 y cierre | Pendiente |
 | 14 | La Defensa del Orbe | Cierre sin misión formal | Pendiente |
@@ -122,3 +122,29 @@ Dos pautas independientes con los siete criterios, tres niveles y comentarios fi
 | El_Templado_entre_Pares_Vista.jpg | libfile_0d50e8efdf288191a94075677f75ba78 |
 
 **Dependencia:** URLs reales de canvas y canal externo de coevaluación pendientes. Configurar en config.js y regenerar recursos. Pautas y bitácora locales permiten trabajar; compartirlas por el canal indicado. Una instancia activa por dispositivo. Siguiente: El Reflejo del Diseño.
+
+
+## 11 · El Reflejo del Diseño
+
+Misión principal del módulo 4. Santuario del Espejo · Guardiana Mira · Evaluación. Doce pantallas, 90 minutos sincrónicos y 45 autónomos. Producto: aplicación conjunta de la rúbrica del Anexo E a un caso modelo y tres acuerdos de interpretación.
+
+Incluye los cinco criterios y los tres niveles exactos del instrumento, sin puntos, pesos ni promedios; preguntas de evidencia para cada criterio; caso ficticio con cinco decisiones; lectura propuesta explicativa; cuaderno y registro local. El facilitador conduce la comparación de juicios. Los textos abiertos requieren revisión humana y el HTML no envía datos.
+
+**Enlace publicado y probado:** [Abrir El Reflejo del Diseño](https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1)
+
+```html
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1" title="El Reflejo del Diseño · Ludaria" width="100%" height="720" style="border:0;border-radius:12px;" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+```
+
+**Pruebas:** doce pantallas recorridas en Chrome real a 1363 px; selección de cinco niveles, lectura propuesta, cuaderno y persistencia tras recarga. Iframe de 720 px y viewport móvil de 390 px (375 px útiles) sin desbordamiento horizontal. Pages workflow 36997294755 success. Detalle: `reflejo-diseno/PRUEBAS.md`.
+
+**Fuentes:** ficha de la sesión 11 y Anexo E de la tesis; Werbach y Hunter (2012), entrevista oficial de los autores para la lectura sistémica; Ryan y Deci (2000), texto original sobre autonomía, competencia y vinculación. Se explicitan los límites: el instrumento orienta una interpretación y no demuestra eficacia o motivación real.
+
+| Archivo | Identificador durable |
+|---|---|
+| El_Reflejo_del_Diseno.html | libfile_1b543c74fea881918b1f183fecf739ba |
+| El_Reflejo_del_Diseno.zip | libfile_c2245561d70c8191ab1c55668f9782dc |
+| Guia_docente_El_Reflejo_del_Diseno.md | libfile_e427ad8a0f1c81918b9199b8664fab9e |
+| El_Reflejo_del_Diseno_Vista.jpg | libfile_c53002525cbc8191b19ada48bb787c4a |
+
+**Configuración opcional pendiente:** `rubricaExterna` y `casoExterno` permanecen vacíos hasta disponer de URLs reales. La rúbrica exacta y el caso ficticio local permiten completar toda la sesión. Siguiente: El Pulido del Prototipo.

@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T05:42:54.256Z",
+  "actualizado_en": "2026-10-02T10:49:57.725Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -49,11 +49,11 @@
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
   "ejecucion_actual": {
-    "sesion": 11,
-    "slug": "reflejo-diseno",
+    "sesion": 12,
+    "slug": "pulido-prototipo",
     "fase": "pendiente_lectura_ficha_anexo_E"
   },
-  "siguiente_sesion": 11,
+  "siguiente_sesion": 12,
   "misiones": [
     {
       "sesion": 7,
@@ -406,7 +406,7 @@
       "locacion": "Santuario del Espejo",
       "mentor": "Guardiana Mira",
       "atributo": "Evaluación",
-      "estado": "pendiente",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 45,
       "pantallas_orientativas": [
@@ -422,27 +422,67 @@
       ],
       "objetivo": "Interpretar y aplicar la rúbrica exacta del Anexo E a un caso modelo.",
       "fragmento_cierre": null,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
+      "checkpoint": "produccion/borradores/reflejo-diseno/",
+      "proximo_paso": "Conservar esta entrega. Retomar sesión 12, El Pulido del Prototipo, con la ficha y el Anexo E completos.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1\" title=\"El Reflejo del Diseño · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
+      "commit_publicacion": "f830bf370431fd2c0064022eb6eb3bd7ee593eaa",
       "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
+        "contenido": true,
+        "interacciones": true,
+        "escritorio": true,
+        "movil": true,
+        "iframe": true,
+        "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "El_Reflejo_del_Diseno.html",
+          "library_file_id": "libfile_1b543c74fea881918b1f183fecf739ba",
+          "file_id": "file_00000000bdbc81fdb4868c99f22adfbf",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "El_Reflejo_del_Diseno.zip",
+          "library_file_id": "libfile_c2245561d70c8191ab1c55668f9782dc",
+          "file_id": "file_00000000fa9081fd8e4947680d7a3114",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "Guia_docente_El_Reflejo_del_Diseno.md",
+          "library_file_id": "libfile_e427ad8a0f1c81918b9199b8664fab9e",
+          "file_id": "file_00000000d35081fd8e2a86fd35626ca3",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "El_Reflejo_del_Diseno_Vista.jpg",
+          "library_file_id": "libfile_c53002525cbc8191b19ada48bb787c4a",
+          "file_id": "file_00000000c58081fda22dee04d170b613",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
-      "dependencias_pendientes": [],
-      "bloqueos": []
+      "dependencias_pendientes": [
+        "URLs externas opcionales rubricaExterna y casoExterno no configuradas; la rúbrica exacta y el caso ficticio local permiten completar la sesión."
+      ],
+      "bloqueos": [],
+      "pruebas": {
+        "fecha_utc": "2026-10-02T10:49:57.725Z",
+        "navegador": "Chrome real",
+        "escritorio": "12 pantallas recorridas a 1363 px; navegación, cinco decisiones del caso, lectura propuesta y registro funcionales; sin desbordamiento horizontal.",
+        "movil": "Iframe de 390 px (375 px útiles), sin desbordamiento horizontal; contenido y navegación cargados.",
+        "detalle": "reflejo-diseno/PRUEBAS.md",
+        "workflow_run_id": 36997294755,
+        "workflow_conclusion": "success",
+        "nota": "Persistencia verificada tras recarga. Iframe de 720 px probado. La lectura propuesta del caso es explicativa, no calificación automática. No hay envío de datos."
+      }
     },
     {
       "sesion": 12,
@@ -628,6 +668,11 @@
       "fecha": "2026-10-02T05:42:54.256Z",
       "sesion": 10,
       "accion": "Sesión 10 terminada: pauta H exacta, pruebas reales de nueve pantallas y dos rondas, Pages verificado, cuatro entregables guardados. Próxima sesión 11."
+    },
+    {
+      "fecha": "2026-10-02T10:49:57.725Z",
+      "sesion": 11,
+      "accion": "Sesión 11 terminada: rúbrica exacta del Anexo E, aplicación conjunta a caso ficticio, acuerdos de interpretación, pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 12."
     }
   ]
 }
