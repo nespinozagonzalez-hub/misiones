@@ -2,13 +2,13 @@
 
 Producción de las ocho sesiones restantes de **Buscadores de la Gamificación Perdida**. Se conservan el portal y las presentaciones anteriores.
 
-**Estado:** 2 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Yunque**.
+**Estado:** 3 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Templado entre Pares**.
 
 | Orden | Presentación | Módulo / tipo | Estado |
 |---|---|---|---|
 | 7 | La Gema Motivacional | 2 · secundaria 2 y cierre | Terminada y verificada |
 | 8 | Los Planos del Arquitecto | 3 · principal | Terminada y verificada |
-| 9 | El Yunque | 3 · secundaria 1 | Pendiente |
+| 9 | El Yunque | 3 · secundaria 1 | Terminada y verificada |
 | 10 | El Templado entre Pares | 3 · secundaria 2 y cierre | Pendiente |
 | 11 | El Reflejo del Diseño | 4 · principal | Pendiente |
 | 12 | El Pulido del Prototipo | 4 · secundaria 1 | Pendiente |
@@ -75,6 +75,25 @@ Estado y siguiente paso en `produccion/ESTADO.json`; instrucciones en `produccio
 
 
 
-## Avance en revisión · Sesión 9 El Yunque
+## 9 · El Yunque
 
-El HTML está publicado como borrador y el recorrido de diez pantallas se verificó en escritorio, móvil e iframe de 720px. No es una nueva entrega terminada: la revisión funcional se interrumpió por desconexión del entorno (409 environment_offline). Código, decisiones y recuperación en produccion/borradores/yunque/CONTINUAR.md. Falta verificar edición/registro/persistencia, práctica y temporizador, y guardar los cuatro entregables. Retomar El Yunque antes de iniciar sesión 10. La automatización permanece activa.
+Secundaria 1 del módulo 3. Diez pantallas, 90 minutos sincrónicos y 90 autónomos según tesis p.44. Taller de narrativa, misiones, progresión y componentes; producto: primera versión propia y bitácora. Incluye 17 campos editables, ejemplo ficticio, inventario local, práctica con pistas, reintentos y apertura acompañada. Temporizador orientativo y guía integrada. Sin fragmento en esta sesión.
+
+**Enlace publicado probado:** [Abrir El Yunque](https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1)
+
+```html
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1" title="El Yunque · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+```
+
+**Verificación:** revisión visual de las diez pantallas en escritorio/iframe 1280×720 y móvil 375×800; pruebas funcionales pendientes completadas en Chrome real. Persistencia de los 17 campos, registro, feedback, pista, reintentos, apertura asistida, edición móvil, temporizador, reinicio y foco tras Escape. Pages comprobado; detalle en yunque/PRUEBAS.md. Descarga TXT dependiente del marco; registro visible disponible.
+
+**Fuentes:** ficha de tesis tabla 10 p.44; Werbach y Hunter (2012), entrevista original y programa del autor; Toda et al. (2019), taxonomía. Adaptación educativa y caso ficticio propios; sin afirmar eficacia causal.
+
+| Archivo | Identificador durable |
+|---|---|
+| El_Yunque.html | libfile_34ea16dbe3348191af2b864a5d8a8611 |
+| El_Yunque.zip | libfile_b6debe7202dc81919a9a2d3226dd2868 |
+| Guia_docente_El_Yunque.md | libfile_2ca114cbd5a08191b751e0a6a38d28f4 |
+| El_Yunque_Vista.jpg | libfile_731cd1a846f88191b404d474e0f78522 |
+
+**Dependencia pendiente:** enlaces reales canvasExterno y bitacoraExterna; prototipo y bitácora locales permiten trabajar y compartir por el canal indicado. Una instancia activa por dispositivo; no hay colaboración ni envío desde el HTML.

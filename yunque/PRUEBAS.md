@@ -1,17 +1,11 @@
 # Pruebas · El Yunque
 
-Estado: EN REVISIÓN. No es una entrega terminada.
+Entrega verificada el 2 de octubre de 2026. Código publicado sin cambios funcionales respecto de 848a18639638ab182dcaa527f2cbb741489ec850.
 
-## Estáticas y pedagógicas
-Sintaxis JS válida; recursos existentes; diez pantallas, tiempos 4+6+8+18+14+15+10+8+4+3 = 90 minutos. 90 autónomos según tesis p.44. Diecisiete campos locales, cuatro componentes, una comprobación cerrada con recordatorio complementario. Textos abiertos sin autocalificación. Fuentes primarias y límites en guía y HTML. HTML portátil preliminar elaborado; empaquetado final no guardado.
+La revisión visual previa registró diez pantallas en Chrome, iframe 1280 × 720 y móvil 375 × 800, sin desbordamiento horizontal. Todas las vistas iniciales de escritorio caben en 720px; móvil admite desplazamiento vertical. Workflow 36952708729 success.
 
-## Navegador real
-Chrome, GitHub Pages publicado desde 848a18639638ab182dcaa527f2cbb741489ec850; workflow 36952708729 success.
-Diez pantallas en iframe escritorio 1280×720: ancho 1280, altura inicial 720 en todas.
-Diez pantallas en móvil 375×800: sin desbordamiento horizontal (ancho del contenido 360 cuando aparece la barra vertical, 375 en portada); alturas verticales entre 800 y1496px.
-Captura de inventario escritorio/móvil inspeccionada: legible y adaptado. Selección Pistas/Feedback con estado visible. Cuaderno completo abierto con 17 campos.
+La recuperación completó en Chrome real las pruebas pendientes: escritura de 17 campos, registro completo visible, recarga y relectura de los 17 valores; edición móvil y registro. Candado vacío, alternativa incorrecta con explicación, pista, reintento correcto y pauta; apertura acompañada diferenciada. Temporizador observado contando de 18:00 a 17:43, pausa y reinicio a 18:00. Recursos pendientes y alternativa local visibles. Reinicio confirmado: 17 campos vacíos. Escape cierra el diálogo y devuelve foco al botón de fuentes. Portada pública capturada realmente.
 
-## Pendiente por desconexión del entorno
-La edición de campos y apertura de registro se interrumpió: no hay evidencia de finalización de ese lote. Falta verificar registro, persistencia después de recarga, práctica incorrecta/correcta/asistida, temporizador, edición móvil y reinicio aislado. Entorno reportó 409 environment_offline.
-No afirmar recepción de TXT sin evento observado. Registro visible como alternativa.
-La portada final no ha sido capturada/guardada. Faltan los cuatro entregables finales y sus identificadores.
+El almacenamiento usa exclusivamente ludaria_yunque_v1; no hay importación ni envío. Dos marcos abiertos pueden mantener borradores en memoria distintos: no es colaboración ni sincronización. Usar una instancia activa por dispositivo. Textos abiertos requieren revisión humana.
+
+No se afirma recepción de un archivo TXT: se verificó registro visible; el navegador/iframe puede restringir descarga o copia. HTML portátil generado con imagen, CSS y JS embebidos; ZIP incluye fuentes, guía y assets. Navegación y materiales esenciales libres. Tiempos 4+6+8+18+14+15+10+8+4+3 = 90 min; 90 autónomos según tesis p.44.

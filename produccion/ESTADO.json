@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T01:57:32.602Z",
+  "actualizado_en": "2026-10-02T05:30:32.858Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -49,11 +49,11 @@
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
   "ejecucion_actual": {
-    "sesion": 9,
-    "slug": "yunque",
-    "fase": "revision_funcional_interrumpida_por_entorno_desconectado"
+    "sesion": 10,
+    "slug": "templado-pares",
+    "fase": "lectura_de_ficha_y_anexo_H"
   },
-  "siguiente_sesion": 9,
+  "siguiente_sesion": 10,
   "misiones": [
     {
       "sesion": 7,
@@ -234,7 +234,7 @@
       "locacion": "Forja del Arquitecto",
       "mentor": "Forjador Ondal",
       "atributo": "Creación",
-      "estado": "en_revision",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 90,
       "pantallas_orientativas": [
@@ -249,39 +249,65 @@
       "objetivo": "Taller de prototipado: narrativa, progresión, misiones y componentes propios.",
       "fragmento_cierre": null,
       "checkpoint": "produccion/borradores/yunque/",
-      "proximo_paso": "Recuperar entorno, descargar desde main la carpeta y checkpoint de El Yunque. Reanudar pruebas funcionales reales (no repetir recorrido visual completo salvo cambios); terminar empaquetado/captura/guardado y cerrar antes de sesión 10.",
-      "url_publicada": null,
-      "iframe": null,
+      "proximo_paso": "Conservar entrega. Siguiente: El Templado entre Pares, leer ficha y Anexo H completos.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1\" title=\"El Yunque · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
       "commit_publicacion": "848a18639638ab182dcaa527f2cbb741489ec850",
       "verificacion": {
         "contenido": true,
-        "interacciones": false,
+        "interacciones": true,
         "escritorio": true,
         "movil": true,
         "iframe": true,
         "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "El_Yunque.html",
+          "library_file_id": "libfile_34ea16dbe3348191af2b864a5d8a8611",
+          "file_id": "file_0000000085c881fdb86c38b8309d9a1f",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "El_Yunque.zip",
+          "library_file_id": "libfile_b6debe7202dc81919a9a2d3226dd2868",
+          "file_id": "file_00000000726881fdaf722b6703387ae4",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "Guia_docente_El_Yunque.md",
+          "library_file_id": "libfile_2ca114cbd5a08191b751e0a6a38d28f4",
+          "file_id": "file_00000000971c81fdba08da5503fd5ab8",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "El_Yunque_Vista.jpg",
+          "library_file_id": "libfile_731cd1a846f88191b404d474e0f78522",
+          "file_id": "file_0000000082a881fdbe81559ad1e28460",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
       "dependencias_pendientes": [
         "Configurar canvasExterno y bitacoraExterna con enlaces reales si se usan; prototipo y bitácora locales completos."
       ],
-      "bloqueos": [
-        "El entorno de ejecución quedó desconectado (environment_offline, 409) durante la revisión funcional. Se verificó el diseño publicado, pero faltan persistencia, práctica, registro, temporizador y los cuatro entregables finales."
-      ],
+      "bloqueos": [],
       "pruebas": {
-        "fecha_utc": "2026-10-02T01:57:32.602Z",
+        "fecha_utc": "2026-10-02T05:30:32.858Z",
         "navegador": "Chrome real",
         "escritorio": "10 pantallas en iframe 1280 × 720, todas con altura inicial 720px, sin desbordamiento horizontal.",
         "movil": "10 pantallas en iframe 375 × 800, sin desbordamiento horizontal; desplazamiento vertical esperado.",
         "detalle": "yunque/PRUEBAS.md",
         "workflow_run_id": 36952708729,
         "workflow_conclusion": "success",
-        "nota": "Inventario Pistas/Feedback probado y cuaderno con 17 campos abierto. La llamada de edición/registro se interrumpió; no se afirma que los campos se guardaron ni que persistieron."
+        "nota": "17 campos escritos, registro y recarga/persistencia comprobados; edición móvil; práctica vacía/incorrecta/pista/correcta/asistida; temporizador contando, pausa y reinicio; reinicio vacía los 17 campos; Escape y retorno de foco. Captura real. Descarga TXT no acreditada: registro visible como alternativa."
       }
     },
     {
@@ -552,6 +578,11 @@
       "fecha": "2026-10-02T01:57:32.602Z",
       "sesion": 9,
       "accion": "Checkpoint de recuperación: diseño y Pages verificados; revisión funcional interrumpida por entorno desconectado."
+    },
+    {
+      "fecha": "2026-10-02T05:30:32.858Z",
+      "sesion": 9,
+      "accion": "Reanudadas y completadas pruebas funcionales reales tras recuperar entorno. Cuatro entregables guardados. El Yunque terminado; siguiente sesión 10."
     }
   ]
 }
