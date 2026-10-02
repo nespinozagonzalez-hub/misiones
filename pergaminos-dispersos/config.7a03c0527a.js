@@ -1,0 +1,1 @@
+window.MISSION_CONFIG={"lecturaPrevia": "", "pizarraColaborativa": "", "microDesafio": ""};
