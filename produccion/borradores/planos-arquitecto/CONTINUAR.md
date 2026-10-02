@@ -1,9 +1,8 @@
-# Los Planos del Arquitecto · sesión 8 en revisión
+# Los Planos del Arquitecto · sesión 8 terminada
 
-Implementación local y publicación inicial en planos-arquitecto/. Catorce pantallas; tiempos suman 90 min; 60 min autónomos según tesis. Fuentes: tabla 9 p.43, programa de Werbach y entrevista original de 2012, sitio del creador de Octalysis, texto original de Toda ICALT 2019 consultado en copia depositada por autor.
+Código en planos-arquitecto/. Versión 20261002b; commit feca18da75fbec22258c0029dfd443bae4f301da. Pages verificado en acción 36950485929. Pruebas reales y límites en PRUEBAS.md. Cuatro archivos de entrega guardados; identificadores en ESTADO.json. URL e iframe verificados en RESUMEN_PARA_INCRUSTAR.md.
 
-Arte original de la Forja en assets/forja.webp. Caso modelo ficticio completo, canvas de seis decisiones editable y local. Dos prácticas cerradas abren pautas complementarias; no bloquean navegación. Registro y TXT, temporizador orientativo de 6 min, canvasExterno sin URL real y alternativa local útil.
+Única dependencia: URL real de canvasExterno. Alternativa local completa implementada. No recrear la misión ni modificar sus archivos salvo corrección del usuario.
 
-Guion y prompt en esta carpeta; código y guía en planos-arquitecto/. Sintaxis app/content/config revisada. Falta: prueba real de las 14 pantallas en escritorio y móvil; iframe 1280x720; actividades, guardado/reload, diálogos y teclado; correcciones necesarias; Pages comprobado; HTML portátil, ZIP, guía y captura guardados; actualizar ESTADO/resumen y declarar terminada solo después.
+Retomar sesión 9: El Yunque. Leer ficha p.44 y matriz aprobada. Taller 90 min sincrónicos + 90 autónomos, avanzar narrativa, misiones, progresión y componentes del prototipo con acompañamiento individualizado y bitácora. Preparar guion y prompt en produccion/borradores/yunque/; descargar main fresco y respetar sesiones terminadas. No generar valores de puntos ni instrumentos nuevos.
 
-Reanudar esta misión antes de crear El Yunque. Descargar de main fresco los archivos requeridos; no depender de scratch.

@@ -1,7 +1,7 @@
 {
   "sesion": 8,
   "titulo": "Los Planos del Arquitecto",
-  "estado": "implementado_pendiente_revision_navegador",
+  "estado": "contenido_y_codigo_verificados",
   "sincronico_minutos": 90,
   "asincronico_minutos": 60,
   "base": "Tesis, tabla 9 p.43; matriz aprobada; fuentes primarias verificadas.",
@@ -131,5 +131,5 @@
       "url": "https://doi.org/10.1109/ICALT.2019.00028"
     }
   ],
-  "proximo_paso": "Publicar para revisión; probar catorce pantallas y actividades en escritorio, móvil e iframe; corregir y guardar las entregas."
+  "proximo_paso": "Archivos listos para guardado y cierre de estado. Después, retomar El Yunque."
 }

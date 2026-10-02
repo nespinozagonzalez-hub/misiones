@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T01:12:01.692Z",
+  "actualizado_en": "2026-10-02T01:26:53.791Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -48,13 +48,8 @@
     ],
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
-  "ejecucion_actual": {
-    "sesion": 8,
-    "inicio": "2026-10-02T01:12:01.692Z",
-    "fase": "publicacion_para_revision",
-    "detalle": "Fuentes primarias consultadas, arte original y catorce pantallas implementadas. Pendiente navegador, exportación y guardado final."
-  },
-  "siguiente_sesion": 8,
+  "ejecucion_actual": null,
+  "siguiente_sesion": 9,
   "misiones": [
     {
       "sesion": 7,
@@ -150,7 +145,7 @@
       "locacion": "Forja del Arquitecto",
       "mentor": "Forjador Ondal",
       "atributo": "Creación",
-      "estado": "en_revision",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 60,
       "pantallas_orientativas": [
@@ -165,28 +160,66 @@
       "objetivo": "Canvas 6D con un ejemplo resuelto; iniciar objetivos pedagógicos y conductas esperadas.",
       "fragmento_cierre": null,
       "checkpoint": "produccion/borradores/planos-arquitecto/",
-      "proximo_paso": "Publicar y probar catorce pantallas y actividades en escritorio, móvil e iframe de 720px; corregir y guardar cuatro entregas antes de cerrar.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
+      "proximo_paso": "Conservar esta entrega y configurar canvasExterno cuando exista una URL real. Retomar sesión 9, El Yunque.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1\" title=\"Los Planos del Arquitecto · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
+      "commit_publicacion": "feca18da75fbec22258c0029dfd443bae4f301da",
       "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
+        "contenido": true,
+        "interacciones": true,
+        "escritorio": true,
+        "movil": true,
+        "iframe": true,
+        "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "Los_Planos_del_Arquitecto.html",
+          "library_file_id": "libfile_88535503693c819182b1cfb79a2eb5da",
+          "file_id": "file_000000005c5c81f68ba621cc96fff539",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "Los_Planos_del_Arquitecto.zip",
+          "library_file_id": "libfile_0e4fc4c2ccc88191a36ee6f25aa7c730",
+          "file_id": "file_00000000354481f69d7a76093bbd559c",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "Guia_docente_Los_Planos_del_Arquitecto.md",
+          "library_file_id": "libfile_23ecbc0b5ddc81919508a7e18cb17471",
+          "file_id": "file_00000000889881f6a1d6e84049a9f3f6",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "Los_Planos_del_Arquitecto_Vista.jpg",
+          "library_file_id": "libfile_58e43e0d6fa4819199f0570eaa0f0b14",
+          "file_id": "file_00000000615c81f6b59f61f7b94d4805",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
       "dependencias_pendientes": [
         "URL real de canvas externo pendiente; canvas local completo, editable y exportable disponible."
       ],
-      "bloqueos": []
+      "bloqueos": [],
+      "pruebas": {
+        "fecha_utc": "2026-10-02T01:26:53.791Z",
+        "navegador": "Chrome real",
+        "escritorio": "14 pantallas; iframe 1280 × 720; scrollHeight inicial 720 en todas; sin desbordamiento horizontal.",
+        "movil": "14 pantallas en iframe 375 × 800; sin desbordamiento horizontal; edición y registro verificados.",
+        "detalle": "planos-arquitecto/PRUEBAS.md",
+        "workflow_run_id": 36950485929,
+        "workflow_conclusion": "success",
+        "nota": "Título accesible de tabla corregido y probado. Evento de descarga TXT no confirmado en marco; registro visible y copia manual disponibles. Sin envío de datos."
+      }
     },
     {
       "sesion": 9,
@@ -492,6 +525,10 @@
     {
       "fecha": "2026-10-02T01:12:01.692Z",
       "accion": "Sesión 8 implementada como clase principal: seis decisiones, modelo completo, canvas personal y revisión rápida. Pendiente verificación real y entregables."
+    },
+    {
+      "fecha": "2026-10-02T01:26:53.791Z",
+      "accion": "Sesión 8 terminada: catorce pantallas probadas en navegador, modelo y canvas funcionales, Pages verificado y cuatro archivos guardados. Próxima sesión 9, El Yunque."
     }
   ]
 }
