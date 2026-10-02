@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "estado": "guion_preparado_no_implementado",
+  "titulo": "La Gema Motivacional",
+  "sesion": 7,
+  "minutos_total": 90,
+  "pantallas": [
+    {
+      "pantalla": 1,
+      "titulo": "La Gema Motivacional",
+      "minutos": 3,
+      "consigna": "Abrir la Cantera y plantear: ¿qué sostiene el deseo de aprender?",
+      "producto": "Una pregunta inicial sobre una decisión de diseño.",
+      "interaccion": "Portada y botón comenzar."
+    },
+    {
+      "pantalla": 2,
+      "titulo": "El encargo de Bryn",
+      "minutos": 5,
+      "consigna": "Formar equipos y acordar quién identifica una tensión y quién pide evidencia; intercambiar roles.",
+      "producto": "Acuerdo de análisis y objetivo compartido.",
+      "interaccion": "Tres umbrales de práctica; navegación libre."
+    },
+    {
+      "pantalla": 3,
+      "titulo": "Las tres facetas",
+      "minutos": 8,
+      "consigna": "Explorar autonomía, competencia y vinculación; aportar una situación propia para discutir.",
+      "producto": "Una relación justificada entre diseño y necesidad.",
+      "interaccion": "Gema con tres ventanas; fuente accesible."
+    },
+    {
+      "pantalla": 4,
+      "titulo": "Dilema I · La clasificación pública",
+      "minutos": 7,
+      "consigna": "Leer el caso ficticio y registrar una primera interpretación de la tensión.",
+      "producto": "Hipótesis que cite una regla y una señal del caso.",
+      "interaccion": "Votación individual sin resultados colectivos simulados."
+    },
+    {
+      "pantalla": 5,
+      "titulo": "Candado de las Señales",
+      "minutos": 8,
+      "consigna": "Relacionar las señales del dilema con necesidades y discutir otras lecturas posibles.",
+      "producto": "Diagnóstico explicado y pregunta para contrastarlo.",
+      "interaccion": "Práctica con feedback y pauta complementaria."
+    },
+    {
+      "pantalla": 6,
+      "titulo": "Dilema II · Los puntos arbitrarios",
+      "minutos": 10,
+      "consigna": "Analizar qué pasa cuando cambian criterios y reconocimientos sin explicación.",
+      "producto": "Tensión identificada y una regla que merece revisarse.",
+      "interaccion": "Decisiones con razones y reintentos."
+    },
+    {
+      "pantalla": 7,
+      "titulo": "La lente ética",
+      "minutos": 8,
+      "consigna": "Examinar quién decide, quién se beneficia, quién soporta el costo y qué daño podría producirse.",
+      "producto": "Un riesgo concreto y una alternativa de participación.",
+      "interaccion": "Lentes de riesgo y pauta de preguntas."
+    },
+    {
+      "pantalla": 8,
+      "titulo": "El taller del rediseño",
+      "minutos": 15,
+      "consigna": "Elegir uno de los dilemas o una situación propia y completar la ficha: propósito, regla actual, ajuste y evidencia.",
+      "producto": "Rediseño argumentado del equipo.",
+      "interaccion": "Plantilla editable y cuaderno local."
+    },
+    {
+      "pantalla": 9,
+      "titulo": "Contrastar el nuevo diseño",
+      "minutos": 10,
+      "consigna": "Intercambiar con otro equipo; pedir una evidencia y revisar una posible tensión.",
+      "producto": "Pregunta recibida y ajuste posterior.",
+      "interaccion": "Pauta visible y temporizador opcional."
+    },
+    {
+      "pantalla": 10,
+      "titulo": "Candado del Cuidado",
+      "minutos": 6,
+      "consigna": "Comparar tres ajustes de un caso ficticio; justificar qué conserva el propósito y cuida la participación.",
+      "producto": "Elección razonada y una precaución.",
+      "interaccion": "Feedback explicativo y recurso complementario."
+    },
+    {
+      "pantalla": 11,
+      "titulo": "La huella y el cierre del módulo",
+      "minutos": 6,
+      "consigna": "Conservar el registro y responder el formulario real de cierre cuando esté configurado.",
+      "producto": "Registro local y reflexión; integración externa pendiente si falta enlace.",
+      "interaccion": "Registro visible, copia/TXT y estado fiel del formulario."
+    },
+    {
+      "pantalla": 12,
+      "titulo": "El Fragmento II",
+      "minutos": 4,
+      "consigna": "Realizar el cierre narrativo con el facilitador y anticipar la Forja.",
+      "producto": "Síntesis compartida y pregunta para el próximo módulo.",
+      "interaccion": "Animación breve opcional; sin simular acreditación."
+    }
+  ],
+  "casos": [
+    {
+      "id": "clasificacion_publica",
+      "tipo": "ficticio",
+      "texto": "Una clase trabaja una misión cooperativa. Al final se proyecta una clasificación individual por rapidez. Algunas personas dejan de preguntar para no mostrar errores; otra evita participar porque siempre aparece al final. El objetivo declarado era construir explicaciones juntos."
+    },
+    {
+      "id": "puntos_arbitrarios",
+      "tipo": "ficticio",
+      "texto": "Un taller reconoce avances con puntos. Los criterios no se anuncian y cambian durante la actividad. Aportes similares reciben reconocimientos distintos sin explicación. Un equipo dedica más tiempo a adivinar qué agrada al facilitador que a revisar su propuesta."
+    }
+  ],
+  "campos": [
+    "situacion_elegida",
+    "regla_actual",
+    "proposito_pedagogico",
+    "necesidades_y_senales",
+    "riesgo_etico",
+    "regla_redisenada",
+    "opciones_de_participacion",
+    "evidencia_para_contrastar",
+    "pregunta_de_pares",
+    "ajuste_realizado",
+    "reflexion_de_cierre"
+  ],
+  "formulario_cierre_url": null,
+  "clave_local": "ludaria_gema_motivacional_v1",
+  "proximo_paso": "Crear arte y código HTML; validar contenido y funcionalidad antes de publicar.",
+  "revisado_con_fuentes_el": "2026-10-01"
+}
+
