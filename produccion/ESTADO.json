@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T10:49:57.725Z",
+  "actualizado_en": "2026-10-02T15:51:15.247Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -49,11 +49,11 @@
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
   "ejecucion_actual": {
-    "sesion": 12,
-    "slug": "pulido-prototipo",
-    "fase": "pendiente_lectura_ficha_anexo_E"
+    "sesion": 13,
+    "slug": "espejo-compartido",
+    "fase": "pendiente_lectura_ficha_anexos_E_H"
   },
-  "siguiente_sesion": 12,
+  "siguiente_sesion": 13,
   "misiones": [
     {
       "sesion": 7,
@@ -493,7 +493,7 @@
       "locacion": "Santuario del Espejo",
       "mentor": "Guardiana Mira",
       "atributo": "Evaluación",
-      "estado": "pendiente",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 60,
       "pantallas_orientativas": [
@@ -509,27 +509,67 @@
       ],
       "objetivo": "Autoevaluación, ajustes y plan de implementación con curso, tiempos y recursos.",
       "fragmento_cierre": null,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
+      "checkpoint": "produccion/borradores/pulido-prototipo/",
+      "proximo_paso": "Conservar esta entrega. Retomar sesión 13, El Espejo Compartido, leyendo la ficha y los anexos E y H completos.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1\" title=\"El Pulido del Prototipo · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
+      "commit_publicacion": "97ef70f55de9d538e47f0427b507aac8e71e5f1e",
       "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
+        "contenido": true,
+        "interacciones": true,
+        "escritorio": true,
+        "movil": true,
+        "iframe": true,
+        "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "El_Pulido_del_Prototipo.html",
+          "library_file_id": "libfile_e25523d7734481919167e9d0d971e037",
+          "file_id": "file_00000000656081f5b9005fbd36ad0a48",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "El_Pulido_del_Prototipo.zip",
+          "library_file_id": "libfile_ffc1cabf891c81919363e28f99e80249",
+          "file_id": "file_000000009a24820c83445c6a7a978674",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "Guia_docente_El_Pulido_del_Prototipo.md",
+          "library_file_id": "libfile_ef46c16d175c8191906e76976117461e",
+          "file_id": "file_00000000767481f59842515d195ba55f",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "El_Pulido_del_Prototipo_Vista.jpg",
+          "library_file_id": "libfile_12aed36927b881919b996a3de7043ff8",
+          "file_id": "file_0000000022e481f59b7f3c72d9c0da8f",
+          "version": 1,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
-      "dependencias_pendientes": [],
-      "bloqueos": []
+      "dependencias_pendientes": [
+        "URLs externas opcionales prototipoExterno, rubricaExterna y planExterno no configuradas; la rúbrica, bitácora y ficha local permiten completar la sesión."
+      ],
+      "bloqueos": [],
+      "pruebas": {
+        "fecha_utc": "2026-10-02T15:51:15.247Z",
+        "navegador": "Chrome real",
+        "escritorio": "Nueve pantallas recorridas a 1363 × 936 px; cinco criterios, campos, prioridades, ajuste, plan y cierre funcionales; sin desbordamiento horizontal.",
+        "movil": "Iframe de 390 px (375 px útiles), sin desbordamiento horizontal; navegación comprobada.",
+        "detalle": "pulido-prototipo/PRUEBAS.md",
+        "workflow_run_id": 37028119808,
+        "workflow_conclusion": "success",
+        "nota": "Persistencia de niveles y campos verificada tras recarga. Iframe de 720 px probado. No hay puntos, autocalificación, envío ni sincronización."
+      }
     },
     {
       "sesion": 13,
@@ -673,6 +713,12 @@
       "fecha": "2026-10-02T10:49:57.725Z",
       "sesion": 11,
       "accion": "Sesión 11 terminada: rúbrica exacta del Anexo E, aplicación conjunta a caso ficticio, acuerdos de interpretación, pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 12."
+    },
+    {
+      "fecha": "2026-10-02T15:51:15.247Z",
+      "sesion": 12,
+      "accion": "Sesión 12 terminada: rúbrica exacta del Anexo E aplicada a autoevaluación, ajuste y plan; pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 13."
     }
   ]
 }
+

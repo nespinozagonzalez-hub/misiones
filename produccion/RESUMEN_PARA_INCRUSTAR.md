@@ -2,7 +2,7 @@
 
 Producción de las ocho sesiones restantes de **Buscadores de la Gamificación Perdida**. Se conservan el portal y las presentaciones anteriores.
 
-**Estado:** 5 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Pulido del Prototipo**.
+**Estado:** 6 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Espejo Compartido**.
 
 | Orden | Presentación | Módulo / tipo | Estado |
 |---|---|---|---|
@@ -11,7 +11,7 @@ Producción de las ocho sesiones restantes de **Buscadores de la Gamificación P
 | 9 | El Yunque | 3 · secundaria 1 | Terminada y verificada |
 | 10 | El Templado entre Pares | 3 · secundaria 2 y cierre | Terminada y verificada |
 | 11 | El Reflejo del Diseño | 4 · principal | Terminada y verificada |
-| 12 | El Pulido del Prototipo | 4 · secundaria 1 | Pendiente |
+| 12 | El Pulido del Prototipo | 4 · secundaria 1 | Terminada y verificada |
 | 13 | El Espejo Compartido | 4 · secundaria 2 y cierre | Pendiente |
 | 14 | La Defensa del Orbe | Cierre sin misión formal | Pendiente |
 
@@ -148,3 +148,30 @@ Incluye los cinco criterios y los tres niveles exactos del instrumento, sin punt
 | El_Reflejo_del_Diseno_Vista.jpg | libfile_c53002525cbc8191b19ada48bb787c4a |
 
 **Configuración opcional pendiente:** `rubricaExterna` y `casoExterno` permanecen vacíos hasta disponer de URLs reales. La rúbrica exacta y el caso ficticio local permiten completar toda la sesión. Siguiente: El Pulido del Prototipo.
+
+
+## 12 · El Pulido del Prototipo
+
+Misión secundaria del módulo 4. Santuario del Espejo · Guardiana Mira · Evaluación. Nueve pantallas, 90 minutos sincrónicos y 60 autónomos. Producto: autoevaluación argumentada, ajuste del prototipo y plan breve de implementación.
+
+Incluye los cinco criterios y los tres niveles exactos del Anexo E, sin puntos, pesos ni promedios; evidencia y argumento por criterio; priorización de uno o dos criterios; ajuste concreto; plan con curso destinatario, tiempos, recursos, evidencia y contingencia. El facilitador conduce consultas individuales. Los textos abiertos requieren revisión humana y el HTML no envía datos.
+
+**Enlace publicado y probado:** [Abrir El Pulido del Prototipo](https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1)
+
+```html
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1" title="El Pulido del Prototipo · Ludaria" width="100%" height="720" style="border:0;border-radius:12px;" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+```
+
+**Pruebas:** nueve pantallas recorridas en Chrome real a 1363 × 936 px; cinco criterios, dos prioridades, ajuste y plan funcionales; persistencia tras recarga. Iframe de 720 px y viewport móvil de 390 px (375 px útiles) sin desbordamiento horizontal. Pages workflow 37028119808 success. Detalle: `pulido-prototipo/PRUEBAS.md`.
+
+**Fuentes:** ficha de la sesión 12 y Anexo E de la tesis; Werbach y Hunter (2012), entrevista oficial de los autores; Ryan y Deci (2020), artículo original. Se explicitan los límites: la autoevaluación orienta una revisión y no demuestra eficacia, aprendizaje o motivación futura.
+
+| Archivo | Identificador durable |
+|---|---|
+| El_Pulido_del_Prototipo.html | libfile_e25523d7734481919167e9d0d971e037 |
+| El_Pulido_del_Prototipo.zip | libfile_ffc1cabf891c81919363e28f99e80249 |
+| Guia_docente_El_Pulido_del_Prototipo.md | libfile_ef46c16d175c8191906e76976117461e |
+| El_Pulido_del_Prototipo_Vista.jpg | libfile_12aed36927b881919b996a3de7043ff8 |
+
+**Configuración opcional pendiente:** `prototipoExterno`, `rubricaExterna` y `planExterno` permanecen vacíos hasta disponer de URLs reales. La rúbrica, la bitácora y la ficha local permiten completar toda la sesión. Siguiente: El Espejo Compartido.
+
