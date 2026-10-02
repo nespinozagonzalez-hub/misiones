@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T05:30:32.858Z",
+  "actualizado_en": "2026-10-02T05:36:33.077Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -51,7 +51,7 @@
   "ejecucion_actual": {
     "sesion": 10,
     "slug": "templado-pares",
-    "fase": "lectura_de_ficha_y_anexo_H"
+    "fase": "codigo_implementado_pendiente_pruebas"
   },
   "siguiente_sesion": 10,
   "misiones": [
@@ -319,7 +319,7 @@
       "locacion": "Forja del Arquitecto",
       "mentor": "Forjador Ondal",
       "atributo": "Creación",
-      "estado": "pendiente",
+      "estado": "en_revision",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 0,
       "pantallas_orientativas": [
@@ -335,8 +335,8 @@
       ],
       "objetivo": "Cada docente recibe observaciones de dos pares con la pauta del Anexo H y ajusta su canvas.",
       "fragmento_cierre": 3,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "checkpoint": "produccion/borradores/templado-pares/",
+      "proximo_paso": "Probar nueva presentación publicada en navegador real; verificar las dos pautas, persistencia, móvil, iframe y cierre local; guardar entregables.",
       "url_publicada": null,
       "iframe": null,
       "commit_publicacion": null,
