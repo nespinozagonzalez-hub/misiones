@@ -1,7 +1,9 @@
-# Estado de verificación
+# Pruebas finales
 
-Revisión pedagógica y sintaxis JavaScript realizadas. Tiempos suman 90 minutos. Navegación y contenido esenciales libres; almacenamiento exclusivo.
+14 pantallas recorridas en Chrome real y marcos de 1280 y 375 por 720. Escritorio sin desbordamiento horizontal; móvil con desplazamiento vertical accesible. Persistencia de respuestas comprobada tras recarga.
 
-Pendientes: pruebas reales de interacciones y persistencia en navegador, vistas de escritorio, móvil y marco de 720 px, captura real, publicación y comprobación de GitHub Pages.
+Reintento y feedback del sello conceptual, pauta complementaria, campos de microdesafío y modal de fuentes comprobados.
 
-Publicación bloqueada por revisión automática: se requiere autorización explícita del usuario para estas dos carpetas nuevas en su repositorio público. El navegador cloud solo acepta HTTP/HTTPS, por lo que rechazó abrir archivo local. No se afirma entrega verificada.
+GitHub Pages workflow 37077053432: success. Publicación: 3ffecd259a1e1a29c670c337ca02fc22bf8860ea.
+
+No se enviaron datos; descarga y copia dependen de permisos del marco, con registro visible como alternativa.

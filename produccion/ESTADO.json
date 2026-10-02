@@ -1,768 +1,137 @@
 {
-  "version": 1,
+  "version": 2,
   "proyecto": "Buscadores de la Gamificación Perdida",
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T20:34:30.000Z",
-  "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
-  "automatizacion": {
-    "titulo": "Continuar misiones de Ludaria",
-    "id": "6abef96cfbe081918e178ca881e7cb75",
-    "estado": "activa",
-    "intervalo_horas": 5,
-    "zona_horaria": "America/Santiago",
-    "motivo": null,
-    "rrule": "FREQ=HOURLY;INTERVAL=5",
-    "detener_al_terminar": true,
-    "schedule": "BEGIN:VEVENT\nDTSTART:20261002T052308Z\nRRULE:FREQ=HOURLY;INTERVAL=5\nEND:VEVENT",
-    "primera_ejecucion_utc": "2026-10-02T05:23:08Z"
-  },
-  "fuentes": {
-    "tesis": {
-      "library_file_id": "libfile_268097aa09648191a2a106e4d5902679",
-      "nombre": "TFM Nicolás Espinoza Entrega Deposito .pdf",
-      "modified_at": "2026-09-07T02:59:54.150364Z"
-    },
-    "matriz": {
-      "library_file_id": "libfile_45dfc60b34008191b5316f853bb1de77",
-      "nombre": "Matriz_y_prompt_Genially_14_sesiones.md",
-      "modified_at": "2026-09-30T11:53:51.385924Z"
-    }
-  },
-  "preferencias": {
-    "sin_marca_gamiaula": true,
-    "html_github_genially": true,
-    "estilo": "Fantasía sobria para docentes adultos; verde bosque, jade, marfil y oro antiguo.",
-    "candados": "Solo recursos complementarios; contenido esencial y navegación siempre accesibles.",
-    "evaluacion": "Citas y respaldo teórico; revisión humana de respuestas abiertas."
-  },
-  "base_aprobada": {
-    "secundarias": [
-      "senda-ejemplos/",
-      "claro-debate/",
-      "tallado-mecanicas/"
-    ],
-    "principales": [
-      "vetas-diseno/"
-    ],
-    "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
-  },
+  "estado_general": "14 sesiones publicadas; producción cerrada",
+  "actualizado_en": "2026-10-02T23:29:09.213Z",
+  "siguiente_sesion": null,
   "ejecucion_actual": {
-    "sesion": 14,
-    "slug": "defensa-orbe",
-    "fase": "pendiente_lectura_ficha_anexos_E_H"
+    "fase": "produccion_completa"
   },
-  "siguiente_sesion": 14,
+  "automatizacion": {
+    "estado": "pausada",
+    "motivo": "Producción completada"
+  },
   "misiones": [
     {
       "sesion": 7,
       "titulo": "La Gema Motivacional",
       "slug": "gema-motivacional",
-      "modulo": 2,
-      "tipo": "secundaria 2 y cierre",
-      "locacion": "Cantera de los Elementos",
-      "mentor": "Maestra Bryn",
-      "atributo": "Maestría",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 0,
-      "pantallas_orientativas": [
-        10,
-        12
-      ],
-      "tesis_paginas": [
-        42,
-        43
-      ],
-      "anexos_a_consultar": [],
-      "objetivo": "Necesidades psicológicas y riesgos éticos; analizar dilemas y justificar un rediseño.",
-      "fragmento_cierre": 2,
-      "checkpoint": "produccion/borradores/gema-motivacional/",
-      "proximo_paso": "Conservar la entrega. Configurar la URL real del formulario de cierre del módulo 2 cuando el autor la proporcione.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1\" title=\"La Gema Motivacional · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "a1477a574b9600f1af6d05ea0ae195efb6c52427",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "La_Gema_Motivacional.html",
-          "library_file_id": "libfile_cc9e44ad7c308191acad1fe14bba8082",
-          "file_id": "file_00000000c30881f5aac4b708ec39f4b4",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "La_Gema_Motivacional.zip",
-          "library_file_id": "libfile_527fe08f58bc8191bbe7f30ebaf94f27",
-          "file_id": "file_00000000f99881f59b0436545796954e",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "Guia_docente_La_Gema_Motivacional.md",
-          "library_file_id": "libfile_ff8c98720b0881919242747a72bb1d1c",
-          "file_id": "file_000000004bec81f5959a7f3984f609fb",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "La_Gema_Motivacional_Vista.jpg",
-          "library_file_id": "libfile_611b6bb28bdc819191bed1c8ad389ca4",
-          "file_id": "file_00000000785881f59f76dab205197d2b",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1\" title=\"La Gema Motivacional · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "Configurar la URL real del formulario de cierre del módulo 2; el registro local está disponible como alternativa."
+        "Formulario externo de cierre configurable."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T00:57:47.350Z",
-        "navegador": "Chrome real",
-        "escritorio": "12 pantallas; iframe 1280 × 720; sin desbordamiento horizontal; vistas iniciales en 720px.",
-        "movil": "12 pantallas en iframe 375 × 800; sin desbordamiento horizontal; ficha y registro funcionales.",
-        "detalle": "gema-motivacional/PRUEBAS.md",
-        "workflow_run_id": 36948209345,
-        "workflow_conclusion": "success",
-        "nota": "Pistas y feedback pueden aumentar la altura; desplazamiento vertical accesible. Copia y descarga dependen de permisos del marco; registro visible como alternativa."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 8,
       "titulo": "Los Planos del Arquitecto",
       "slug": "planos-arquitecto",
-      "modulo": 3,
-      "tipo": "principal",
-      "locacion": "Forja del Arquitecto",
-      "mentor": "Forjador Ondal",
-      "atributo": "Creación",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 60,
-      "pantallas_orientativas": [
-        12,
-        14
-      ],
-      "tesis_paginas": [
-        43,
-        44
-      ],
-      "anexos_a_consultar": [],
-      "objetivo": "Canvas 6D con un ejemplo resuelto; iniciar objetivos pedagógicos y conductas esperadas.",
-      "fragmento_cierre": null,
-      "checkpoint": "produccion/borradores/planos-arquitecto/",
-      "proximo_paso": "Conservar esta entrega y configurar canvasExterno cuando exista una URL real. Retomar sesión 9, El Yunque.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1\" title=\"Los Planos del Arquitecto · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "feca18da75fbec22258c0029dfd443bae4f301da",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "Los_Planos_del_Arquitecto.html",
-          "library_file_id": "libfile_88535503693c819182b1cfb79a2eb5da",
-          "file_id": "file_000000005c5c81f68ba621cc96fff539",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "Los_Planos_del_Arquitecto.zip",
-          "library_file_id": "libfile_0e4fc4c2ccc88191a36ee6f25aa7c730",
-          "file_id": "file_00000000354481f69d7a76093bbd559c",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "Guia_docente_Los_Planos_del_Arquitecto.md",
-          "library_file_id": "libfile_23ecbc0b5ddc81919508a7e18cb17471",
-          "file_id": "file_00000000889881f6a1d6e84049a9f3f6",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "Los_Planos_del_Arquitecto_Vista.jpg",
-          "library_file_id": "libfile_58e43e0d6fa4819199f0570eaa0f0b14",
-          "file_id": "file_00000000615c81f6b59f61f7b94d4805",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1\" title=\"Los Planos del Arquitecto · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "URL real de canvas externo pendiente; canvas local completo, editable y exportable disponible."
+        "URL del canvas externo configurable; canvas local disponible."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T01:26:53.791Z",
-        "navegador": "Chrome real",
-        "escritorio": "14 pantallas; iframe 1280 × 720; scrollHeight inicial 720 en todas; sin desbordamiento horizontal.",
-        "movil": "14 pantallas en iframe 375 × 800; sin desbordamiento horizontal; edición y registro verificados.",
-        "detalle": "planos-arquitecto/PRUEBAS.md",
-        "workflow_run_id": 36950485929,
-        "workflow_conclusion": "success",
-        "nota": "Título accesible de tabla corregido y probado. Evento de descarga TXT no confirmado en marco; registro visible y copia manual disponibles. Sin envío de datos."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 9,
       "titulo": "El Yunque",
       "slug": "yunque",
-      "modulo": 3,
-      "tipo": "secundaria 1",
-      "locacion": "Forja del Arquitecto",
-      "mentor": "Forjador Ondal",
-      "atributo": "Creación",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 90,
-      "pantallas_orientativas": [
-        8,
-        10
-      ],
-      "tesis_paginas": [
-        44,
-        44
-      ],
-      "anexos_a_consultar": [],
-      "objetivo": "Taller de prototipado: narrativa, progresión, misiones y componentes propios.",
-      "fragmento_cierre": null,
-      "checkpoint": "produccion/borradores/yunque/",
-      "proximo_paso": "Conservar entrega. Siguiente: El Templado entre Pares, leer ficha y Anexo H completos.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1\" title=\"El Yunque · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "848a18639638ab182dcaa527f2cbb741489ec850",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "El_Yunque.html",
-          "library_file_id": "libfile_34ea16dbe3348191af2b864a5d8a8611",
-          "file_id": "file_0000000085c881fdb86c38b8309d9a1f",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "El_Yunque.zip",
-          "library_file_id": "libfile_b6debe7202dc81919a9a2d3226dd2868",
-          "file_id": "file_00000000726881fdaf722b6703387ae4",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "Guia_docente_El_Yunque.md",
-          "library_file_id": "libfile_2ca114cbd5a08191b751e0a6a38d28f4",
-          "file_id": "file_00000000971c81fdba08da5503fd5ab8",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "El_Yunque_Vista.jpg",
-          "library_file_id": "libfile_731cd1a846f88191b404d474e0f78522",
-          "file_id": "file_0000000082a881fdbe81559ad1e28460",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1\" title=\"El Yunque · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "Configurar canvasExterno y bitacoraExterna con enlaces reales si se usan; prototipo y bitácora locales completos."
+        "Canvas y bitácora externos configurables; alternativas locales."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T05:30:32.858Z",
-        "navegador": "Chrome real",
-        "escritorio": "10 pantallas en iframe 1280 × 720, todas con altura inicial 720px, sin desbordamiento horizontal.",
-        "movil": "10 pantallas en iframe 375 × 800, sin desbordamiento horizontal; desplazamiento vertical esperado.",
-        "detalle": "yunque/PRUEBAS.md",
-        "workflow_run_id": 36952708729,
-        "workflow_conclusion": "success",
-        "nota": "17 campos escritos, registro y recarga/persistencia comprobados; edición móvil; práctica vacía/incorrecta/pista/correcta/asistida; temporizador contando, pausa y reinicio; reinicio vacía los 17 campos; Escape y retorno de foco. Captura real. Descarga TXT no acreditada: registro visible como alternativa."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 10,
       "titulo": "El Templado entre Pares",
       "slug": "templado-pares",
-      "modulo": 3,
-      "tipo": "secundaria 2 y cierre",
-      "locacion": "Forja del Arquitecto",
-      "mentor": "Forjador Ondal",
-      "atributo": "Creación",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 0,
-      "pantallas_orientativas": [
-        8,
-        10
-      ],
-      "tesis_paginas": [
-        44,
-        45
-      ],
-      "anexos_a_consultar": [
-        "H"
-      ],
-      "objetivo": "Cada docente recibe observaciones de dos pares con la pauta del Anexo H y ajusta su canvas.",
-      "fragmento_cierre": 3,
-      "checkpoint": "produccion/borradores/templado-pares/",
-      "proximo_paso": "Conservar esta entrega. Configurar enlaces reales si corresponde. Retomar sesión 11 con ficha y Anexo E completos.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1\" title=\"El Templado entre Pares · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "610024c88e68f8a4e466f827dce30734a6adc4d0",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "El_Templado_entre_Pares.html",
-          "library_file_id": "libfile_73a976b8d60c8191b37bd4fa0da2c29f",
-          "file_id": "file_000000001e3881fb94f636097dc33ffd",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "El_Templado_entre_Pares.zip",
-          "library_file_id": "libfile_6e9114e744f4819199ff59e889703b04",
-          "file_id": "file_00000000fb6881fbb6930d5576ecb7bc",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "Guia_docente_El_Templado_entre_Pares.md",
-          "library_file_id": "libfile_7074c22bff7c8191a95357a02d15721d",
-          "file_id": "file_000000009ec081fb91b4b60474800e5f",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "El_Templado_entre_Pares_Vista.jpg",
-          "library_file_id": "libfile_0d50e8efdf288191a94075677f75ba78",
-          "file_id": "file_000000000d7481fb8db4839a3aad61dd",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1\" title=\"El Templado entre Pares · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "Enlaces reales canvasExterno y coevaluacionExterna pendientes; pautas y bitácora locales disponibles."
+        "Canal externo de coevaluación y canvas pendientes."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T05:42:54.256Z",
-        "navegador": "Chrome real",
-        "escritorio": "9 pantallas, iframe 1280×720: altura inicial 720px y sin desbordamiento horizontal.",
-        "movil": "9 pantallas 375×800, sin desbordamiento horizontal; edición de comentario y nivel confirmada en registro.",
-        "detalle": "templado-pares/PRUEBAS.md",
-        "workflow_run_id": 36969729550,
-        "workflow_conclusion": "success",
-        "nota": "Dos rondas independientes editadas, registro y persistencia; 8 campos de bitácora; ensayo y reintento; cierre acompañado, Escape y reinicio. Registro visible como alternativa; descarga TXT no acreditada."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 11,
       "titulo": "El Reflejo del Diseño",
       "slug": "reflejo-diseno",
-      "modulo": 4,
-      "tipo": "principal",
-      "locacion": "Santuario del Espejo",
-      "mentor": "Guardiana Mira",
-      "atributo": "Evaluación",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 45,
-      "pantallas_orientativas": [
-        10,
-        12
-      ],
-      "tesis_paginas": [
-        45,
-        46
-      ],
-      "anexos_a_consultar": [
-        "E"
-      ],
-      "objetivo": "Interpretar y aplicar la rúbrica exacta del Anexo E a un caso modelo.",
-      "fragmento_cierre": null,
-      "checkpoint": "produccion/borradores/reflejo-diseno/",
-      "proximo_paso": "Conservar esta entrega. Retomar sesión 12, El Pulido del Prototipo, con la ficha y el Anexo E completos.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1\" title=\"El Reflejo del Diseño · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "f830bf370431fd2c0064022eb6eb3bd7ee593eaa",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "El_Reflejo_del_Diseno.html",
-          "library_file_id": "libfile_1b543c74fea881918b1f183fecf739ba",
-          "file_id": "file_00000000bdbc81fdb4868c99f22adfbf",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "El_Reflejo_del_Diseno.zip",
-          "library_file_id": "libfile_c2245561d70c8191ab1c55668f9782dc",
-          "file_id": "file_00000000fa9081fd8e4947680d7a3114",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "Guia_docente_El_Reflejo_del_Diseno.md",
-          "library_file_id": "libfile_e427ad8a0f1c81918b9199b8664fab9e",
-          "file_id": "file_00000000d35081fd8e2a86fd35626ca3",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "El_Reflejo_del_Diseno_Vista.jpg",
-          "library_file_id": "libfile_c53002525cbc8191b19ada48bb787c4a",
-          "file_id": "file_00000000c58081fda22dee04d170b613",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1\" title=\"El Reflejo del Diseño · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "URLs externas opcionales rubricaExterna y casoExterno no configuradas; la rúbrica exacta y el caso ficticio local permiten completar la sesión."
+        "URLs opcionales de rúbrica y caso configurables."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T10:49:57.725Z",
-        "navegador": "Chrome real",
-        "escritorio": "12 pantallas recorridas a 1363 px; navegación, cinco decisiones del caso, lectura propuesta y registro funcionales; sin desbordamiento horizontal.",
-        "movil": "Iframe de 390 px (375 px útiles), sin desbordamiento horizontal; contenido y navegación cargados.",
-        "detalle": "reflejo-diseno/PRUEBAS.md",
-        "workflow_run_id": 36997294755,
-        "workflow_conclusion": "success",
-        "nota": "Persistencia verificada tras recarga. Iframe de 720 px probado. La lectura propuesta del caso es explicativa, no calificación automática. No hay envío de datos."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 12,
       "titulo": "El Pulido del Prototipo",
       "slug": "pulido-prototipo",
-      "modulo": 4,
-      "tipo": "secundaria 1",
-      "locacion": "Santuario del Espejo",
-      "mentor": "Guardiana Mira",
-      "atributo": "Evaluación",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 60,
-      "pantallas_orientativas": [
-        8,
-        10
-      ],
-      "tesis_paginas": [
-        46,
-        46
-      ],
-      "anexos_a_consultar": [
-        "E"
-      ],
-      "objetivo": "Autoevaluación, ajustes y plan de implementación con curso, tiempos y recursos.",
-      "fragmento_cierre": null,
-      "checkpoint": "produccion/borradores/pulido-prototipo/",
-      "proximo_paso": "Conservar esta entrega. Retomar sesión 13, El Espejo Compartido, leyendo la ficha y los anexos E y H completos.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1\" title=\"El Pulido del Prototipo · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "97ef70f55de9d538e47f0427b507aac8e71e5f1e",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "El_Pulido_del_Prototipo.html",
-          "library_file_id": "libfile_e25523d7734481919167e9d0d971e037",
-          "file_id": "file_00000000656081f5b9005fbd36ad0a48",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "El_Pulido_del_Prototipo.zip",
-          "library_file_id": "libfile_ffc1cabf891c81919363e28f99e80249",
-          "file_id": "file_000000009a24820c83445c6a7a978674",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "Guia_docente_El_Pulido_del_Prototipo.md",
-          "library_file_id": "libfile_ef46c16d175c8191906e76976117461e",
-          "file_id": "file_00000000767481f59842515d195ba55f",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "El_Pulido_del_Prototipo_Vista.jpg",
-          "library_file_id": "libfile_12aed36927b881919b996a3de7043ff8",
-          "file_id": "file_0000000022e481f59b7f3c72d9c0da8f",
-          "version": 1,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1\" title=\"El Pulido del Prototipo · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "URLs externas opcionales prototipoExterno, rubricaExterna y planExterno no configuradas; la rúbrica, bitácora y ficha local permiten completar la sesión."
+        "Enlaces externos opcionales; herramientas locales disponibles."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T15:51:15.247Z",
-        "navegador": "Chrome real",
-        "escritorio": "Nueve pantallas recorridas a 1363 × 936 px; cinco criterios, campos, prioridades, ajuste, plan y cierre funcionales; sin desbordamiento horizontal.",
-        "movil": "Iframe de 390 px (375 px útiles), sin desbordamiento horizontal; navegación comprobada.",
-        "detalle": "pulido-prototipo/PRUEBAS.md",
-        "workflow_run_id": 37028119808,
-        "workflow_conclusion": "success",
-        "nota": "Persistencia de niveles y campos verificada tras recarga. Iframe de 720 px probado. No hay puntos, autocalificación, envío ni sincronización."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 13,
       "titulo": "El Espejo Compartido",
       "slug": "espejo-compartido",
-      "modulo": 4,
-      "tipo": "secundaria 2 y cierre",
-      "locacion": "Santuario del Espejo",
-      "mentor": "Guardiana Mira",
-      "atributo": "Evaluación",
       "estado": "terminada",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 0,
-      "pantallas_orientativas": [
-        6,
-        8
-      ],
-      "tesis_paginas": [
-        46,
-        47
-      ],
-      "anexos_a_consultar": [
-        "E",
-        "H"
-      ],
-      "objetivo": "Presentaciones de cinco minutos por docente y retroalimentación cruzada con pauta.",
-      "fragmento_cierre": 4,
-      "checkpoint": "produccion/borradores/espejo-compartido/",
-      "proximo_paso": "Conservar esta entrega. Configurar las URLs reales de prototipo, plantilla o canal de retroalimentación cuando existan. Retomar sesión 14, La Defensa del Orbe.",
       "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1\" title=\"El Espejo Compartido · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
-      "commit_publicacion": "ad9919b266a06bac30617a0b21ef33f10a3bddba",
-      "verificacion": {
-        "contenido": true,
-        "interacciones": true,
-        "escritorio": true,
-        "movil": true,
-        "iframe": true,
-        "github_pages": true
-      },
-      "entregables": {
-        "html": {
-          "nombre": "El_Espejo_Compartido.html",
-          "library_file_id": "libfile_b12fc9b75d0c8191b1c84c0cb7044f54",
-          "file_id": "file_00000000118c81f5b723c5064624c534",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "zip": {
-          "nombre": "El_Espejo_Compartido.zip",
-          "library_file_id": "libfile_f075e5feeb608191b725d196643ffc22",
-          "file_id": "file_0000000078b881f5819420e045287bc8",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "guia": {
-          "nombre": "GUIA_DOCENTE.md",
-          "library_file_id": "libfile_f5043466b46c8191bedf73e439cf2967",
-          "file_id": "file_0000000014ec81f59dc5a152431e4f16",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        },
-        "vista": {
-          "nombre": "El_Espejo_Compartido_Vista.jpg",
-          "library_file_id": "libfile_1e019d7eaeec8191bd7263e0b4aa072a",
-          "file_id": "file_00000000802c81f5bb90c5accf94ae3f",
-          "version": 0,
-          "guardado": "succeeded",
-          "local_metadata_applied": true
-        }
-      },
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1\" title=\"El Espejo Compartido · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
-        "URLs reales de prototipo, plantilla y canal de retroalimentación pendientes; las alternativas locales permiten completar la sesión."
+        "Prototipo, plantilla y canal de feedback externos configurables."
       ],
-      "bloqueos": [],
-      "pruebas": {
-        "fecha_utc": "2026-10-02T20:34:30.000Z",
-        "navegador": "Chrome real",
-        "escritorio": "Siete pantallas a 1363 × 936; campos, pauta, temporizador, fragmento y persistencia probados; sin desbordamiento horizontal.",
-        "movil": "Iframe móvil con 375 × 800 px útiles dentro de marco de 390 px; navegación y edición funcionales; sin desbordamiento horizontal.",
-        "detalle": "espejo-compartido/PRUEBAS.md",
-        "workflow_run_id": 37060865299,
-        "workflow_conclusion": "success",
-        "nota": "Anexo H identificado como apoyo reutilizado; sin puntos, calificación, envío ni recepción simulada. Mensajes de consola observados pertenecen solo a la extensión del navegador."
-      }
+      "bloqueos": []
     },
     {
       "sesion": 14,
       "titulo": "La Defensa del Orbe",
       "slug": "defensa-orbe",
-      "modulo": null,
-      "tipo": "cierre sin misión formal",
-      "locacion": "Bóveda del Orbe",
-      "mentor": null,
-      "atributo": "Todos",
-      "estado": "pendiente",
-      "minutos_sincronicos": 90,
-      "minutos_asincronicos": 0,
-      "pantallas_orientativas": [
-        10,
-        12
+      "estado": "terminada",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261002a#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261002a#pantalla-1\" title=\"La Defensa del Orbe · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "dependencias_pendientes": [
+        "Formularios reales configurables; registro local disponible, sin envío automático de datos."
       ],
-      "tesis_paginas": [
-        47,
-        49
-      ],
-      "anexos_a_consultar": [
-        "E",
-        "F",
-        "G"
-      ],
-      "objetivo": "Entrega y evaluación final del prototipo, autoevaluación, valoración y restauración del Orbe.",
-      "fragmento_cierre": null,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
-      "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
-      },
-      "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
-      },
-      "dependencias_pendientes": [],
       "bloqueos": []
     }
   ],
-  "historial": [
-    {
-      "fecha": "2026-10-01T22:53:43Z",
-      "accion": "Cola de ocho sesiones preparada; fuentes accesibles y carpetas existentes comprobadas. Automatización intentada sin éxito por límite del plan. Guion y prompt de sesión 7 preparados. Ninguna de las ocho entregas está terminada todavía."
-    },
-    {
-      "fecha": "2026-10-02T00:23:57Z",
-      "accion": "A petición del usuario, se desactivaron las cinco tareas anteriores y se activó la producción exclusiva de Ludaria con revisión cada cinco horas."
-    },
-    {
-      "fecha": "2026-10-02T00:39:11.619Z",
-      "accion": "Sesión 7 implementada con doce pantallas y arte original. Pendiente comprobación real en navegador antes de anunciar entrega."
-    },
-    {
-      "fecha": "2026-10-02T00:57:47.350Z",
-      "accion": "Sesión 7 terminada: contenido y doce pantallas verificadas en navegador, persistencia y candados probados, GitHub Pages comprobado, cuatro entregables guardados. Próxima sesión 8; dependencia de formulario informada."
-    },
-    {
-      "fecha": "2026-10-02T01:12:01.692Z",
-      "accion": "Sesión 8 implementada como clase principal: seis decisiones, modelo completo, canvas personal y revisión rápida. Pendiente verificación real y entregables."
-    },
-    {
-      "fecha": "2026-10-02T01:26:53.791Z",
-      "accion": "Sesión 8 terminada: catorce pantallas probadas en navegador, modelo y canvas funcionales, Pages verificado y cuatro archivos guardados. Próxima sesión 9, El Yunque."
-    },
-    {
-      "fecha": "2026-10-02T01:57:32.602Z",
-      "sesion": 9,
-      "accion": "Checkpoint de recuperación: diseño y Pages verificados; revisión funcional interrumpida por entorno desconectado."
-    },
-    {
-      "fecha": "2026-10-02T05:30:32.858Z",
-      "sesion": 9,
-      "accion": "Reanudadas y completadas pruebas funcionales reales tras recuperar entorno. Cuatro entregables guardados. El Yunque terminado; siguiente sesión 10."
-    },
-    {
-      "fecha": "2026-10-02T05:42:54.256Z",
-      "sesion": 10,
-      "accion": "Sesión 10 terminada: pauta H exacta, pruebas reales de nueve pantallas y dos rondas, Pages verificado, cuatro entregables guardados. Próxima sesión 11."
-    },
-    {
-      "fecha": "2026-10-02T10:49:57.725Z",
-      "sesion": 11,
-      "accion": "Sesión 11 terminada: rúbrica exacta del Anexo E, aplicación conjunta a caso ficticio, acuerdos de interpretación, pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 12."
-    },
-    {
-      "fecha": "2026-10-02T15:51:15.247Z",
-      "sesion": 12,
-      "accion": "Sesión 12 terminada: rúbrica exacta del Anexo E aplicada a autoevaluación, ajuste y plan; pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 13."
-    },
-    {
-      "fecha": "2026-10-02T20:34:30.000Z",
-      "sesion": 13,
-      "accion": "Sesión 13 terminada: presentaciones de cinco minutos, pauta exacta del Anexo H reutilizada con límites visibles, respuesta a retroalimentación y Fragmento IV; pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 14."
-    }
-  ]
+  "principal_recuperada": {
+    "sesion": 2,
+    "titulo": "Los Pergaminos Dispersos",
+    "slug": "pergaminos-dispersos",
+    "estado": "terminada",
+    "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pergaminos-dispersos/presentacion.html?v=20261002a#pantalla-1"
+  },
+  "catalogo": "produccion/CATALOGO_14_SESIONES.json",
+  "recursos_visuales": {
+    "imagenes": 15,
+    "paisajes": 6,
+    "elementos_transparentes": 9
+  },
+  "verificacion_nuevas": {
+    "publicacion_commit": "3ffecd259a1e1a29c670c337ca02fc22bf8860ea",
+    "workflow_run_id": 37077053432,
+    "workflow_conclusion": "success",
+    "detalle": [
+      "pergaminos-dispersos/PRUEBAS.md",
+      "defensa-orbe/PRUEBAS.md"
+    ]
+  }
 }
