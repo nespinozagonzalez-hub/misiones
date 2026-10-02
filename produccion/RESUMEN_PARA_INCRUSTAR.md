@@ -74,3 +74,7 @@ Fuentes: tesis tabla 9 p.43; Werbach y Hunter (2012), entrevista original y prog
 Estado y siguiente paso en `produccion/ESTADO.json`; instrucciones en `produccion/INSTRUCCIONES.md`. Cada entrega siguiente se añadirá después de pasar revisión pedagógica, pruebas reales, publicación y guardado de archivos. La automatización 6abef96cfbe081918e178ca881e7cb75 permanece activa hasta terminar las ocho. No se modifica ninguna otra automatización.
 
 
+
+## Avance en revisión · Sesión 9 El Yunque
+
+El HTML está publicado como borrador y el recorrido de diez pantallas se verificó en escritorio, móvil e iframe de 720px. No es una nueva entrega terminada: la revisión funcional se interrumpió por desconexión del entorno (409 environment_offline). Código, decisiones y recuperación en produccion/borradores/yunque/CONTINUAR.md. Falta verificar edición/registro/persistencia, práctica y temporizador, y guardar los cuatro entregables. Retomar El Yunque antes de iniciar sesión 10. La automatización permanece activa.
