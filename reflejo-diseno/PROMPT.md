@@ -1,0 +1,3 @@
+# Prompt durable · El Reflejo del Diseño
+
+Construir una misión principal para docentes adultos, sesión 11, Santuario del Espejo, 90 minutos sincrónicos y 45 autónomos. Objetivo: construir criterios sistemáticos para evaluar experiencias gamificadas. Usar exactamente la rúbrica del Anexo E con cinco criterios y niveles Inicial, En desarrollo y Logrado, sin puntos, pesos ni promedios. Explicar la pirámide de Werbach y Hunter como marco de relación entre dinámicas, mecánicas y componentes. Aplicar conjuntamente la rúbrica a un caso ficticio y construir acuerdos de interpretación. Mantener navegación y contenidos esenciales abiertos, feedback explicativo, persistencia local aislada y ausencia de envíos simulados.
