@@ -1,0 +1,3 @@
+# Prompt durable · El Pulido del Prototipo
+
+Construir una misión secundaria para docentes adultos, sesión 12, Santuario del Espejo, Guardiana Mira, 90 minutos sincrónicos y 60 autónomos. Objetivo de la tesis: ajustar el prototipo propio según la rúbrica y planificar su implementación. Usar exactamente los cinco criterios y tres niveles del Anexo E, sin puntos, pesos ni promedios. La persona elige nivel, cita evidencia y argumenta; el HTML no califica el texto. Incluir priorización, ajuste concreto, plan breve con curso destinatario, tiempos y recursos, consulta individual, persistencia local aislada y exportación. Sin personajes ni fragmentos nuevos, envíos simulados, ranking o sincronización grupal.
