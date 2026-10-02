@@ -3,7 +3,7 @@
 ## Ficha
 
 - Sesión 11, misión principal del módulo 4: Evaluación.
-- Escenario: Santuario del Espejo. Personaje previsto: Guardiana Seraya.
+- Escenario: Santuario del Espejo. Mentora prevista: Guardiana Mira.
 - Objetivo: construir criterios sistemáticos para evaluar experiencias gamificadas.
 - Duración: 90 minutos sincrónicos y 45 minutos autónomos.
 - Producto de clase: aplicación conjunta de la rúbrica a un caso modelo y acuerdos de interpretación.
