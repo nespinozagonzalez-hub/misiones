@@ -45,3 +45,7 @@ Paisaje inmersivo de cantera con una gema de tres facetas, oro antiguo y jade; z
 
 Entrega HTML adaptable, recursos locales con hash, portátil, ZIP, guía docente y vista real. Comprobar todas las pantallas de escritorio, móvil e iframe de 720px, además de las interacciones y persistencia. Solo entonces marcar terminada y añadir el iframe verificado al resumen.
 
+
+
+## Prompt de la ilustración creada
+Ilustración horizontal 16:9 para docentes adultos en Ludaria: una cantera de esmeraldas con arcos de piedra, estanque y luz de faroles. Izquierda 55% oscura y despejada para lectura; a la derecha una única gema de jade facetada y translúcida, en un soporte de oro sobre un pedestal. Fantasía sobria, acabado pictórico refinado, bosque oscuro #07120D, jade #59C36A, marfil #F2EBDD y oro #C9A66B. Sin personas, letras, cifras, runas, logos ni interfaz. Arte generado específicamente para esta misión; derivado WebP 1440 × 810 en assets/gema.webp.

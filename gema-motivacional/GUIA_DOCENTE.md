@@ -58,3 +58,7 @@ El Fragmento II se activa en la escena de cierre durante la clase. Es una ceremo
   Resumen y datos bibliográficos consultados: https://link.springer.com/article/10.1007/s10676-016-9401-5. No se afirma consulta íntegra del artículo de pago. Marco organizacional adaptado didácticamente a los dilemas.
 
 La voz de Bryn, los casos, las preguntas, las pautas y el ejemplo modelo son originales de esta misión. Ilustración original generada para Ludaria; gema y elementos de interfaz construidos con código.
+
+
+## Comportamiento dentro del iframe
+La presentación se revisa a 1280 × 720 y 375 × 800. La vista inicial de las doce pantallas de escritorio cabe en 720 px; al mostrar pistas y feedback algunas pantallas pueden requerir desplazamiento vertical. En móvil se conserva el desplazamiento vertical para mantener los textos y controles legibles. El HTML portátil comparte la misma clave de borrador si se abre en el mismo origen; no sincroniza entre equipos o dispositivos.

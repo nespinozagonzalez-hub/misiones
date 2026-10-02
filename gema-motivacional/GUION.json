@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "estado": "guion_preparado_no_implementado",
+  "estado": "implementado_en_revision_navegador",
   "titulo": "La Gema Motivacional",
   "sesion": 7,
   "minutos_total": 90,
@@ -129,7 +129,6 @@
   ],
   "formulario_cierre_url": null,
   "clave_local": "ludaria_gema_motivacional_v1",
-  "proximo_paso": "Crear arte y código HTML; validar contenido y funcionalidad antes de publicar.",
+  "proximo_paso": "Verificar ajuste de altura en iframe, exportar y guardar las cuatro entregas; cerrar estado con pruebas reales.",
   "revisado_con_fuentes_el": "2026-10-01"
 }
-
