@@ -1,8 +1,8 @@
 # Encargo programable · Continuar misiones de Ludaria
 
-**Estado:** preparado, todavía sin activar. La creación de la tarea no se completó por el límite de tareas del plan. No hay un ID asignado.
+**Estado:** activa. Las cinco tareas anteriores fueron desactivadas a petición del usuario; la producción programada se concentra en Ludaria. El ID operativo está registrado en ESTADO.json.
 
-Configuración propuesta: título «Continuar misiones de Ludaria»; zona horaria America/Santiago; inicio relativo cinco horas después de la activación; modalidad exact_schedule; repetición hasta completar la cola, entonces pausar esta tarea.
+Configuración activa: título «Continuar misiones de Ludaria»; zona horaria America/Santiago; primera ejecución el 2 de octubre de 2026 a las 02:23 (America/Santiago); modalidad exact_schedule; repetición hasta completar la cola, entonces pausar esta tarea.
 
 ```ical
 BEGIN:VEVENT
@@ -12,7 +12,7 @@ END:VEVENT
 
 `dtstart_offset_json`: `{"hours":5}`.
 
-## Prompt listo para crear la tarea
+## Prompt de la tarea activa
 
 Continúa la producción HTML de la tesis personal de Nicolás Espinoza González, «Buscadores de la Gamificación Perdida», en Ludaria. El usuario ha autorizado crear y publicar en serie las presentaciones restantes en su repositorio GitHub existente y recibir aquí un resumen y los iframes para incrustarlos en Genially. Ejecuta el trabajo; no te limites a enviar un recordatorio.
 
@@ -31,3 +31,4 @@ Crea cada misión únicamente en su carpeta nueva. Preserva index.html global, m
 Una entrega terminada exige revisión pedagógica, interacciones funcionales, persistencia local aislada, pruebas reales en navegador de escritorio, móvil y un iframe de 720px de alto, publicación GitHub Pages comprobada, fuentes y guía docente. Entrega HTML portátil, ZIP con assets/código, guía y captura de vista. Guarda los archivos de entrega con openai-library:library y conserva sus identificadores; el código ya respaldado por Git no requiere duplicación adicional. Actualiza ESTADO.json y RESUMEN_PARA_INCRUSTAR.md con pruebas, enlace publicado real, iframe individual y archivos. Informa aquí solo entregas nuevas verificadas, avances relevantes o bloqueos accionables; no repitas resúmenes vacíos.
 
 Cuando las ocho sesiones estén terminadas y el resumen individual esté completo, entrega el resumen final con enlaces e iframes de cada una y pausa esta automatización «Continuar misiones de Ludaria» usando su ID registrado en ESTADO.json o resolviéndola con automations.peek. No modifiques otras automatizaciones. La recurrencia no elimina límites de uso; retoma el último checkpoint cuando la ejecución esté disponible.
+

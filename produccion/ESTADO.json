@@ -4,17 +4,19 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-01T22:53:43Z",
+  "actualizado_en": "2026-10-02T00:23:57Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
-    "id": null,
-    "estado": "pendiente_activacion",
+    "id": "6abef96cfbe081918e178ca881e7cb75",
+    "estado": "activa",
     "intervalo_horas": 5,
     "zona_horaria": "America/Santiago",
-    "motivo": "La creación no pudo completarse por el límite de tareas programadas. Se necesita un espacio libre.",
+    "motivo": null,
     "rrule": "FREQ=HOURLY;INTERVAL=5",
-    "detener_al_terminar": true
+    "detener_al_terminar": true,
+    "schedule": "BEGIN:VEVENT\nDTSTART:20261002T052308Z\nRRULE:FREQ=HOURLY;INTERVAL=5\nEND:VEVENT",
+    "primera_ejecucion_utc": "2026-10-02T05:23:08Z"
   },
   "fuentes": {
     "tesis": {
@@ -427,6 +429,10 @@
     {
       "fecha": "2026-10-01T22:53:43Z",
       "accion": "Cola de ocho sesiones preparada; fuentes accesibles y carpetas existentes comprobadas. Automatización intentada sin éxito por límite del plan. Guion y prompt de sesión 7 preparados. Ninguna de las ocho entregas está terminada todavía."
+    },
+    {
+      "fecha": "2026-10-02T00:23:57Z",
+      "accion": "A petición del usuario, se desactivaron las cinco tareas anteriores y se activó la producción exclusiva de Ludaria con revisión cada cinco horas."
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Producción de las ocho sesiones pendientes de **Buscadores de la Gamificación Perdida**. Se conserva el estilo aprobado de las presentaciones HTML. Las sesiones anteriores siguen en sus carpetas actuales.
 
-**Estado:** encargo y continuidad preparados. La automatización todavía no está activa: su creación encontró el límite de tareas del plan. La Gema Motivacional tiene prompt y guion preparados; su HTML aún no está terminado.
+**Estado:** automatización activa, con revisión cada cinco horas. Primera ejecución: 2 de octubre de 2026 a las 02:23 (hora de Chile). La Gema Motivacional tiene prompt y guion preparados; su HTML aún no está terminado.
 
 | Orden | Presentación | Módulo / tipo | Estado |
 |---|---|---|---|
@@ -35,4 +35,5 @@ Preparación: `produccion/borradores/gema-motivacional/PROMPT.md` y `GUION.json`
 
 ## Continuidad
 
-El registro de cada sesión y su próximo paso está en `produccion/ESTADO.json`. Las instrucciones están en `produccion/INSTRUCCIONES.md`. La revisión solicitada es cada cinco horas hasta finalizar; se activará cuando pueda crearse la tarea programada.
+El registro de cada sesión y su próximo paso está en `produccion/ESTADO.json`. Las instrucciones están en `produccion/INSTRUCCIONES.md`. La revisión está activa cada cinco horas hasta finalizar. Todas las otras tareas programadas quedaron desactivadas a petición del usuario.
+

@@ -65,6 +65,7 @@ Si se interrumpe una ejecución, la siguiente retoma el checkpoint; la programac
 
 Cuando estén terminadas las ocho sesiones y el resumen consolidado, entrega todos los iframes individuales y pausa únicamente «Continuar misiones de Ludaria», mediante el ID guardado o una búsqueda por título exacto. No modificar otras tareas programadas.
 
-## Estado inicial
+## Estado de programación
 
-La creación de la automatización fue intentada y no se completó porque ya se alcanzó el límite del plan. Antes de activarla es necesario disponer de un espacio. No hay una nueva tarea ejecutándose. El prompt listo para crearla está en `produccion/AUTOMATIZACION.md`.
+La automatización «Continuar misiones de Ludaria» está activa, con revisión cada cinco horas desde el 2 de octubre de 2026 a las 02:23 (America/Santiago). Su ID está en ESTADO.json. A petición del usuario, las cinco tareas anteriores quedaron desactivadas. El encargo activo está en `produccion/AUTOMATIZACION.md`.
+
