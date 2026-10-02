@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T00:57:47.350Z",
+  "actualizado_en": "2026-10-02T01:12:01.692Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -48,7 +48,12 @@
     ],
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
-  "ejecucion_actual": null,
+  "ejecucion_actual": {
+    "sesion": 8,
+    "inicio": "2026-10-02T01:12:01.692Z",
+    "fase": "publicacion_para_revision",
+    "detalle": "Fuentes primarias consultadas, arte original y catorce pantallas implementadas. Pendiente navegador, exportación y guardado final."
+  },
   "siguiente_sesion": 8,
   "misiones": [
     {
@@ -145,7 +150,7 @@
       "locacion": "Forja del Arquitecto",
       "mentor": "Forjador Ondal",
       "atributo": "Creación",
-      "estado": "pendiente",
+      "estado": "en_revision",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 60,
       "pantallas_orientativas": [
@@ -159,8 +164,8 @@
       "anexos_a_consultar": [],
       "objetivo": "Canvas 6D con un ejemplo resuelto; iniciar objetivos pedagógicos y conductas esperadas.",
       "fragmento_cierre": null,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
+      "checkpoint": "produccion/borradores/planos-arquitecto/",
+      "proximo_paso": "Publicar y probar catorce pantallas y actividades en escritorio, móvil e iframe de 720px; corregir y guardar cuatro entregas antes de cerrar.",
       "url_publicada": null,
       "iframe": null,
       "commit_publicacion": null,
@@ -178,7 +183,9 @@
         "guia": null,
         "vista": null
       },
-      "dependencias_pendientes": [],
+      "dependencias_pendientes": [
+        "URL real de canvas externo pendiente; canvas local completo, editable y exportable disponible."
+      ],
       "bloqueos": []
     },
     {
@@ -481,6 +488,10 @@
     {
       "fecha": "2026-10-02T00:57:47.350Z",
       "accion": "Sesión 7 terminada: contenido y doce pantallas verificadas en navegador, persistencia y candados probados, GitHub Pages comprobado, cuatro entregables guardados. Próxima sesión 8; dependencia de formulario informada."
+    },
+    {
+      "fecha": "2026-10-02T01:12:01.692Z",
+      "accion": "Sesión 8 implementada como clase principal: seis decisiones, modelo completo, canvas personal y revisión rápida. Pendiente verificación real y entregables."
     }
   ]
 }

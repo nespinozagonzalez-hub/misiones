@@ -1,0 +1,135 @@
+{
+  "sesion": 8,
+  "titulo": "Los Planos del Arquitecto",
+  "estado": "implementado_pendiente_revision_navegador",
+  "sincronico_minutos": 90,
+  "asincronico_minutos": 60,
+  "base": "Tesis, tabla 9 p.43; matriz aprobada; fuentes primarias verificadas.",
+  "pantallas": [
+    {
+      "title": "Los Planos del Arquitecto",
+      "time": 3,
+      "prompt": "Abrimos la Forja y situamos el proyecto personal.",
+      "product": "Pregunta de diseño propia."
+    },
+    {
+      "title": "El encargo de Ondal",
+      "time": 5,
+      "prompt": "Relacionen la experiencia lúdica con un aprendizaje que quieran desarrollar.",
+      "product": "Propósito inicial compartido."
+    },
+    {
+      "title": "Seis decisiones conectadas",
+      "time": 6,
+      "prompt": "Exploren el canvas. El facilitador presenta las seis decisiones y sus conexiones.",
+      "product": "Una pregunta de diseño por precisar."
+    },
+    {
+      "title": "D1 · El aprendizaje que buscamos",
+      "time": 6,
+      "prompt": "Comparen tres propósitos para el caso modelo y expliquen cuál orienta el diseño.",
+      "product": "Un objetivo pedagógico distinguido de un premio."
+    },
+    {
+      "title": "D2 · Acciones que dejan huella",
+      "time": 7,
+      "prompt": "Elijan una conducta observable que permita recoger evidencia del objetivo.",
+      "product": "Acción y evidencia relacionadas."
+    },
+    {
+      "title": "D3 · A quiénes invitamos",
+      "time": 8,
+      "prompt": "Revisen contexto, preferencias y apoyos antes de escoger reglas.",
+      "product": "Información que falta conocer del grupo."
+    },
+    {
+      "title": "D4 · Probar, recibir y volver",
+      "time": 6,
+      "prompt": "Recorran el bucle del ejemplo y observen cómo se conecta con una progresión.",
+      "product": "Una relación entre acción y feedback."
+    },
+    {
+      "title": "D5 · La experiencia lúdica",
+      "time": 8,
+      "prompt": "Conversen qué podría resultar interesante para este grupo y qué habría que probar.",
+      "product": "Una hipótesis de experiencia con sentido."
+    },
+    {
+      "title": "D6 · Herramientas al servicio",
+      "time": 5,
+      "prompt": "Comparen la alternativa local y la digital del modelo.",
+      "product": "Una elección de herramienta justificada."
+    },
+    {
+      "title": "Otros marcos, otras preguntas",
+      "time": 7,
+      "prompt": "Contrasten qué aporta cada marco al diseño. Abran sus ventanas para ampliar.",
+      "product": "Distinción entre proceso, motivación y vocabulario."
+    },
+    {
+      "title": "Un plano completamente resuelto",
+      "time": 6,
+      "prompt": "Recorran las seis decisiones del ejemplo y revisen cómo se sostienen entre sí.",
+      "product": "Una conexión argumentada entre dos decisiones."
+    },
+    {
+      "title": "Comienza tu propio canvas",
+      "time": 12,
+      "prompt": "Definan objetivo pedagógico y conductas esperadas. Las otras decisiones quedan disponibles para desarrollar.",
+      "product": "Primer canvas personal, con D1 y D2 iniciados."
+    },
+    {
+      "title": "Una mirada entre pares",
+      "time": 6,
+      "prompt": "Intercambien el primer canvas y precisen la relación entre aprendizaje, acción y evidencia.",
+      "product": "Pregunta recibida y primer ajuste."
+    },
+    {
+      "title": "Preparar el siguiente golpe",
+      "time": 5,
+      "prompt": "Conserven el canvas y acuerden cómo continuar antes de El Yunque.",
+      "product": "Canvas conservado y siguiente decisión identificada."
+    }
+  ],
+  "decisiones": [
+    "Canvas educativo propio; seis pasos verificables en programa del autor.",
+    "Caso modelo ficticio y completo, sin resultados inventados.",
+    "D1 y D2 prioritarios en clase, canvas entero editable siempre.",
+    "Dos candados para pautas complementarias; acceso libre.",
+    "Sin formulario receptor; canvasExterno pendiente y alternativa local completa.",
+    "Sin recuperación de fragmento en sesión principal 8."
+  ],
+  "fuentes": [
+    {
+      "title": "Tesis · ficha de sesión 8",
+      "apa": "Espinoza González, N. (s. f.). Buscadores de la Gamificación Perdida: Propuesta de innovación educativa gamificada para la formación docente en gamificación educativa [Trabajo de fin de máster proporcionado por el autor]. Tabla 9, p. 43.",
+      "use": "Prescribe marco 6D, ejemplo resuelto, inicio de objetivo y conductas, revisión rápida entre pares, 90 minutos sincrónicos y 60 asincrónicos. Las pantallas y el reparto de tiempos son decisiones didácticas.",
+      "url": ""
+    },
+    {
+      "title": "Werbach y Hunter · marco 6D",
+      "apa": "Werbach, K., & Hunter, D. (2012). For the win: How game thinking can revolutionize your business. Wharton Digital Press.",
+      "use": "Se verificó la entrevista original a los autores de 2012 y el programa del curso de Werbach, unidad 7. No se afirma lectura íntegra del libro. El canvas educativo es una adaptación propia de los seis pasos; no una plantilla oficial ni una prueba de eficacia.",
+      "url": "https://knowledge.wharton.upenn.edu/article/for-the-win-how-gamification-can-transform-your-business/"
+    },
+    {
+      "title": "Programa original del curso",
+      "apa": "Werbach, K. (s. f.). Coursera gamification course syllabus. https://werbach.com/coursera_gamification_syllabus_12.html",
+      "use": "La unidad 7 identifica objetivos/conductas, participantes, bucles, diversión y herramientas. Síntesis y traducción propias; preguntas y caso modelo son elaboración didáctica.",
+      "url": "https://werbach.com/coursera_gamification_syllabus_12.html"
+    },
+    {
+      "title": "Octalysis · panorámica",
+      "apa": "Chou, Y.-k. (2026, 28 de septiembre). The Octalysis framework: 8 core drives of gamification. https://yukaichou.com/gamification-examples/octalysis-gamification-framework/",
+      "use": "Página del creador, publicada inicialmente en 2012 y actualizada en 2026. Se presenta como marco de diseño motivacional; no como explicación exhaustiva validada de toda motivación ni teoría neurocientífica. Las etiquetas se traducen para la clase.",
+      "url": "https://yukaichou.com/gamification-examples/octalysis-gamification-framework/"
+    },
+    {
+      "title": "Toda y colaboradores · taxonomía",
+      "apa": "Toda, A. M., Oliveira, W., Klock, A. C., Palomino, P. T., Pimenta, M., Gasparini, I., Shi, L., Bittencourt, I., Isotani, S., & Cristea, A. I. (2019). A taxonomy of game elements for gamification in educational contexts: Proposal and evaluation. In 2019 IEEE 19th International Conference on Advanced Learning Technologies (ICALT) (pp. 84–88). https://doi.org/10.1109/ICALT.2019.00028",
+      "use": "Texto original consultado en copia depositada por el autor. Propone 21 elementos y evaluación por expertos. Su aceptación no prueba mejoras de aprendizaje en cada aula ni obliga a incluir todos los elementos.",
+      "url": "https://doi.org/10.1109/ICALT.2019.00028"
+    }
+  ],
+  "proximo_paso": "Publicar para revisión; probar catorce pantallas y actividades en escritorio, móvil e iframe; corregir y guardar las entregas."
+}
