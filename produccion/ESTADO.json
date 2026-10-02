@@ -4,7 +4,7 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "actualizado_en": "2026-10-02T15:51:15.247Z",
+  "actualizado_en": "2026-10-02T20:34:30.000Z",
   "alcance": "Crear en serie las sesiones 7–14; conservar las presentaciones preexistentes.",
   "automatizacion": {
     "titulo": "Continuar misiones de Ludaria",
@@ -49,11 +49,11 @@
     "head_revisado": "1eafb01ac43b42a56ba57133cdc75b873feef35e"
   },
   "ejecucion_actual": {
-    "sesion": 13,
-    "slug": "espejo-compartido",
+    "sesion": 14,
+    "slug": "defensa-orbe",
     "fase": "pendiente_lectura_ficha_anexos_E_H"
   },
-  "siguiente_sesion": 13,
+  "siguiente_sesion": 14,
   "misiones": [
     {
       "sesion": 7,
@@ -580,7 +580,7 @@
       "locacion": "Santuario del Espejo",
       "mentor": "Guardiana Mira",
       "atributo": "Evaluación",
-      "estado": "pendiente",
+      "estado": "terminada",
       "minutos_sincronicos": 90,
       "minutos_asincronicos": 0,
       "pantallas_orientativas": [
@@ -597,27 +597,67 @@
       ],
       "objetivo": "Presentaciones de cinco minutos por docente y retroalimentación cruzada con pauta.",
       "fragmento_cierre": 4,
-      "checkpoint": "",
-      "proximo_paso": "Leer la ficha y las fuentes; preparar prompt y guion antes de implementar.",
-      "url_publicada": null,
-      "iframe": null,
-      "commit_publicacion": null,
+      "checkpoint": "produccion/borradores/espejo-compartido/",
+      "proximo_paso": "Conservar esta entrega. Configurar las URLs reales de prototipo, plantilla o canal de retroalimentación cuando existan. Retomar sesión 14, La Defensa del Orbe.",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1\" title=\"El Espejo Compartido · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;border-radius:12px;\" allow=\"fullscreen\" allowfullscreen loading=\"lazy\"></iframe>",
+      "commit_publicacion": "ad9919b266a06bac30617a0b21ef33f10a3bddba",
       "verificacion": {
-        "contenido": false,
-        "interacciones": false,
-        "escritorio": false,
-        "movil": false,
-        "iframe": false,
-        "github_pages": false
+        "contenido": true,
+        "interacciones": true,
+        "escritorio": true,
+        "movil": true,
+        "iframe": true,
+        "github_pages": true
       },
       "entregables": {
-        "html": null,
-        "zip": null,
-        "guia": null,
-        "vista": null
+        "html": {
+          "nombre": "El_Espejo_Compartido.html",
+          "library_file_id": "libfile_b12fc9b75d0c8191b1c84c0cb7044f54",
+          "file_id": "file_00000000118c81f5b723c5064624c534",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "zip": {
+          "nombre": "El_Espejo_Compartido.zip",
+          "library_file_id": "libfile_f075e5feeb608191b725d196643ffc22",
+          "file_id": "file_0000000078b881f5819420e045287bc8",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "guia": {
+          "nombre": "GUIA_DOCENTE.md",
+          "library_file_id": "libfile_f5043466b46c8191bedf73e439cf2967",
+          "file_id": "file_0000000014ec81f59dc5a152431e4f16",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        },
+        "vista": {
+          "nombre": "El_Espejo_Compartido_Vista.jpg",
+          "library_file_id": "libfile_1e019d7eaeec8191bd7263e0b4aa072a",
+          "file_id": "file_00000000802c81f5bb90c5accf94ae3f",
+          "version": 0,
+          "guardado": "succeeded",
+          "local_metadata_applied": true
+        }
       },
-      "dependencias_pendientes": [],
-      "bloqueos": []
+      "dependencias_pendientes": [
+        "URLs reales de prototipo, plantilla y canal de retroalimentación pendientes; las alternativas locales permiten completar la sesión."
+      ],
+      "bloqueos": [],
+      "pruebas": {
+        "fecha_utc": "2026-10-02T20:34:30.000Z",
+        "navegador": "Chrome real",
+        "escritorio": "Siete pantallas a 1363 × 936; campos, pauta, temporizador, fragmento y persistencia probados; sin desbordamiento horizontal.",
+        "movil": "Iframe móvil con 375 × 800 px útiles dentro de marco de 390 px; navegación y edición funcionales; sin desbordamiento horizontal.",
+        "detalle": "espejo-compartido/PRUEBAS.md",
+        "workflow_run_id": 37060865299,
+        "workflow_conclusion": "success",
+        "nota": "Anexo H identificado como apoyo reutilizado; sin puntos, calificación, envío ni recepción simulada. Mensajes de consola observados pertenecen solo a la extensión del navegador."
+      }
     },
     {
       "sesion": 14,
@@ -718,7 +758,11 @@
       "fecha": "2026-10-02T15:51:15.247Z",
       "sesion": 12,
       "accion": "Sesión 12 terminada: rúbrica exacta del Anexo E aplicada a autoevaluación, ajuste y plan; pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 13."
+    },
+    {
+      "fecha": "2026-10-02T20:34:30.000Z",
+      "sesion": 13,
+      "accion": "Sesión 13 terminada: presentaciones de cinco minutos, pauta exacta del Anexo H reutilizada con límites visibles, respuesta a retroalimentación y Fragmento IV; pruebas reales en escritorio/móvil/iframe, Pages verificado y cuatro entregables guardados. Próxima sesión 14."
     }
   ]
 }
-

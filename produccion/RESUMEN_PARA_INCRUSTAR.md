@@ -2,7 +2,7 @@
 
 Producción de las ocho sesiones restantes de **Buscadores de la Gamificación Perdida**. Se conservan el portal y las presentaciones anteriores.
 
-**Estado:** 6 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **El Espejo Compartido**.
+**Estado:** 7 de 8 entregas nuevas terminadas y verificadas. Automatización activa cada cinco horas. Próxima sesión: **La Defensa del Orbe**.
 
 | Orden | Presentación | Módulo / tipo | Estado |
 |---|---|---|---|
@@ -12,7 +12,7 @@ Producción de las ocho sesiones restantes de **Buscadores de la Gamificación P
 | 10 | El Templado entre Pares | 3 · secundaria 2 y cierre | Terminada y verificada |
 | 11 | El Reflejo del Diseño | 4 · principal | Terminada y verificada |
 | 12 | El Pulido del Prototipo | 4 · secundaria 1 | Terminada y verificada |
-| 13 | El Espejo Compartido | 4 · secundaria 2 y cierre | Pendiente |
+| 13 | El Espejo Compartido | 4 · secundaria 2 y cierre | Terminada y verificada |
 | 14 | La Defensa del Orbe | Cierre sin misión formal | Pendiente |
 
 ## 7 · La Gema Motivacional
@@ -175,3 +175,29 @@ Incluye los cinco criterios y los tres niveles exactos del Anexo E, sin puntos, 
 
 **Configuración opcional pendiente:** `prototipoExterno`, `rubricaExterna` y `planExterno` permanecen vacíos hasta disponer de URLs reales. La rúbrica, la bitácora y la ficha local permiten completar toda la sesión. Siguiente: El Espejo Compartido.
 
+
+
+## 13 · El Espejo Compartido
+
+Misión secundaria 2 y cierre del módulo 4. Santuario del Espejo · Guardiana Mira · Evaluación. Siete pantallas y 90 minutos sincrónicos, sin carga autónoma. Producto: defensa breve del diseño, retroalimentación cruzada y próximo ajuste; cierre narrativo con el cuarto y último fragmento del Orbe.
+
+Incluye una estructura editable para exposiciones de cinco minutos, temporizador opcional, registro de evidencia, los siete criterios y tres niveles exactos del Anexo H, comentarios finales, respuesta argumentada y bitácora local. El facilitador administra el orden real. El HTML no asigna turnos, califica textos, envía archivos ni simula recepción.
+
+**Enlace publicado y probado:** [Abrir El Espejo Compartido](https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1)
+
+```html
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1" title="El Espejo Compartido · Ludaria" width="100%" height="720" style="border:0;border-radius:12px;" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+```
+
+**Pruebas:** siete pantallas recorridas en Chrome real a 1363 × 936 px; plantilla, siete selecciones, comentarios, temporizador, respuesta, Fragmento IV y persistencia tras recarga. Iframe de 1280 × 720 px y móvil de 390 px (375 px útiles), sin desbordamiento horizontal. Pages workflow 37060865299 success. Detalle: `espejo-compartido/PRUEBAS.md`.
+
+**Fuentes:** ficha de la sesión 13, tabla 14, pp. 46–47; Anexo H, pp. 65–66; Nicol y Macfarlane-Dick (2006), DOI 10.1080/03075070600572090. El Anexo H se identifica como apoyo reutilizado porque declara su aplicación en sesiones 10 y 11; no se presenta como nueva calificación prescrita. La retroalimentación no demuestra por sí sola una mejora del diseño.
+
+| Archivo | Identificador durable |
+|---|---|
+| El_Espejo_Compartido.html | libfile_b12fc9b75d0c8191b1c84c0cb7044f54 |
+| El_Espejo_Compartido.zip | libfile_f075e5feeb608191b725d196643ffc22 |
+| GUIA_DOCENTE.md | libfile_f5043466b46c8191bedf73e439cf2967 |
+| El_Espejo_Compartido_Vista.jpg | libfile_1e019d7eaeec8191bd7263e0b4aa072a |
+
+**Configuración opcional pendiente:** `prototipoExterno`, `plantillaExterna` y `canalRetroalimentacion` permanecen vacíos hasta disponer de URLs reales. La plantilla, la pauta y el registro local permiten completar la sesión. Siguiente: La Defensa del Orbe.
