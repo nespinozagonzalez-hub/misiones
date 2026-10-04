@@ -5,7 +5,7 @@
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
   "estado_general": "14 sesiones publicadas; producción cerrada",
-  "actualizado_en": "2026-10-02T23:29:09.213Z",
+  "actualizado_en": "2026-10-04T17:17:43.253Z",
   "siguiente_sesion": null,
   "ejecucion_actual": {
     "fase": "produccion_completa"
@@ -133,5 +133,17 @@
       "pergaminos-dispersos/PRUEBAS.md",
       "defensa-orbe/PRUEBAS.md"
     ]
+  },
+  "mantenimiento": {
+    "fecha": "2026-10-04",
+    "encargo": "Auditoría y efectos accesibles; no nuevas sesiones",
+    "forja": "forja/",
+    "mochi": "forja/?entrada=mochi",
+    "apps_script": "Uno compartido por Forja/Mochi; Misión 0 independiente",
+    "conexion_central": "Pendiente de despliegue real",
+    "auditoria": "produccion/AUDITORIA_ACTUAL.md",
+    "revisiones_programadas": 5,
+    "intervalo_horas": 3,
+    "duracion_horas": 15
   }
 }

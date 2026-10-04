@@ -18,7 +18,7 @@ Interacción: Mapa, ventanas, borrador y recepción en Google Sheets.
 <iframe src="https://nespinozagonzalez-hub.github.io/misiones/mision-0/presentacion.html" title="El Llamado de la Aventura · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Forja externa pendiente de configurar. Solo esta sesión usa el receptor de diagnóstico.
+Configuración: Forja enlazada y disponible en modo local. Conexión central de Forja/Mochi pendiente de despliegue. Solo esta sesión usa el receptor de diagnóstico.
 
 ## 2 · Los Pergaminos Dispersos
 
@@ -253,3 +253,22 @@ Interacción: Campos locales, rúbrica desplegable y ceremonia acompañada.
 ```
 
 Configuración: Formularios reales configurables; registro local disponible, sin envío automático de datos.
+
+
+## Complementos · Forja y Mercadito de Mochi
+
+No son sesiones adicionales: ambas entradas utilizan el mismo HTML y personaje.
+
+- Forja: https://nespinozagonzalez-hub.github.io/misiones/forja/
+- Mochi: https://nespinozagonzalez-hub.github.io/misiones/forja/?entrada=mochi
+
+```html
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/forja/" title="Forja del Buscador · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/forja/?entrada=mochi" title="Mercadito de Mochi · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+```
+
+Un Apps Script para Forja y Mochi; el diagnóstico de Misión 0 mantiene su receptor independiente. La versión pública de la Forja guarda localmente hasta desplegar su Apps Script. No hay sincronización central simulada.
+
+Todas las presentaciones incluyen efectos decorativos opcionales, control «Animaciones» al pie y respeto automático de movimiento reducido. Sin sonidos automáticos ni cambios de puntuación.
+
+Pruebas sin tocar personajes reales: abrir `forja/?entrada=mochi&prueba=1`. Este modo usa almacenamiento local separado y no importa el personaje anterior; no habilita pruebas de Google Sheets.

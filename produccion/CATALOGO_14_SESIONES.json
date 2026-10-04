@@ -10,7 +10,7 @@
     "summary": "Entrada narrativa, ruta por Ludaria y ocho preguntas del Anexo D dentro del HTML.",
     "product": "Diagnóstico y entrada al recorrido.",
     "interaction": "Mapa, ventanas, borrador y recepción en Google Sheets.",
-    "dep": "Forja externa pendiente de configurar. Solo esta sesión usa el receptor de diagnóstico."
+    "dep": "Forja enlazada y disponible en modo local. Conexión central de Forja/Mochi pendiente de despliegue. Solo esta sesión usa el receptor de diagnóstico."
   },
   {
     "s": 2,

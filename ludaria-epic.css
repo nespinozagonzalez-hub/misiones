@@ -1,0 +1,16 @@
+/* Ludaria: decoración opcional. Nunca oculta contenido ni cambia reglas. */
+.ludaria-effects{display:flex;justify-content:flex-end;gap:12px;align-items:center;padding:10px 20px;border-top:1px solid #c9a66b25;background:#07120d;color:#e9e9d9;font:12px/1.4 system-ui,sans-serif;position:relative;z-index:2}
+.ludaria-effects button{min-height:44px;padding:8px 14px;color:#f3ecd9;background:#102219;border:1px solid #c9a66b80;border-radius:24px;font:inherit;cursor:pointer}
+.ludaria-effects button:focus-visible{outline:3px solid #b9efc3;outline-offset:3px}
+.ludaria-spark-field{position:fixed;inset:0;z-index:1000;pointer-events:none;overflow:hidden;contain:strict}
+.ludaria-spark{position:absolute;width:4px;height:4px;background:#e3c187;border-radius:50%;box-shadow:0 0 10px #c9a66b80;animation:ludaria-spark 1.15s ease-out both}
+@keyframes ludaria-spark{from{opacity:0;transform:translate(0,12px) scale(.7)}20%{opacity:.65}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.25)}}
+.ludaria-epic-scene{animation:ludaria-scene .6s cubic-bezier(.2,.65,.2,1)}
+@keyframes ludaria-scene{from{filter:brightness(.88);transform:translateY(5px)}to{filter:none;transform:none}}
+.ludaria-portal-links{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 0}
+.ludaria-portal-links a{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid #c9a66b80;border-radius:4px;color:#ede3c9;background:#102419;text-decoration:none;font:14px/1.5 system-ui,sans-serif}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){body:not([data-ludaria-motion="off"]) :is(.avatar-card,.product,.relic,.evidence-card,.source-card,.mission){transition:box-shadow .25s ease,border-color .25s ease}body:not([data-ludaria-motion="off"]) :is(.avatar-card,.product,.relic,.evidence-card,.source-card,.mission):hover{box-shadow:0 8px 30px #c9a66b15;border-color:#c9a66ba0}}
+body[data-ludaria-motion="off"] *,body[data-ludaria-motion="off"] *::before,body[data-ludaria-motion="off"] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+body[data-ludaria-motion="off"] :is(#fireflies,.ludaria-spark-field){display:none!important}
+@media(prefers-reduced-motion:reduce){.ludaria-spark-field{display:none!important}.ludaria-epic-scene{animation:none}*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}#fireflies{display:none!important}}
+@media print{.ludaria-effects,.ludaria-spark-field{display:none!important}}
