@@ -20,8 +20,8 @@
       "titulo": "La Gema Motivacional",
       "slug": "gema-motivacional",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261002b#pantalla-1\" title=\"La Gema Motivacional · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1\" title=\"La Gema Motivacional · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "Formulario externo de cierre configurable."
       ],
@@ -32,8 +32,8 @@
       "titulo": "Los Planos del Arquitecto",
       "slug": "planos-arquitecto",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261002b#pantalla-1\" title=\"Los Planos del Arquitecto · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261004-epic1#pantalla-1\" title=\"Los Planos del Arquitecto · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "URL del canvas externo configurable; canvas local disponible."
       ],
@@ -44,8 +44,8 @@
       "titulo": "El Yunque",
       "slug": "yunque",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261002a#pantalla-1\" title=\"El Yunque · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261004-epic1#pantalla-1\" title=\"El Yunque · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "Canvas y bitácora externos configurables; alternativas locales."
       ],
@@ -56,8 +56,8 @@
       "titulo": "El Templado entre Pares",
       "slug": "templado-pares",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261002a#pantalla-1\" title=\"El Templado entre Pares · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261004-epic1#pantalla-1\" title=\"El Templado entre Pares · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "Canal externo de coevaluación y canvas pendientes."
       ],
@@ -68,8 +68,8 @@
       "titulo": "El Reflejo del Diseño",
       "slug": "reflejo-diseno",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261002c#pantalla-1\" title=\"El Reflejo del Diseño · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261004-epic1#pantalla-1\" title=\"El Reflejo del Diseño · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "URLs opcionales de rúbrica y caso configurables."
       ],
@@ -80,8 +80,8 @@
       "titulo": "El Pulido del Prototipo",
       "slug": "pulido-prototipo",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261002a#pantalla-1\" title=\"El Pulido del Prototipo · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261004-epic1#pantalla-1\" title=\"El Pulido del Prototipo · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "Enlaces externos opcionales; herramientas locales disponibles."
       ],
@@ -92,8 +92,8 @@
       "titulo": "El Espejo Compartido",
       "slug": "espejo-compartido",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261002d#pantalla-1\" title=\"El Espejo Compartido · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261004-epic1#pantalla-1\" title=\"El Espejo Compartido · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "Prototipo, plantilla y canal de feedback externos configurables."
       ],
@@ -104,8 +104,8 @@
       "titulo": "La Defensa del Orbe",
       "slug": "defensa-orbe",
       "estado": "terminada",
-      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261002a#pantalla-1",
-      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261002a#pantalla-1\" title=\"La Defensa del Orbe · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
+      "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261004-epic1#pantalla-1",
+      "iframe": "<iframe src=\"https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261004-epic1#pantalla-1\" title=\"La Defensa del Orbe · Ludaria\" width=\"100%\" height=\"720\" style=\"border:0;\" allow=\"fullscreen\" allowfullscreen></iframe>",
       "dependencias_pendientes": [
         "Formularios reales configurables; registro local disponible, sin envío automático de datos."
       ],
@@ -117,7 +117,7 @@
     "titulo": "Los Pergaminos Dispersos",
     "slug": "pergaminos-dispersos",
     "estado": "terminada",
-    "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pergaminos-dispersos/presentacion.html?v=20261002a#pantalla-1"
+    "url_publicada": "https://nespinozagonzalez-hub.github.io/misiones/pergaminos-dispersos/presentacion.html?v=20261004-epic1#pantalla-1"
   },
   "catalogo": "produccion/CATALOGO_14_SESIONES.json",
   "recursos_visuales": {
