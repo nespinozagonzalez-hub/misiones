@@ -44,3 +44,13 @@ La hoja puede almacenar nombres y progreso educativo; usar seudónimos, limitar 
 Soporta teclado, etiquetas accesibles, foco de diálogos, vistas móviles y reducción de movimiento. No introduce efectos de combate ni ventajas pedagógicas por personaje.
 
 Documentación oficial: https://developers.google.com/apps-script/guides/html/communication · https://developers.google.com/apps-script/guides/web · https://developers.google.com/apps-script/reference/lock/lock-service
+
+## Revelación de recompensas · 5 de octubre de 2026
+
+`rewards.js` y `rewards.css` presentan las runas confirmadas con sello, partículas jade y doradas, contadores de XP y puntos, progreso de nivel, nuevas reliquias y fragmentos efectivamente recuperados. Las subidas de nivel tienen su propio aviso; la restauración une visualmente cuatro fragmentos solo cuando el personaje registra las cuatro regiones y la defensa final. Los canjes con Mochi y los talentos muestran las mejoras confirmadas.
+
+La ventana permite continuar o cerrar en cualquier momento; «Ver sin animación» muestra todos los valores finales inmediatamente. Respeta el control general de animaciones y la preferencia de movimiento reducido del dispositivo. Los efectos son finitos, sin audio automático, y se cancelan al cerrar o cambiar de pestaña. La presentación recibe una instantánea del estado anterior y el perfil confirmado; nunca escribe XP, puntos, atributos ni almacenamiento.
+
+Los enlaces y los iframes actuales siguen siendo válidos. La plantilla `apps-script/Forja.html` incluye el mismo módulo y estilos; un despliegue de Apps Script ya existente requiere actualizar esa plantilla y volver a implementar para incorporar esta versión.
+
+Pruebas: `node forja/tests.cjs` y `node forja/rewards.test.cjs`. La segunda suite recorre las 14 runas y comprueba niveles, fragmentos, restauración, pausa, reducción de movimiento, cierre, compras, talentos, datos inválidos, duplicados y relectura del perfil.
