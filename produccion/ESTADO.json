@@ -5,7 +5,7 @@
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
   "estado_general": "14 sesiones publicadas; producción cerrada",
-  "actualizado_en": "2026-10-04T17:17:43.253Z",
+  "actualizado_en": "2026-10-05",
   "siguiente_sesion": null,
   "ejecucion_actual": {
     "fase": "produccion_completa"
@@ -144,6 +144,23 @@
     "auditoria": "produccion/AUDITORIA_ACTUAL.md",
     "revisiones_programadas": 5,
     "intervalo_horas": 3,
-    "duracion_horas": 15
+    "duracion_horas": 15,
+    "auditoria_presentaciones": {
+      "fecha": "2026-10-05",
+      "commit_codigo": "4fc4713927de7183ac053b20b00b4dff486c4e15",
+      "informe": "produccion/AUDITORIA_PRESENTACIONES_20261005.md",
+      "scope": "14 sesiones auditadas; 13 sesiones ajustadas; apertura sin cambios",
+      "principales_pantallas_revisadas": 54,
+      "iframe_urls": "sin cambios",
+      "guia_pdf": {
+        "file": "Ludaria_Guia_Docente_Separada.pdf",
+        "library_file_id": "libfile_eca8fad23d0481918e4f2a29c57dfc7f"
+      },
+      "evidencia": {
+        "file": "Presentacion_sin_indicaciones_docentes.jpg",
+        "library_file_id": "libfile_1b9016b83390819189ea7f69f1ba694b"
+      },
+      "apps_script": "No se modificó ni verificó la conexión central"
+    }
   }
 }

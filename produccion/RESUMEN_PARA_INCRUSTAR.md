@@ -272,3 +272,8 @@ Un Apps Script para Forja y Mochi; el diagnóstico de Misión 0 mantiene su rece
 Todas las presentaciones incluyen efectos decorativos opcionales, control «Animaciones» al pie y respeto automático de movimiento reducido. Sin sonidos automáticos ni cambios de puntuación.
 
 Pruebas sin tocar personajes reales: abrir `forja/?entrada=mochi&prueba=1`. Este modo usa almacenamiento local separado y no importa el personaje anterior; no habilita pruebas de Google Sheets.
+
+
+## Presentaciones limpias y guía docente separada · 5 de octubre de 2026
+
+Se retiraron los paneles de facilitación de las presentaciones y se reformularon los mensajes dirigidos al docente. Los iframe anteriores siguen vigentes, con las mismas URLs. Auditoría: `produccion/AUDITORIA_PRESENTACIONES_20261005.md`. PDF docente separado: `Ludaria_Guia_Docente_Separada.pdf`, Library ID `libfile_eca8fad23d0481918e4f2a29c57dfc7f`. Se conservan los avisos necesarios sobre guardado y enlaces pendientes.
