@@ -9,6 +9,25 @@ const catalogue = JSON.parse(read('produccion/CATALOGO_14_SESIONES.json'));
 const origin = 'https://nespinozagonzalez-hub.github.io';
 const slugs = ['mision-0', 'pergaminos-dispersos', 'senda-ejemplos', 'claro-debate', 'vetas-diseno', 'tallado-mecanicas', 'gema-motivacional', 'planos-arquitecto', 'yunque', 'templado-pares', 'reflejo-diseno', 'pulido-prototipo', 'espejo-compartido', 'defensa-orbe'];
 assert.deepEqual(catalogue.map(item => item.slug), slugs, 'Las 14 sesiones conservan su orden y sus slugs');
+// Referencia independiente del catálogo editable: edición original f37b9b7.
+// Si guía y catálogo cambian juntos, el contrato debe detectar la sustitución.
+const originalPaths = [
+  'mision-0/presentacion.html?v=20261004-epic1',
+  'pergaminos-dispersos/presentacion.html?v=20261004-epic1#pantalla-1',
+  'senda-ejemplos/?v=20261004-epic1',
+  'claro-debate/presentacion.html?v=20261004-epic1',
+  'vetas-diseno/presentacion.html?v=20261004-epic1',
+  'tallado-mecanicas/presentacion.html?v=20261004-epic1#pantalla-1',
+  'gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1',
+  'planos-arquitecto/presentacion.html?v=20261004-epic1#pantalla-1',
+  'yunque/presentacion.html?v=20261004-epic1#pantalla-1',
+  'templado-pares/presentacion.html?v=20261004-epic1#pantalla-1',
+  'reflejo-diseno/?v=20261004-epic1#pantalla-1',
+  'pulido-prototipo/?v=20261004-epic1#pantalla-1',
+  'espejo-compartido/index.html?v=20261004-epic1#pantalla-1',
+  'defensa-orbe/presentacion.html?v=20261004-epic1#pantalla-1'
+];
+catalogue.forEach((item, index) => assert.equal(item.url, origin + '/misiones/' + originalPaths[index], item.name + ': contrato original independiente'));
 const expected = catalogue.map(item => ({src:item.url, title:item.name + ' · Ludaria', height:item.height}));
 expected.push({src:origin + '/misiones/forja/', title:'Forja del Buscador · Ludaria', height:850});
 expected.push({src:origin + '/misiones/forja/?entrada=mochi', title:'Mercadito de Mochi · Ludaria', height:850});
