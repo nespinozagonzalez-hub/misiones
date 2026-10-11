@@ -1,10 +1,12 @@
-name: Ludaria central · pruebas del piloto
+name: Ludaria central · guardianes y atributos
 on:
   pull_request:
     paths:
       - 'ludaria/**'
       - 'forja/**'
       - 'vetas-diseno/**'
+      - 'pergaminos-dispersos/**'
+      - '**/app.rpg.js'
       - '.github/workflows/ludaria-central.yml'
   workflow_dispatch:
 permissions:
@@ -20,10 +22,17 @@ jobs:
           node-version: '24'
       - run: python ludaria/build.py
       - run: node --check forja/app.js && node --check ludaria/client.js && node --check vetas-diseno/app.js
+      - run: node ludaria/test-gateway.cjs
       - run: node ludaria/test-server.cjs
-      - run: npm install --no-save playwright@1.62.1
+      - run: node ludaria/test-rpg-server.cjs
+      - run: npm install --no-save playwright@1.62.1 jsdom@26.1.0
+      - run: node ludaria/test-rpg-dom.cjs
+      - run: node ludaria/test-rpg-resilience.cjs
       - run: npx playwright install --with-deps chromium
       - run: node ludaria/test-browser.cjs
+      - run: node ludaria/test-gateway-browser.cjs
+      - run: node ludaria/test-pergaminos-adapter.cjs
+      - run: node ludaria/test-rpg-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

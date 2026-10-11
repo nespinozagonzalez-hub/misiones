@@ -17,3 +17,7 @@ Antes de declarar modificaciones terminadas, probar navegación, interacciones, 
 ## Nuevo encargo autorizado · 10 de octubre de 2026
 
 La producción de las sesiones permanece completa. El propietario autorizó conectar identidad y progreso a la base privada recién instalada, modificar Forja/Mochi y ensamblar las misiones, con revisión cada tres horas. Lee `ludaria/LEEME.md` y `produccion/CONEXION_LUDARIA.md`. Avanza primero con el piloto Forja–Mochi–Vetas, conserva instrumentos y recompensas y verifica el despliegue real antes de ampliar. La falta del enlace /exec bloquea la verificación en Google, no la preparación independiente de las demás misiones. No dar por conectadas las rutas públicas locales.
+
+## Ampliación autorizada · 11 de octubre de 2026
+
+El propietario solicitó adaptar todas las misiones a los atributos, describir con Mochi las ventajas concretas, registrar compras/redistribuciones y motivos opcionales, incluir guardianes diferentes y secretos narrativos, y revisar los cambios cada tres horas. La ampliación v0.3.0 se documenta en ATRIBUTOS_GUARDIANES_DECISIONES.md. Preparar todas las rutas está autorizado; separar pruebas simuladas de verificación real. Conservar la implementación /exec ya suministrada y el receptor independiente de Misión 0.

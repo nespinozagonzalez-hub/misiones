@@ -1,0 +1,31 @@
+/** DOM sin motor gráfico: comprueba plantillas y eventos; no acredita móvil/iframe real. */
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const {JSDOM,ResourceLoader,VirtualConsole}=require(process.env.LUDARIA_TEST_DOM_MODULE||'jsdom');
+const {context,setSource}=require('./mock.cjs'),catalog=require('./rpg-catalog.js');
+const root=path.resolve(__dirname,'..');setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));const t=context();t.run('prepararConexionLudaria()');
+const uid=()=>crypto.randomUUID(),send=q=>{t.c.request=q;return JSON.parse(JSON.stringify(t.run('ludariaApi(request)')));};
+let person=send({action:'registrar',requestId:uid(),data:{name:'Prueba DOM RPG',class:'Kira'}});const key=person.key,access=person.access;
+function call(action,data){const r=send({action,data,access,expectedRevision:person.revision,requestId:uid()});assert.equal(r.ok,true,r.message);if(r.profile)person=r;return r;}
+for(const code of ['ECO101','AXR314','LUM582','VYR207','NEX451','ORB126','KRN693','ZEN248','ELD570','MIR831','ARC419','NEB264','CYR905','ORB714'])call('runa',{code});
+call('redistribuir',{skills:Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,8]))});
+t.c.UrlFetchApp.fetch=url=>({getResponseCode:()=>200,getContentText:()=>fs.readFileSync(path.join(root,url.replace('https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/','')),'utf8')});
+class LocalResources extends ResourceLoader{fetch(url){const u=new URL(url);if(u.host!=='ludaria.test')return null;const file=path.join(root,u.pathname);return fs.existsSync(file)&&fs.statSync(file).isFile()?Promise.resolve(fs.readFileSync(file)):null;}}
+const delay=()=>new Promise(r=>setTimeout(r,10));async function until(check,label){for(let n=0;n<1000;n++){if(check())return;await delay();}throw Error('Espera agotada: '+label);}
+const errors=[];
+async function load(slug){t.c.params={parameter:{mision:slug}};const html=t.run('doGet(params).html').replace('https://nespinozagonzalez-hub.github.io/misiones/'+slug+'/', 'https://ludaria.test/'+slug+'/');const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(slug+': '+e.message));
+ const dom=new JSDOM(html,{url:'https://ludaria.test/'+slug+'/',runScripts:'dangerously',resources:new LocalResources(),virtualConsole:vc,pretendToBeVisual:true,beforeParse(w){w.crypto.randomUUID=uid;w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.Storage.prototype.getItem=()=>{throw Error('Storage bloqueado');};w.Storage.prototype.setItem=()=>{throw Error('Storage bloqueado');};w.google={script:{run:{withSuccessHandler:ok=>({withFailureHandler:bad=>({ludariaApi(q){Promise.resolve().then(()=>send(q)).then(ok).catch(bad);}})})}}};}});
+ const w=dom.window,d=w.document;await until(()=>d.querySelector('#cloud-login'),'guardián '+slug);const m=catalog.find(slug);if(m)assert.equal(d.querySelector('.ludaria-cloud-dialog h2').textContent,m.guardian);const f=d.querySelector('#cloud-login');f.elements.name.value='Prueba DOM RPG';f.elements.key.value=key;f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await until(()=>!d.querySelector('#cloud-login'),'identificación');await w.LudariaCloud.ready;
+ if(slug!=='forja')await until(()=>d.querySelector('#stage')?.textContent.trim().length>50,'misión '+slug);else await until(()=>!d.querySelector('#app').hidden,'forja');return dom;
+}
+(async()=>{
+for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.window,d=w.document;
+ for(const perk of mission.perks){await w.LudariaRPGUI.openPerk(perk.id);assert.ok(d.querySelector('.ludaria-cloud-dialog').textContent.includes(perk.text),perk.id);if(perk.kind==='accion'){const f=d.querySelector('[data-rpg-form]');f.elements.choice.value=perk.options[0];f.elements.work.value='Ensayo de '+mission.slug;f.elements.reflection.value='Para contrastar consecuencias';f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await until(()=>d.querySelector('[data-rpg-status]')?.textContent.includes('confirmada'),'decisión '+perk.id);}d.querySelector('[data-rpg-close]').click();}
+ if(mission.egg){await w.LudariaRPGUI.open();d.querySelector('[data-rpg-egg]').click();await until(()=>d.querySelector('.rpg-lore'),'secreto');d.querySelector('[data-rpg-close]').click();}
+ let selected;for(let n=0;n<35;n++){const field=d.querySelector('#stage textarea[data-field]');if(field){selected=field.dataset.field;field.value='Cuaderno '+mission.slug;field.dispatchEvent(new w.Event('input',{bubbles:true}));break;}const next=d.querySelector('#next');if(next.disabled)break;next.click();}
+ assert.ok(selected,'campo '+mission.slug);await w.LudariaCloud.flushMission();assert.equal(w.LudariaCloud.hasPending,false);dom.window.close();
+ const second=await load(mission.slug),w2=second.window,d2=w2.document;assert.equal(d2.querySelector('#stage textarea[data-field="'+selected+'"]').value,'Cuaderno '+mission.slug,'recuperación '+mission.slug);
+ const total=Number(d2.querySelector('#page-count, #page-number').textContent.split('/')[1]);for(let n=0;n<total;n++){const next=d2.querySelector('#next');if(next.disabled)break;next.click();assert.ok(d2.querySelector('#stage').textContent.length>30);}await w2.LudariaCloud.flushMission();second.window.close();console.log('DOM OK '+mission.slug);
+}
+const dom=await load('forja'),w=dom.window,d=w.document;d.querySelector('[data-skill-info=sabiduria]').click();assert.ok(d.querySelector('#modal-body').textContent.includes('Brújula de conceptos'));d.querySelector('#modal').close();await w.LudariaRPGUI.open();d.querySelector('[data-rpg-egg]').click();await until(()=>d.querySelector('.rpg-lore'),'huella Forja');dom.window.close();
+assert.deepEqual(errors,[]);console.log('PASS: DOM de 13 misiones, 39 ventajas, formularios de decisión, cuadernos recuperados, pantallas posteriores, catálogo Mochi y cinco secretos. Sin prueba gráfica ni Google real.');
+})().catch(e=>{console.error(e,errors);process.exit(1);});
