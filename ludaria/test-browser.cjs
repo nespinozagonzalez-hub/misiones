@@ -30,7 +30,7 @@ const bridge=()=>{
     }};
   }}}};
 };
-async function login(page,name,key){const f=page.locator('#cloud-login');await f.locator('[name=name]').fill(name);await f.locator('[name=key]').fill(key);await f.locator('button').click();await page.locator('.ludaria-cloud-dialog').waitFor({state:'hidden'});}
+async function login(page,name,key){const f=page.locator('#cloud-login');await f.locator('[name=name]').fill(name);await f.locator('[name=key]').fill(key);await f.locator('button[type=submit]').click();await page.locator('.ludaria-cloud-dialog').waitFor({state:'hidden'});}
 (async()=>{
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;
   const browser=await chromium.launch({headless:true});
@@ -79,7 +79,7 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     await m.locator('[data-go=inventario]').first().click();await m.locator('[data-action=redistribute]').click();
     await m.locator('#redistribute-maestria').fill('1');await m.locator('[data-action=redistribute-confirm]').click();await m.waitForFunction(()=>window.LudariaCloud.profile.skills.maestria===1);assert.equal(await m.evaluate(()=>window.LudariaCloud.profile.points),5);
     await v2.locator('[data-cloud-refresh]').click();await v2.locator('[data-cloud-advantage]').click();await v2.locator('[data-rpg-open=ojo_artesano]').waitFor();assert.equal(await v2.locator('[data-rpg-open=ojo_artesano]').isDisabled(),true);
-    const f=await createPage();await f.goto(base+'/frame');const frame=f.frameLocator('iframe');await frame.locator('#cloud-login [name=name]').fill('Exploradora de prueba');await frame.locator('#cloud-login [name=key]').fill(key);await frame.locator('#cloud-login button').click();await frame.locator('#app').waitFor({state:'visible'});
+    const f=await createPage();await f.goto(base+'/frame');const frame=f.frameLocator('iframe');await frame.locator('#cloud-login [name=name]').fill('Exploradora de prueba');await frame.locator('#cloud-login [name=key]').fill(key);await frame.locator('#cloud-login button[type=submit]').click();await frame.locator('#app').waitFor({state:'visible'});
     const recoverPage=await createPage({width:390,height:844});await recoverPage.goto(base+'/cloud');
     await recoverPage.getByRole('button',{name:'Recuperar clave',exact:true}).click();
     const recovery=recoverPage.locator('#cloud-recover');await recovery.locator('[name=name]').fill('Exploradora de prueba');await recovery.locator('[name=recoveryCode]').fill(recoveryCode);await recovery.locator('[name=key]').fill('271828');await recovery.locator('[name=keyConfirm]').fill('271828');
