@@ -14,11 +14,11 @@ const origin = 'https://nespinozagonzalez-hub.github.io';
       const u = new URL(route.request().url());
       const fixture = u.pathname === '/frame';
       const config = {enabled:!u.searchParams.has('disabled'),verified:true,deployment,routes:['forja','vetas-diseno']};
-      route.fulfill({contentType:'text/html',body: fixture ? '<iframe title="Prueba del contenedor" style="width:100%;height:720px" src="/misiones/vetas-diseno/presentacion.html?key=private&name=private#pantalla-5"></iframe>' : '<html lang="es"><head><script>window.LUDARIA_GATEWAY='+JSON.stringify(config)+';</script><script>'+gateway+'</script></head><body><h1>Presentación local</h1></body></html>'});
+      route.fulfill({contentType:'text/html; charset=utf-8',body: fixture ? '<iframe title="Prueba del contenedor" style="width:100%;height:720px" src="/misiones/vetas-diseno/presentacion.html?key=private&name=private#pantalla-5"></iframe>' : '<html lang="es"><head><script>window.LUDARIA_GATEWAY='+JSON.stringify(config)+';</script><script>'+gateway+'</script></head><body><h1>Presentación local</h1></body></html>'});
     });
     await context.route('https://script.google.com/**', route => {
       seen.push(route.request().url());
-      route.fulfill({contentType:'text/html',body:'<h1>Destino interceptado de prueba</h1>'});
+      route.fulfill({contentType:'text/html; charset=utf-8',body:'<h1>Destino interceptado de prueba</h1>'});
     });
     const p = await context.newPage();
     await p.goto(origin+'/misiones/forja/?disabled=1');
