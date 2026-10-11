@@ -16,11 +16,11 @@ Las pruebas usan dobles en memoria. No escriben en la planilla real. También pa
 
 `node --check` pasa para Forja, cliente compartido y aplicación de Vetas. Se preparó `ludaria/test-browser.cjs` para comprobar acceso, compras, cuaderno en otra sesión sin localStorage, móvil 390px, foco e iframe de 720px.
 
-La ejecución local de navegador está pendiente: el entorno no tiene Chromium y su descarga no produjo un archivo válido. No se considera una auditoría visual aprobada. El workflow `.github/workflows/ludaria-central.yml` ejecutará esa prueba en GitHub y conservará capturas. Corregir cualquier fallo antes de fusionar el piloto.
+El entorno local no dispone de Chromium; la prueba se ejecutó en GitHub. La última versión pasó el workflow 38105192674, commit de código f3dd79008a85b08ecd2382b84f15dc2ad2109d47. Verifica creación y recuperación entre sesiones con localStorage bloqueado, compra con Mochi, demostración previa, cuaderno central, retirada del apoyo al bajar el atributo, móvil de 390px, foco de acceso e iframe local de 720px. Las capturas están en los artefactos del workflow. Esto no valida todavía Apps Script, la sesión pública de Google ni Genially real.
 
 ## Siguiente ejecución de la revisión cada tres horas
 
-1. Leer estado y PR del piloto. Revisar resultado de CI y corregir hasta aprobar ambas pasadas disponibles.
+1. Leer estado del piloto y comprobar Pages después de la fusión. Las dos pasadas disponibles (servidor y navegador con dobles) están aprobadas; la integración real sigue pendiente.
 2. Verificar el despliegue `/exec` si el propietario lo proporciona. Probar con cuenta ficticia, sin datos de participantes reales, y luego desde Genially en móvil/escritorio y fuera de la sesión propietaria.
 3. Con el piloto real validado, conectar el resto de las 14 sesiones una por una, empezando por identidad y borradores separados por participante. Mantener navegación y contenido esenciales accesibles.
 4. Para cada misión definir, justificar, mostrar y probar sus ventajas sin inventar evaluación, códigos ni XP. No anunciar ventajas integradas donde solo hay talentos narrativos.

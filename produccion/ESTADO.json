@@ -178,8 +178,13 @@
     "guia": "ludaria/LEEME.md",
     "automatizacion": "Revisión activa cada tres horas hasta completar integración y auditorías",
     "auditoria_funcional": "Pruebas del servidor con dobles locales: OK",
-    "auditoria_navegador": "Pendiente; Chromium no disponible en el entorno local. Workflow preparado",
+    "auditoria_navegador": "Prueba de navegador en GitHub OK: recuperación sin localStorage, compras, cuaderno, apoyo, móvil 390px, foco e iframe local 720px; Google/Genially real pendientes",
     "despliegue_exec": "Pendiente del propietario",
-    "diagnostico_mision0": "Receptor original conservado"
+    "diagnostico_mision0": "Receptor original conservado",
+    "ci": {
+      "run_id": 38105192674,
+      "conclusion": "success",
+      "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
+    }
   }
 }
