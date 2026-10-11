@@ -11,6 +11,7 @@ https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV
 - Entrada ?entrada=mochi carga identidad central y mercadito.
 - Se creó un segundo personaje ficticio para verificar Mochi. NEX451 acreditó 60 XP y 5 puntos.
 - Seleccionar cuatro mejoras de Maestría mostró una vista previa; confirmar la compra registró Maestría 5 y saldo 1. El historial mostró Creación, NEX451 y Compra con Mochi (−4).
+- Redistribuir Maestría de 5 a 1 devolvió cuatro puntos: saldo 5, XP 60 y Nivel 2 conservados; el historial mantuvo creación, runa y compra, y añadió Redistribución.
 - La entrada ?mision=vetas-diseno carga y solicita la misma identidad central.
 
 Estos son personajes ficticios creados por esta prueba, no participantes existentes. Sus registros se conservan; no se borraron filas ni se alteraron otros personajes.
@@ -28,3 +29,6 @@ node ludaria/test-server.cjs: PASS en el workspace existente. Es una prueba simu
 
 La publicación elimina el bloqueo por falta de /exec. No pedir otra instalación.
 La automatización existente recibió el enlace y esta evidencia, conservando su cadencia de tres horas.
+
+## Ajuste visual detectado
+La columna Puntos del historial muestra un guion en Redistribución aunque devuelve puntos; el saldo correcto se conserva. Mejorar esa representación sin cambiar las reglas de saldo.
