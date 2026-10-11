@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..');setSource(fs.readFileSync(__dirname+'/Co
 // El reloj del doble representa acciones humanas; no 300 solicitudes en segundos de CI.
 let simulatedTime=Date.now();const RealDate=Date;t.c.Date=class extends RealDate{constructor(...args){super(...(args.length?args:[simulatedTime]));}static now(){return simulatedTime;}};
 const uid=()=>crypto.randomUUID();const send=q=>{simulatedTime+=1000;t.c.request=q;return JSON.parse(JSON.stringify(t.run('ludariaApi(request)')));};
-let person=send({action:'registrar',requestId:uid(),data:{name:'Ensayo de guardianes',class:'Kira'}});const key=person.key,access=person.access;
+let person=send({action:'registrar',requestId:uid(),data:{name:'Ensayo de guardianes',class:'Kira',key:'314159',keyConfirm:'314159'}});const key=person.key,access=person.access;
 const call=(action,data)=>{const r=send({action,data,access,expectedRevision:person.revision,requestId:uid()});assert.equal(r.ok,true,r.message);if(r.profile)person=r;return r;};
 for(const code of ['ECO101','AXR314','LUM582','VYR207','NEX451','ORB126','KRN693','ZEN248','ELD570','MIR831','ARC419','NEB264','CYR905','ORB714'])call('runa',{code});
 call('redistribuir',{skills:Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,8]))});
@@ -52,6 +52,6 @@ try{
  for(let step=1;step<last;step++)await finale.locator('#next').click();await finale.locator('[data-mochi-visit]').waitFor();await finale.locator('[data-mochi-visit]').scrollIntoViewIfNeeded();assert.equal(await finale.locator('[data-mochi-visit]').evaluate(e=>getComputedStyle(e).animationName),'none');assert.equal(await finale.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);await finale.locator('#previous').click();assert.equal(await finale.locator('[data-mochi-visit]').count(),0);await finale.locator('#next').click();assert.equal(await finale.locator('[data-mochi-visit]').count(),1);await end.screenshot({path:__dirname+'/preview-mochi-cierre-iframe.png',fullPage:true});await reduced.close();
  await desktop.close();await ctx.close();
  // Las decisiones se recuperan sin pertenecer a otro jugador.
- const other=send({action:'registrar',requestId:uid(),data:{name:'Aislamiento navegador',class:'Kael'}});const empty=send({action:'catalogoRpg',access:other.access,data:{mission:'yunque'}});assert.deepEqual(empty.responses,{});assert.equal(empty.perks.every(x=>!x.available),true);
+ const other=send({action:'registrar',requestId:uid(),data:{name:'Aislamiento navegador',class:'Kael',key:'314159',keyConfirm:'314159'}});const empty=send({action:'catalogoRpg',access:other.access,data:{mission:'yunque'}});assert.deepEqual(empty.responses,{});assert.equal(empty.perks.every(x=>!x.available),true);
  assert.deepEqual(errors,[]);console.log('PASS: 13 entradas HTML, 39 ventajas visibles, acciones/reflexiones, guardianes, cinco atributos, cuadernos entre recargas, pantallas, móvil, escritorio, foco e iframe local 720px sin localStorage. Servicios simulados; Google y Genially reales pendientes.');
 }finally{await browser.close();server.close();}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});

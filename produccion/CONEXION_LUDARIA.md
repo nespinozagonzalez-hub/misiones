@@ -1,3 +1,5 @@
+> **Solicitud vigente adicional:** v0.4.0 incorpora retratos, clave elegida y recuperación pública mediante respaldo privado. Este cambio SÍ requiere reemplazar el Código.gs anterior y actualizar la MISMA implementación. Detalle: BIENVENIDA_Y_CLAVES_20261011.md. Las pruebas reales anteriores acreditan la entrada de v0.3.0; la nueva versión se comprobará tras instalarla. El gateway permanece activo y los iframe no cambian.
+
 # Conexión central · estado vigente del 11 de octubre de 2026
 
 ## Estado vigente

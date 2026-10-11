@@ -39,6 +39,7 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     await ctx.addInitScript(()=>{Storage.prototype.setItem=function(){throw Error('Storage blocked fixture');};Storage.prototype.getItem=function(){throw Error('Storage blocked fixture');};});
     const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));
     await p.exposeFunction('mockApi',r=>{t.c.request=r;return JSON.parse(JSON.stringify(t.run('ludariaApi(request)')));});
+    await p.route('https://nespinozagonzalez-hub.github.io/misiones/ludaria/assets/guardianes-v1.webp',r=>r.fulfill({path:__dirname+'/assets/guardianes-v1.webp',contentType:'image/webp'}));
     await p.route('https://fonts.googleapis.com/**',r=>r.abort());await p.route('https://fonts.gstatic.com/**',r=>r.abort());
     return p;
   }
@@ -46,9 +47,15 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     const p=await createPage();await p.goto(base+'/cloud');
     await p.locator('.ludaria-cloud-dialog').waitFor();
     assert.equal(await p.locator('.ludaria-cloud-dialog').evaluate(d=>d.contains(document.activeElement)),true);
-    await p.locator('.ludaria-cloud-dialog summary').click();
-    const form=p.locator('#cloud-register');await form.locator('[name=name]').fill('Exploradora de prueba');await form.locator('button').click();
-    await p.locator('#cloud-key-value').waitFor();const key=await p.locator('#cloud-key-value').inputValue();assert.match(key,/^LUD-/);
+    await p.screenshot({path:__dirname+'/preview-bienvenida.png',fullPage:true});
+    assert.equal(await p.locator('.cloud-portrait').getAttribute('aria-label').then(s=>s.includes('Nara')),true);
+    await p.setViewportSize({width:390,height:844});
+    assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+    await p.screenshot({path:__dirname+'/preview-bienvenida-mobile.png',fullPage:true});
+    await p.setViewportSize({width:1280,height:900});
+    await p.locator('[data-access-panel=register]').click();
+    const form=p.locator('#cloud-register');await form.locator('[name=name]').fill('Exploradora de prueba');await form.locator('[name=key]').fill('314159');await form.locator('[name=keyConfirm]').fill('314159');await form.locator('button').click();
+    await p.locator('#cloud-key-value').waitFor();const key=await p.locator('#cloud-key-value').inputValue();assert.equal(key,'314159');const recoveryCode=await p.locator('#cloud-recovery-value').inputValue();assert.match(recoveryCode,/^RES-/);
     await p.screenshot({path:__dirname+'/preview-clave.png',fullPage:true});
     await p.locator('#cloud-continue').click();await p.locator('#app').waitFor({state:'visible'});
     await p.locator('[data-go=codigos]').first().click();await p.locator('#code').fill('AXR314');await p.locator('#rune-form button').click();
@@ -73,6 +80,12 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     await m.locator('#redistribute-maestria').fill('1');await m.locator('[data-action=redistribute-confirm]').click();await m.waitForFunction(()=>window.LudariaCloud.profile.skills.maestria===1);assert.equal(await m.evaluate(()=>window.LudariaCloud.profile.points),5);
     await v2.locator('[data-cloud-refresh]').click();await v2.locator('[data-cloud-advantage]').click();await v2.locator('[data-rpg-open=ojo_artesano]').waitFor();assert.equal(await v2.locator('[data-rpg-open=ojo_artesano]').isDisabled(),true);
     const f=await createPage();await f.goto(base+'/frame');const frame=f.frameLocator('iframe');await frame.locator('#cloud-login [name=name]').fill('Exploradora de prueba');await frame.locator('#cloud-login [name=key]').fill(key);await frame.locator('#cloud-login button').click();await frame.locator('#app').waitFor({state:'visible'});
+    const recoverPage=await createPage({width:390,height:844});await recoverPage.goto(base+'/cloud');
+    await recoverPage.getByRole('button',{name:'Recuperar clave',exact:true}).click();
+    const recovery=recoverPage.locator('#cloud-recover');await recovery.locator('[name=name]').fill('Exploradora de prueba');await recovery.locator('[name=recoveryCode]').fill(recoveryCode);await recovery.locator('[name=key]').fill('271828');await recovery.locator('[name=keyConfirm]').fill('271828');
+    await recoverPage.screenshot({path:__dirname+'/preview-recuperar-mobile.png',fullPage:true});
+    await recovery.locator('button[type=submit]').click();await recoverPage.locator('#cloud-key-value').waitFor();assert.equal(await recoverPage.locator('#cloud-key-value').inputValue(),'271828');await recoverPage.locator('#cloud-continue').click();
+    const restored=await createPage();await restored.goto(base+'/cloud?mision=vetas-diseno');await login(restored,'Exploradora de prueba','271828');await restored.locator('[data-action=notebook]').first().click();assert.equal(await restored.locator('[data-field=note]').inputValue(),'Mi nota recuperable en otra sesión');
     assert.deepEqual(errors,[]);console.log('PASS: alta y clave, recuperación entre sesiones sin localStorage, compras, demo previa, cuaderno central, retirada de ventaja, móvil 390px, foco de acceso e iframe local 720px. No prueba el despliegue real de Google.');
   }catch(error){console.error('Errores del navegador:',errors);for(const page of browser.contexts().flatMap(c=>c.pages())){console.error('Estado:',page.url(),await page.locator('#stage').textContent().catch(()=>''));}throw error;}
   finally{await browser.close();server.close();}

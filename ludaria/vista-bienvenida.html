@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nueva bienvenida · Ludaria · Vista previa</title>
+<style>html,body{margin:0;min-height:100%;background:#07190e;color:#dfd6b2;font:15px system-ui}body{min-height:100vh;background:radial-gradient(ellipse at top,#294c29,transparent 60%),#06140a}.preview-note{position:fixed;bottom:8px;left:12px;right:12px;text-align:center;color:#b4bd9f;font-size:12px}.ludaria-cloud-bar{visibility:hidden}</style>
+<script src="rpg-catalog.js"></script>
+<script>
+const params=new URLSearchParams(location.search),route=params.get('mision')||'forja';
+window.LUDARIA_CLOUD_CONFIG={route:LudariaRPG.find(route)||route==='mision-0'?route:'forja',market:params.get('entrada')==='mochi'};
+window.google={script:{run:{withSuccessHandler(success){return {withFailureHandler(){return {ludariaApi(){success({ok:false,message:'Esta es una vista de diseño. La creación y recuperación estarán disponibles al actualizar el Apps Script.'});}};}};}}}};
+</script><script src="client.js?v=20261011-bienvenida1"></script></head>
+<body><p class="preview-note">Vista de diseño · No registra personajes ni consulta la planilla.</p></body></html>
