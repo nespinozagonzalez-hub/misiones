@@ -1,6 +1,6 @@
 # Publicación y verificación de entradas de Ludaria
 
-11 de octubre de 2026. El propietario autorizó actualizar y publicar todo en nespinozagonzalez-hub/misiones. Genially permanece a su cargo.
+11 de octubre de 2026. Evidencia histórica de PR #4 y de la instalación versión 2. El estado posterior a PR #7 está en `CONEXION_LUDARIA.md` y `AUDITORIA_CONTINUIDAD_20261011.md`. Las correcciones de PR #5/#6/#7 no se han acreditado como instaladas en Google. Genially conserva los iframe originales.
 
 ## Publicado
 
@@ -25,8 +25,8 @@ La comprobación autenticada de guardado permanece pendiente. El broker seguro n
 ## Pendiente
 
 - Comprobar guardado/recuperación y decisiones con un personaje de prueba en Google real; compras, redistribución y retirada de ayudas en la nueva versión.
-- Propietario: sustituir los 16 bloques de incrustación y comprobar Genially publicado en escritorio, móvil y teclado.
-- Gateway continúa enabled:false y verified:false. Las URLs GitHub antiguas mantienen modo local; los documentos vigentes contienen las URLs centrales directas comprobadas.
-- Fuente de código vigente: main y el proyecto original ya actualizado. Los paquetes locales de revisión anteriores son históricos.
+- Ensayar las 16 incrustaciones originales en un Genially de prueba publicado, sin reemplazarlas ni modificar el Genially del propietario.
+- Gateway continúa enabled:false y verified:false. Las URL GitHub originales mantienen modo local; la guía vigente conserva sus bloques originales. Las URL centrales directas son alternativas para ensayo independiente.
+- Fuente vigente: main. El proyecto original recibió la versión 2 aquí documentada; las mejoras posteriores requieren actualizar la misma implementación. Los paquetes locales anteriores son históricos.
 
-Guías Word/PDF de incrustación actualizadas sin cambiar actividades ni instrumentos; TXT complementario con 16 bloques completos. La revisión periódica debe partir de este estado y no volver a solicitar publicación o reinstalación.
+Guías Word/PDF de incrustación actualizadas sin cambiar actividades ni instrumentos; TXT complementario con 16 bloques completos. La revisión debe partir del HEAD real y del estado vigente; no asumir que esta instalación histórica contiene cambios posteriores. No pedir otro proyecto ni sustituir las URL originales.

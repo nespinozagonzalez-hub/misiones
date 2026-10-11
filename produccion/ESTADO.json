@@ -9,7 +9,7 @@
   "siguiente_sesion": null,
   "ejecucion_actual": {
     "fase": "mantenimiento_conexion_y_redisenio_rpg",
-    "detalle": "Publicación completa autorizada explícitamente por el propietario; rama lista para CI gráfico antes de integrar en main."
+    "detalle": "PR #7 integrado y publicado en Pages; 16 rutas originales comprobadas. Código posterior a versión 2 preparado; instalación Google y Genially real pendientes."
   },
   "automatizacion": {
     "estado": "activa",
@@ -141,8 +141,8 @@
     "forja": "forja/",
     "mochi": "forja/?entrada=mochi",
     "apps_script": "Uno compartido por Forja/Mochi; Misión 0 independiente",
-    "conexion_central": "Piloto Google parcialmente comprobado; ampliación local sin publicar; Genially real pendiente",
-    "auditoria": "produccion/AUDITORIA_ACTUAL.md",
+    "conexion_central": "Código publicado en GitHub Pages; Apps Script conserva versión 2 documentada. Correcciones posteriores pendientes de instalar y probar; gateway desactivado, Genially original conservado.",
+    "auditoria": "produccion/AUDITORIA_CONTINUIDAD_20261011.md",
     "revisiones_programadas": 5,
     "intervalo_horas": 3,
     "duracion_horas": 15,

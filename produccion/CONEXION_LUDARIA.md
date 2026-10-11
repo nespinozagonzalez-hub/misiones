@@ -2,14 +2,15 @@
 
 ## Estado vigente
 
-- Ampliación v0.3 publicada en main mediante PR #4; commit 0c52ecd4c2aec7a42ce8df0cb00ea4db156ef5d8. #2/#3 cerrados como sustituidos.
-- GitHub Pages 38142041656 aprobado. CI completo 38141839213 aprobado: servidor, gateway, 13 misiones/39 ventajas, 13 escenarios de resiliencia, móvil, escritorio, foco y marcos locales.
-- Apps Script original actualizado: fuente completa v0.3 guardada y verificada, preparación terminada, diagnóstico de planilla/vínculo/secreto correcto. Misma implementación, versión 2 publicada el 11 de octubre a las 10:09 de Chile.
-- 13 entradas de misión y Forja/Mochi comprobadas visualmente en Google real con sus guardianes. Misión 0 conserva su presentación y receptor de diagnóstico.
-- Guardado/recuperación autenticados reales todavía pendientes: el formulario anidado no pudo validarse por el broker seguro. No se escribieron claves por otro mecanismo ni se alteraron personajes en esta revisión.
-- Genially a cargo del propietario. Iframes centrales directos en RESUMEN_PARA_INCRUSTAR.md y guías Word/PDF actualizadas; TXT con 16 bloques completos.
-- Gateway sigue desactivado y no verificado. Las URLs GitHub anteriores continúan locales hasta completar el contenedor real.
-- Evidencia vigente: AUDITORIA_PUBLICACION_RPG_20261011.md. Las auditorías anteriores y paquetes de revisión son históricos.
+- HEAD real de main comprobado: `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` (PR #7). PR #5 y #6 también están integrados.
+- GitHub Pages `38157644174` aprobado sobre ese HEAD; CI completo del PR #7 `38157429488` aprobado sobre `9045dd97aa7ad5d269a9835416f57475f611b9cb`.
+- Regresión pública: las 16 entradas GitHub originales y seis recursos RPG compartidos responden HTTP 200, mantienen el origen y coinciden byte a byte con main. Esto comprueba publicación, no interacciones gráficas ni guardado.
+- Última instalación Google documentada: el mismo Apps Script original, versión 2, publicada el 11 de octubre a las 10:09 de Chile. Las mejoras posteriores (omisiones, avisos de guardado y recuperación de clave) están preparadas en `ludaria/Code-Ludaria-Conectado.gs`; no existe evidencia de una nueva instalación. La versión 2 no expone la capacidad de omisión y el cliente oculta el botón incompatible.
+- Carga visual anterior comprobada de 13 guardianes y Forja/Mochi en Google. Guardado/recuperación autenticados, compras/redistribución y análisis real siguen pendientes. No confundir una entrada visible con una escritura confirmada.
+- Genially conserva sus 16 iframe originales, su origen GitHub Pages y slugs. `RESUMEN_PARA_INCRUSTAR.md` vuelve a describir esas URL exactas. Los enlaces centrales directos de `ludaria/LEEME.md` sirven para ensayo independiente; no son instrucciones de reemplazo.
+- Gateway `enabled:false`, `verified:false`. No activarlo hasta confirmar identidad, guardado y continuidad de un personaje ficticio autorizado dentro de un Genially real con los iframe originales.
+- Misión 0 mantiene su receptor de diagnóstico independiente. Conservar el proyecto original, planilla, secretos, personajes, instrumentos, runas, XP y las 14 sesiones.
+- Evidencia actual: `AUDITORIA_CONTINUIDAD_20261011.md`. Los documentos y paquetes anteriores son históricos y no prueban la instalación de las correcciones posteriores.
 
 ## Antecedentes del piloto (lectura histórica)
 
@@ -29,9 +30,9 @@ El entorno local no dispone de Chromium; la prueba se ejecutó en GitHub. La úl
 
 ## Siguiente ejecución de la revisión cada tres horas
 
-1. Leer esta sección vigente y la auditoría de publicación; comprobar el último main antes de modificar. La publicación, CI y versión 2 ya están resueltos.
+1. Leer esta sección vigente y la auditoría de publicación; comprobar el último main antes de modificar. Distinguir Pages, CI y la versión 2 anterior de las correcciones posteriores pendientes de instalar.
 2. Continuar las pruebas autenticadas reales cuando haya un personaje de prueba accesible. No repetir altas ficticias innecesarias ni modificar personajes reales. No pedir el /exec ni otra instalación.
-3. Genially lo edita el propietario. Comprobar su versión publicada después del cambio; distinguir marcos locales de contenedor real.
+3. Genially lo edita el propietario. Conservar sus iframe originales y ensayarlos en una copia publicada; distinguir marcos locales de contenedor real.
 4. Conservar actividades, instrumentos, códigos, XP, secreto, proyecto original y receptor independiente de Misión 0. No activar gateway sin evidencia real por ruta.
 5. Corregir solo fallos reproducidos, ejecutar la comprobación pertinente y actualizar guías/estado con hechos observados. Informar únicamente novedades concretas.
 

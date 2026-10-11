@@ -3,7 +3,19 @@
 > **Importante: conservar Genially.** Los enlaces directos de Apps Script son una alternativa de conexión, no una indicación de reemplazar las incrustaciones anteriores. Las URL originales de GitHub Pages siguen publicadas; el puente para conservarlas permanece desactivado hasta verificar su funcionamiento en Genially real. No modificar en bloque los iframe existentes ni el receptor independiente de Misión 0.
 
 
-Las 14 sesiones están publicadas. La principal del módulo 1, Los Pergaminos Dispersos (S2), y La Defensa del Orbe (S14) completan el recorrido. La producción de sesiones está completa. La revisión de conexión sigue activa. Apps Script v0.3 se publicó como versión 2 el 11 de octubre de 2026. Las 13 entradas reales muestran su guardián; falta completar la prueba autenticada de recuperación y la comprobación dentro de Genially.
+Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques de esta guía conservan las URL originales del catálogo, con sus rutas, parámetros, fragmentos y alturas. Son una referencia para comprobar las incrustaciones existentes: no sustituir en masa los iframe de Genially.
+
+## Estado de conexión · 11 de octubre de 2026
+
+| Capa | Estado comprobado |
+| --- | --- |
+| Código en main | PR #7 integrado: recuperación de clave, avisos de cuaderno y decisiones opcionales. |
+| GitHub Pages | HEAD `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` publicado; 16 entradas originales y seis recursos compartidos responden 200 y coinciden con la fuente. |
+| Apps Script original | Última instalación documentada: versión 2. Las correcciones posteriores de cliente/servidor requieren actualizar esa misma implementación; publicar GitHub no instala Google. |
+| Genially real | Identidad, guardado y continuidad en las 16 incrustaciones originales pendientes de ensayo. |
+| Gateway | `enabled:false`, `verified:false`; las URL GitHub siguen en modo local. |
+
+Los enlaces centrales directos se describen en `ludaria/LEEME.md` para un ensayo independiente. No reemplazan las URL de esta guía. Misión 0 conserva su receptor de diagnóstico independiente.
 
 ## 1 · El Llamado de la Aventura
 
@@ -21,7 +33,7 @@ Interacción: Mapa, ventanas, borrador y recepción en Google Sheets.
 <iframe src="https://nespinozagonzalez-hub.github.io/misiones/mision-0/presentacion.html?v=20261004-epic1" title="El Llamado de la Aventura · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Forja/Mochi centrales publicados; sustituir sus iframes con los enlaces indicados. Solo esta sesión usa el receptor de diagnóstico.
+Configuración: Forja/Mochi conservan sus URL originales de GitHub Pages. Solo esta sesión usa el receptor de diagnóstico independiente.
 
 ## 2 · Los Pergaminos Dispersos
 
@@ -33,13 +45,13 @@ Producto: Clasificación justificada y microdesafío individual.
 
 Interacción: Casos de equipo, pistas, reintentos y registro editable.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=pergaminos-dispersos)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/pergaminos-dispersos/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=pergaminos-dispersos" title="Los Pergaminos Dispersos · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/pergaminos-dispersos/presentacion.html?v=20261004-epic1#pantalla-1" title="Los Pergaminos Dispersos · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Canales de lectura, pizarra y microdesafío configurables; bitácora central habilitada.
+Configuración: Canales de lectura, pizarra y microdesafío configurables; registro local disponible.
 
 ## 3 · La Senda de los Ejemplos
 
@@ -51,13 +63,13 @@ Producto: Análisis en parejas y bitácora.
 
 Interacción: Ventanas de evidencia, clasificación y tres candados complementarios.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=senda-ejemplos)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/senda-ejemplos/?v=20261004-epic1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=senda-ejemplos" title="La Senda de los Ejemplos · Ludaria" width="100%" height="880" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/senda-ejemplos/?v=20261004-epic1" title="La Senda de los Ejemplos · Ludaria" width="100%" height="880" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Bitácora central habilitada; compartir por el canal indicado por el facilitador.
+Configuración: Registro local; compartir por el canal indicado por el facilitador.
 
 ## 4 · El Claro del Debate
 
@@ -69,10 +81,10 @@ Producto: Argumentación y recuperación del Fragmento I.
 
 Interacción: Tres candados, temporizador, bitácora y comparación de posturas.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=claro-debate)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/claro-debate/presentacion.html?v=20261004-epic1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=claro-debate" title="El Claro del Debate · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/claro-debate/presentacion.html?v=20261004-epic1" title="El Claro del Debate · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
 Configuración: Formulario externo de cierre configurable.
@@ -87,13 +99,13 @@ Producto: Clasificación justificada y microdesafío individual.
 
 Interacción: Pirámide explorable, caso, 18 tarjetas y guía por pantalla.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=vetas-diseno)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/vetas-diseno/presentacion.html?v=20261004-epic1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=vetas-diseno" title="Las Vetas del Diseño · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/vetas-diseno/presentacion.html?v=20261004-epic1" title="Las Vetas del Diseño · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Cuaderno central descargable; facilitador conduce el avance.
+Configuración: Cuaderno local descargable; facilitador conduce el avance.
 
 ## 6 · El Tallado de Mecánicas
 
@@ -105,13 +117,13 @@ Producto: Plantilla de análisis y bitácora.
 
 Interacción: Cuatro en línea jugable, ordenamiento de bucle y tres candados.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=tallado-mecanicas)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/tallado-mecanicas/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=tallado-mecanicas" title="El Tallado de Mecánicas · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/tallado-mecanicas/presentacion.html?v=20261004-epic1#pantalla-1" title="El Tallado de Mecánicas · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Bitácora central habilitada; intercambio real organizado por el facilitador.
+Configuración: Registro local; intercambio real organizado por el facilitador.
 
 ## 7 · La Gema Motivacional
 
@@ -123,10 +135,10 @@ Producto: Rediseño argumentado y Fragmento II.
 
 Interacción: Tres facetas, candados y cuaderno.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=gema-motivacional)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=gema-motivacional" title="La Gema Motivacional · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1" title="La Gema Motivacional · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
 Configuración: Formulario externo de cierre configurable.
@@ -141,13 +153,13 @@ Producto: Primer canvas personal.
 
 Interacción: Canvas editable, bucle, ventanas y dos candados.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=planos-arquitecto)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=planos-arquitecto" title="Los Planos del Arquitecto · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/planos-arquitecto/presentacion.html?v=20261004-epic1#pantalla-1" title="Los Planos del Arquitecto · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: URL del canvas externo configurable; canvas editable disponible.
+Configuración: URL del canvas externo configurable; canvas local disponible.
 
 ## 9 · El Yunque
 
@@ -159,13 +171,13 @@ Producto: Primera versión del prototipo y bitácora.
 
 Interacción: 17 campos, ejemplo y práctica con feedback.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=yunque)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=yunque" title="El Yunque · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/yunque/presentacion.html?v=20261004-epic1#pantalla-1" title="El Yunque · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Canvas y bitácora externos configurables; cuaderno central.
+Configuración: Canvas y bitácora externos configurables; alternativas locales.
 
 ## 10 · El Templado entre Pares
 
@@ -177,10 +189,10 @@ Producto: Dos revisiones y canvas ajustado; Fragmento III.
 
 Interacción: Dos pautas independientes, ensayo y bitácora.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=templado-pares)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=templado-pares" title="El Templado entre Pares · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/templado-pares/presentacion.html?v=20261004-epic1#pantalla-1" title="El Templado entre Pares · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
 Configuración: Canal externo de coevaluación y canvas pendientes.
@@ -195,10 +207,10 @@ Producto: Aplicación argumentada y acuerdos de interpretación.
 
 Interacción: Cinco criterios, tres niveles y cuaderno.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=reflejo-diseno)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=reflejo-diseno" title="El Reflejo del Diseño · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/reflejo-diseno/?v=20261004-epic1#pantalla-1" title="El Reflejo del Diseño · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
 Configuración: URLs opcionales de rúbrica y caso configurables.
@@ -213,13 +225,13 @@ Producto: Prototipo ajustado y plan breve.
 
 Interacción: Rúbrica, evidencia por criterio y plan editable.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=pulido-prototipo)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=pulido-prototipo" title="El Pulido del Prototipo · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/pulido-prototipo/?v=20261004-epic1#pantalla-1" title="El Pulido del Prototipo · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Enlaces externos opcionales; herramientas editables disponibles.
+Configuración: Enlaces externos opcionales; herramientas locales disponibles.
 
 ## 13 · El Espejo Compartido
 
@@ -231,10 +243,10 @@ Producto: Defensa breve, próximo ajuste y Fragmento IV.
 
 Interacción: Pauta exacta del Anexo H reutilizada, temporizador y bitácora.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=espejo-compartido)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=espejo-compartido" title="El Espejo Compartido · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/espejo-compartido/index.html?v=20261004-epic1#pantalla-1" title="El Espejo Compartido · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
 Configuración: Prototipo, plantilla y canal de feedback externos configurables.
@@ -249,28 +261,28 @@ Producto: Prototipo final, reflexión, valoración y restauración del Orbe.
 
 Interacción: Campos editables, rúbrica desplegable y ceremonia acompañada.
 
-[Presentación](https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=defensa-orbe)
+[Presentación](https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261004-epic1#pantalla-1)
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?mision=defensa-orbe" title="La Defensa del Orbe · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261004-epic1#pantalla-1" title="La Defensa del Orbe · Ludaria" width="100%" height="720" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Configuración: Formularios reales configurables; bitácora central habilitada; formularios de evaluación con sus canales propios.
+Configuración: Formularios reales configurables; registro local disponible, sin envío automático de datos.
 
 
 ## Complementos · Forja y Mercadito de Mochi
 
 No son sesiones adicionales: ambas entradas utilizan el mismo HTML y personaje.
 
-- Forja: https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec
-- Mochi: https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?entrada=mochi
+- Forja: https://nespinozagonzalez-hub.github.io/misiones/forja/
+- Mochi: https://nespinozagonzalez-hub.github.io/misiones/forja/?entrada=mochi
 
 ```html
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec" title="Forja del Buscador · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
-<iframe src="https://script.google.com/macros/s/AKfycbyvVPZisRWGT0q3olj4E5vFQTxRokE6jd7seoMDV5hPPBV8S2srHuFlwjkpqk8P1-Fh/exec?entrada=mochi" title="Mercadito de Mochi · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/forja/" title="Forja del Buscador · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
+<iframe src="https://nespinozagonzalez-hub.github.io/misiones/forja/?entrada=mochi" title="Mercadito de Mochi · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Un Apps Script para Forja y Mochi; el diagnóstico de Misión 0 mantiene su receptor independiente. La versión central de Forja/Mochi ya está publicada en la implementación existente. Las antiguas URLs GitHub conservan el modo local porque el gateway continúa desactivado. Las comprobaciones de entrada en Google son reales; las pruebas automáticas de guardado usan servicios simulados y todavía no acreditan la recuperación autenticada real.
+Un Apps Script original compartido por Forja y Mochi; Misión 0 mantiene su receptor independiente. Las entradas GitHub conservan el modo local mientras el gateway siga desactivado. La versión 2 central está documentada como instalada, pero el código completo actualizado de `ludaria/Code-Ludaria-Conectado.gs` aún requiere publicar una nueva versión de la misma implementación. No crear otro proyecto, hojas o secreto. Las pruebas automáticas de guardado usan servicios simulados y no acreditan la recuperación autenticada real.
 
 Todas las presentaciones incluyen efectos decorativos opcionales, control «Animaciones» al pie y respeto automático de movimiento reducido. Sin sonidos automáticos ni cambios de puntuación.
 
@@ -279,4 +291,4 @@ Pruebas sin tocar personajes reales: abrir `forja/?entrada=mochi&prueba=1`. Este
 
 ## Presentaciones limpias y guía docente separada · 5 de octubre de 2026
 
-Se retiraron los paneles de facilitación de las presentaciones y se reformularon los mensajes dirigidos al docente. Antecedente histórico: aquella revisión mantuvo las URLs anteriores. Para la conexión central vigente, usar los iframes de esta edición. Auditoría: `produccion/AUDITORIA_PRESENTACIONES_20261005.md`. PDF docente separado: `Ludaria_Guia_Docente_Separada.pdf`, Library ID `libfile_eca8fad23d0481918e4f2a29c57dfc7f`. Se conservan los avisos necesarios sobre guardado y enlaces pendientes.
+Se retiraron los paneles de facilitación de las presentaciones y se reformularon los mensajes dirigidos al docente. Las URL originales continúan vigentes. Los bloques de esta edición son referencias de esas mismas URL; no son una instrucción para reemplazar Genially. Auditoría: `produccion/AUDITORIA_PRESENTACIONES_20261005.md`. PDF docente separado: `Ludaria_Guia_Docente_Separada.pdf`, Library ID `libfile_eca8fad23d0481918e4f2a29c57dfc7f`. Se conservan los avisos necesarios sobre guardado y enlaces pendientes.
