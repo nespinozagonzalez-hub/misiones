@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'ludaria/**'
+      - 'produccion/RESUMEN_PARA_INCRUSTAR.md'
+      - 'produccion/CATALOGO_14_SESIONES.json'
       - 'forja/**'
       - 'vetas-diseno/**'
       - 'pergaminos-dispersos/**'
@@ -22,6 +24,7 @@ jobs:
           node-version: '24'
       - run: python ludaria/build.py
       - run: node --check forja/app.js && node --check ludaria/client.js && node --check vetas-diseno/app.js
+      - run: node ludaria/test-stable-embeds.cjs
       - run: node ludaria/test-gateway.cjs
       - run: node ludaria/test-server.cjs
       - run: node ludaria/test-rpg-server.cjs

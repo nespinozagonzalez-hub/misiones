@@ -1,6 +1,6 @@
 # Corrección de las entradas existentes · 11 de octubre de 2026
 
-El propietario informó que Forja no mostraba clave y las misiones no pedían identificación.
+El propietario informó que Forja no mostraba clave y las misiones no pedían identificación. Este informe describe PR #9. La activación se dejó pendiente en la revisión de continuidad porque aún no consta identidad y guardado confirmados con Google dentro del Genially real. Véase `AUDITORIA_CONTINUIDAD_20261011.md`.
 
 ## Causa observada
 
@@ -11,7 +11,7 @@ El propietario informó que Forja no mostraba clave y las misiones no pedían id
 
 ## Corrección
 
-- Activar el gateway común para Forja/Mochi y las 13 misiones existentes.
+- Preparar el gateway común para Forja/Mochi y las 13 misiones existentes; mantenerlo desactivado hasta el ensayo real requerido.
 - Actualizar la referencia de caché en las 23 entradas HTML existentes a `20261011-identidad1`.
 - Conservar rutas, actividades, códigos y la implementación original. Misión 0 no se modifica.
 - Verificar todas las variantes de URL existentes, la separación de Mochi y la exclusión del diagnóstico.

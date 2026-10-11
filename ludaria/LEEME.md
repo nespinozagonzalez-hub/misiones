@@ -26,9 +26,9 @@ Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vet
 
 ### Compatibilidad con los enlaces existentes
 
-Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico ahora tienen activa la navegación al mismo `/exec`. Los iframes antiguos de GitHub conservan su URL: Forja abre su registro central, `?entrada=mochi` abre Mochi y cada misión abre su guardián. Las direcciones centrales entregadas también siguen siendo válidas.
+Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico están preparadas para navegar al mismo `/exec`, conservando las URL originales de GitHub. El gateway permanece `enabled:false`, `verified:false` hasta confirmar identidad y guardado en un Genially real con el iframe original. Las direcciones centrales entregadas siguen siendo válidas para ensayo independiente.
 
-Este arreglo solo activa las entradas y actualiza la versión de sus archivos compartidos para evitar caché anterior. **No modifica Código.gs**: el archivo completo entregado para actualizar el proyecto original sigue siendo válido. Actualizar la implementación activa con ese archivo continúa siendo necesario para las últimas funciones del servidor. Misión 0 conserva su receptor independiente.
+Se conserva la versión actualizada de los archivos compartidos para evitar caché anterior; no se activa el gateway sin el ensayo real exigido. **No modifica Código.gs**: el archivo completo entregado para actualizar el proyecto original sigue siendo válido. Actualizar la implementación activa con ese archivo continúa siendo necesario para las últimas funciones del servidor. Misión 0 conserva su receptor independiente.
 
 ## Identidad y progreso
 

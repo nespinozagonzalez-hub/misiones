@@ -1,5 +1,7 @@
 # Implementación de navegación, ventajas contextuales y decisiones · 11/10/2026
 
+Estado posterior a PR #7: consultar `CONEXION_LUDARIA.md` y `AUDITORIA_CONTINUIDAD_20261011.md`. Pages y CI aprobados; las correcciones posteriores a versión 2 están en código, pendientes de instalar en el mismo Apps Script. La guía conserva los 16 bloques originales de GitHub Pages y una prueba CI los protege. No modificar Genially ni activar gateway sin ensayo real de identidad y guardado.
+
 ## Garantía de las incrustaciones
 - Se **conservan** las URL originales `https://nespinozagonzalez-hub.github.io/misiones/.../` y los archivos `index.html` / `presentacion.html`.
 - El gateway está en el mismo repositorio, pero permanece **enabled:false / verified:false**. No redirigir los iframe del usuario mientras falte validación real en Genially.

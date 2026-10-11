@@ -3,7 +3,7 @@
 Actualizado el 11 de octubre de 2026. Separar siempre preparación, simulación y comprobación del servicio real.
 
 - [x] Leer instrucciones, estado, conexión y auditoría antes de editar.
-- [x] Consultar main remoto sin escritura: `353d3cc5ff3d138762c99c20142fa57047a9fe11`.
+- [x] Consultar main remoto sin escritura: `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` (PR #7).
 - [x] Conservar la rama v0.3.0 y sus 13 guardianes, 39 posibilidades y cinco secretos.
 - [x] Mantener diagnóstico de Misión 0, atributos, XP, runas e instrumentos originales.
 - [x] Mantener entrada pública desactivada; no sustituir iframes sin verificación real.
@@ -24,12 +24,20 @@ Actualizado el 11 de octubre de 2026. Separar siempre preparación, simulación 
 - [x] Actualizar Código.gs y catálogos en el mismo proyecto; versión 2 confirmada de la misma implementación `/exec`.
 - [ ] Google real: continuidad entre sesiones, cuaderno de Vetas, ventaja Maestría 5 y retirada al bajar a 1.
 - [ ] Google real: 13 misiones, decisiones/reflexiones, errores/reintentos, borradores, compras, redistribución y motivos.
-- [ ] Propietario, Genially real: cambiar la Forja que muestra guardado local y verificar cada entrada en el contenedor.
+- [ ] Genially real: ensayar los 16 iframe originales en una copia publicada, conservando el origen GitHub Pages; identidad, guardado y recuperación comprobados.
 - [ ] Segunda pasada real: escritorio, móvil, teclado, accesibilidad y regresión de navegación/iframe.
-- [ ] Solo con evidencia por ruta, decidir activación del gateway y actualizar enlaces/iframes comprobados.
+- [ ] Solo con evidencia real por ruta, decidir activación del gateway conservando las URL originales; no sustituir iframe en masa.
 - [x] Actualizar Word/PDF de incrustación y guía separada con la versión efectivamente comprobada.
 - [ ] Pausar esta revisión al completar objetivos y ambas auditorías reales; no declarar completada por simulaciones.
 
 - [x] Comprobar visualmente las 13 entradas reales y sus guardianes, más Forja/Mochi. No acredita guardado autenticado.
 
-Evidencia vigente: `AUDITORIA_PUBLICACION_RPG_20261011.md`. Evidencias históricas: `AUDITORIA_GOOGLE_REAL_20261011.md` (piloto anterior), `AUDITORIA_RPG_20261011.md` (preparación) y `AUDITORIA_RESILIENCIA_RPG_20261011.md` (correcciones de esta revisión). No publicar claves ni datos privados.
+Evidencia vigente: `AUDITORIA_CONTINUIDAD_20261011.md`. Instalación versión 2 histórica: `AUDITORIA_PUBLICACION_RPG_20261011.md`. Evidencias históricas: `AUDITORIA_GOOGLE_REAL_20261011.md` (piloto anterior), `AUDITORIA_RPG_20261011.md` (preparación) y `AUDITORIA_RESILIENCIA_RPG_20261011.md` (correcciones de esta revisión). No publicar claves ni datos privados.
+
+## Correcciones posteriores a versión 2
+
+- [x] PR #5/#6/#7 integrados; Pages `38157644174` y CI `38157429488` aprobados.
+- [x] Regresión pública: 16 entradas y seis recursos coinciden con main.
+- [x] Guía de incrustación conserva las URL originales, parámetros, fragmentos y alturas; comprobación automática en CI.
+- [ ] Instalar el código completo posterior a PR #7 en el mismo proyecto y publicar Nueva versión en la misma implementación.
+- [ ] Comprobar en Google real omisiones, recuperación de clave, compras/redistribución, XP y cuaderno sin exponer datos.

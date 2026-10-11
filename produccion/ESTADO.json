@@ -8,8 +8,8 @@
   "actualizado_en": "2026-10-11",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "correccion_entradas_identidad",
-    "detalle": "Gateway de enlaces existentes activado; script entregado sin cambios. CI y Genially real por comprobar tras publicación."
+    "fase": "auditoria_continuidad_y_validacion_real",
+    "detalle": "Conservar las 23 entradas y su caché actualizadas por PR #9; gateway desactivado hasta identidad y guardado confirmados en Genially real. Guía con los 16 iframe originales y contrato CI."
   },
   "automatizacion": {
     "estado": "activa",
@@ -141,8 +141,8 @@
     "forja": "forja/",
     "mochi": "forja/?entrada=mochi",
     "apps_script": "Uno compartido por Forja/Mochi; Misión 0 independiente",
-    "conexion_central": "Piloto Google parcialmente comprobado; ampliación local sin publicar; Genially real pendiente",
-    "auditoria": "produccion/AUDITORIA_ACTUAL.md",
+    "conexion_central": "Código publicado en GitHub Pages; Apps Script conserva versión 2 documentada. Correcciones posteriores pendientes de instalar y probar; gateway desactivado, Genially original conservado.",
+    "auditoria": "produccion/AUDITORIA_CONTINUIDAD_20261011.md",
     "revisiones_programadas": 5,
     "intervalo_horas": 3,
     "duracion_horas": 15,
@@ -188,7 +188,7 @@
       "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
     },
     "entrada_estable": {
-      "estado": "activada_en_revision",
+      "estado": "preparada_desactivada",
       "config": "ludaria/gateway-config.js",
       "version": "20261011-identidad1",
       "rutas": [
@@ -207,8 +207,9 @@
         "espejo-compartido",
         "defensa-orbe"
       ],
-      "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
-      "script_entregado": "sin cambios; actualización de la misma implementación a cargo del propietario"
+      "evidencia": "produccion/AUDITORIA_CONTINUIDAD_20261011.md",
+      "script_entregado": "sin cambios; actualización de la misma implementación a cargo del propietario",
+      "requiere": "Identidad y guardado confirmados con Google en un Genially real que use el iframe original antes de activar."
     },
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
     "rama_trabajo": "codex/ludaria-rpg-guardianes-20261011",
