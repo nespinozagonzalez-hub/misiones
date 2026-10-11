@@ -1,5 +1,9 @@
 "use strict";
 (async () => {
+  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
+  function setPageHistory(state, title, hash) {
+    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
+  }
   const C = window.MISSION,
     CFG = window.MISSION_CONFIG || {},
     KEY = "ludaria_" + C.slug + "_v1",
@@ -93,7 +97,7 @@
       .join("");
     $("#stage").focus({ preventScroll: true });
     window.scrollTo(0, 0);
-    history.replaceState(null, "", "#pantalla-" + (s.page + 1));
+    setPageHistory(null, "", "#pantalla-" + (s.page + 1));
     if (s.open && $("#orbe")) {
       $("#orbe").classList.add("restored");
       $("#ceremony-message").hidden = false;

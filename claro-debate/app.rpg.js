@@ -1,5 +1,9 @@
 'use strict';
 (async () => {
+  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
+  function setPageHistory(state, title, hash) {
+    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
+  }
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -79,7 +83,7 @@ function render(focus=false){
   $('previous').disabled=state.page===0;$('next').disabled=state.page===titles.length-1;$('next-label').textContent=state.page===0?'Entrar':'Siguiente';
   if(focus){$('stage').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
 }
-function go(page){if(!Number.isInteger(page)||page<0||page>=titles.length)return;closeModal();state.page=page;if(!state.visited.includes(page))state.visited.push(page);save();try{history.replaceState(null,'','#pantalla-'+(page+1));}catch(e){}render(true);}
+function go(page){if(!Number.isInteger(page)||page<0||page>=titles.length)return;closeModal();state.page=page;if(!state.visited.includes(page))state.visited.push(page);save();try{setPageHistory(null,'','#pantalla-'+(page+1));}catch(e){}render(true);}
 function showModal(title,body){
   if(!$('modal').open){opener=document.activeElement;if(!opener||opener===document.body||opener===document.documentElement)opener=document.querySelector('#stage [data-action]');}
   $('modal-body').innerHTML=`<h2 id="modal-title">${title}</h2>${body}`;

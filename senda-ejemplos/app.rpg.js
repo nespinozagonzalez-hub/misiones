@@ -1,5 +1,9 @@
 'use strict';
 (async () => {
+  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
+  function setPageHistory(state, title, hash) {
+    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
+  }
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -82,7 +86,7 @@ function render(focus=false){
 function go(page){
   if(!Number.isInteger(page)||page<0||page>11)return;
   state.page=page;if(!state.visited.includes(page))state.visited.push(page);save();
-  try{history.replaceState(null,'','#pantalla-'+(page+1));}catch(e){}
+  try{setPageHistory(null,'','#pantalla-'+(page+1));}catch(e){}
   render(true);
 }
 function showModal(title,body){

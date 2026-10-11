@@ -1,4 +1,8 @@
 (async () => {
+  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
+  function setPageHistory(state, title, hash) {
+    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
+  }
   'use strict';
   const C = window.VETAS, CFG = window.VETAS_CONFIG;
   const $ = s => document.querySelector(s);
@@ -85,7 +89,7 @@
   }
   function navigate(i){
     pauseTimer();state.page=clamp(i,13);state.visited=[...new Set([...state.visited,state.page])];save();
-    const hash='#pantalla-'+(state.page+1);if(location.hash!==hash)history.replaceState(null,'',hash);
+    const hash='#pantalla-'+(state.page+1);if(location.hash!==hash)setPageHistory(null,'',hash);
     render(true);window.scrollTo({top:0,behavior:'instant'});
   }
   function hashPage(){const m=location.hash.match(/^#pantalla-(\d+)$/);if(m){const n=Number(m[1]);if(n>=1&&n<=14)state.page=n-1;}}

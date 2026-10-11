@@ -1,5 +1,9 @@
 'use strict';
 (async () => {
+  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
+  function setPageHistory(state, title, hash) {
+    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
+  }
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -31,7 +35,7 @@ case 10:return scene(n,`<p class="note">No buscamos uniformidad automática. Cua
 case 11:return scene(n,`<div class="split"><article class="download-card"><span class="eyebrow">45 MINUTOS AUTÓNOMOS</span><h3>Reunir evidencias del prototipo</h3><p>Localiza objetivos, narrativa y progresión, reglas, componentes, decisiones motivacionales y riesgos éticos. Señala dónde se encuentra cada evidencia.</p><p class="note">Preparación operativa para la autoevaluación de la sesión 12. Dedica 45 minutos a reunir las evidencias antes de valorar tu prototipo.</p><div class="actions">${b('notebook','Abrir mi registro')}${b('download','Descargar TXT','',true)}</div></article><div><span class="eyebrow">EL ESPEJO NO DICTA</span><h3 class="ceremony-title">Hace visible<br>cómo argumentamos.</h3><p class="lead">En El Pulido del Prototipo aplicarás la rúbrica a tu propio diseño y construirás un plan de mejora.</p><p class="note">El HTML guarda borradores en este dispositivo. No envía respuestas ni califica textos abiertos.</p></div></div>`);
 }}
 function render(focus=false){document.body.classList.toggle('is-cover',state.page===0);$('stage').innerHTML=page(state.page);$('page-count').textContent=`${state.page+1} / ${N}`;$('previous').disabled=state.page===0;$('next-label').textContent=state.page===N-1?'Mi registro':'Siguiente';$('route-dots').innerHTML=C.pages.map((p,i)=>`<button class="route-dot ${state.visited.includes(i)?'visited':''} ${i===state.page?'current':''}" data-action="go" data-page="${i}" aria-label="Pantalla ${i+1}: ${p.title}" ${i===state.page?'aria-current="step"':''}></button>`).join('');$('seal-status').innerHTML=C.rubric.map((r,i)=>`<button class="seal-dot ${state.reviewed.includes(r.id)?'solved':'pending'}" data-action="criterion" data-id="${r.id}" aria-label="${r.name}: ${state.reviewed.includes(r.id)?'revisado':'por revisar'}">${i+1}</button>`).join('');if(focus)$('stage').focus({preventScroll:true});}
-function go(n){if(!Number.isInteger(n)||n<0||n>=N)return;if($('modal').open)$('modal').close();state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();history.replaceState(null,'',`#pantalla-${n+1}`);render(true);window.scrollTo({top:0,behavior:'instant'});}
+function go(n){if(!Number.isInteger(n)||n<0||n>=N)return;if($('modal').open)$('modal').close();state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();setPageHistory(null,'',`#pantalla-${n+1}`);render(true);window.scrollTo({top:0,behavior:'instant'});}
 function modal(h,body){if(!$('modal').open)opener=document.activeElement;$('modal-body').innerHTML=`<h2 id="modal-title" tabindex="-1">${h}</h2>${body}`;if(!$('modal').open)$('modal').showModal();$('modal-title').focus({preventScroll:true});}
 function close(){const old=opener;$('modal').close();render();if(old?.isConnected)old.focus({preventScroll:true});}
 function toast(msg){clearTimeout(toastTimer);$('toast').textContent=msg;$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,3500);}

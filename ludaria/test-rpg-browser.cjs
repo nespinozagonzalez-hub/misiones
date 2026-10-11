@@ -26,7 +26,7 @@ try{
   await p.keyboard.press('Escape');
   let field=null;for(let step=0;step<35;step++){const candidate=p.locator('#stage textarea[data-field]:visible').first();if(await candidate.count()){field=await candidate.getAttribute('data-field');await candidate.fill('Cuaderno recuperable de '+mission.slug);break;}if(await p.locator('#next').isDisabled())break;await p.locator('#next').click();}
   assert.ok(field,'Falta campo de cuaderno '+mission.slug);await p.evaluate(()=>window.LudariaCloud.flushMission());assert.equal(await p.evaluate(()=>window.LudariaCloud.hasPending),false,mission.slug+' guardado');
-  await p.reload();await login(p);assert.equal(await p.locator('#stage textarea[data-field="'+field+'"]:visible').inputValue(),'Cuaderno recuperable de '+mission.slug);
+  assert.equal(new URL(p.url()).pathname,'/cloud',mission.slug+' conserva la conexión al navegar');await p.reload();await login(p);assert.equal(await p.locator('#stage textarea[data-field="'+field+'"]:visible').inputValue(),'Cuaderno recuperable de '+mission.slug);
   // Abrir cada pantalla detecta errores de plantillas que no aparecen en la portada.
   const count=Number((await p.locator('#page-count, #page-number').innerText()).split('/')[1]);for(let step=0;step<count;step++){if(await p.locator('#next').isDisabled())break;await p.locator('#next').click();assert.ok((await p.locator('#stage').innerText()).length>30,mission.slug+' pantalla');}
   await p.evaluate(()=>window.LudariaCloud.flushMission());if(mission.slug==='pergaminos-dispersos'||mission.slug==='yunque')await p.screenshot({path:__dirname+'/preview-rpg-'+mission.slug+'.png',fullPage:true});await p.close();console.log('OK '+mission.slug);

@@ -1,5 +1,9 @@
 'use strict';
 (async () => {
+  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
+  function setPageHistory(state, title, hash) {
+    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
+  }
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -36,7 +40,7 @@ case 10:{const url=window.GEMA_CONFIG?.formularioCierre,valid=typeof url==='stri
 case 11:return scene(n,`<div class="split ceremony"><div><span class="eyebrow">EL SEGUNDO FRAGMENTO</span><h3 class="ceremony-title">Cuidar la experiencia<br>también es diseñar.</h3><p class="lead">La Cantera devuelve una pieza del Orbe. Nuestro siguiente destino es la Forja del Arquitecto: Los Planos del Arquitecto.</p><div class="actions">${b('ceremony',state.ceremony?'Cierre narrativo activado':'Activar cierre en clase',`aria-pressed="${state.ceremony}"`)}${b('record','Ver mi registro','',true)}</div><p class="note">${state.ceremony?'Fragmento II recuperado en esta escena.':'Actívenlo con el facilitador al cerrar el encuentro.'} Ceremonia local; no valida formularios, códigos o atributos.</p></div><div class="fragment ${state.ceremony?'lit':''}">${gem(true)}<span>II</span></div></div>`);
 }}
 function render(focus=false){document.body.classList.toggle('is-cover',state.page===0);$('stage').innerHTML=page(state.page);$('page-count').textContent=`${state.page+1} / 12`;$('previous').disabled=state.page===0;$('next-label').textContent=state.page===11?'Mi registro':'Siguiente';$('route-dots').innerHTML=C.pages.map((p,i)=>`<button class="route-dot ${state.visited.includes(i)?'visited':''} ${i===state.page?'current':''}" data-action="go" data-page="${i}" aria-label="Pantalla ${i+1}: ${p.title}" ${i===state.page?'aria-current="step"':''}></button>`).join('');$('seal-status').innerHTML=C.quizzes.map((q,i)=>`<button class="seal-dot ${state.seals[i]}" data-action="seal" data-quiz="${i}" aria-label="Candado ${q.name}: ${status(state.seals[i])}">${i+1}</button>`).join('');if(focus)$('stage').focus({preventScroll:true});}
-function go(n){if(!Number.isInteger(n)||n<0||n>=12)return;if($('modal').open)$('modal').close();state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();history.replaceState(null,'',`#pantalla-${n+1}`);render(true);window.scrollTo({top:0,behavior:'instant'});}
+function go(n){if(!Number.isInteger(n)||n<0||n>=12)return;if($('modal').open)$('modal').close();state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();setPageHistory(null,'',`#pantalla-${n+1}`);render(true);window.scrollTo({top:0,behavior:'instant'});}
 function modal(h,body){if(!$('modal').open)opener=document.activeElement;$('modal-body').innerHTML=`<h2 id="modal-title" tabindex="-1">${h}</h2>${body}`;if(!$('modal').open)$('modal').showModal();$('modal-title').focus({preventScroll:true});}
 function close(){const old=opener,d=old?.dataset?{...old.dataset}:null;$('modal').close();render();if(old?.isConnected)old.focus({preventScroll:true});else if(d){[...document.querySelectorAll('[data-action]')].find(x=>Object.entries(d).every(([k,v])=>x.dataset[k]===v))?.focus({preventScroll:true});}}
 function toast(msg){clearTimeout(toastTimeout);$('toast').textContent=msg;$('toast').hidden=false;toastTimeout=setTimeout(()=>$('toast').hidden=true,4000);}
