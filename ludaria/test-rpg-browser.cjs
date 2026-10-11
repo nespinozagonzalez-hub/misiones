@@ -20,7 +20,7 @@ try{
   assert.equal(await p.locator('.ludaria-cloud-dialog h2').innerText(),mission.guardian);await login(p);
   await p.locator('[data-cloud-advantage]').click();await p.locator('[data-rpg-open]').first().waitFor();assert.equal(await p.locator('[data-rpg-open]').count(),3);
   for(const perk of mission.perks){
-   await p.locator('[data-rpg-open="'+perk.id+'"]').click();await p.getByText(perk.name,{exact:true}).waitFor();assert.ok((await p.locator('.ludaria-cloud-dialog').innerText()).includes(perk.text));assert.equal(await p.evaluate(()=>document.querySelector('dialog[open]')?.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
+   await p.locator('[data-rpg-open="'+perk.id+'"]').click();await p.locator('.ludaria-cloud-dialog[open] h2').getByText(perk.name,{exact:true}).waitFor();assert.ok((await p.locator('.ludaria-cloud-dialog').innerText()).includes(perk.text));assert.equal(await p.evaluate(()=>document.querySelector('dialog[open]')?.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
    if(perk.kind==='accion'){const f=p.locator('[data-rpg-form]');await f.locator('select').selectOption({label:perk.options[0]});await f.locator('[name=work]').fill('Ensayo contextual de '+mission.slug);await f.locator('[name=reflection]').fill('Elegí esta ruta para comparar sus consecuencias.');await f.locator('button[type=submit]').click();await p.getByText('Decisión confirmada en tu bitácora.',{exact:true}).waitFor();}
    assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,mission.slug+' ancho RPG');await p.keyboard.press('Escape');await p.locator('[data-cloud-advantage]').click();await p.locator('[data-rpg-open]').first().waitFor();
   }
