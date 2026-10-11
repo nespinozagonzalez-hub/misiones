@@ -26,12 +26,26 @@ assert.equal(run('forja/', active, {LUDARIA_CLOUD_CONFIG:{route:'forja'}}), unde
 assert.equal(run('forja/', active, {google:{script:{run:{}}}}), undefined);
 const configContext = {window:{}};
 vm.runInNewContext(fs.readFileSync(__dirname+'/gateway-config.js','utf8'), configContext);
-assert.equal(configContext.window.LUDARIA_GATEWAY.enabled, false);
-assert.equal(configContext.window.LUDARIA_GATEWAY.verified, false);
-for (const file of ['forja/index.html','vetas-diseno/index.html','vetas-diseno/presentacion.html']) {
+const published = configContext.window.LUDARIA_GATEWAY;
+assert.equal(published.enabled, true);
+assert.equal(published.verified, true);
+assert.equal(published.routes.length, 14);
+assert.equal(published.routes.includes('mision-0'), false);
+for (const slug of published.routes) {
+  const expected = published.deployment + (slug === 'forja' ? '' : '?mision=' + slug);
+  for (const suffix of ['', 'index.html', 'presentacion.html']) {
+    const file = slug + '/' + suffix;
+    assert.equal(run(file + '?v=old&nombre=privado&clave=privada', published), expected,
+      'La entrada existente debe cargar identificación central: ' + file);
+  }
+}
+assert.equal(run('forja/?entrada=mochi', published), published.deployment + '?entrada=mochi');
+assert.equal(run('mision-0/presentacion.html', published), undefined);
+for (const file of ['forja/index.html', ...published.routes.filter(slug => slug !== 'forja')
+  .flatMap(slug => ['index.html','presentacion.html'].filter(name => fs.existsSync(__dirname+'/../'+slug+'/'+name)).map(name => slug+'/'+name))]) {
   const html = fs.readFileSync(__dirname+'/../'+file,'utf8');
   const configAt = html.indexOf('../ludaria/gateway-config.js');
   const gatewayAt = html.indexOf('../ludaria/gateway.js');
   assert.ok(configAt > 0 && gatewayAt > configAt && gatewayAt < html.indexOf('</head>'));
 }
-console.log('Entrada estable: 24 escenarios con dobles OK; despliegue real pendiente.');
+console.log('Entrada estable: defensas, Forja/Mochi, 13 misiones y todas sus URLs existentes OK con dobles; Misión 0 excluida.');
