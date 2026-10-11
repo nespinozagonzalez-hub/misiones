@@ -22,10 +22,7 @@ for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.
  assert.equal(d.querySelector('[data-mochi-visit]'),null,mission.slug+' sin invitación en portada');
  await until(()=>d.querySelector('[data-contextual-perk]'),'ayuda contextual '+mission.slug);
  assert.equal(d.querySelector('[data-contextual-perk]').dataset.contextualPerk,mission.perks[0].id);
- const skipButton=d.querySelector('.ludaria-contextual-perk .contextual-skip');
- skipButton.click();
- await delay();
- console.log('OMISION DOM',mission.slug,JSON.stringify({button:skipButton.outerHTML,inside:d.querySelector('[data-contextual-status]')?.textContent,detached:!skipButton.isConnected}));
+ d.querySelector('.ludaria-contextual-perk .contextual-skip').click();
  await until(()=>/confirmada|Sin confirmar/.test(d.querySelector('[data-contextual-status]')?.textContent||''),'respuesta de omisión '+mission.slug);
  assert.match(d.querySelector('[data-contextual-status]').textContent,/Elección confirmada/,mission.slug+' diagnóstico de omisión');
  for(const perk of mission.perks){await w.LudariaRPGUI.openPerk(perk.id);assert.ok(d.querySelector('.ludaria-cloud-dialog').textContent.includes(perk.text),perk.id);if(perk.kind==='accion'){const f=d.querySelector('[data-rpg-form]');f.elements.choice.value=perk.options[0];f.elements.work.value='Ensayo de '+mission.slug;f.elements.reflection.value='Para contrastar consecuencias';f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await until(()=>d.querySelector('[data-rpg-status]')?.textContent.includes('confirmada'),'decisión '+perk.id);}d.querySelector('[data-rpg-close]').click();}
