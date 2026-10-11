@@ -56,6 +56,7 @@
     const container = stage.querySelector('.scene-content, .cover-content') || stage.firstElementChild;
     const panel = document.createElement('aside');
     panel.dataset.contextualPerk = perk.id;
+    panel.dataset.contextSkill = String(current);
     panel.className = 'ludaria-contextual-perk' + (available ? ' is-unlocked' : ' is-locked');
     panel.setAttribute('aria-label', 'Encuentro opcional con el guardián');
     panel.innerHTML = '<span class="ludaria-contextual-perk-kicker">Encuentro opcional · Guardián</span><h3 data-contextual-name></h3><p data-contextual-threshold></p><p data-contextual-explanation></p><div class="ludaria-contextual-perk-actions"></div><p data-contextual-status role="status"></p>';
@@ -109,7 +110,15 @@
   }
 
   new MutationObserver(renderEnhancements).observe(stage, { childList: true });
-  window.addEventListener('ludaria:profile', () => { updateBalance(); refreshContext(); });
+  window.addEventListener('ludaria:profile', () => {
+    updateBalance();
+    const panel = stage.querySelector('[data-contextual-perk]');
+    const perk = window.LudariaRPG?.all?.find(p => p.id === panel?.dataset.contextualPerk);
+    const skill = window.LudariaCloud?.profile?.skills?.[perk?.attribute];
+    // Un registro confirmado sin cambio de atributo no debe borrar el mensaje de éxito.
+    if (panel && perk && String(skill) === panel.dataset.contextSkill) return;
+    refreshContext();
+  });
   window.LudariaCloud?.ready?.then(contextualAdvantage);
   document.addEventListener('ludaria:confirmed', event => {
     if (!['decision', 'secreto'].includes(event.detail?.type)) return;
