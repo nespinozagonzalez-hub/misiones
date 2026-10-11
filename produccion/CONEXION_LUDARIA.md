@@ -27,3 +27,7 @@ El entorno local no dispone de Chromium; la prueba se ejecutó en GitHub. La úl
 5. Actualizar los iframes y el documento de incrustación únicamente con URLs realmente comprobadas. Conservar el receptor independiente del diagnóstico de Misión 0.
 
 No pedir otra instalación completa. Se sustituye el único Código.gs en el mismo proyecto, se ejecuta `prepararConexionLudaria` y se publica una aplicación web. Las propiedades y el secreto del paso 1 deben conservarse.
+
+## Avance independiente · 11 de octubre
+
+Preparada entrada estable, desactivada, para Forja/Mochi y las dos entradas de Vetas. `ludaria/gateway-config.js` permitiría configurar una sola URL /exec ya validada y conservar las URLs GitHub incrustadas. No hay conexión nueva activada. Pruebas y pendientes: `AUDITORIA_ENTRADA_20261011.md`. Inventario de las aplicaciones realmente cargadas por las 14 sesiones: `ADAPTADORES_MISIONES.md`. Se conserva el receptor independiente de Misión 0.
