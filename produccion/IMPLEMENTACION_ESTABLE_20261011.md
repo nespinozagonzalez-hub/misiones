@@ -1,3 +1,5 @@
+> Actualización posterior: la solicitud del propietario de corregir Forja y los guardianes se resolvió y se comprobó en su Genially real. El gateway vuelve a estar activo, los iframe originales se conservan y la prueba autenticada de guardado sigue separada. Consultar AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md y CONEXION_LUDARIA.md. El estado de desactivación descrito abajo es histórico.
+
 # Implementación de navegación, ventajas contextuales y decisiones · 11/10/2026
 
 Estado posterior a PR #7: consultar `CONEXION_LUDARIA.md` y `AUDITORIA_CONTINUIDAD_20261011.md`. Pages y CI aprobados; las correcciones posteriores a versión 2 están en código, pendientes de instalar en el mismo Apps Script. La guía conserva los 16 bloques originales de GitHub Pages y una prueba CI los protege. No modificar Genially ni activar gateway sin ensayo real de identidad y guardado.

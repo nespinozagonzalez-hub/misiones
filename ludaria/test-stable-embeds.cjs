@@ -49,8 +49,8 @@ for (let i = 0; i < expected.length; i++) {
 }
 const config = {window:{}};
 vm.runInNewContext(read('ludaria/gateway-config.js'), config);
-assert.equal(config.window.LUDARIA_GATEWAY.enabled, false, 'No activar sin ensayo real');
-assert.equal(config.window.LUDARIA_GATEWAY.verified, false, 'No marcar simulaciones como evidencia real');
+assert.equal(config.window.LUDARIA_GATEWAY.enabled, true, 'Conservar los guardianes en los iframe originales');
+assert.equal(config.window.LUDARIA_GATEWAY.verified, true, 'Navegación comprobada en Genially; guardado autenticado por separado');
 assert.ok(!config.window.LUDARIA_GATEWAY.routes.includes('mision-0'), 'Diagnóstico independiente');
 assert.match(guide, /no (?:modificar|sustituir|reemplazar) en (?:bloque|masa)/i, 'La guía recuerda conservar Genially');
-console.log('PASS: 16 bloques originales con rutas, queries, fragmentos, alturas y títulos conservados; gateway desactivado y Misión 0 independiente. Sin validar Genially real.');
+console.log('PASS: 16 bloques originales con rutas, queries, fragmentos, alturas y títulos conservados; conexión activa y Misión 0 independiente. Esta prueba no valida escrituras en Google.');

@@ -1,6 +1,6 @@
 # Entregas para incrustar · Ludaria
 
-> **Importante: conservar Genially.** Los enlaces directos de Apps Script son una alternativa de conexión, no una indicación de reemplazar las incrustaciones anteriores. Las URL originales de GitHub Pages siguen publicadas; el puente para conservarlas permanece desactivado hasta verificar su funcionamiento en Genially real. No modificar en bloque los iframe existentes ni el receptor independiente de Misión 0.
+> **Importante: conservar Genially.** Los enlaces directos de Apps Script son una alternativa de conexión, no una indicación de reemplazar las incrustaciones anteriores. Las URL originales de GitHub Pages siguen publicadas; el puente está activo y se comprobaron Forja, Mochi y los 13 guardianes dentro del Genially real, conservando los iframe originales. No modificar en bloque los iframe existentes ni el receptor independiente de Misión 0.
 
 
 Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques de esta guía conservan las URL originales del catálogo, con sus rutas, parámetros, fragmentos y alturas. Son una referencia para comprobar las incrustaciones existentes: no sustituir en masa los iframe de Genially.
@@ -12,8 +12,8 @@ Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques
 | Código en main | PR #7 integrado: recuperación de clave, avisos de cuaderno y decisiones opcionales. |
 | GitHub Pages | HEAD `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` publicado; 16 entradas originales y seis recursos compartidos responden 200 y coinciden con la fuente. |
 | Apps Script original | Última instalación documentada: versión 2. Las correcciones posteriores de cliente/servidor requieren actualizar esa misma implementación; publicar GitHub no instala Google. |
-| Genially real | Identidad, guardado y continuidad en las 16 incrustaciones originales pendientes de ensayo. |
-| Gateway | `enabled:false`, `verified:false`; las URL GitHub siguen en modo local. |
+| Genially real | Forja, Mochi y 13 guardianes con nombre/clave visibles comprobados en los iframe originales. El guardado y la recuperación autenticados se verifican por separado. |
+| Gateway | `enabled:true`, `verified:true`; las URL originales de GitHub abren identificación central. |
 
 Los enlaces centrales directos se describen en `ludaria/LEEME.md` para un ensayo independiente. No reemplazan las URL de esta guía. Misión 0 conserva su receptor de diagnóstico independiente.
 
@@ -282,7 +282,7 @@ No son sesiones adicionales: ambas entradas utilizan el mismo HTML y personaje.
 <iframe src="https://nespinozagonzalez-hub.github.io/misiones/forja/?entrada=mochi" title="Mercadito de Mochi · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Un Apps Script original compartido por Forja y Mochi; Misión 0 mantiene su receptor independiente. Las entradas GitHub conservan el modo local mientras el gateway siga desactivado. La versión 2 central está documentada como instalada, pero el código completo actualizado de `ludaria/Code-Ludaria-Conectado.gs` aún requiere publicar una nueva versión de la misma implementación. No crear otro proyecto, hojas o secreto. Las pruebas automáticas de guardado usan servicios simulados y no acreditan la recuperación autenticada real.
+Un Apps Script original compartido por Forja y Mochi; Misión 0 mantiene su receptor independiente. Las entradas GitHub conservan sus URL y abren el registro central mediante el gateway activo. La versión 2 central está documentada como instalada, pero el código completo actualizado de `ludaria/Code-Ludaria-Conectado.gs` aún requiere publicar una nueva versión de la misma implementación. No crear otro proyecto, hojas o secreto. Las pruebas automáticas de guardado usan servicios simulados y no acreditan la recuperación autenticada real.
 
 Todas las presentaciones incluyen efectos decorativos opcionales, control «Animaciones» al pie y respeto automático de movimiento reducido. Sin sonidos automáticos ni cambios de puntuación.
 

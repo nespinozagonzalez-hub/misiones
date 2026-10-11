@@ -1,17 +1,22 @@
-# Conexión central · estado vigente del 11 de octubre de 2026, hora Chile
+# Conexión central · estado vigente del 11 de octubre de 2026
 
 ## Estado vigente
 
-- HEAD de código comprobado antes del cambio concurrente: `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` (PR #7). PR #5 y #6 también están integrados.
-- GitHub Pages `38157644174` aprobado sobre ese HEAD; CI completo del PR #7 `38157429488` aprobado sobre `9045dd97aa7ad5d269a9835416f57475f611b9cb`.
-- Regresión pública: las 16 entradas GitHub originales y seis recursos RPG compartidos responden HTTP 200, mantienen el origen y coinciden byte a byte con main. Esto comprueba publicación, no interacciones gráficas ni guardado.
-- Última instalación Google documentada: el mismo Apps Script original, versión 2, publicada el 11 de octubre a las 10:09 de Chile. Las mejoras posteriores (omisiones, avisos de guardado y recuperación de clave) están preparadas en `ludaria/Code-Ludaria-Conectado.gs`; no existe evidencia de una nueva instalación. La versión 2 no expone la capacidad de omisión y el cliente oculta el botón incompatible.
-- Carga visual anterior comprobada de 13 guardianes y Forja/Mochi en Google. Guardado/recuperación autenticados, compras/redistribución y análisis real siguen pendientes. No confundir una entrada visible con una escritura confirmada.
-- Genially conserva sus 16 iframe originales, su origen GitHub Pages y slugs. `RESUMEN_PARA_INCRUSTAR.md` vuelve a describir esas URL exactas. Los enlaces centrales directos de `ludaria/LEEME.md` sirven para ensayo independiente; no son instrucciones de reemplazo.
-- PR #9 integrado durante la revisión como `200a5bf8e4fc94adce7f5aed29a0bd19aa529500`; Pages `38158920841` aprobado. Se conservan sus 23 entradas y caché, y se restablece el requisito de ensayo real previo.
-- Gateway `enabled:false`, `verified:false`. No activarlo hasta confirmar identidad, guardado y continuidad de un personaje ficticio autorizado dentro de un Genially real con los iframe originales.
-- Misión 0 mantiene su receptor de diagnóstico independiente. Conservar el proyecto original, planilla, secretos, personajes, instrumentos, runas, XP y las 14 sesiones.
-- Evidencia actual: `AUDITORIA_CONTINUIDAD_20261011.md`. Los documentos y paquetes anteriores son históricos y no prueban la instalación de las correcciones posteriores.
+- Solicitud actual: corregir Forja sin código y misiones sin guardián mientras el propietario actualiza el mismo Apps Script. Mantener sus iframe originales.
+- PR #9 y CI completo 38158661315 aprobados; Pages 38158920841 publicado sobre 200a5bf8e4fc94adce7f5aed29a0bd19aa529500.
+- Comprobado dentro del Genially real del propietario: Forja con Nara, Mochi y los 13 guardianes, todos con nombre y clave. Los src originales GitHub se conservaron. Evidencia: AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md.
+- La revisión concurrente 6fcef08 desactivó el gateway por una instrucción anterior. Se restaura la conexión activa, conserva su contrato de los 16 bloques originales y se actualiza la revisión programada para evitar devolver esas entradas al modo local.
+- Gateway enabled:true/verified:true verifica navegación y guardianes en Genially. El guardado autenticado se comprueba por separado; no inferir escritura confirmada a partir de la carga del formulario.
+- El propietario está actualizando el proyecto Apps Script original con el archivo entregado. Código.gs no se cambia por este arreglo; la misma URL /exec y planilla siguen vigentes.
+- Registro/recuperación, compras/redistribución y análisis autenticados reales: pendientes de la prueba manual del propietario. Las pruebas simuladas y gráficas del CI no sustituyen esa comprobación.
+- Misión 0 mantiene su receptor independiente. Se conservan instrumentos, runas, puntos, XP y todas las actividades existentes.
+
+## Próxima revisión
+
+1. Leer main fresco y esta evidencia antes de editar. No restaurar indicadores false ni instrucciones anteriores por carecer de la prueba manual de guardado.
+2. Conservar los 16 iframe originales y verificar que el gateway mantiene su destino central sin pasar claves en enlaces.
+3. Continuar los ensayos autenticados cuando exista acceso legítimo. No introducir credenciales por métodos alternos ni simular confirmaciones de Google.
+4. Corregir fallos reproducidos con PR y CI. Genially sigue a cargo del propietario. La comprobación de carga se hizo en el contenedor real, sin editarlo.
 
 ## Antecedentes del piloto (lectura histórica)
 
