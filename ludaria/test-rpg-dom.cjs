@@ -37,8 +37,16 @@ for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.
  assert.equal(d2.querySelectorAll('[data-mochi-visit]').length,1);
  assert.equal(d2.querySelector('[data-mochi-visit]').querySelectorAll('a,button').length,0,'Mochi invita sin enlaces ni botones');
  assert.ok(d2.querySelector('[data-mochi-visit]').textContent.includes('Veeen a mejorar tu personaje'));
+ assert.match(d2.querySelector('[data-mochi-notebook]').textContent,/sin confirmar/,mission.slug+' cierre con navegación pendiente');
+ d2.querySelector('[data-cloud-refresh]').click();
+ await until(()=>!d2.querySelector('[data-cloud-refresh]').disabled,'actualizar atributos '+mission.slug);
+ assert.match(d2.querySelector('[data-cloud-status]').textContent,/pendiente/,mission.slug+' actualizar perfil no confirma notas');
  assert.deepEqual({points:w2.LudariaCloud.profile.points,xp:w2.LudariaCloud.profile.xp},beforeEnd,'El cierre no acredita puntos por visitar pantallas');
- await w2.LudariaCloud.flushMission();second.window.close();console.log('DOM OK '+mission.slug);
+ await w2.LudariaCloud.flushMission();
+ assert.equal(w2.LudariaCloud.hasPending,false);
+ assert.match(d2.querySelector('[data-mochi-notebook]').textContent,/cuaderno quedó confirmado/);
+ assert.match(d2.querySelector('[data-mochi-notebook]').textContent,/no equivale a entregar/);
+ second.window.close();console.log('DOM OK '+mission.slug);
 }
 const dom=await load('forja'),w=dom.window,d=w.document;d.querySelector('[data-skill-info=sabiduria]').click();assert.ok(d.querySelector('#modal-body').textContent.includes('Brújula de conceptos'));d.querySelector('#modal').close();await w.LudariaRPGUI.open();d.querySelector('[data-rpg-egg]').click();await until(()=>d.querySelector('.rpg-lore'),'huella Forja');dom.window.close();
 assert.deepEqual(errors,[]);console.log('PASS: DOM de 13 misiones, 39 ventajas, formularios de decisión, cuadernos recuperados, pantallas posteriores, catálogo Mochi y cinco secretos. Sin prueba gráfica ni Google real.');
