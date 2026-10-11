@@ -7,7 +7,7 @@ let p=send({action:'registrar',requestId:uid(),data:{name:'Prueba RPG',class:'Ki
 const call=(action,data,id=uid())=>{const r=send({action,data,requestId:id,access,expectedRevision:p.revision});if(r.profile)p=r;return r;};
 assert.equal(catalog.missions.length,13);assert.equal(catalog.all.length,39);assert.equal(new Set(catalog.missions.map(m=>m.guardian)).size,13);
 for(const k of Object.keys(catalog.attributes))for(const n of [3,5,8])assert.ok(catalog.all.some(x=>x.attribute===k&&x.minimum===n),k+' '+n);
-for(const m of catalog.missions){const r=call('catalogoRpg',{mission:m.slug});assert.equal(r.ok,true);assert.ok(r.perks.every(x=>!x.available));assert.equal(call('ventaja',{mission:m.slug,id:m.perks[0].id}).ok,false);}
+for(const m of catalog.missions){const r=call('catalogoRpg',{mission:m.slug});assert.equal(r.ok,true);assert.ok(r.perks.every(x=>!x.available));assert.equal(r.capabilities.omitAdvantage,true);assert.equal(call('ventaja',{mission:m.slug,id:m.perks[0].id}).ok,false);}
 for(const code of ['ECO101','AXR314','LUM582','VYR207','NEX451','ORB126','KRN693','ZEN248','ELD570','MIR831','ARC419','NEB264','CYR905','ORB714'])assert.equal(call('runa',{code}).ok,true);
 const high=Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,8]));const xp=p.profile.xp;
 assert.equal(call('redistribuir',{skills:high,reason:'Quiero contrastar rutas antes de elegir.'}).ok,true);
