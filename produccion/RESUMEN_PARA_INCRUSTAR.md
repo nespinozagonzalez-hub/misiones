@@ -9,10 +9,10 @@ Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques
 
 | Capa | Estado comprobado |
 | --- | --- |
-| Código en main | PR #7 integrado: recuperación de clave, avisos de cuaderno y decisiones opcionales. |
-| GitHub Pages | HEAD `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` publicado; 16 entradas originales y seis recursos compartidos responden 200 y coinciden con la fuente. |
-| Apps Script original | Última instalación documentada: versión 2. Las correcciones posteriores de cliente/servidor requieren actualizar esa misma implementación; publicar GitHub no instala Google. |
-| Genially real | Forja, Mochi y 13 guardianes con nombre/clave visibles comprobados en los iframe originales. El guardado y la recuperación autenticados se verifican por separado. |
+| Código en main | PR #12 integrado como `0e4ab92b9580fca3e14a22349bd61413f7f8e4ae`: Ludaria v0.4.1, bienvenida con retratos, clave elegida, recuperación privada y correcciones de navegación/guardado. |
+| GitHub Pages | Despliegue `38179958459` aprobado para ese mismo HEAD; las 16 URL originales responden 200 y conservan rutas, queries, fragmentos, títulos y alturas. |
+| Apps Script original | Código.gs v0.4.1 preparado (SHA-256 `7f3ccb6ff27975c7239c9bc934e69d392b2875a3196fb862f9f46b34ad037f78`). El `/exec` mostró todavía la bienvenida anterior en la última comprobación real: falta reemplazar el archivo y actualizar la misma implementación. |
+| Genially real | Forja, Mochi y 13 guardianes con nombre/clave fueron comprobados en los iframe originales. La bienvenida v0.4.1 y sus escrituras autenticadas se comprueban después de instalar el Apps Script actualizado. |
 | Gateway | `enabled:true`, `verified:true`; las URL originales de GitHub abren identificación central. |
 
 Los enlaces centrales directos se describen en `ludaria/LEEME.md` para un ensayo independiente. No reemplazan las URL de esta guía. Misión 0 conserva su receptor de diagnóstico independiente.
