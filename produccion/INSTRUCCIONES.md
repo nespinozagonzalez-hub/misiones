@@ -21,3 +21,7 @@ La producción de las sesiones permanece completa. El propietario autorizó cone
 ## Ampliación autorizada · 11 de octubre de 2026
 
 El propietario solicitó adaptar todas las misiones a los atributos, describir con Mochi las ventajas concretas, registrar compras/redistribuciones y motivos opcionales, incluir guardianes diferentes y secretos narrativos, y revisar los cambios cada tres horas. La ampliación v0.3.0 se documenta en ATRIBUTOS_GUARDIANES_DECISIONES.md. Preparar todas las rutas está autorizado; separar pruebas simuladas de verificación real. Conservar la implementación /exec ya suministrada y el receptor independiente de Misión 0.
+
+## Publicación completada y revisión vigente
+
+El 11 de octubre el propietario autorizó actualizar y publicar todo en misiones. PR #4 integrado, Pages aprobado, Apps Script original actualizado como versión 2 y 13 entradas reales comprobadas. No volver a pedir autorización de publicación, /exec o reinstalación para este encargo. Genially queda a cargo del propietario. Estado y límites de verificación en AUDITORIA_PUBLICACION_RPG_20261011.md; continuar las pruebas autenticadas reales cuando exista acceso a un personaje de prueba. Conservar gateway desactivado hasta verificación real del contenedor.

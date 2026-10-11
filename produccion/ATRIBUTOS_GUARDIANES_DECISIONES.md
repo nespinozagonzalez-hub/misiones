@@ -1,6 +1,6 @@
 # Ludaria · guardianes, atributos y decisiones v0.3.0
 
-Implementación preparada en una rama revisable. La publicación y la comprobación con el nuevo Apps Script y el Genially real siguen pendientes.
+Ampliación publicada en main por PR #4; Apps Script original actualizado como versión 2. Las 13 entradas reales cargan su guardián. Guardado autenticado y contenedor Genially real pendientes; estado vigente en AUDITORIA_PUBLICACION_RPG_20261011.md.
 
 La apertura Misión 0 mantiene su receptor de diagnóstico. Las 13 misiones posteriores comparten personaje, cuaderno y ventajas. Cada guardián identifica mediante nombre de explorador y clave personal; la clave es distinta del Código del Saber.
 

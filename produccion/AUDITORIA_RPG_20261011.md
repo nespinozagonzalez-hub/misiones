@@ -1,5 +1,6 @@
 # Auditoría de guardianes y atributos · 11 de octubre de 2026
 
+Nota de vigencia: esta auditoría conserva la revisión anterior. La publicación, CI completo y actualización de Google ya se completaron después; consultar AUDITORIA_PUBLICACION_RPG_20261011.md.
 ## Resultado comprobado
 
 La versión v0.3.0 contiene 13 guardianes diferentes y 39 apoyos/acciones, con efectos concretos vinculados a cinco atributos en umbrales 3/5/8. Incluye descripción previa con Mochi, compra y redistribución con motivos opcionales y valores antes/después, acciones con ruta/ensayo/reflexión, guardado por personaje y misión y cinco secretos sin recompensas adicionales.

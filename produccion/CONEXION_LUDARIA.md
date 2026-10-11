@@ -2,13 +2,14 @@
 
 ## Estado vigente
 
-- El propietario instaló la base privada, ejecutó prepararConexionLudaria y entregó el /exec. No solicitar otro enlace ni reinstalar.
-- El piloto Google real comprobó alta ficticia, clave personal, runas sin duplicado, compra Maestría 5 y redistribución con saldo/XP/historial conservados. Evidencia: AUDITORIA_GOOGLE_REAL_20261011.md. La continuidad entre sesiones y el cuaderno real siguen pendientes.
-- Main remoto conserva el piloto en `353d3cc5ff3d138762c99c20142fa57047a9fe11`. PR #2 y #3 siguen revisables.
-- Ampliación v0.3.0 preparada localmente: 13 guardianes, 39 ventajas, motivos y decisiones, cinco secretos. El rechazo automático previo requiere autorización explícita posterior para publicar esta rama; no hubo push ni PR nuevo.
-- Corregidos borradores RPG al cerrar, reintentos tras respuesta perdida y foco. Diez casos nuevos y la regresión de las 13 misiones pasan en DOM. No son pruebas gráficas ni Google real.
-- La Forja incrustada en Genially fue observada en modo local. Gateway permanece desactivado. No declarar conectadas las nuevas misiones.
-- Checklist: CHECKLIST_CONEXION_RPG.md. Evidencia nueva: AUDITORIA_RESILIENCIA_RPG_20261011.md.
+- Ampliación v0.3 publicada en main mediante PR #4; commit 0c52ecd4c2aec7a42ce8df0cb00ea4db156ef5d8. #2/#3 cerrados como sustituidos.
+- GitHub Pages 38142041656 aprobado. CI completo 38141839213 aprobado: servidor, gateway, 13 misiones/39 ventajas, 13 escenarios de resiliencia, móvil, escritorio, foco y marcos locales.
+- Apps Script original actualizado: fuente completa v0.3 guardada y verificada, preparación terminada, diagnóstico de planilla/vínculo/secreto correcto. Misma implementación, versión 2 publicada el 11 de octubre a las 10:09 de Chile.
+- 13 entradas de misión y Forja/Mochi comprobadas visualmente en Google real con sus guardianes. Misión 0 conserva su presentación y receptor de diagnóstico.
+- Guardado/recuperación autenticados reales todavía pendientes: el formulario anidado no pudo validarse por el broker seguro. No se escribieron claves por otro mecanismo ni se alteraron personajes en esta revisión.
+- Genially a cargo del propietario. Iframes centrales directos en RESUMEN_PARA_INCRUSTAR.md y guías Word/PDF actualizadas; TXT con 16 bloques completos.
+- Gateway sigue desactivado y no verificado. Las URLs GitHub anteriores continúan locales hasta completar el contenedor real.
+- Evidencia vigente: AUDITORIA_PUBLICACION_RPG_20261011.md. Las auditorías anteriores y paquetes de revisión son históricos.
 
 ## Antecedentes del piloto (lectura histórica)
 
@@ -28,13 +29,11 @@ El entorno local no dispone de Chromium; la prueba se ejecutó en GitHub. La úl
 
 ## Siguiente ejecución de la revisión cada tres horas
 
-1. Leer estado del piloto y comprobar Pages después de la fusión. Las dos pasadas disponibles (servidor y navegador con dobles) están aprobadas; la integración real sigue pendiente.
-2. El despliegue `/exec` ya está disponible. Tras publicar y actualizar la ampliación autorizada, continuar las comprobaciones reales pendientes sin repetir altas ficticias innecesarias.
-3. Con el piloto real validado, conectar el resto de las 14 sesiones una por una, empezando por identidad y borradores separados por participante. Mantener navegación y contenido esenciales accesibles.
-4. Para cada misión definir, justificar, mostrar y probar sus ventajas sin inventar evaluación, códigos ni XP. No anunciar ventajas integradas donde solo hay talentos narrativos.
-5. Actualizar los iframes y el documento de incrustación únicamente con URLs realmente comprobadas. Conservar el receptor independiente del diagnóstico de Misión 0.
-
-No pedir otra instalación completa. Se sustituye el único Código.gs en el mismo proyecto, se ejecuta `prepararConexionLudaria` y se publica una aplicación web. Las propiedades y el secreto del paso 1 deben conservarse.
+1. Leer esta sección vigente y la auditoría de publicación; comprobar el último main antes de modificar. La publicación, CI y versión 2 ya están resueltos.
+2. Continuar las pruebas autenticadas reales cuando haya un personaje de prueba accesible. No repetir altas ficticias innecesarias ni modificar personajes reales. No pedir el /exec ni otra instalación.
+3. Genially lo edita el propietario. Comprobar su versión publicada después del cambio; distinguir marcos locales de contenedor real.
+4. Conservar actividades, instrumentos, códigos, XP, secreto, proyecto original y receptor independiente de Misión 0. No activar gateway sin evidencia real por ruta.
+5. Corregir solo fallos reproducidos, ejecutar la comprobación pertinente y actualizar guías/estado con hechos observados. Informar únicamente novedades concretas.
 
 ## Avance independiente · 11 de octubre
 

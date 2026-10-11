@@ -1,9 +1,32 @@
-# Publicación autorizada · 11 de octubre de 2026
+# Publicación y verificación de entradas de Ludaria
 
-El propietario pidió: «Actualiza todo en la misiones actualiza y publica todo». Esta autorización explícita posterior al rechazo habilita la publicación de la ampliación completa en nespinozagonzalez-hub/misiones.
+11 de octubre de 2026. El propietario autorizó actualizar y publicar todo en nespinozagonzalez-hub/misiones. Genially permanece a su cargo.
 
-La rama integra la entrada estable de #2, el adaptador de #3 y guardianes/atributos/decisiones de las 13 misiones. Se preparará un PR completo hacia main para ejecutar CI gráfico antes de fusionar. Los PR anteriores podrán cerrarse como sustituidos una vez integrada la ampliación, conservando su evidencia.
+## Publicado
 
-Genially sigue a cargo del propietario. La publicación de las interfaces no actualiza la implementación privada Apps Script; conservar el proyecto, secreto y /exec, y comprobarla después de actualizar.
+- PR #4 integrado en main: 0c52ecd4c2aec7a42ce8df0cb00ea4db156ef5d8. Integra las preparaciones de #2 y #3, cerradas como sustituidas.
+- GitHub Pages: workflow 38142041656, success sobre ese commit.
+- Apps Script: Código.gs v0.3 guardado y comparado íntegramente con la fuente generada. prepararConexionLudaria terminó correctamente en el proyecto original. diagnosticarConexionLudaria confirmó planilla correcta, vínculo y secreto conservados.
+- Misma implementación web: Google confirmó la versión 2, 11 de octubre, 10:09 hora de Chile. No se creó otro proyecto, no se regeneró el secreto ni se cambiaron acceso o propietario.
+- 13 guardianes, 39 ayudas/acciones, cinco secretos sin XP, bitácoras por persona/misión, historial antes/después y motivo opcional.
 
-Estado inicial: validación gráfica pendiente. No se activa gateway por esta autorización: su activación exige comprobación real de las rutas.
+## Correcciones y pruebas
+
+Se corrigió el cierre tardío de ventanas para que no dupliquen contenido ni roben el foco. Las misiones centrales conservan su dirección al cambiar de pantalla: un fragmento relativo resolvía contra la base de recursos y salía de la conexión al recargar. El modo central guarda la pantalla en el cuaderno; el modo local conserva su navegación.
+
+Workflow 38141839213 aprobado sobre 8c3a062e81014404a0a1347c2c14eff4f406070d. Pasaron servidor general, servidor RPG, 24 escenarios de gateway, DOM de 13 misiones/39 ventajas, 13 casos de resiliencia y todas las pruebas Chromium. Recorrido móvil 390px, escritorio, foco/Escape, recuperación tras recargas y marcos locales de 720px. Capturas revisadas. Estas pruebas de operaciones utilizan servicios y personajes ficticios.
+
+## Google real
+
+Comprobadas visualmente las 13 URLs centrales: cada entrada carga el guardián correcto dentro del contenedor de Apps Script. Comprobadas también Forja, Mochi y la presentación original de Misión 0. Esto acredita carga de entradas, no recuperación autenticada ni escrituras de participantes.
+
+La comprobación autenticada de guardado permanece pendiente. El broker seguro no validó el formulario anidado de Ludaria; no se introdujeron claves mediante otra vía ni se alteraron personajes durante esta revisión. La entrada de Vetas queda preparada para acceso manual a un personaje de prueba.
+
+## Pendiente
+
+- Comprobar guardado/recuperación y decisiones con un personaje de prueba en Google real; compras, redistribución y retirada de ayudas en la nueva versión.
+- Propietario: sustituir los 16 bloques de incrustación y comprobar Genially publicado en escritorio, móvil y teclado.
+- Gateway continúa enabled:false y verified:false. Las URLs GitHub antiguas mantienen modo local; los documentos vigentes contienen las URLs centrales directas comprobadas.
+- Fuente de código vigente: main y el proyecto original ya actualizado. Los paquetes locales de revisión anteriores son históricos.
+
+Guías Word/PDF de incrustación actualizadas sin cambiar actividades ni instrumentos; TXT complementario con 16 bloques completos. La revisión periódica debe partir de este estado y no volver a solicitar publicación o reinstalación.

@@ -1,5 +1,6 @@
 # Revisión adicional · 11 de octubre de 2026
 
+Nota de vigencia: esta auditoría conserva la revisión anterior. La publicación, CI completo y actualización de Google ya se completaron después; consultar AUDITORIA_PUBLICACION_RPG_20261011.md.
 ## Cambios comprobados
 
 - La interfaz de decisiones envía la revisión que consultó. Si otra sesión confirmó un ensayo después, el servidor rechaza el reemplazo y no agrega una nueva decisión.

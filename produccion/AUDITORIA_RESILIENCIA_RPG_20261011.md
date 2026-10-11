@@ -1,5 +1,6 @@
 # Ventanas RPG: respuestas pendientes y foco · 11 de octubre de 2026
 
+Nota de vigencia: esta auditoría conserva la revisión anterior. La publicación, CI completo y actualización de Google ya se completaron después; consultar AUDITORIA_PUBLICACION_RPG_20261011.md.
 ## Problemas reproducidos y corregidos
 
 La prueba de fallos encontró pérdida del ensayo y del motivo al cerrar una ayuda sin confirmación. Reabrir generaba otro identificador de solicitud; si Google había guardado la decisión pero se perdía la respuesta, el reintento podía añadir otro acontecimiento al historial. Al sustituir el contenido de la ventana tras una consulta, el foco también salía de ella.
