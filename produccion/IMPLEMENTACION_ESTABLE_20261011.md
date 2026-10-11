@@ -38,3 +38,11 @@
 - El cierre con Mochi muestra si quedan notas sin confirmar. Tras la respuesta de guardado muestra cuaderno confirmado, distinguiéndolo de entrega y evaluación.
 - Pruebas locales aprobadas: servidor general, servidor RPG (13 guardianes / 39 ventajas), 24 escenarios de gateway, 14 escenarios de resiliencia y DOM de las 13 misiones con comprobaciones de avisos pendientes y confirmados.
 - Las pruebas de navegador del nuevo cambio quedan sujetas al CI del PR correspondiente. El cliente integrado en Código.gs requiere actualizar la misma implementación de Google para recibir esta corrección; el archivo actualizado en GitHub no publica Apps Script por sí solo.
+
+## Cierre de identidad y recuperación
+- La creación central solicita nombre y Kael/Kira; asigna automáticamente una clave LUD, con copia y descarga TXT. Las runas de recompensa son independientes.
+- `recuperarClaveLudaria` es una herramienta del propietario desde el editor del mismo proyecto: solicita nombre y confirmación en la hoja abierta. No es una operación de la API pública.
+- Recuperar renueva el verificador de acceso y revoca las sesiones anteriores del personaje. No modifica ID, perfil, puntos, XP, atributos, runas, movimientos o cuadernos; los demás personajes permanecen activos.
+- Registra RECUPERACION_ACCESO sin la nueva clave. Si el registro de evidencia falla, restaura verificador y versión de sesión. La clave solo se muestra al facilitador en un diálogo, nunca en logs ni hojas.
+- Pruebas específicas: acceso anónimo rechazado, nombre inexistente, nueva clave, invalidación de acceso anterior, aislamiento entre personajes, conservación de progreso, fallo de auditoría y cancelación sin cambios.
+- Actualización requerida: pegar el código completo en el proyecto original, diagnosticar, preparar y editar la implementación existente seleccionando Nueva versión. Se conserva el mismo /exec y no se crean misiones nuevas.

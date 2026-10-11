@@ -76,4 +76,41 @@ const original=t.c.Session.getActiveUser;t.c.Session.getActiveUser=()=>({getEmai
 assert.throws(()=>t.run('prepararConexionLudaria()'),/propietaria/);t.c.Session.getActiveUser=original;
 assert.equal(t.run('doGet({parameter:{mision:"forja",entrada:"mochi"}}).html').includes('window.FORJA_ENTRY=true'),true);
 assert.equal(t.run('doGet({parameter:{mision:"../secret"}}).html').includes('todavía'),true);
+// Recuperación manual: acceso propietario y conservación íntegra del progreso.
+const beforeRecovery=JSON.stringify(t.sheets.get('Movimientos').data);
+const beforeNotebook=JSON.stringify(send({action:'cargarMision',access:auth.access,data:{mission:'vetas-diseno'}}).snapshot);
+assert.equal(send({action:'recuperarClave',access:auth.access,data:{name:signup.data.name}}).ok,false);
+t.c.recoveryName=signup.data.name;
+t.c.Session.getActiveUser=()=>({getEmail:()=>''});
+assert.throws(()=>t.run('renovarAccesoExplorador_(recoveryName)'),/facilitador propietario/);
+t.c.Session.getActiveUser=original;
+assert.throws(()=>t.run('renovarAccesoExplorador_("No registrado")'),/personaje activo/);
+const renewed=t.run('renovarAccesoExplorador_(recoveryName)');
+assert.equal(renewed.id,account.profile.id);assert.notEqual(renewed.key,account.key);
+assert.match(renewed.key,/^LUD(?:-[A-F0-9]{6}){4}$/);
+assert.equal(JSON.stringify(t.sheets.get('Movimientos').data),beforeRecovery);
+assert.equal(t.props.get('LUDARIA_PIN_PEPPER'),secret);
+assert.equal(t.sheets.get('Personajes').data.length,3);
+assert.equal(send({action:'cargar',access:auth.access}).ok,false);
+assert.equal(send({action:'entrar',data:{name:signup.data.name,key:account.key}}).ok,false);
+const newAuth=send({action:'entrar',data:{name:signup.data.name,key:renewed.key}});assert.equal(newAuth.ok,true,newAuth.message);
+assert.equal(newAuth.profile.id,account.profile.id);
+assert.equal(JSON.stringify(send({action:'cargarMision',access:newAuth.access,data:{mission:'vetas-diseno'}}).snapshot),beforeNotebook);
+assert.equal(send({action:'cargar',access:other.access}).ok,true,'No revoca otros personajes');
+const recoveries=t.sheets.get('Aventuras').data.filter(r=>r[5]==='RECUPERACION_ACCESO');assert.equal(recoveries.length,1);
+assert.equal(JSON.stringify([...t.sheets.values()].map(s=>s.data)).includes(renewed.key),false);
+assert.equal(t.messages.some(m=>String(m).includes(renewed.key)),false);
+// Si no puede dejar evidencia, restaura verificador y versión de acceso.
+const adventureSheet=t.sheets.get('Aventuras'),append=adventureSheet.appendRow;
+adventureSheet.appendRow=()=>{throw Error('Sin acceso al registro');};
+assert.throws(()=>t.run('renovarAccesoExplorador_(recoveryName)'),/Sin acceso al registro/);
+adventureSheet.appendRow=append;
+assert.equal(send({action:'cargar',access:newAuth.access}).ok,true);
+assert.equal(send({action:'entrar',data:{name:signup.data.name,key:renewed.key}}).ok,true);
+// Cancelar el formulario no cambia claves ni registros ni revela una clave por retorno.
+const beforeCancel=JSON.stringify(t.sheets.get('Personajes').data);
+t.c.SpreadsheetApp.getUi=()=>({Button:{OK:'OK'},ButtonSet:{OK_CANCEL:'OK_CANCEL'},prompt:()=>({getSelectedButton:()=> 'CANCEL'})});
+assert.equal(t.run('recuperarClaveLudaria()').cancelled,true);
+assert.equal(JSON.stringify(t.sheets.get('Personajes').data),beforeCancel);
 console.log('PASS: claves, alta repetible, alias, sesión firmada, saldos, revisión, duplicados, redistribución, ventaja actual, cuaderno por persona, conflictos, privacidad y administrador protegido.');
+console.log('PASS recuperación: solo facilitador, clave nueva, sesiones anteriores revocadas, demás personajes intactos, cuadernos/XP/puntos conservados, sin secretos en hojas/logs y rollback ante fallo de auditoría.');
