@@ -31,7 +31,11 @@
   }
   async function api(action, data = {}, requestId = uid()) {
     const result = await rpc({ action, data, requestId, access, expectedRevision: revision });
-    return adopt(result);
+    adopt(result);
+    if (action === 'accionRpg' && ['decision', 'easter'].includes(data.type)) {
+      document.dispatchEvent(new CustomEvent('ludaria:confirmed', { detail: { type: data.type === 'easter' ? 'secreto' : 'decision' } }));
+    }
+    return result;
   }
   function dialog(title, content) {
     const d = document.createElement('dialog'); d.className = 'ludaria-cloud-dialog';

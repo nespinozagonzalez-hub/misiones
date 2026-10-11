@@ -1,0 +1,54 @@
+/* La opción de animaciones de Ludaria y prefers-reduced-motion tienen prioridad. */
+.mochi-visit{display:grid;grid-template-columns:minmax(170px,.7fr) minmax(0,1.3fr);gap:0;margin:32px 0 12px;border:1px solid #c9a66b88;border-radius:18px;overflow:hidden;background:linear-gradient(125deg,#173b28,#0b1d15);box-shadow:0 12px 35px #0005;color:#f2ebdd;isolation:isolate}
+.mochi-visit-art{position:relative;min-width:0;min-height:240px;overflow:hidden;background:#102018}
+.mochi-visit-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:78% center;position:absolute;inset:0}
+.mochi-visit-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#10271acc);pointer-events:none}
+.mochi-visit-copy{min-width:0;align-self:center;padding:26px 28px}
+.mochi-visit-kicker{display:block;font:700 11px/1.6 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8ed89a}
+.mochi-visit h2{font:700 clamp(24px,3vw,32px)/1.2 "Cinzel",Georgia,serif;color:#e3c187;margin:12px 0 16px}
+.mochi-visit blockquote{font:500 18px/1.6 "Raleway",system-ui,sans-serif;margin:0;padding:0;border:0;color:#f2ebdd}
+.mochi-visit [data-mochi-balance]{font:700 14px/1.5 system-ui,sans-serif;color:#a8e6b4;margin:16px 0 0}
+.mochi-visit .mochi-visit-note{font:14px/1.6 system-ui,sans-serif;color:#c6d3c6;margin:16px 0 0}
+.mochi-visit-sparks{position:absolute;inset:0;pointer-events:none;z-index:1}
+.mochi-visit-sparks i{position:absolute;left:78%;top:24%;width:5px;height:5px;border-radius:50%;background:#e3c187;opacity:0}
+.mochi-visit-sparks i:nth-child(2){left:60%;top:48%;animation-delay:.18s}
+.mochi-visit-sparks i:nth-child(3){left:85%;top:70%;animation-delay:.35s}
+[data-mission-experience] .rpg-perk.is-available{border-color:#70b880;background:linear-gradient(135deg,#173c28,#0b1811)}
+[data-mission-experience] .rpg-perk.is-locked{border-style:dashed}
+@media(prefers-reduced-motion:no-preference){
+  body:not([data-ludaria-motion="off"]) .mission-arrival{animation:mission-arrive .45s cubic-bezier(.2,.7,.25,1)}
+  body:not([data-ludaria-motion="off"]) .mochi-visit.is-arriving{animation:mochi-arrive .65s cubic-bezier(.2,.7,.25,1) both}
+  body:not([data-ludaria-motion="off"]) .mochi-visit.is-arriving img{animation:mochi-welcome .9s ease-out}
+  body:not([data-ludaria-motion="off"]) .mochi-visit.is-arriving .mochi-visit-sparks i{animation:mochi-spark 1.2s ease-out both}
+  body[data-mission-experience]:not([data-ludaria-motion="off"]) .ludaria-cloud-dialog[open]{animation:guardian-arrive .3s ease-out}
+  body[data-mission-experience]:not([data-ludaria-motion="off"]) .rpg-perk.is-available{animation:guardian-unlock .65s ease-out}
+  body[data-mission-experience]:not([data-ludaria-motion="off"]) .ludaria-cloud-dialog.mission-confirmed{animation:mission-confirm .95s ease-out}
+  @media(hover:hover){body[data-mission-experience]:not([data-ludaria-motion="off"]) :is(.button,.nav-button,.ludaria-cloud-bar button){transition:transform .18s ease,box-shadow .18s ease}body[data-mission-experience]:not([data-ludaria-motion="off"]) :is(.button,.nav-button,.ludaria-cloud-bar button):hover:enabled{transform:translateY(-2px);box-shadow:0 4px 14px #8ed89a22}}
+}
+@keyframes mission-arrive{from{opacity:.65;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes mochi-arrive{from{opacity:.6;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes mochi-welcome{from{transform:scale(1.04)}to{transform:scale(1)}}
+@keyframes mochi-spark{0%{opacity:0;transform:translateY(5px) scale(.5)}35%{opacity:.8}100%{opacity:0;transform:translateY(-28px) scale(.25)}}
+@keyframes guardian-arrive{from{opacity:.65;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes guardian-unlock{from{box-shadow:inset 0 0 20px #8ed89a30}to{box-shadow:inset 0 0 0 transparent}}
+@keyframes mission-confirm{0%,100%{box-shadow:0 0 0 transparent}35%{box-shadow:0 0 24px #8ed89a66}}
+@media(max-width:620px){.mochi-visit{grid-template-columns:minmax(0,1fr)}.mochi-visit-art{min-height:190px}.mochi-visit-art img{object-position:78% 38%}.mochi-visit-art::after{background:linear-gradient(180deg,transparent 60%,#10271aaa)}.mochi-visit-copy{padding:22px}.mochi-visit blockquote{font-size:17px}}
+@media print{.mochi-visit-sparks{display:none}.mochi-visit{break-inside:avoid;box-shadow:none}}
+
+
+/* Las tres oportunidades de atributo aparecen dentro de cada misión, sin bloquear el recorrido. */
+.ludaria-contextual-perk{margin:22px 0;padding:20px 22px;border-radius:14px;border:1px solid #345b42;background:linear-gradient(125deg,#10291c,#0b1a12);color:#eee8db;box-shadow:0 8px 24px #0003}
+.ludaria-contextual-perk.is-unlocked{border-color:#7ab18a}
+.ludaria-contextual-perk.is-locked{border-style:dashed;opacity:.86}
+.ludaria-contextual-perk-kicker{font:700 11px/1.4 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.11em;color:#9ed9aa}
+.ludaria-contextual-perk h3{font:700 clamp(18px,2.3vw,24px)/1.35 "Cinzel",Georgia,serif;color:#e3c187;margin:8px 0}
+.ludaria-contextual-perk p{font:14px/1.55 system-ui,sans-serif;margin:8px 0;color:#eee8db}
+.ludaria-contextual-perk [data-contextual-threshold]{color:#a8e6b4;font-weight:700}
+.ludaria-contextual-perk-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ludaria-contextual-perk button{border:1px solid #80bc8d;border-radius:9px;background:#205034;color:#fff;padding:10px 14px;cursor:pointer;font:600 14px/1.35 system-ui,sans-serif}
+.ludaria-contextual-perk button.contextual-skip{background:transparent;border-color:#8c9e90;color:#eee8db}
+.ludaria-contextual-perk button:disabled{opacity:.55;cursor:default}
+.ludaria-contextual-perk button:focus-visible{outline:3px solid #e3c187;outline-offset:3px}
+.ludaria-contextual-perk [data-contextual-status]:empty{display:none}
+@media(max-width:620px){.ludaria-contextual-perk{padding:16px}.ludaria-contextual-perk-actions button{width:100%}}
+@media print{.ludaria-contextual-perk{break-inside:avoid}}

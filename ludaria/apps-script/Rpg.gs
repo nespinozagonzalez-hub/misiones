@@ -26,7 +26,7 @@ function catalogoRpg_(ss,id,slug) {
   const records=filas_(ss,'Aventuras').filter(function(r){return r[2]===id&&r[3]===slug&&r[5]==='ACCION_RPG';});
   const responses={},responseRevisions={};records.forEach(function(r){responses[r[4]]=JSON.parse(r[6]).detail;responseRevisions[r[4]]=r[0];});
   return {ok:true,mission:mission.slug,guardian:mission.guardian,purpose:mission.purpose,skills:p.skills,
-    perks:mission.perks.map(function(perk){return {id:perk.id,name:perk.name,attribute:perk.attribute,minimum:perk.minimum,kind:perk.kind,available:p.skills[perk.attribute]>=perk.minimum};}),responses:responses,responseRevisions:responseRevisions,egg:mission.egg?{id:mission.egg.id,name:mission.egg.name}:null,version:LudariaRPG.version};
+    perks:mission.perks.map(function(perk){return {id:perk.id,name:perk.name,attribute:perk.attribute,minimum:perk.minimum,kind:perk.kind,available:p.skills[perk.attribute]>=perk.minimum};}),responses:responses,responseRevisions:responseRevisions,egg:mission.egg?{id:mission.egg.id,name:mission.egg.name}:null,capabilities:{omitAdvantage:true},version:LudariaRPG.version};
 }
 function consultarVentajaRpg_(ss,id,request) {
   const data=request.data||{},perk=LudariaRPG.all.find(function(p){return p.id===data.id;});
@@ -40,6 +40,13 @@ function accionRpg_(ss,id,request) {
   const data=request.data||{},mission=contextoRpg_(data.mission);
   if(data.type==='entrada'){
     registrarEventoRpg_(ss,id,request,'ENTRADA',mission.slug,'',{guardian:data.market?'Mochi, custodio de las posibilidades':mission.guardian,market:data.market===true});return {ok:true};
+  }
+  if(data.type==='omitir_ventaja'){
+    const perk=mission.perks.find(function(p){return p.id===data.id;});
+    if(!perk||perfilActual_(ss,id).skills[perk.attribute]<perk.minimum)throw new Error('No puedes omitir una ventaja que no tienes disponible.');
+    if(!Number.isInteger(data.page)||data.page<1||data.page>50||data.reason!=='continuar_sin_ayuda')throw new Error('La elección de ayuda no es válida.');
+    const event=registrarEventoRpg_(ss,id,request,'OMISION_VENTAJA',mission.slug,perk.id,{page:data.page,reason:data.reason});
+    return {ok:true,event:event};
   }
   if(data.type==='easter'){
     if(!mission.egg||data.id!==mission.egg.id)throw new Error('Sello desconocido.');
@@ -68,11 +75,11 @@ function sincronizarCatalogoRpg_(ss) {
 /** Solo editor propietario. Devuelve agregados, sin nombres ni respuestas privadas en logs. */
 function analizarDecisionesLudaria() {
   if(!Session.getActiveUser().getEmail()||Session.getActiveUser().getEmail()!==Session.getEffectiveUser().getEmail()||!SpreadsheetApp.getActiveSpreadsheet())throw new Error('Análisis disponible solo desde el editor propietario.');
-  const ss=base_(),counts={},attributes={},reasons={declarados:0,noDeclarados:0},movementReasons={declarados:0,noDeclarados:0},attributeMoves={},routes={},benefits={};
-  filas_(ss,'Aventuras').forEach(function(r){if(['ENTRADA','CONSULTA_VENTAJA','ACCION_RPG','DESCUBRIMIENTO'].includes(r[5])){counts[r[5]]=(counts[r[5]]||0)+1;if(r[5]==='CONSULTA_VENTAJA')benefits[r[4]]=(benefits[r[4]]||0)+1;if(r[5]==='ACCION_RPG'){const d=JSON.parse(r[6]);reasons[d.detail.reasonSource==='AUTOINFORME'?'declarados':'noDeclarados']++;const key=r[3]+' | '+d.detail.choice;routes[key]=(routes[key]||0)+1;}}});
+  const ss=base_(),counts={},attributes={},reasons={declarados:0,noDeclarados:0},movementReasons={declarados:0,noDeclarados:0},attributeMoves={},routes={},benefits={},omissions={};
+  filas_(ss,'Aventuras').forEach(function(r){if(['ENTRADA','CONSULTA_VENTAJA','OMISION_VENTAJA','ACCION_RPG','DESCUBRIMIENTO'].includes(r[5])){counts[r[5]]=(counts[r[5]]||0)+1;if(r[5]==='CONSULTA_VENTAJA')benefits[r[4]]=(benefits[r[4]]||0)+1;if(r[5]==='OMISION_VENTAJA')omissions[r[4]]=(omissions[r[4]]||0)+1;if(r[5]==='ACCION_RPG'){const d=JSON.parse(r[6]);reasons[d.detail.reasonSource==='AUTOINFORME'?'declarados':'noDeclarados']++;const key=r[3]+' | '+d.detail.choice;routes[key]=(routes[key]||0)+1;}}});
   const decisions=filas_(ss,'Movimientos').filter(function(r){return ['COMPRA','REDISTRIBUIR'].includes(r[3]);});
   decisions.forEach(function(r){const d=JSON.parse(r[4]);movementReasons[d.reasonSource==='AUTOINFORME'?'declarados':'noDeclarados']++;if(d.skillsAfter)LUDARIA.attributes.forEach(function(k){const delta=d.skillsAfter[k]-d.skillsBefore[k];if(delta){attributes[k]=(attributes[k]||0)+delta;attributeMoves[k]=(attributeMoves[k]||0)+1;}});});
-  return {ok:true,events:counts,movimientosDeAtributos:decisions.length,cambioNetoPorAtributo:attributes,cambiosPorAtributo:attributeMoves,motivosDeMovimientos:movementReasons,motivosDeAcciones:reasons,rutasPorMision:routes,consultasPorVentaja:benefits,interpretacion:'Los motivos escritos son autoinformes; el sistema no infiere intención ni aprendizaje desde clics.'};
+  return {ok:true,events:counts,movimientosDeAtributos:decisions.length,cambioNetoPorAtributo:attributes,cambiosPorAtributo:attributeMoves,motivosDeMovimientos:movementReasons,motivosDeAcciones:reasons,rutasPorMision:routes,consultasPorVentaja:benefits,omisionesPorVentaja:omissions,interpretacion:'Los motivos escritos son autoinformes; el sistema no infiere intención ni aprendizaje desde clics.'};
 }
 
 function validarCuadernoRpg_(mission,snapshot) {
