@@ -62,7 +62,7 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     assert.equal(await m.evaluate(()=>window.LudariaCloud.profile.points),1);await m.keyboard.press('Escape');
     assert.equal(await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
     await m.screenshot({path:__dirname+'/preview-mochi-mobile.png',fullPage:true});
-    const v=await createPage();await v.goto(base+'/cloud?mision=vetas-diseno');await login(v,'Exploradora de prueba',key);await v.locator('#stage h2').waitFor();
+    const v=await createPage();await v.goto(base+'/cloud?mision=vetas-diseno');await login(v,'Exploradora de prueba',key);await v.locator('#stage h1, #stage h2').first().waitFor();
     await v.locator('[data-cloud-advantage]').click();await v.locator('.ludaria-cloud-dialog h2').waitFor();assert.ok((await v.locator('.ludaria-cloud-dialog').innerText()).includes('Dinámicas:'));await v.keyboard.press('Escape');
     await v.locator('[data-action=notebook]').first().click();await v.locator('[data-field=note]').fill('Mi nota recuperable en otra sesión');
     await v.locator('[data-cloud-save]').click({force:true});await v.waitForFunction(()=>!window.LudariaCloud.hasPending);
@@ -73,5 +73,6 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     await v2.locator('[data-cloud-advantage]').click();await v2.waitForFunction(()=>document.querySelector('[data-cloud-status]').textContent.includes('requiere Maestría 5'));
     const f=await createPage();await f.goto(base+'/frame');const frame=f.frameLocator('iframe');await frame.locator('#cloud-login [name=name]').fill('Exploradora de prueba');await frame.locator('#cloud-login [name=key]').fill(key);await frame.locator('#cloud-login button').click();await frame.locator('#app').waitFor({state:'visible'});
     assert.deepEqual(errors,[]);console.log('PASS: alta y clave, recuperación entre sesiones sin localStorage, compras, demo previa, cuaderno central, retirada de ventaja, móvil 390px, foco de acceso e iframe local 720px. No prueba el despliegue real de Google.');
-  }finally{await browser.close();server.close();}
+  }catch(error){console.error('Errores del navegador:',errors);for(const page of browser.contexts().flatMap(c=>c.pages())){console.error('Estado:',page.url(),await page.locator('#stage').textContent().catch(()=>''));}throw error;}
+  finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});
