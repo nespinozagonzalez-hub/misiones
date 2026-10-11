@@ -17,6 +17,7 @@ assert.equal(run('forja/index.html?entrada=mochi'), deployment + '?entrada=mochi
 assert.equal(run('forja/?mochi=1'), deployment + '?entrada=mochi');
 assert.equal(run('vetas-diseno/presentacion.html?v=old#pantalla-5'), deployment + '?mision=vetas-diseno#pantalla-5');
 assert.equal(run('vetas-diseno/index.html?PIN=123456&key=private&name=private&access=private&url=https://evil.test#private'), deployment + '?mision=vetas-diseno');
+assert.equal(run('mision-0/presentacion.html', {...active,routes:['forja','mision-0']}), undefined,'Misión 0 nunca usa el gateway');
 for (const path of ['mision-0/', 'yunque/', 'forja/other.html', 'vetas-diseno/?prueba=1']) assert.equal(run(path), undefined);
 for (const config of [null, {...active, enabled: false}, {...active, verified: false}, {...active, routes: []},
   {...active, deployment: deployment+'?key=private'}, {...active, deployment: deployment+'#fragment'},
