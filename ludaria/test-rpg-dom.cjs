@@ -22,6 +22,7 @@ for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.
  assert.equal(d.querySelector('[data-mochi-visit]'),null,mission.slug+' sin invitación en portada');
  await until(()=>d.querySelector('[data-contextual-perk]'),'ayuda contextual '+mission.slug);
  assert.equal(d.querySelector('[data-contextual-perk]').dataset.contextualPerk,mission.perks[0].id);
+ await until(()=>d.querySelector('.ludaria-contextual-perk .contextual-skip'),'capacidad de omisión '+mission.slug);
  d.querySelector('.ludaria-contextual-perk .contextual-skip').click();
  await until(()=>/confirmada|Sin confirmar/.test(d.querySelector('[data-contextual-status]')?.textContent||''),'respuesta de omisión '+mission.slug);
  assert.match(d.querySelector('[data-contextual-status]').textContent,/Elección confirmada/,mission.slug+' diagnóstico de omisión');
