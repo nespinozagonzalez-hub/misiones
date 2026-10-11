@@ -1,4 +1,4 @@
-# Ludaria · conexión central v0.4.0
+# Ludaria · conexión central v0.4.1
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
@@ -28,13 +28,13 @@ Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vet
 
 Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico navegan al mismo `/exec`, conservando las URL originales de GitHub. El gateway está activo; Forja, Mochi y los 13 guardianes se comprobaron dentro del Genially real. La prueba autenticada de guardado/recuperación se verifica por separado. Las direcciones centrales entregadas también siguen siendo válidas.
 
-**Esta versión sí modifica Código.gs.** Reemplaza el archivo completo anterior por el de v0.4.0 y actualiza la misma implementación. GitHub Pages no reemplaza el cliente incrustado en Apps Script. Misión 0 conserva su receptor independiente.
+**Esta versión sí modifica Código.gs.** Reemplaza el archivo completo anterior por el de v0.4.1 y actualiza la misma implementación. GitHub Pages no reemplaza el cliente incrustado en Apps Script. Misión 0 conserva su receptor independiente.
 
 ## Identidad y progreso
 
 El participante elige y confirma una **clave personal de seis dígitos**, que usará con su nombre en todas las misiones. Recibe además un **código de recuperación RES** privado; puede guardar ambos en un TXT. El servidor guarda verificadores, nunca las credenciales en texto. Los alias equivalentes identifican el mismo personaje. Las claves LUD anteriores siguen entrando. Las runas de recompensa siguen siendo distintas de la clave personal.
 
-La bienvenida muestra el retrato de cada guardián. «Recuperar clave» permite escribir nombre y código RES para elegir una nueva clave, conservando íntegro el progreso y revocando sesiones anteriores. Si no tiene el respaldo o su cuenta es anterior a v0.4.0, el facilitador puede renovar el acceso con `recuperarClaveLudaria` desde el editor del proyecto original. Esta renovación invalida el respaldo anterior. No se recupera un personaje solo con conocer su nombre.
+La bienvenida muestra el retrato de cada guardián. «Recuperar clave» permite escribir nombre y código RES para elegir una nueva clave, conservando íntegro el progreso y revocando sesiones anteriores. Si no tiene el respaldo o su cuenta es anterior a v0.4.1, el facilitador puede renovar el acceso con `recuperarClaveLudaria` desde el editor del proyecto original. Esta renovación invalida el respaldo anterior. No se recupera un personaje solo con conocer su nombre.
 
 El perfil y el cuaderno se recuperan desde el servidor. La sesión vive en memoria cuatro horas; cerrar o recargar requiere identificación. No depende de compartir localStorage entre iframes. Ver [el detalle de esta versión](../produccion/BIENVENIDA_Y_CLAVES_20261011.md).
 
@@ -76,3 +76,11 @@ Referencias oficiales: [Apps web](https://developers.google.com/apps-script/guid
 ## Corrección adicional de decisiones
 
 El ensayo conserva la revisión desde la que se editó. Si cambia en otra sesión, el envío se rechaza sin reemplazarlo. El botón «Comparar con la decisión confirmada» permite revisar el registro actual; «Retomar mi ensayo tras comparar» conserva tu borrador y prepara otra confirmación. No equivale a guardado ni evaluación. Evidencia: `produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md`.
+
+## Auditoría total v0.4.1
+
+Las 13 misiones recuperan la pantalla guardada aunque el iframe original termine en #pantalla-1. La práctica nueva admite enlaces a otras pantallas. Los adaptadores mantienen el /exec al navegar y su generación se valida como repetible.
+
+Forja y Mochi permiten consultar el nombre y la clave usada desde «Mi nombre y mi clave». Se mantiene solo en memoria de esta sesión; cerrar el acceso la descarta. Consultarla no confirma notas ni ensayos pendientes. El guardado compartido espera las solicitudes simultáneas y conserva las ediciones posteriores a un fallo. Misión 0 muestra un aviso si localStorage está bloqueado, manteniendo su instrumento y receptor originales.
+
+La revisión programada es cada cinco horas. Consulta produccion/AUDITORIA_ACTUAL.md para alcance y límites.

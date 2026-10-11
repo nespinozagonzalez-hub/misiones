@@ -4,12 +4,12 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; producción cerrada",
+  "estado_general": "14 sesiones publicadas; código de misiones, Forja y Mochi revisado; instalar Apps Script v0.4.1",
   "actualizado_en": "2026-10-11",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "entradas_identificacion_validadas_en_genially",
-    "detalle": "Forja, Mochi y los 13 guardianes comprobados en el Genially real con iframe originales; gateway activo. Script entregado sin cambios; el propietario lo está actualizando."
+    "fase": "auditoria_total_v041",
+    "detalle": "Gateway activo, iframe originales conservados; v0.4.1 repara navegación/guardado y requiere actualizar el mismo Apps Script"
   },
   "automatizacion": {
     "estado": "activa",
@@ -141,7 +141,7 @@
     "forja": "forja/",
     "mochi": "forja/?entrada=mochi",
     "apps_script": "Uno compartido por Forja/Mochi; Misión 0 independiente",
-    "conexion_central": "Código publicado en GitHub Pages; Apps Script conserva versión 2 documentada. Correcciones posteriores pendientes de instalar y probar; gateway desactivado, Genially original conservado.",
+    "conexion_central": "Gateway activo. Código compartido v0.4.1 preparado; instalar en el mismo proyecto original",
     "auditoria": "produccion/AUDITORIA_CONTINUIDAD_20261011.md",
     "revisiones_programadas": 5,
     "intervalo_horas": 3,
@@ -162,10 +162,15 @@
         "library_file_id": "libfile_1b9016b83390819189ea7f69f1ba694b"
       },
       "apps_script": "No se modificó ni verificó la conexión central"
+    },
+    "revision_actual": {
+      "intervalo_horas": 5,
+      "continua_hasta_indicacion_del_propietario": true,
+      "alcance": "14 sesiones, Forja, Mochi, navegación y conexión"
     }
   },
   "conexion_ludaria": {
-    "version": "0.4.0",
+    "version": "0.4.1",
     "fase": "publicacion_autorizada_en_validacion",
     "fecha": "2026-10-11",
     "base_paso1": "Instalada por el propietario; nueve pruebas OK verificadas",
@@ -174,13 +179,13 @@
       "Mochi",
       "vetas-diseno"
     ],
-    "resto_misiones": "13 adaptadores preparados; DOM aprobado; Google/Genially real pendientes",
+    "resto_misiones": "13 adaptadores actualizados; restauran pantalla guardada con #pantalla-1",
     "script": "ludaria/Code-Ludaria-Conectado.gs",
     "guia": "ludaria/LEEME.md",
-    "automatizacion": "Revisión activa cada tres horas hasta completar integración y auditorías",
-    "auditoria_funcional": "Servidor, RPG y 24 escenarios de gateway con dobles: OK; piloto real parcial en AUDITORIA_GOOGLE_REAL_20261011.md",
-    "auditoria_navegador": "DOM de 13 misiones/39 ventajas y doce escenarios de resiliencia: OK. Chromium no instalable; gráfica y Google real pendientes.",
-    "despliegue_exec": "Entregado y piloto comprobado parcialmente; ampliación v0.3.0 sin desplegar",
+    "automatizacion": "Revisión activa cada cinco horas, hasta que el propietario pida detenerla",
+    "auditoria_funcional": "Inventario, Forja/recompensas, servidor, acceso/recuperación, cliente, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
+    "auditoria_navegador": "CI completo de v0.4.0 aprobado; v0.4.1 repite escritorio, móvil e iframe con los fragmentos originales",
+    "despliegue_exec": "Responde con bienvenida anterior; instalar Código.gs v0.4.1 en la misma implementación",
     "diagnostico_mision0": "Receptor original conservado",
     "ci": {
       "run_id": 38105192674,
@@ -208,7 +213,7 @@
         "defensa-orbe"
       ],
       "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
-      "script_entregado": "v0.4.0 reemplaza el anterior por solicitud del propietario",
+      "script_entregado": "v0.4.1 reemplaza el anterior por auditoría total",
       "requiere": "Conservar activa la entrada; comprobar la nueva versión autenticada tras actualizar Apps Script",
       "alcance": "Navegación y formularios de identificación reales; operaciones autenticadas pendientes de prueba manual",
       "ci": {
@@ -235,17 +240,18 @@
     "evidencia_google_piloto": "produccion/AUDITORIA_GOOGLE_REAL_20261011.md",
     "publicacion": {
       "estado": "autorizada_por_propietario_20261011",
-      "razon": "El propietario pidió actualizar y publicar todo; CI gráfico y despliegue Google pendientes.",
+      "razon": "Actualización de todas las misiones, Forja y Mochi autorizada; prueba autenticada de la nueva implementación pendiente",
       "pr_nuevo": null
     },
     "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md",
     "bienvenida_y_claves": {
-      "estado": "codigo_nuevo_validado_pendiente_actualizar_apps_script",
+      "estado": "v0.4.1 código actualizado; instalar el Apps Script y verificar Google real",
       "informe": "produccion/BIENVENIDA_Y_CLAVES_20261011.md",
       "clave": "elegida por el usuario; seis dígitos con confirmación",
       "recuperacion": "nombre y respaldo privado RES; alternativa del facilitador",
-      "nueva_implementacion": "actualizar la implementación existente con Código.gs v0.4.0; conservar /exec e iframe",
+      "nueva_implementacion": "Actualizar la implementación existente con Código.gs v0.4.1; conservar /exec e iframe",
       "prueba_real": "pendiente de instalación por el propietario"
-    }
+    },
+    "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md"
   }
 }

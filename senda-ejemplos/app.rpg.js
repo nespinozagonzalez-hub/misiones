@@ -1,9 +1,10 @@
 'use strict';
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -197,8 +198,9 @@ document.addEventListener('keydown',e=>{if($('modal').open||e.target.closest('in
 setInterval(()=>{if(state.timer.running&&state.timer.left>0){state.timer.left--;if($('timer'))$('timer').textContent=timerText();if(state.timer.left===0){state.timer.running=false;save();toast('Terminó el tiempo de referencia. La conversación puede continuar.');if(state.page===9)render(false);}}},1000);
 window.addEventListener('beforeunload',save);
 for(let n=0;n<12;n++){const f=document.createElement('i');f.className='fly';f.style.cssText=`left:${13+n*7}%;top:${20+(n*17)%68}%;animation-delay:${-n*1.2}s;animation-duration:${8+(n%4)*3}s`; $('fireflies').appendChild(f);}
-const hash=location.hash.match(/^#pantalla-(\d+)$/);if(hash&&+hash[1]>=1&&+hash[1]<=12)state.page=+hash[1]-1;
+const hash=missionHash().match(/^#pantalla-(\d+)$/);if(hash&&+hash[1]>=1&&+hash[1]<=12)state.page=+hash[1]-1;
 if(!state.visited.includes(state.page))state.visited.push(state.page);
 render();save();if(!storageOK)toast('Puedes completar la misión y descargar tu registro; el guardado local está restringido.');
+startingMission=false;
 })();
 

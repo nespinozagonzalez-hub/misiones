@@ -1,9 +1,10 @@
 'use strict';
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -46,6 +47,7 @@ case 'ceremony':modal('Cierre acompañado',`<p>Representa el Fragmento III cuand
 case 'copy':try{await navigator.clipboard.writeText(recordText());$('toast').textContent='Registro copiado.';$('toast').hidden=false;}catch(e){$('export-text').focus();$('export-text').select();}break;
 case 'download':{const u=URL.createObjectURL(new Blob(['\ufeff'+recordText()],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=u;a.download='Registro_El_Templado_entre_Pares.txt';a.click();setTimeout(()=>URL.revokeObjectURL(u),10000);break;}
 case 'fullscreen':document.documentElement.requestFullscreen?.().catch(()=>{});break;case 'reset-ask':modal('Reiniciar esta misión',`<p>Se borrará solo este borrador del dispositivo. Conserva primero el registro.</p>${button('reset','Reiniciar')}${button('record','Ver registro antes','',true)}`);break;case 'reset':s=fresh();flash='';save();go(0);break;}});
-$('previous').addEventListener('click',()=>go(s.page-1));$('next').addEventListener('click',()=>s.page===N-1?record():go(s.page+1));$('modal').addEventListener('cancel',e=>{e.preventDefault();close();});document.addEventListener('keydown',e=>{if($('modal').open||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowRight')go(s.page+1);if(e.key==='ArrowLeft')go(s.page-1);});const h=location.hash.match(/pantalla-(\d+)/);if(h&&Number(h[1])>=1&&Number(h[1])<=N)s.page=Number(h[1])-1;render();
+$('previous').addEventListener('click',()=>go(s.page-1));$('next').addEventListener('click',()=>s.page===N-1?record():go(s.page+1));$('modal').addEventListener('cancel',e=>{e.preventDefault();close();});document.addEventListener('keydown',e=>{if($('modal').open||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowRight')go(s.page+1);if(e.key==='ArrowLeft')go(s.page-1);});const h=missionHash().match(/pantalla-(\d+)/);if(h&&Number(h[1])>=1&&Number(h[1])<=N)s.page=Number(h[1])-1;render();
+startingMission=false;
 })();
 

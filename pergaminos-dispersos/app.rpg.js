@@ -1,9 +1,11 @@
 "use strict";
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+let centralSnapshot=null;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
   const C = window.MISSION,
     CFG = window.MISSION_CONFIG || {},
     KEY = "ludaria_" + C.slug + "_v1",
@@ -35,7 +37,7 @@
   if (cloud?.active) await cloud.ready;
   try {
     const x = cloud?.active
-      ? await cloud.loadMission()
+      ? (centralSnapshot = await cloud.loadMission())
       : JSON.parse(localStorage.getItem(KEY));
     if (x?.version === 1 && x.fields && x.checks && Array.isArray(x.visited))
       s = { ...blank(), ...x };
@@ -306,11 +308,12 @@
   $("#select-page").innerHTML = C.pages
     .map((p, i) => `<option value="${i}">${i + 1} · ${esc(p.title)}</option>`)
     .join("");
-  const h = location.hash.match(/pantalla-(\d+)/);
+  const h = missionHash().match(/pantalla-(\d+)/);
   if (h) s.page = Number(h[1]) - 1;
   render();
   if (cloud?.active)
     $("#store").textContent = "Bitácora asociada a tu personaje";
   else if (!storage)
     $("#store").textContent = "Guardado no disponible: exporta tu registro.";
+startingMission=false;
 })();

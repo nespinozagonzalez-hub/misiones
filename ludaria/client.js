@@ -3,7 +3,8 @@
   const config = window.LUDARIA_CLOUD_CONFIG;
   if (!config) return;
   let access = null, profile = null, revision = null, missionRevision = null;
-  let resolveReady, bar, status, pendingSnapshot = null, saving = false, failedSave = null, saveTimer;
+  let resolveReady, bar, status, pendingSnapshot = null, saving = false, failedSave = null, saveTimer, flushTask = null;
+  let identityKey = '', identityBackup = '';
   const pendingChecks = new Set();
   const hasPending = () => Boolean(pendingSnapshot || failedSave || saving || [...pendingChecks].some(check => check()));
   const guardian = config.market ? {guardian:'Mochi, custodio de las posibilidades',purpose:'Antes de ofrecerte una mejora, necesito reconocer al buscador que llega a mi mercado.'} : config.route==='mision-0' ? {guardian:'Aster, guardián del umbral',purpose:'Responde al llamado y reconoce tu punto de partida.'} : LudariaRPG.find(config.route);
@@ -54,6 +55,7 @@
     let busy = false, registrationId = uid(), registrationSignature = '', recoveryId = uid(), recoverySignature = '';
     d.querySelectorAll('[data-access-panel]').forEach(button => button.onclick = () => {
       const panel = button.dataset.accessPanel;
+      d.classList.toggle('is-recovering',panel === 'recover');
       d.querySelectorAll('form').forEach(form => { form.hidden = form.id !== 'cloud-'+panel; });
       d.querySelectorAll('.cloud-access-tabs button').forEach(tab => tab.setAttribute('aria-pressed',String(tab.dataset.accessPanel === panel)));
       d.querySelector('#cloud-error').textContent = '';
@@ -79,25 +81,30 @@
           recoverySignature = signature;
           result = await rpc({action:'recuperarClave',data,requestId:recoveryId});
         }
+        identityKey = result.key || form.elements.key.value.trim().toUpperCase();
+        identityBackup = result.recoveryCode || form.elements.recoveryCode?.value.trim().toUpperCase() || '';
         adopt(result); form.reset(); d.close();
-        if (result.key) keyReceipt(result.key,result.recoveryCode); else finishWelcome();
+        if (result.key) keyReceipt(identityKey,identityBackup,{recovered:form.id === 'cloud-recover'}); else finishWelcome();
       } catch (exception) { error.textContent = exception.message; }
       finally { busy = false; d.querySelectorAll('button').forEach(button => { button.disabled = false; }); }
     });
   }
-  function keyReceipt(key,recoveryCode) {
-    const d = dialog(recoveryCode ? 'Tu identidad está forjada' : 'Tu clave está renovada', '<p>Entra a cada misión con tu nombre y la clave que elegiste.</p><label>Nombre de explorador<input readonly id="cloud-key-name"></label><label>Tu clave personal<input type="password" readonly id="cloud-key-value"></label>'+(recoveryCode?'<label>Código de recuperación<input type="password" readonly id="cloud-recovery-value"></label><p>Guarda tu código de recuperación en un lugar privado. Te permite elegir una clave nueva si olvidas la actual.</p>':'<p>Tu personaje y su progreso se conservan. Tu código de recuperación sigue siendo el mismo.</p>')+'<button type="button" id="cloud-reveal-key" aria-pressed="false">Mostrar mis códigos</button><div class="cloud-actions"><button id="cloud-copy-key">Copiar clave</button><button id="cloud-download-key">Guardar mi acceso TXT</button><button id="cloud-continue">Continuar mi aventura →</button></div><p role="status" id="cloud-key-status"></p>');
+  function keyReceipt(key,recoveryCode,{review=false,recovered=false}={}) {
+    const title = review ? 'Mi nombre y mi clave' : recovered ? 'Tu clave está renovada' : 'Tu identidad está forjada';
+    const d = dialog(title, '<p>Entra a cada misión con este mismo nombre y clave personal.</p><label>Nombre de explorador<input readonly id="cloud-key-name"></label><label>Tu clave personal<input type="password" readonly id="cloud-key-value"></label>'+(recoveryCode?'<label>Código de recuperación<input type="password" readonly id="cloud-recovery-value"></label><p>Guarda tu código de recuperación en un lugar privado. Te permite elegir una clave nueva si olvidas la actual.</p>':'<p>Si necesitas recuperar tu clave, usa el código de recuperación de tu archivo guardado o pide ayuda al facilitador.</p>')+'<button type="button" id="cloud-reveal-key" aria-pressed="false">Mostrar mis códigos</button><div class="cloud-actions"><button id="cloud-copy-key">Copiar clave</button>'+(recoveryCode?'<button id="cloud-copy-recovery">Copiar recuperación</button>':'')+'<button id="cloud-download-key">Guardar mi acceso TXT</button><button id="cloud-continue">Continuar mi aventura →</button></div><p role="status" id="cloud-key-status"></p>');
     d.addEventListener('cancel', event => event.preventDefault());
     d.querySelector('#cloud-key-name').value = profile.name; d.querySelector('#cloud-key-value').value = key;
     if(recoveryCode)d.querySelector('#cloud-recovery-value').value = recoveryCode;
     d.querySelector('#cloud-reveal-key').onclick = event => { const show = event.currentTarget.getAttribute('aria-pressed') !== 'true'; d.querySelectorAll('input[type=password],input[data-secret]').forEach(input => {input.dataset.secret='true';input.type=show?'text':'password';});event.currentTarget.setAttribute('aria-pressed',String(show));event.currentTarget.textContent=show?'Ocultar mis códigos':'Mostrar mis códigos'; };
-    d.querySelector('#cloud-copy-key').onclick = async () => { try { await navigator.clipboard.writeText(key); d.querySelector('#cloud-key-status').textContent = 'Clave copiada.'; } catch { d.querySelector('#cloud-key-value').select(); d.querySelector('#cloud-key-status').textContent = 'Selecciona y copia la clave.'; } };
+    function copyCode(value,selector,message) {return async () => {try {await navigator.clipboard.writeText(value);d.querySelector('#cloud-key-status').textContent=message;}catch {const input=d.querySelector(selector);input.type='text';input.dataset.secret='true';input.focus();input.select();d.querySelector('#cloud-reveal-key').setAttribute('aria-pressed','true');d.querySelector('#cloud-reveal-key').textContent='Ocultar mis códigos';d.querySelector('#cloud-key-status').textContent='No se pudo copiar automáticamente. El código está visible y seleccionado para que lo copies.';}};}
+    d.querySelector('#cloud-copy-key').onclick = copyCode(key,'#cloud-key-value','Clave copiada.');
+    d.querySelector('#cloud-copy-recovery')?.addEventListener('click',copyCode(recoveryCode,'#cloud-recovery-value','Código de recuperación copiado.'));
     d.querySelector('#cloud-download-key').onclick = () => {
       const url = URL.createObjectURL(new Blob(['LUDARIA\nNombre: ' + profile.name + '\nClave personal elegida: ' + key + (recoveryCode?'\nCódigo de recuperación: '+recoveryCode:'')+'\nAcceso personal: no compartir.'], { type: 'text/plain' }));
       const a = document.createElement('a'); a.href = url; a.download = 'Mi-clave-Ludaria.txt'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1500);
       d.querySelector('#cloud-key-status').textContent = 'Descarga solicitada. Comprueba que guardaste el archivo.';
     };
-    d.querySelector('#cloud-continue').onclick = () => { d.close(); finishWelcome(); };
+    d.querySelector('#cloud-continue').onclick = () => { d.close(); if(!review)finishWelcome(); };
   }
   function finishWelcome() { stateText('Tu historia está al día'); resolveReady(profile); }
   async function loadMission() {
@@ -107,9 +114,14 @@
     pendingSnapshot = JSON.parse(JSON.stringify(snapshot)); stateText('Cuaderno pendiente de guardar');
     clearTimeout(saveTimer); saveTimer = setTimeout(flushMission, 1200);
   }
-  async function flushMission() {
-    clearTimeout(saveTimer); if (saving) return;
-    if (!failedSave && !pendingSnapshot) return;
+  function flushMission() {
+    clearTimeout(saveTimer);
+    if (flushTask) return flushTask;
+    if (!failedSave && !pendingSnapshot) return Promise.resolve();
+    flushTask = performSave();
+    return flushTask;
+  }
+  async function performSave() {
     saving = true;
     try {
       while (failedSave || pendingSnapshot) {
@@ -123,6 +135,7 @@
     } catch (error) { stateText('Sin confirmar: ' + error.message); }
     finally {
       saving = false;
+      flushTask = null;
       window.dispatchEvent(new CustomEvent('ludaria:savestatus', { detail: status?.textContent || '' }));
     }
   }
@@ -133,12 +146,12 @@
   window.LudariaCloud = { active: true, ready, api, notify: stateText, loadMission, saveMission, flushMission,
     get profile() { return profile; }, get hasPending() { return hasPending(); },
     registerPendingCheck(check) { pendingChecks.add(check); return () => pendingChecks.delete(check); },
-    logout() { if (!hasPending() || confirm('Hay un cuaderno o ensayo sin confirmar. Copia o guarda tus notas antes de salir. ¿Cerrar el acceso?')) { access = null; location.reload(); } }
+    logout() { if (!hasPending() || confirm('Hay un cuaderno o ensayo sin confirmar. Copia o guarda tus notas antes de salir. ¿Cerrar el acceso?')) { access = null; identityKey = ''; identityBackup = ''; location.reload(); } }
   };
   window.addEventListener('beforeunload', event => { if (hasPending()) { event.preventDefault(); event.returnValue = ''; } });
   document.addEventListener('DOMContentLoaded', () => {
     const style = document.createElement('style');
-    style.textContent = '.ludaria-cloud-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#102018;color:#f2ebdd;padding:10px 16px;border-bottom:1px solid #c9a66b;position:relative;z-index:30;font:14px system-ui}.ludaria-cloud-bar [data-cloud-status]{flex:1;min-width:160px}.ludaria-cloud-bar button,.ludaria-cloud-dialog button{border:1px solid #59c36a;background:#163e2a;color:#f2ebdd;border-radius:8px;padding:10px 14px;cursor:pointer;font:inherit}.ludaria-cloud-dialog{box-sizing:border-box;max-width:560px;width:calc(100% - 32px);max-height:90vh;overflow:auto;background:#102018;color:#f2ebdd;border:1px solid #c9a66b;padding:28px;border-radius:18px;font:16px/1.5 system-ui}.ludaria-cloud-dialog::backdrop{background:#07120dee}.ludaria-cloud-dialog h2{font:28px Georgia;color:#c9a66b;margin:0 0 12px}.ludaria-cloud-dialog p{margin:12px 0}.ludaria-cloud-dialog label{display:block;margin:12px 0}.ludaria-cloud-dialog input,.ludaria-cloud-dialog select{display:block;width:100%;box-sizing:border-box;padding:12px;margin-top:5px;border:1px solid #53735d;border-radius:8px;background:#07120d;color:#f2ebdd;font:inherit}.ludaria-cloud-dialog summary{cursor:pointer;padding:16px 0;color:#8ed89a}.cloud-actions{display:flex;flex-wrap:wrap;gap:10px}.ludaria-cloud-dialog button:disabled{opacity:.5}.ludaria-cloud-bar button:focus-visible,.ludaria-cloud-dialog :focus-visible{outline:3px solid #c9a66b;outline-offset:3px}';
+    style.textContent = '.ludaria-cloud-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#102018;color:#f2ebdd;padding:10px 16px;border-bottom:1px solid #c9a66b;position:relative;z-index:30;font:14px system-ui}.ludaria-cloud-bar [data-cloud-identity]{min-width:0;max-width:100%;overflow-wrap:anywhere}.ludaria-cloud-bar [data-cloud-status]{flex:1;min-width:160px}.ludaria-cloud-bar button,.ludaria-cloud-dialog button{border:1px solid #59c36a;background:#163e2a;color:#f2ebdd;border-radius:8px;padding:10px 14px;cursor:pointer;font:inherit}.ludaria-cloud-dialog{box-sizing:border-box;max-width:560px;width:calc(100% - 32px);max-height:90vh;overflow:auto;background:#102018;color:#f2ebdd;border:1px solid #c9a66b;padding:28px;border-radius:18px;font:16px/1.5 system-ui}.ludaria-cloud-dialog::backdrop{background:#07120dee}.ludaria-cloud-dialog h2{font:28px Georgia;color:#c9a66b;margin:0 0 12px}.ludaria-cloud-dialog p{margin:12px 0}.ludaria-cloud-dialog label{display:block;margin:12px 0}.ludaria-cloud-dialog input,.ludaria-cloud-dialog select{display:block;width:100%;box-sizing:border-box;padding:12px;margin-top:5px;border:1px solid #53735d;border-radius:8px;background:#07120d;color:#f2ebdd;font:inherit}.ludaria-cloud-dialog summary{cursor:pointer;padding:16px 0;color:#8ed89a}.cloud-actions{display:flex;flex-wrap:wrap;gap:10px}.ludaria-cloud-dialog button:disabled{opacity:.5}.ludaria-cloud-bar button:focus-visible,.ludaria-cloud-dialog :focus-visible{outline:3px solid #c9a66b;outline-offset:3px}';
     style.textContent += `
       .ludaria-cloud-dialog [hidden]{display:none!important}
       .ludaria-welcome{max-width:920px;padding:0;border-color:#6b7650;border-radius:22px;box-shadow:0 30px 100px #0009}
@@ -154,6 +167,7 @@
       .cloud-access{padding:32px;background:radial-gradient(ellipse at top right,#213c2860,transparent 60%),#102018}
       .cloud-access h3{font:28px/1.15 Georgia;color:#f0e4c5;margin:10px 0 12px}
       .cloud-access-intro p{color:#bfcdbb;font-size:14px;margin:10px 0 22px}
+      .ludaria-welcome.is-recovering .cloud-access-intro{display:none}
       .cloud-access-tabs{display:flex;gap:6px;border:1px solid #4d664238;border-radius:10px;background:#07160e;padding:4px;margin-bottom:20px}
       .cloud-access-tabs button{flex:1;font-size:13px;background:transparent;border-color:transparent;padding:10px 5px;color:#acbba6}
       .cloud-access-tabs button[aria-pressed=true]{background:#284b33;color:#f2ebd8;border-color:#627347}
@@ -162,7 +176,8 @@
       .cloud-access .cloud-primary{width:100%;background:linear-gradient(130deg,#bd9c51,#dfbf72);border-color:#e2c275;color:#162218;font-weight:700;margin-top:9px;display:flex;align-items:center;justify-content:center;gap:15px;min-height:46px}
       .cloud-access .cloud-text-button{display:block;border:0;background:none;color:#cdbc86;text-decoration:underline;text-underline-offset:4px;padding:12px 0;font-size:13px}
       .cloud-access-note{font:12px/1.6 system-ui;color:#7f997d;border-top:1px solid #6b765034;padding-top:15px;margin-top:20px!important}
-      .cloud-key-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .cloud-key-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+      .cloud-key-pair label,.cloud-key-pair input{min-width:0}
       #cloud-key-help,#cloud-recover>p,.cloud-recovery-help p{font-size:13px;color:#b7c8ac}
       .cloud-recovery-help summary{font-size:13px;padding:14px 0;color:#cdbc86}
       #cloud-error:not(:empty){font-size:13px;color:#f1c481;padding:10px;background:#372c1760;border-radius:8px}
@@ -171,7 +186,7 @@
     `;
     document.head.append(style);
     bar = document.createElement('div'); bar.className = 'ludaria-cloud-bar';
-    bar.innerHTML = '<strong data-cloud-identity>Ludaria</strong><span data-cloud-status role="status">Identificación central</span><button data-cloud-refresh>Actualizar perfil</button>' + (config.route !== 'forja' && config.route !== 'mision-0' ? '<button data-cloud-save>Guardar cuaderno</button>' : '') + '<button data-cloud-advantage>'+ (config.route==='forja'?'Examinar el sello de la Forja':'Ayudas del guardián')+'</button><button data-cloud-logout>Cerrar acceso</button>';
+    bar.innerHTML = '<strong data-cloud-identity>Ludaria</strong><span data-cloud-status role="status">Identificación central</span><button data-cloud-refresh>Actualizar perfil</button>' + (config.route !== 'forja' && config.route !== 'mision-0' ? '<button data-cloud-save>Guardar cuaderno</button>' : '<button data-cloud-access>Mi nombre y mi clave</button>') + '<button data-cloud-advantage>'+ (config.route==='forja'?'Examinar el sello de la Forja':'Ayudas del guardián')+'</button><button data-cloud-logout>Cerrar acceso</button>';
     document.body.prepend(bar); status = bar.querySelector('[data-cloud-status]');
     bar.querySelector('[data-cloud-refresh]').onclick = async () => {
       const button = bar.querySelector('[data-cloud-refresh]');
@@ -188,6 +203,7 @@
       } finally { button.disabled = false; }
     };
     bar.querySelector('[data-cloud-save]')?.addEventListener('click', flushMission);
+    bar.querySelector('[data-cloud-access]')?.addEventListener('click',() => {if(profile&&identityKey)keyReceipt(identityKey,identityBackup,{review:true});});
     bar.querySelector('[data-cloud-advantage]')?.addEventListener('click', advantage);
     bar.querySelector('[data-cloud-logout]').onclick = window.LudariaCloud.logout;
     welcome();

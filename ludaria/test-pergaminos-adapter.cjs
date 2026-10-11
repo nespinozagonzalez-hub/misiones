@@ -59,7 +59,7 @@ const server = http.createServer((request, response) => {
     const page = await context.newPage();
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
-    await page.goto(base + "/pergaminos-dispersos/presentacion.html");
+    await page.goto(base + "/pergaminos-dispersos/presentacion.html#pantalla-1");
     const field = page.locator('[data-field="duda"]');
     await field.waitFor();
     assert.equal(await field.inputValue(), "Duda recuperada desde otra sesión");

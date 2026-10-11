@@ -1,8 +1,10 @@
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+let centralSnapshot=null;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
   'use strict';
   const C = window.VETAS, CFG = window.VETAS_CONFIG;
   const $ = s => document.querySelector(s);
@@ -13,7 +15,7 @@
   if(cloud?.active) await cloud.ready;
   let state = initial(), persistent = true;
   try {
-    const saved = cloud?.active ? await cloud.loadMission() : JSON.parse(localStorage.getItem(CFG.storageKey) || 'null');
+    const saved = cloud?.active ? (centralSnapshot = await cloud.loadMission()) : JSON.parse(localStorage.getItem(CFG.storageKey) || 'null');
     if(saved && Array.isArray(saved.cards) && saved.cards.length===18) {
       state = {...state,...saved};
       state.page=clamp(state.page,13); state.tray=clamp(state.tray,2);state.tax=clamp(state.tax,4);
@@ -89,10 +91,10 @@
   }
   function navigate(i){
     pauseTimer();state.page=clamp(i,13);state.visited=[...new Set([...state.visited,state.page])];save();
-    const hash='#pantalla-'+(state.page+1);if(location.hash!==hash)setPageHistory(null,'',hash);
+    const hash='#pantalla-'+(state.page+1);if(missionHash()!==hash)setPageHistory(null,'',hash);
     render(true);window.scrollTo({top:0,behavior:'instant'});
   }
-  function hashPage(){const m=location.hash.match(/^#pantalla-(\d+)$/);if(m){const n=Number(m[1]);if(n>=1&&n<=14)state.page=n-1;}}
+  function hashPage(){const m=missionHash().match(/^#pantalla-(\d+)$/);if(m){const n=Number(m[1]);if(n>=1&&n<=14)state.page=n-1;}}
   hashPage();state.visited=[...new Set([...state.visited,state.page])];
   let toastTimeout;
   function toast(msg){clearTimeout(toastTimeout);$('#toast').textContent=msg;$('#toast').hidden=false;toastTimeout=setTimeout(()=>$('#toast').hidden=true,4500);}
@@ -159,5 +161,6 @@
   const sparkPositions=[[19,21],[27,74],[36,29],[58,18],[65,61],[77,32],[87,68],[94,24]];
   $('#fireflies').innerHTML=sparkPositions.map(([x,y],i)=>`<span class="fly" style="left:${x}%;top:${y}%;animation-delay:-${i*1.5}s"></span>`).join('');
   render();
+startingMission=false;
 })();
 

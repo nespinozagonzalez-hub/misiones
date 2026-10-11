@@ -19,6 +19,7 @@ const server=http.createServer((req,res)=>{
     res.setHeader('content-type','text/html');res.end(html);return;
   }
   if(url.pathname==='/frame') {res.setHeader('content-type','text/html');res.end('<iframe title="Genially fixture" style="width:100%;height:720px;border:0" src="/cloud"></iframe>');return;}
+  if(url.pathname==='/frame-mision0') {res.setHeader('content-type','text/html');res.end('<iframe title="Diagnóstico independiente" style="width:100%;height:720px;border:0" src="/mision-0/presentacion.html#pantalla-1"></iframe>');return;}
   if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){res.statusCode=404;res.end();return;}
   res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.html')?'text/html':'text/plain');res.end(fs.readFileSync(file));
@@ -57,12 +58,12 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     const form=p.locator('#cloud-register');await form.locator('[name=name]').fill('Exploradora de prueba');await form.locator('[name=key]').fill('314159');await form.locator('[name=keyConfirm]').fill('314159');await form.locator('button').click();
     await p.locator('#cloud-key-value').waitFor();const key=await p.locator('#cloud-key-value').inputValue();assert.equal(key,'314159');const recoveryCode=await p.locator('#cloud-recovery-value').inputValue();assert.match(recoveryCode,/^RES-/);
     await p.screenshot({path:__dirname+'/preview-clave.png',fullPage:true});
-    await p.locator('#cloud-continue').click();await p.locator('#app').waitFor({state:'visible'});
+    await p.locator('#cloud-continue').click();await p.locator('#app').waitFor({state:'visible'});await p.locator('[data-cloud-access]').click();assert.equal(await p.locator('#cloud-key-name').inputValue(),'Exploradora de prueba');assert.equal(await p.locator('#cloud-key-value').inputValue(),key);await p.locator('#cloud-continue').click();
     await p.locator('[data-go=codigos]').first().click();await p.locator('#code').fill('AXR314');await p.locator('#rune-form button').click();
     await p.waitForFunction(()=>window.LudariaCloud.profile.points===5);
     await p.keyboard.press('Escape');
     await p.locator('[data-go=misiones]').first().click();assert.equal(await p.locator('.mission a').count(),0);
-    const m=await createPage({width:390,height:844});await m.goto(base+'/cloud?entrada=mochi');await login(m,'EXPLORADORA DE PRUEBA',key);
+    const m=await createPage({width:390,height:844});await m.goto(base+'/cloud?entrada=mochi');await login(m,'EXPLORADORA DE PRUEBA',key);await m.locator('[data-cloud-access]').click();assert.equal(await m.locator('#cloud-key-value').inputValue(),key);await m.locator('#cloud-continue').click();
     await m.locator('[data-skill-info=maestria]').first().click();await m.getByText('Ver una demostración antes de invertir',{exact:true}).click();assert.equal(await m.locator('#modal').innerText().then(s=>s.includes('vista previa')),true);await m.keyboard.press('Escape');
     for(let i=0;i<4;i++)await m.locator('[data-allocate=maestria][data-delta="1"]').click();
     await m.locator('[data-action=checkout]').click();await m.locator('#purchase-reason').fill('Quiero probar Ojo del Artesano');await m.locator('[data-action=buy]').click();
@@ -86,6 +87,10 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     await recoverPage.screenshot({path:__dirname+'/preview-recuperar-mobile.png',fullPage:true});
     await recovery.locator('button[type=submit]').click();await recoverPage.locator('#cloud-key-value').waitFor();assert.equal(await recoverPage.locator('#cloud-key-value').inputValue(),'271828');await recoverPage.locator('#cloud-continue').click();
     const restored=await createPage();await restored.goto(base+'/cloud?mision=vetas-diseno');await login(restored,'Exploradora de prueba','271828');await restored.locator('[data-action=notebook]').first().click();assert.equal(await restored.locator('[data-field=note]').inputValue(),'Mi nota recuperable en otra sesión');
+    const longName='W'.repeat(32);t.c.request={action:'registrar',requestId:require('node:crypto').randomUUID(),data:{name:longName,class:'Kael',key:'161803',keyConfirm:'161803'}};assert.equal(t.run('ludariaApi(request)').ok,true);
+    const long=await createPage({width:390,height:844});await long.goto(base+'/cloud');await login(long,longName,'161803');assert.equal(await long.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Nombre de 32 caracteres sin desbordamiento');
+    const opening=await createPage({width:390,height:900});await opening.goto(base+'/frame-mision0');const diagnosis=opening.frames().find(frame=>frame.url().includes('/mision-0/'));assert.ok(diagnosis);await diagnosis.locator('#stage h1').waitFor();await diagnosis.locator('#draft-storage-note').waitFor();assert.equal(await diagnosis.evaluate(()=>window.LudariaCloud===undefined),true);assert.equal(await diagnosis.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+    for(let i=0;i<10;i++)await diagnosis.locator('#next').click();assert.equal(await diagnosis.locator('#next').isDisabled(),true);assert.equal(await diagnosis.locator('[data-action=send]').isDisabled(),true);await opening.screenshot({path:__dirname+'/preview-diagnostico-iframe.png',fullPage:true});
     assert.deepEqual(errors,[]);console.log('PASS: alta y clave, recuperación entre sesiones sin localStorage, compras, demo previa, cuaderno central, retirada de ventaja, móvil 390px, foco de acceso e iframe local 720px. No prueba el despliegue real de Google.');
   }catch(error){console.error('Errores del navegador:',errors);for(const page of browser.contexts().flatMap(c=>c.pages())){console.error('Estado:',page.url(),await page.locator('#stage').textContent().catch(()=>''));}throw error;}
   finally{await browser.close();server.close();}
