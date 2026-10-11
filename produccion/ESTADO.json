@@ -8,8 +8,8 @@
   "actualizado_en": "2026-10-11",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "auditoria_continuidad_y_validacion_real",
-    "detalle": "Conservar las 23 entradas y su caché actualizadas por PR #9; gateway desactivado hasta identidad y guardado confirmados en Genially real. Guía con los 16 iframe originales y contrato CI."
+    "fase": "entradas_identificacion_validadas_en_genially",
+    "detalle": "Forja, Mochi y los 13 guardianes comprobados en el Genially real con iframe originales; gateway activo. Script entregado sin cambios; el propietario lo está actualizando."
   },
   "automatizacion": {
     "estado": "activa",
@@ -188,9 +188,9 @@
       "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
     },
     "entrada_estable": {
-      "estado": "preparada_desactivada",
+      "estado": "activa_entrada_real_comprobada",
       "config": "ludaria/gateway-config.js",
-      "version": "20261011-identidad1",
+      "version": "20261011-identidad2",
       "rutas": [
         "forja",
         "pergaminos-dispersos",
@@ -207,9 +207,20 @@
         "espejo-compartido",
         "defensa-orbe"
       ],
-      "evidencia": "produccion/AUDITORIA_CONTINUIDAD_20261011.md",
+      "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
       "script_entregado": "sin cambios; actualización de la misma implementación a cargo del propietario",
-      "requiere": "Identidad y guardado confirmados con Google en un Genially real que use el iframe original antes de activar."
+      "requiere": "Identidad y guardado confirmados con Google en un Genially real que use el iframe original antes de activar.",
+      "alcance": "Navegación y formularios de identificación reales; operaciones autenticadas pendientes de prueba manual",
+      "ci": {
+        "run_id": 38158661315,
+        "conclusion": "success",
+        "commit_codigo": "528df38c2f33561f5d083bc26346178b6ba12035"
+      },
+      "pages": {
+        "run_id": 38158920841,
+        "conclusion": "success",
+        "commit": "200a5bf8e4fc94adce7f5aed29a0bd19aa529500"
+      }
     },
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
     "rama_trabajo": "codex/ludaria-rpg-guardianes-20261011",

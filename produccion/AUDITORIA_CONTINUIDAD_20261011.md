@@ -1,3 +1,5 @@
+> Actualización posterior: la solicitud del propietario de corregir Forja y los guardianes se resolvió y se comprobó en su Genially real. El gateway vuelve a estar activo, los iframe originales se conservan y la prueba autenticada de guardado sigue separada. Consultar AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md y CONEXION_LUDARIA.md. El estado de desactivación descrito abajo es histórico.
+
 # Continuidad de las incrustaciones y estado real de Ludaria
 
 11 de octubre de 2026, revisión posterior a PR #7. No se modificaron Genially, Apps Script ni registros de participantes. Se corrigieron instrucciones y se conservó desactivado el gateway exigido por el propietario.
