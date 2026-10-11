@@ -26,7 +26,7 @@ function catalogoRpg_(ss,id,slug) {
   const records=filas_(ss,'Aventuras').filter(function(r){return r[2]===id&&r[3]===slug&&r[5]==='ACCION_RPG';});
   const responses={},responseRevisions={};records.forEach(function(r){responses[r[4]]=JSON.parse(r[6]).detail;responseRevisions[r[4]]=r[0];});
   return {ok:true,mission:mission.slug,guardian:mission.guardian,purpose:mission.purpose,skills:p.skills,
-    perks:mission.perks.map(function(perk){return {id:perk.id,name:perk.name,attribute:perk.attribute,minimum:perk.minimum,kind:perk.kind,available:p.skills[perk.attribute]>=perk.minimum};}),responses:responses,responseRevisions:responseRevisions,egg:mission.egg?{id:mission.egg.id,name:mission.egg.name}:null,version:LudariaRPG.version};
+    perks:mission.perks.map(function(perk){return {id:perk.id,name:perk.name,attribute:perk.attribute,minimum:perk.minimum,kind:perk.kind,available:p.skills[perk.attribute]>=perk.minimum};}),responses:responses,responseRevisions:responseRevisions,egg:mission.egg?{id:mission.egg.id,name:mission.egg.name}:null,capabilities:{omitAdvantage:true},version:LudariaRPG.version};
 }
 function consultarVentajaRpg_(ss,id,request) {
   const data=request.data||{},perk=LudariaRPG.all.find(function(p){return p.id===data.id;});
