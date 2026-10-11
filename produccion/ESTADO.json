@@ -194,7 +194,14 @@
         "vetas-diseno"
       ],
       "requiere": "verificar despliegue real y navegación dentro de Genially antes de activar",
-      "pruebas": "24 escenarios Node con dobles OK; navegador CI pendiente"
+      "pruebas": "24 escenarios Node y regresión de navegador con dobles OK; Google/Genially reales pendientes",
+      "ci": {
+        "run_id": 38114295394,
+        "conclusion": "success",
+        "commit_codigo": "dba677d0f68bec079ee7bbc5ea2a806dfc52651d"
+      },
+      "pr": 2,
+      "evidencia": "produccion/AUDITORIA_ENTRADA_20261011.md"
     },
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md"
   }
