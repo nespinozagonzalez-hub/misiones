@@ -8,8 +8,8 @@
   "actualizado_en": "2026-10-11",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "mantenimiento_conexion_y_redisenio_rpg",
-    "detalle": "Publicación completa autorizada explícitamente por el propietario; rama lista para CI gráfico antes de integrar en main."
+    "fase": "correccion_entradas_identidad",
+    "detalle": "Gateway de enlaces existentes activado; script entregado sin cambios. CI y Genially real por comprobar tras publicación."
   },
   "automatizacion": {
     "estado": "activa",
@@ -188,21 +188,27 @@
       "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
     },
     "entrada_estable": {
-      "estado": "preparada_desactivada",
+      "estado": "activada_en_revision",
       "config": "ludaria/gateway-config.js",
+      "version": "20261011-identidad1",
       "rutas": [
         "forja",
-        "vetas-diseno"
+        "pergaminos-dispersos",
+        "senda-ejemplos",
+        "claro-debate",
+        "vetas-diseno",
+        "tallado-mecanicas",
+        "gema-motivacional",
+        "planos-arquitecto",
+        "yunque",
+        "templado-pares",
+        "reflejo-diseno",
+        "pulido-prototipo",
+        "espejo-compartido",
+        "defensa-orbe"
       ],
-      "requiere": "verificar despliegue real y navegación dentro de Genially antes de activar",
-      "pruebas": "24 escenarios Node y regresión de navegador con dobles OK; Google/Genially reales pendientes",
-      "ci": {
-        "run_id": 38114295394,
-        "conclusion": "success",
-        "commit_codigo": "dba677d0f68bec079ee7bbc5ea2a806dfc52651d"
-      },
-      "pr": 2,
-      "evidencia": "produccion/AUDITORIA_ENTRADA_20261011.md"
+      "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
+      "script_entregado": "sin cambios; actualización de la misma implementación a cargo del propietario"
     },
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
     "rama_trabajo": "codex/ludaria-rpg-guardianes-20261011",
