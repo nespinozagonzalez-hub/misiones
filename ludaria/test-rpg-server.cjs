@@ -15,6 +15,12 @@ const after=p.profile.history.at(-1);assert.equal(after.reasonSource,'AUTOINFORM
 for(const m of catalog.missions){
  const snapshot=m.slug==='vetas-diseno'?{page:0,cards:Array(18).fill(''),visited:[0]}:{version:1,page:0,fields:{nota:'Dato de '+m.slug},visited:[0]};
  assert.equal(send({action:'guardarMision',access,requestId:uid(),expectedRevision:null,data:{mission:m.slug,snapshot}}).ok,true,m.slug);
+ const omit={type:'omitir_ventaja',mission:m.slug,id:m.perks[0].id,page:1,reason:'continuar_sin_ayuda'},omitId=uid();
+ const skipCount=t.sheets.get('Aventuras').data.length;
+ assert.equal(call('accionRpg',omit,omitId).ok,true);
+ assert.equal(call('accionRpg',omit,omitId).ok,true,'Omisión idempotente');
+ assert.equal(t.sheets.get('Aventuras').data.length,skipCount+1);
+ assert.equal(call('accionRpg',{...omit,page:80}).ok,false);
  for(const perk of m.perks){assert.equal(call('ventaja',{mission:m.slug,id:perk.id}).ok,true,perk.id);if(perk.kind==='accion'){
   const event=uid(),data={type:'decision',mission:m.slug,id:perk.id,choice:perk.options[0],work:'Ensayo de prueba',reflection:'Para comprender el efecto.'};
   assert.equal(call('accionRpg',data,event).ok,true);assert.equal(call('accionRpg',data,event).ok,true);assert.equal(call('accionRpg',{...data,reflection:'Diferente'},event).ok,false);
@@ -37,7 +43,8 @@ assert.equal(call('accionRpg',decision,first).ok,true,'Reintento después de otr
 assert.equal(t.sheets.get('Aventuras').data.length,beforeConflict+1);
 assert.equal(call('catalogoRpg',{mission:mission.slug}).responses[perk.id].work,'Texto comparado');
 const low=Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,1]));assert.equal(call('redistribuir',{skills:low}).ok,true);
-assert.equal(call('ventaja',{id:'ojo_artesano'}).ok,false);assert.equal(p.profile.xp,xp);assert.equal(p.profile.history.at(-1).reasonSource,'NO_DECLARADO');
+assert.equal(call('ventaja',{id:'ojo_artesano'}).ok,false);
+assert.equal(call('accionRpg',{type:'omitir_ventaja',mission:'vetas-diseno',id:'ojo_artesano',page:1,reason:'continuar_sin_ayuda'}).ok,false);assert.equal(p.profile.xp,xp);assert.equal(p.profile.history.at(-1).reasonSource,'NO_DECLARADO');
 assert.ok(call('catalogoRpg',{mission:'yunque'}).responses.yunque_1,'Retirar un apoyo conserva la decisión anterior');
 const quantities=Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,k==='sabiduria'?2:0]));
 assert.equal(call('compra',{quantities,reason:'Quiero estudiar la brújula de conceptos.'}).ok,true);
@@ -49,5 +56,6 @@ assert.equal(send({action:'cargarMision',access,data:{mission:'mision-0'}}).ok,f
 assert.equal(call('accionRpg',{type:'entrada',mission:'mision-0'}).ok,true);
 assert.equal(t.run('analizarDecisionesLudaria().ok'),true);
 assert.ok(t.run('analizarDecisionesLudaria().motivosDeMovimientos.declarados')>=2);
+assert.ok(t.run('analizarDecisionesLudaria().events.OMISION_VENTAJA')>=13);
 const prior=t.c.Session.getActiveUser;t.c.Session.getActiveUser=()=>({getEmail:()=>''});assert.throws(()=>t.run('analizarDecisionesLudaria()'),/propietario/);t.c.Session.getActiveUser=prior;
 console.log('PASS: 13 guardianes, 39 ventajas, umbrales 3/5/8, retiro por atributos actuales, decisiones idempotentes, motivos declarados, aislamiento, borradores, secretos sin XP y análisis privado.');
