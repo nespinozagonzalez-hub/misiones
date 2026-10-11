@@ -1,5 +1,8 @@
 # Entregas para incrustar · Ludaria
 
+> **Importante: conservar Genially.** Los enlaces directos de Apps Script son una alternativa de conexión, no una indicación de reemplazar las incrustaciones anteriores. Las URL originales de GitHub Pages siguen publicadas; el puente para conservarlas permanece desactivado hasta verificar su funcionamiento en Genially real. No modificar en bloque los iframe existentes ni el receptor independiente de Misión 0.
+
+
 Las 14 sesiones están publicadas. La principal del módulo 1, Los Pergaminos Dispersos (S2), y La Defensa del Orbe (S14) completan el recorrido. La producción de sesiones está completa. La revisión de conexión sigue activa. Apps Script v0.3 se publicó como versión 2 el 11 de octubre de 2026. Las 13 entradas reales muestran su guardián; falta completar la prueba autenticada de recuperación y la comprobación dentro de Genially.
 
 ## 1 · El Llamado de la Aventura
