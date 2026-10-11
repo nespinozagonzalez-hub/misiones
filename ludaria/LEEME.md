@@ -24,6 +24,12 @@ Usar la URL real del despliegue como base. No publicar estos marcadores como si 
 
 Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vetas, borde 0 y permiso de pantalla completa. Genially conserva únicamente la incrustación.
 
+### Compatibilidad con los enlaces existentes
+
+Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico están preparadas para navegar al mismo `/exec`, conservando las URL originales de GitHub. El gateway permanece `enabled:false`, `verified:false` hasta confirmar identidad y guardado en un Genially real con el iframe original. Las direcciones centrales entregadas siguen siendo válidas para ensayo independiente.
+
+Se conserva la versión actualizada de los archivos compartidos para evitar caché anterior; no se activa el gateway sin el ensayo real exigido. **No modifica Código.gs**: el archivo completo entregado para actualizar el proyecto original sigue siendo válido. Actualizar la implementación activa con ese archivo continúa siendo necesario para las últimas funciones del servidor. Misión 0 conserva su receptor independiente.
+
 ## Identidad y progreso
 
 El participante puede crear su personaje desde la entrada central. El servidor genera un ID interno y una clave personal `LUD-…`, disponible para copiar o descargar. No se guarda la clave en texto en la planilla. En cada misión usa **nombre de explorador + clave**; mayúsculas, tildes y espacios equivalentes identifican el mismo alias. Un alias ya registrado requiere su clave. Las runas de recompensa se conservan y son distintas de la clave personal.

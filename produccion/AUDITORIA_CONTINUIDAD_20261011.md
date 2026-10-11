@@ -1,6 +1,6 @@
 # Continuidad de las incrustaciones y estado real de Ludaria
 
-11 de octubre de 2026, revisión posterior a PR #7. No se modificaron Genially, Apps Script ni registros de participantes.
+11 de octubre de 2026, revisión posterior a PR #7. No se modificaron Genially, Apps Script ni registros de participantes. Se corrigieron instrucciones y se conservó desactivado el gateway exigido por el propietario.
 
 ## Fuentes comprobadas
 
@@ -39,3 +39,11 @@ Se corrigieron las instrucciones contradictorias y se actualizaron conexión, ch
 El contexto más reciente registra falta de acceso al editor Google y una entrega de pasos al propietario. No se instalaron cambios por otros métodos ni se introdujeron credenciales. Continuar la actualización exclusivamente en el proyecto original cuando exista acceso legítimo; editar la implementación existente con Nueva versión conserva su URL. No crear otro proyecto, hojas o secreto.
 
 No dar por terminada la conexión ni detener la revisión por el solo éxito de CI. El siguiente ensayo real debe utilizar los iframe originales de GitHub Pages en un Genially de prueba, sin sustituir bloques en masa ni modificar el Genially del propietario.
+
+## Cambio concurrente durante la integración
+
+Mientras terminaba el CI de esta corrección, PR #9 se integró como `200a5bf8e4fc94adce7f5aed29a0bd19aa529500`; Pages `38158920841` aprobado. Actualizó la caché de 23 entradas y amplió el ensayo de rutas, pero configuró `enabled:true` y `verified:true`. Su propio informe deja pendiente registro/recuperación reales. No se recuperó una instrucción posterior del propietario que revocara la prueba real previa.
+
+La integración conserva sus 23 entradas, versión de caché, catálogo de rutas y cobertura de pruebas. Restablece exclusivamente los dos indicadores del gateway a `false` y distingue en las pruebas el modo público desactivado de la configuración activa ficticia de ensayo. No altera el archivo completo de Apps Script ni el texto entregado al propietario. Los 16 bloques de la guía siguen siendo los originales.
+
+El CI previo de PR #8 (`38158767879`) pasó completo sobre `c9271ab0c283bb73a59ff3c180edd5ab750372e1`; la resolución con el main concurrente requiere un nuevo CI antes de fusionar. La regresión pública de 16 entradas y seis recursos descrita arriba se realizó sobre el HEAD anterior a PR #9. No se extrapola a una instalación Google posterior.
