@@ -165,7 +165,7 @@
     }
   },
   "conexion_ludaria": {
-    "version": "0.3.0",
+    "version": "0.4.0",
     "fase": "publicacion_autorizada_en_validacion",
     "fecha": "2026-10-11",
     "base_paso1": "Instalada por el propietario; nueve pruebas OK verificadas",
@@ -208,8 +208,8 @@
         "defensa-orbe"
       ],
       "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
-      "script_entregado": "sin cambios; actualización de la misma implementación a cargo del propietario",
-      "requiere": "Identidad y guardado confirmados con Google en un Genially real que use el iframe original antes de activar.",
+      "script_entregado": "v0.4.0 reemplaza el anterior por solicitud del propietario",
+      "requiere": "Conservar activa la entrada; comprobar la nueva versión autenticada tras actualizar Apps Script",
       "alcance": "Navegación y formularios de identificación reales; operaciones autenticadas pendientes de prueba manual",
       "ci": {
         "run_id": 38158661315,
@@ -238,6 +238,14 @@
       "razon": "El propietario pidió actualizar y publicar todo; CI gráfico y despliegue Google pendientes.",
       "pr_nuevo": null
     },
-    "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md"
+    "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md",
+    "bienvenida_y_claves": {
+      "estado": "codigo_nuevo_validado_pendiente_actualizar_apps_script",
+      "informe": "produccion/BIENVENIDA_Y_CLAVES_20261011.md",
+      "clave": "elegida por el usuario; seis dígitos con confirmación",
+      "recuperacion": "nombre y respaldo privado RES; alternativa del facilitador",
+      "nueva_implementacion": "actualizar la implementación existente con Código.gs v0.4.0; conservar /exec e iframe",
+      "prueba_real": "pendiente de instalación por el propietario"
+    }
   }
 }

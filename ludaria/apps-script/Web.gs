@@ -1,4 +1,4 @@
-/** LUDARIA · Conexión central v0.3.0. Funciones privadas conservan el sufijo _. */
+/** LUDARIA · Conexión central v0.4.0. Funciones privadas conservan el sufijo _. */
 const LUDARIA_WEB = Object.freeze({
   pages: 'https://nespinozagonzalez-hub.github.io/misiones/',
   raw: 'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/',
@@ -63,7 +63,7 @@ function prepararConexionLudaria() {
   const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + 'forja/index.html');
   if (response.getResponseCode() !== 200) throw new Error('No se pudo comprobar la interfaz de Forja.');
   console.log('Conexión preparada. Implementa como aplicación web, ejecutada como propietario. La planilla sigue privada.');
-  return { ok: true, version: '0.3.0' };
+  return { ok: true, version: '0.4.0' };
 }
 
 function doGet(e) {
@@ -108,6 +108,7 @@ function ludariaApi(request) {
         return respuestaPerfil_(ss, result.profile.id, tokenSesion_(result.profile.id));
       }
       if (request.action === 'registrar') return registrarPublico_(ss, request);
+      if (request.action === 'recuperarClave') return recuperarClavePublica_(ss, request);
       const id = validarSesion_(request.access);
       const record = filas_(ss, 'Personajes').find(function (r) { return r[0] === id && r[8] === 'ACTIVO'; });
       if (!record) throw new Error('Acceso cerrado. Vuelve a identificarte.');
@@ -179,18 +180,72 @@ function registrarPublico_(ss, request) {
   validarSolicitud_(request.requestId);
   const data = request.data || {}, alias = normalizarAlias_(data.name);
   if (!['Kael', 'Kira'].includes(data.class)) throw new Error('Selecciona Kael o Kira.');
-  const hex = firma_('alta|' + request.requestId + '|' + alias + '|' + data.class).slice(0, 24).toUpperCase();
-  const key = 'LUD-' + hex.match(/.{6}/g).join('-');
+  const key = claveElegida_(data.key, data.keyConfirm);
+  const props = PropertiesService.getScriptProperties(), receiptProperty = 'LUDARIA_ALTA_' + firma_('alias|' + alias);
+  const signature = firma_(JSON.stringify({alias:alias,avatar:data.class,key:key}));
+  const receipt = JSON.parse(props.getProperty(receiptProperty) || 'null');
   const existing = buscarPersonaje_(ss, alias);
+  let record;
   if (existing) {
-    if (!iguales_(firma_(existing[0] + '|' + existing[4] + '|' + key), existing[5])) throw new Error('Ese nombre ya está registrado. Entra con tu clave o elige otro nombre.');
+    if (existing[8] !== 'ACTIVO' || !receipt || receipt.requestId !== request.requestId || !iguales_(receipt.signature, signature) ||
+        !iguales_(firma_(existing[0] + '|' + existing[4] + '|' + key), existing[5])) throw new Error('Ese nombre ya está registrado. Entra con tu clave o elige otro nombre.');
     asegurarCreacion_(ss, existing);
-    const response = respuestaPerfil_(ss, existing[0], tokenSesion_(existing[0])); response.key = key; return response;
+    record = existing;
+  } else {
+    if (filas_(ss, 'Personajes').length >= LUDARIA_WEB.maxCharacters) throw new Error('Registro completo. Contacta al facilitador.');
+    props.setProperty(receiptProperty, JSON.stringify({requestId:request.requestId,signature:signature}));
+    record = crearPersonaje_(ss, data.name, key, data.class, 'PARTICIPANTE');
   }
-  if (filas_(ss, 'Personajes').length >= LUDARIA_WEB.maxCharacters) throw new Error('Registro completo. Contacta al facilitador.');
-  const record = crearPersonaje_(ss, data.name, key, data.class, 'PARTICIPANTE');
+  const recoveryCode = codigoRespaldo_(request.requestId, record[0]);
+  props.setProperty('LUDARIA_RESPALDO_' + record[0], JSON.stringify({digest:firma_('respaldo|' + record[0] + '|' + recoveryCode)}));
   actualizarVistas_(ss, record, perfilActual_(ss, record[0]));
-  const response = respuestaPerfil_(ss, record[0], tokenSesion_(record[0])); response.key = key; return response;
+  const response = respuestaPerfil_(ss, record[0], tokenSesion_(record[0])); response.key = key; response.recoveryCode = recoveryCode; return response;
+}
+function claveElegida_(key, confirmation) {
+  const clean = limpiarClave_(key);
+  if (!/^\d{6}$/.test(clean)) throw new Error('Elige una clave personal de seis dígitos.');
+  if (clean !== limpiarClave_(confirmation)) throw new Error('Las claves no coinciden. Escríbelas otra vez.');
+  return clean;
+}
+function codigoRespaldo_(requestId, id) {
+  const hex = firma_('respaldo-alta|' + requestId + '|' + id).slice(0,24).toUpperCase();
+  return 'RES-' + hex.match(/.{6}/g).join('-');
+}
+/** Recuperación con prueba privada de respaldo; nunca revela la clave anterior. */
+function recuperarClavePublica_(ss, request) {
+  validarSolicitud_(request.requestId);
+  const data = request.data || {}, alias = normalizarAlias_(data.name), key = claveElegida_(data.key, data.keyConfirm);
+  const code = limpiarClave_(data.recoveryCode), records = filas_(ss, 'Personajes');
+  const index = records.findIndex(function(r){return r[2] === alias && r[8] === 'ACTIVO';});
+  const props = PropertiesService.getScriptProperties(), attemptProperty = claveIntentos_(alias) + '_RESPALDO', now = Date.now();
+  let attempts = JSON.parse(props.getProperty(attemptProperty) || 'null');
+  if (!attempts || now - attempts.start >= LUDARIA.attemptWindowMs) attempts = {start:now,failures:0};
+  if (attempts.failures >= LUDARIA.maxAttempts) throw new Error('Espera unos minutos antes de intentar recuperar la clave nuevamente.');
+  const previous = index < 0 ? null : records[index].slice(), property = previous && 'LUDARIA_RESPALDO_' + previous[0];
+  const backupRaw = property && props.getProperty(property), backup = JSON.parse(backupRaw || 'null');
+  if (!previous || !backup || !/^RES(?:-[A-F0-9]{6}){4}$/.test(code) || !iguales_(backup.digest, firma_('respaldo|' + previous[0] + '|' + code))) {
+    if (previous) {attempts.failures++; props.setProperty(attemptProperty, JSON.stringify(attempts));}
+    throw new Error('Revisa el nombre y el código de recuperación. Si no lo tienes, pide ayuda al facilitador.');
+  }
+  const signature = firma_(JSON.stringify({alias:alias,key:key,code:code}));
+  if (backup.requestId === request.requestId) {
+    if (!iguales_(backup.signature, signature)) throw new Error('Esta solicitud ya se usó para otro cambio de clave.');
+    const response = respuestaPerfil_(ss, previous[0], tokenSesion_(previous[0])); response.key = key; return response;
+  }
+  const next = previous.slice(), versionProperty = 'LUDARIA_ACCESS_VERSION_' + previous[0], previousVersion = props.getProperty(versionProperty);
+  next[4] = Utilities.getUuid(); next[5] = firma_(previous[0] + '|' + next[4] + '|' + key);
+  const row = ss.getSheetByName('Personajes').getRange(index + 2, 1, 1, LUDARIA.headers.Personajes.length);
+  try {
+    row.setValues([next]); props.setProperty(versionProperty, request.requestId);
+    props.setProperty(property, JSON.stringify({digest:backup.digest,requestId:request.requestId,signature:signature}));
+    registrarEventoRpg_(ss, previous[0], request, 'RECUPERACION_ACCESO', 'forja', '', {source:'RESPALDO',previousSessionsRevoked:true});
+  } catch(error) {
+    row.setValues([previous]); props.setProperty(property, backupRaw);
+    if (previousVersion) props.setProperty(versionProperty, previousVersion); else props.deleteProperty(versionProperty);
+    throw error;
+  }
+  props.deleteProperty(attemptProperty); props.deleteProperty(claveIntentos_(alias));
+  const response = respuestaPerfil_(ss, previous[0], tokenSesion_(previous[0])); response.key = key; return response;
 }
 function tokenSesion_(id) {
   const version = PropertiesService.getScriptProperties().getProperty('LUDARIA_ACCESS_VERSION_' + id);
@@ -251,6 +306,7 @@ function renovarAccesoExplorador_(name) {
       throw error;
     }
     props.deleteProperty(claveIntentos_(alias));
+    props.deleteProperty('LUDARIA_RESPALDO_' + previous[0]);
     return {id:previous[0],name:previous[1],key:key};
   } finally { lock.releaseLock(); }
 }

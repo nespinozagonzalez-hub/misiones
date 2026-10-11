@@ -4,7 +4,7 @@ const {JSDOM,ResourceLoader,VirtualConsole}=require(process.env.LUDARIA_TEST_DOM
 const {context,setSource}=require('./mock.cjs'),catalog=require('./rpg-catalog.js');
 const root=path.resolve(__dirname,'..');setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));const t=context();t.run('prepararConexionLudaria()');
 const uid=()=>crypto.randomUUID(),send=q=>{t.c.request=q;return JSON.parse(JSON.stringify(t.run('ludariaApi(request)')));};
-let person=send({action:'registrar',requestId:uid(),data:{name:'Prueba DOM RPG',class:'Kira'}});const key=person.key,access=person.access;
+let person=send({action:'registrar',requestId:uid(),data:{name:'Prueba DOM RPG',class:'Kira',key:'314159',keyConfirm:'314159'}});const key=person.key,access=person.access;
 function call(action,data){const r=send({action,data,access,expectedRevision:person.revision,requestId:uid()});assert.equal(r.ok,true,r.message);if(r.profile)person=r;return r;}
 for(const code of ['ECO101','AXR314','LUM582','VYR207','NEX451','ORB126','KRN693','ZEN248','ELD570','MIR831','ARC419','NEB264','CYR905','ORB714'])call('runa',{code});
 call('redistribuir',{skills:Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,8]))});

@@ -27,6 +27,7 @@ jobs:
       - run: node ludaria/test-stable-embeds.cjs
       - run: node ludaria/test-gateway.cjs
       - run: node ludaria/test-server.cjs
+      - run: node ludaria/test-access.cjs
       - run: node ludaria/test-rpg-server.cjs
       - run: npm install --no-save playwright@1.62.1 jsdom@26.1.0
       - run: node ludaria/test-rpg-dom.cjs

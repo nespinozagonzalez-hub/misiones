@@ -3,7 +3,7 @@ const {context,setSource}=require('./mock.cjs'),catalog=require('./rpg-catalog.j
 setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));
 const t=context();t.run('prepararConexionLudaria()');
 const uid=()=>crypto.randomUUID();const send=q=>{t.c.request=q;return t.run('ludariaApi(request)');};
-let p=send({action:'registrar',requestId:uid(),data:{name:'Prueba RPG',class:'Kira'}});const access=p.access;
+let p=send({action:'registrar',requestId:uid(),data:{name:'Prueba RPG',class:'Kira',key:'314159',keyConfirm:'314159'}});const access=p.access;
 const call=(action,data,id=uid())=>{const r=send({action,data,requestId:id,access,expectedRevision:p.revision});if(r.profile)p=r;return r;};
 assert.equal(catalog.missions.length,13);assert.equal(catalog.all.length,39);assert.equal(new Set(catalog.missions.map(m=>m.guardian)).size,13);
 for(const k of Object.keys(catalog.attributes))for(const n of [3,5,8])assert.ok(catalog.all.some(x=>x.attribute===k&&x.minimum===n),k+' '+n);
@@ -50,7 +50,7 @@ const quantities=Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,k=
 assert.equal(call('compra',{quantities,reason:'Quiero estudiar la brújula de conceptos.'}).ok,true);
 assert.equal(p.profile.history.at(-1).skillsBefore.sabiduria,1);assert.equal(p.profile.history.at(-1).skillsAfter.sabiduria,3);assert.equal(p.profile.history.at(-1).reasonSource,'AUTOINFORME');
 const movements=t.sheets.get('Movimientos').data.length;assert.equal(call('compra',{quantities,reason:'a'.repeat(1001)}).ok,false);assert.equal(t.sheets.get('Movimientos').data.length,movements);
-const other=send({action:'registrar',requestId:uid(),data:{name:'Segundo RPG',class:'Kael'}});assert.deepEqual(Object.keys(send({action:'catalogoRpg',access:other.access,data:{mission:'yunque'}}).responses),[]);
+const other=send({action:'registrar',requestId:uid(),data:{name:'Segundo RPG',class:'Kael',key:'314159',keyConfirm:'314159'}});assert.deepEqual(Object.keys(send({action:'catalogoRpg',access:other.access,data:{mission:'yunque'}}).responses),[]);
 assert.equal(send({action:'guardarMision',access:other.access,requestId:uid(),expectedRevision:null,data:{mission:'yunque',snapshot:{page:0}}}).ok,false);
 assert.equal(send({action:'cargarMision',access,data:{mission:'mision-0'}}).ok,false);
 assert.equal(call('accionRpg',{type:'entrada',mission:'mision-0'}).ok,true);

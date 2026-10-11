@@ -5,7 +5,7 @@ const {context,setSource}=require('./mock.cjs'),catalog=require('./rpg-catalog.j
 setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));
 const t=context();t.run('prepararConexionLudaria()');
 const uid=()=>crypto.randomUUID(),send=q=>{t.c.request=q;return JSON.parse(JSON.stringify(t.run('ludariaApi(request)')));};
-let person=send({action:'registrar',requestId:uid(),data:{name:'Ensayo de resiliencia',class:'Kira'}});
+let person=send({action:'registrar',requestId:uid(),data:{name:'Ensayo de resiliencia',class:'Kira',key:'314159',keyConfirm:'314159'}});
 const key=person.key,access=person.access;
 for(const code of ['ECO101','AXR314','LUM582','VYR207']){person=send({action:'runa',access,requestId:uid(),expectedRevision:person.revision,data:{code}});assert.equal(person.ok,true);}
 person=send({action:'redistribuir',access,requestId:uid(),expectedRevision:person.revision,data:{skills:{sabiduria:5,maestria:1,creacion:1,evaluacion:1,camaraderia:1}}});assert.equal(person.ok,true);

@@ -1,4 +1,4 @@
-# Ludaria · conexión central v0.3.0
+# Ludaria · conexión central v0.4.0
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
@@ -8,7 +8,7 @@ La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto A
 1. En el proyecto donde ejecutaste `iniciarLudaria`, sustituye TODO el contenido de `Código.gs` por `Code-Ludaria-Conectado.gs`. No crees otro proyecto ni pegues dos versiones juntas.
 2. Guarda y ejecuta `prepararConexionLudaria` desde el editor con la cuenta propietaria. Autoriza los permisos solicitados. No ejecuta pruebas sobre personajes reales ni borra registros.
 3. La URL /exec ya está entregada. Ve a **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar** para actualizar la implementación existente y conservar el mismo enlace.
-4. Comprobar el nuevo despliegue real y las incrustaciones de Genially antes de habilitar las rutas públicas.
+4. Recargar el Genially y comprobar la bienvenida con retrato, la creación con clave elegida y la recuperación. Las rutas originales ya están activas; no cambies los iframe.
 
 El código de las interfaces de esta versión debe estar publicado en `main` antes de la prueba real. La rama y el PR mantienen el trabajo revisable; la guía de producción registra su estado. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios.
 
@@ -28,13 +28,15 @@ Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vet
 
 Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico navegan al mismo `/exec`, conservando las URL originales de GitHub. El gateway está activo; Forja, Mochi y los 13 guardianes se comprobaron dentro del Genially real. La prueba autenticada de guardado/recuperación se verifica por separado. Las direcciones centrales entregadas también siguen siendo válidas.
 
-Se actualiza la versión de los archivos compartidos para evitar la caché anterior. **No modifica Código.gs**: el archivo completo entregado para actualizar el proyecto original sigue siendo válido. Actualizar la implementación activa con ese archivo continúa siendo necesario para las últimas funciones del servidor. Misión 0 conserva su receptor independiente.
+**Esta versión sí modifica Código.gs.** Reemplaza el archivo completo anterior por el de v0.4.0 y actualiza la misma implementación. GitHub Pages no reemplaza el cliente incrustado en Apps Script. Misión 0 conserva su receptor independiente.
 
 ## Identidad y progreso
 
-El participante puede crear su personaje desde la entrada central. El servidor genera un ID interno y una clave personal `LUD-…`, disponible para copiar o descargar. No se guarda la clave en texto en la planilla. En cada misión usa **nombre de explorador + clave**; mayúsculas, tildes y espacios equivalentes identifican el mismo alias. Un alias ya registrado requiere su clave. Las runas de recompensa se conservan y son distintas de la clave personal.
+El participante elige y confirma una **clave personal de seis dígitos**, que usará con su nombre en todas las misiones. Recibe además un **código de recuperación RES** privado; puede guardar ambos en un TXT. El servidor guarda verificadores, nunca las credenciales en texto. Los alias equivalentes identifican el mismo personaje. Las claves LUD anteriores siguen entrando. Las runas de recompensa siguen siendo distintas de la clave personal.
 
-El perfil y el cuaderno se recuperan desde el servidor. La sesión vive en memoria durante cuatro horas; cerrar o recargar requiere identificación. No depende de compartir `localStorage` entre iframes. Si pierde la clave, el propietario ejecuta `recuperarClaveLudaria` desde el editor del mismo proyecto, confirma el nombre y recibe una nueva clave en un diálogo de la hoja. Se conserva el progreso, se invalidan las claves y sesiones anteriores y se registra `RECUPERACION_ACCESO` sin escribir la clave en la planilla ni en el registro de ejecución. No se crea otro personaje ni se ofrece recuperación pública sin intervención del facilitador.
+La bienvenida muestra el retrato de cada guardián. «Recuperar clave» permite escribir nombre y código RES para elegir una nueva clave, conservando íntegro el progreso y revocando sesiones anteriores. Si no tiene el respaldo o su cuenta es anterior a v0.4.0, el facilitador puede renovar el acceso con `recuperarClaveLudaria` desde el editor del proyecto original. Esta renovación invalida el respaldo anterior. No se recupera un personaje solo con conocer su nombre.
+
+El perfil y el cuaderno se recuperan desde el servidor. La sesión vive en memoria cuatro horas; cerrar o recargar requiere identificación. No depende de compartir localStorage entre iframes. Ver [el detalle de esta versión](../produccion/BIENVENIDA_Y_CLAVES_20261011.md).
 
 Las compras se validan sobre el saldo actual. El cliente muestra el resultado después de confirmarlo; el ID de solicitud evita repetir cobros. Redistribuir atributos conserva el total de puntos obtenidos, la XP, las runas y los movimientos. Los talentos activos y las ventajas se ajustan a los atributos actuales. Las copias de personajes locales requieren revisión antes de migrar: no se acreditan saldos aportados por el navegador.
 
@@ -56,6 +58,7 @@ Las Vetas guarda versiones del borrador en `Aventuras`, separadas por ID y misi�
 ```sh
 python ludaria/build.py
 node ludaria/test-server.cjs
+node ludaria/test-access.cjs
 node ludaria/test-rpg-server.cjs
 # Para la comprobación DOM: npm install --no-save jsdom@26.1.0
 node ludaria/test-rpg-dom.cjs
