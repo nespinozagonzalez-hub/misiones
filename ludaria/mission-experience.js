@@ -42,6 +42,7 @@
   // Cada tramo del recorrido propone una de las tres ventajas según el personaje.
   // No cambia la evaluación, no revela ayudas bloqueadas y no registra clics pasivos.
   const skipped = new Set(), skipRequests = new Map();
+  let supportsOmission = false;
   function contextualAdvantage() {
     const cloud = window.LudariaCloud;
     const mission = window.LudariaRPG?.find(window.LUDARIA_CLOUD_CONFIG?.route);
@@ -72,6 +73,7 @@
       consult.textContent = perk.kind === 'accion' ? 'Explorar otra ruta' : 'Consultar orientación';
       consult.addEventListener('click', () => window.LudariaRPGUI?.openPerk(perk.id));
       actions.append(consult);
+      if (supportsOmission) {
       const omit = document.createElement('button');
       omit.type = 'button';
       omit.className = 'contextual-skip';
@@ -95,6 +97,7 @@
         }
       });
       actions.append(omit);
+      }
     }
     const mochi = container.querySelector('[data-mochi-visit]');
     if (mochi) container.insertBefore(panel, mochi);
@@ -119,7 +122,14 @@
     if (panel && perk && String(skill) === panel.dataset.contextSkill) return;
     refreshContext();
   });
-  window.LudariaCloud?.ready?.then(contextualAdvantage);
+  window.LudariaCloud?.ready?.then(async () => {
+    contextualAdvantage();
+    try {
+      const catalogue = await window.LudariaCloud.api('catalogoRpg', {mission:window.LUDARIA_CLOUD_CONFIG.route});
+      supportsOmission = catalogue.capabilities?.omitAdvantage === true;
+      refreshContext();
+    } catch { /* Compatibilidad: la tarjeta permanece útil sin telemetría. */ }
+  });
   document.addEventListener('ludaria:confirmed', event => {
     if (!['decision', 'secreto'].includes(event.detail?.type)) return;
     const surface = document.querySelector('.ludaria-cloud-dialog[open]');
