@@ -8,7 +8,7 @@
   const current = new URL(location.href);
   if (current.searchParams.get('prueba') === '1') return;
   const match = current.pathname.match(/^\/misiones\/([a-z0-9-]+)\/(?:index\.html|presentacion\.html)?$/);
-  if (!match || !Array.isArray(config.routes) || !config.routes.includes(match[1])) return;
+  if (!match || match[1] === 'mision-0' || !Array.isArray(config.routes) || !config.routes.includes(match[1])) return;
   // Solo una URL de implementación Apps Script /exec sin query, fragmento o usuario.
   if (typeof config.deployment !== 'string' ||
       !/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]{20,}\/exec$/.test(config.deployment)) return;
