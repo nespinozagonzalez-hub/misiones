@@ -1,13 +1,14 @@
-# Ludaria · conexión central · piloto v0.2.0
+# Ludaria · conexión central v0.3.0
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
 ## Activar una sola vez
 
+0. Si no estás seguro de haber abierto el proyecto original, pega el código completo, guarda y ejecuta primero `diagnosticarConexionLudaria`. Revisa el registro de ejecución. Continúa únicamente si `puedePreparar` es `true`. Esta función no escribe ni muestra el secreto.
 1. En el proyecto donde ejecutaste `iniciarLudaria`, sustituye TODO el contenido de `Código.gs` por `Code-Ludaria-Conectado.gs`. No crees otro proyecto ni pegues dos versiones juntas.
 2. Guarda y ejecuta `prepararConexionLudaria` desde el editor con la cuenta propietaria. Autoriza los permisos solicitados. No ejecuta pruebas sobre personajes reales ni borra registros.
-3. **Implementar → Nueva implementación → Aplicación web**. Ejecutar como **yo / propietario**. Para el acceso dentro de Genially sin inicio de sesión Google, seleccionar **Cualquier persona**, si tu cuenta permite esa opción. La hoja permanece restringida. Si tu institución no permite acceso anónimo, debemos adaptar la entrada; no publicar la planilla como alternativa.
-4. Copia la URL terminada en `/exec` y envíala en la conversación. El paso está pendiente hasta que exista ese enlace y se compruebe realmente.
+3. La URL /exec ya está entregada. Ve a **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar** para actualizar la implementación existente y conservar el mismo enlace.
+4. Comprobar el nuevo despliegue real y las incrustaciones de Genially antes de habilitar las rutas públicas.
 
 El código de las interfaces de esta versión debe estar publicado en `main` antes de la prueba real. La rama y el PR mantienen el trabajo revisable; la guía de producción registra su estado. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios.
 
@@ -31,7 +32,7 @@ El perfil y el cuaderno se recuperan desde el servidor. La sesión vive en memor
 
 Las compras se validan sobre el saldo actual. El cliente muestra el resultado después de confirmarlo; el ID de solicitud evita repetir cobros. Redistribuir atributos conserva el total de puntos obtenidos, la XP, las runas y los movimientos. Los talentos activos y las ventajas se ajustan a los atributos actuales. Las copias de personajes locales requieren revisión antes de migrar: no se acreditan saldos aportados por el navegador.
 
-El piloto Ojo del Artesano requiere Maestría 5 actual. Ofrece una pauta de análisis, sin respuestas automáticas ni cambios de evaluación. Forja muestra una demostración antes de invertir. Los apoyos de los otros atributos siguen pendientes de conexión.
+El piloto Ojo del Artesano requiere Maestría 5 actual. Ofrece una pauta de análisis, sin respuestas automáticas ni cambios de evaluación. Forja muestra una demostración antes de invertir. El catálogo v0.3.0 incluye 39 apoyos y acciones para las 13 misiones posteriores a la apertura. Consulta [la matriz completa](../produccion/ATRIBUTOS_GUARDIANES_DECISIONES.md). Las compras y redistribuciones conservan atributos antes/después y motivos opcionales; las rutas RPG conservan decisiones y reflexiones.
 
 Las Vetas guarda versiones del borrador en `Aventuras`, separadas por ID y misión. Un cambio desde otra sesión se detecta y se rechaza antes de sobrescribir. Se muestran estados pendiente/guardando/confirmado. No se acredita una evaluación ni se entregan runas por guardar. El receptor del diagnóstico de Misión 0 se conserva independiente.
 
@@ -49,11 +50,20 @@ Las Vetas guarda versiones del borrador en `Aventuras`, separadas por ID y misi�
 ```sh
 python ludaria/build.py
 node ludaria/test-server.cjs
+node ludaria/test-rpg-server.cjs
+# Para la comprobación DOM: npm install --no-save jsdom@26.1.0
+node ludaria/test-rpg-dom.cjs
+node ludaria/test-rpg-resilience.cjs
 npm install --no-save playwright@1.62.1
 npx playwright install --with-deps chromium
 node ludaria/test-browser.cjs
+node ludaria/test-rpg-browser.cjs
 ```
 
 Las pruebas locales usan dobles de Apps Script y nunca el Sheet de participantes. El workflow ejecuta la segunda pasada en navegador y guarda capturas. Pasar esas pruebas no demuestra que el despliegue real funcione. Las cuotas de Apps Script y el límite preventivo de 300 personajes acotan este piloto a un curso; el contador global de solicitudes es un límite de carga, no una defensa completa contra abuso.
 
 Referencias oficiales: [Apps web](https://developers.google.com/apps-script/guides/web), [comunicación con el servidor](https://developers.google.com/apps-script/guides/html/communication), [incrustación](https://developers.google.com/apps-script/reference/html/x-frame-options-mode).
+
+## Corrección adicional de decisiones
+
+El ensayo conserva la revisión desde la que se editó. Si cambia en otra sesión, el envío se rechaza sin reemplazarlo. El botón «Comparar con la decisión confirmada» permite revisar el registro actual; «Retomar mi ensayo tras comparar» conserva tu borrador y prepara otra confirmación. No equivale a guardado ni evaluación. Evidencia: `produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md`.

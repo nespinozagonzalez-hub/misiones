@@ -8,13 +8,14 @@ const {context,setSource} = require('./mock.cjs');
 setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));
 const t=context();t.run('prepararConexionLudaria()');
 const root=path.resolve(__dirname,'..');
+t.c.UrlFetchApp.fetch=url=>({getResponseCode:()=>200,getContentText:()=>fs.readFileSync(path.join(root,url.replace(t.c.LUDARIA_WEB?.raw||'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/','')),'utf8')});
 const errors=[];
 const server=http.createServer((req,res)=>{
   const url=new URL(req.url,'http://localhost');let file=path.join(root,url.pathname);
   if(url.pathname==='/cloud'){
     const route=url.searchParams.get('mision')||'forja';
-    let html=fs.readFileSync(path.join(root,route,'index.html'),'utf8');
-    html=html.replace(/<head[^>]*>/i,h=>h+`<base href="/${route}/"><script>window.LUDARIA_CLOUD_CONFIG=${JSON.stringify({route,market:url.searchParams.get('entrada')==='mochi'})};window.FORJA_ENTRY=${url.searchParams.get('entrada')==='mochi'};</script><script src="/ludaria/client.js"></script>`);
+    t.c.params={parameter:{mision:route,entrada:url.searchParams.get('entrada')}};
+    let html=t.run('doGet(params).html').replace('https://nespinozagonzalez-hub.github.io/misiones/'+route+'/', '/'+route+'/');
     res.setHeader('content-type','text/html');res.end(html);return;
   }
   if(url.pathname==='/frame') {res.setHeader('content-type','text/html');res.end('<iframe title="Genially fixture" style="width:100%;height:720px;border:0" src="/cloud"></iframe>');return;}
@@ -55,22 +56,22 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     await p.keyboard.press('Escape');
     await p.locator('[data-go=misiones]').first().click();assert.equal(await p.locator('.mission a').count(),0);
     const m=await createPage({width:390,height:844});await m.goto(base+'/cloud?entrada=mochi');await login(m,'EXPLORADORA DE PRUEBA',key);
-    await m.locator('[data-skill-info=maestria]').first().click();await m.locator('#modal details summary').click();assert.equal(await m.locator('#modal').innerText().then(s=>s.includes('vista previa')),true);await m.keyboard.press('Escape');
+    await m.locator('[data-skill-info=maestria]').first().click();await m.getByText('Ver una demostración antes de invertir',{exact:true}).click();assert.equal(await m.locator('#modal').innerText().then(s=>s.includes('vista previa')),true);await m.keyboard.press('Escape');
     for(let i=0;i<4;i++)await m.locator('[data-allocate=maestria][data-delta="1"]').click();
-    await m.locator('[data-action=checkout]').click();await m.locator('[data-action=buy]').click();
+    await m.locator('[data-action=checkout]').click();await m.locator('#purchase-reason').fill('Quiero probar Ojo del Artesano');await m.locator('[data-action=buy]').click();
     await m.waitForFunction(()=>window.LudariaCloud.profile.skills.maestria===5);
     assert.equal(await m.evaluate(()=>window.LudariaCloud.profile.points),1);await m.keyboard.press('Escape');
     assert.equal(await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
     await m.screenshot({path:__dirname+'/preview-mochi-mobile.png',fullPage:true});
     const v=await createPage();await v.goto(base+'/cloud?mision=vetas-diseno');await login(v,'Exploradora de prueba',key);await v.locator('#stage h1, #stage h2').first().waitFor();
-    await v.locator('[data-cloud-advantage]').click();await v.locator('.ludaria-cloud-dialog h2').waitFor();assert.ok((await v.locator('.ludaria-cloud-dialog').innerText()).includes('Dinámicas:'));await v.keyboard.press('Escape');
+    await v.locator('[data-cloud-advantage]').click();await v.locator('[data-rpg-open=ojo_artesano]').click();await v.getByRole('heading',{name:'Ojo del Artesano',exact:true,level:2}).waitFor();assert.ok((await v.locator('.ludaria-cloud-dialog[open]').innerText()).includes('Dinámicas:'));await v.keyboard.press('Escape');
     await v.locator('[data-action=notebook]').first().click();await v.locator('[data-field=note]').fill('Mi nota recuperable en otra sesión');
     await v.locator('[data-cloud-save]').click({force:true});await v.waitForFunction(()=>!window.LudariaCloud.hasPending);
     await v.keyboard.press('Escape');await v.screenshot({path:__dirname+'/preview-vetas.png',fullPage:true});
     const v2=await createPage();await v2.goto(base+'/cloud?mision=vetas-diseno');await login(v2,'exploradora de prueba',key);await v2.locator('[data-action=notebook]').first().click();assert.equal(await v2.locator('[data-field=note]').inputValue(),'Mi nota recuperable en otra sesión');await v2.keyboard.press('Escape');
     await m.locator('[data-go=inventario]').first().click();await m.locator('[data-action=redistribute]').click();
     await m.locator('#redistribute-maestria').fill('1');await m.locator('[data-action=redistribute-confirm]').click();await m.waitForFunction(()=>window.LudariaCloud.profile.skills.maestria===1);assert.equal(await m.evaluate(()=>window.LudariaCloud.profile.points),5);
-    await v2.locator('[data-cloud-advantage]').click();await v2.waitForFunction(()=>document.querySelector('[data-cloud-status]').textContent.includes('requiere Maestría 5'));
+    await v2.locator('[data-cloud-refresh]').click();await v2.locator('[data-cloud-advantage]').click();await v2.locator('[data-rpg-open=ojo_artesano]').waitFor();assert.equal(await v2.locator('[data-rpg-open=ojo_artesano]').isDisabled(),true);
     const f=await createPage();await f.goto(base+'/frame');const frame=f.frameLocator('iframe');await frame.locator('#cloud-login [name=name]').fill('Exploradora de prueba');await frame.locator('#cloud-login [name=key]').fill(key);await frame.locator('#cloud-login button').click();await frame.locator('#app').waitFor({state:'visible'});
     assert.deepEqual(errors,[]);console.log('PASS: alta y clave, recuperación entre sesiones sin localStorage, compras, demo previa, cuaderno central, retirada de ventaja, móvil 390px, foco de acceso e iframe local 720px. No prueba el despliegue real de Google.');
   }catch(error){console.error('Errores del navegador:',errors);for(const page of browser.contexts().flatMap(c=>c.pages())){console.error('Estado:',page.url(),await page.locator('#stage').textContent().catch(()=>''));}throw error;}

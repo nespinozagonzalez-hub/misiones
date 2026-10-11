@@ -5,14 +5,15 @@
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
   "estado_general": "14 sesiones publicadas; producción cerrada",
-  "actualizado_en": "2026-10-05",
+  "actualizado_en": "2026-10-11",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "produccion_completa"
+    "fase": "mantenimiento_conexion_y_redisenio_rpg",
+    "detalle": "Publicación completa autorizada explícitamente por el propietario; rama lista para CI gráfico antes de integrar en main."
   },
   "automatizacion": {
-    "estado": "pausada",
-    "motivo": "Producción completada"
+    "estado": "activa",
+    "motivo": "Revisión de conexión y rediseño autorizada; producción de sesiones ya completada."
   },
   "misiones": [
     {
@@ -140,7 +141,7 @@
     "forja": "forja/",
     "mochi": "forja/?entrada=mochi",
     "apps_script": "Uno compartido por Forja/Mochi; Misión 0 independiente",
-    "conexion_central": "Pendiente de despliegue real",
+    "conexion_central": "Piloto Google parcialmente comprobado; ampliación local sin publicar; Genially real pendiente",
     "auditoria": "produccion/AUDITORIA_ACTUAL.md",
     "revisiones_programadas": 5,
     "intervalo_horas": 3,
@@ -164,8 +165,8 @@
     }
   },
   "conexion_ludaria": {
-    "version": "0.2.0",
-    "fase": "piloto_preparado_pendiente_de_despliegue",
+    "version": "0.3.0",
+    "fase": "publicacion_autorizada_en_validacion",
     "fecha": "2026-10-11",
     "base_paso1": "Instalada por el propietario; nueve pruebas OK verificadas",
     "rutas_piloto": [
@@ -173,18 +174,52 @@
       "Mochi",
       "vetas-diseno"
     ],
-    "resto_misiones": "Pendientes de adaptar después del piloto real",
+    "resto_misiones": "13 adaptadores preparados; DOM aprobado; Google/Genially real pendientes",
     "script": "ludaria/Code-Ludaria-Conectado.gs",
     "guia": "ludaria/LEEME.md",
     "automatizacion": "Revisión activa cada tres horas hasta completar integración y auditorías",
-    "auditoria_funcional": "Pruebas del servidor con dobles locales: OK",
-    "auditoria_navegador": "Prueba de navegador en GitHub OK: recuperación sin localStorage, compras, cuaderno, apoyo, móvil 390px, foco e iframe local 720px; Google/Genially real pendientes",
-    "despliegue_exec": "Pendiente del propietario",
+    "auditoria_funcional": "Servidor, RPG y 24 escenarios de gateway con dobles: OK; piloto real parcial en AUDITORIA_GOOGLE_REAL_20261011.md",
+    "auditoria_navegador": "DOM de 13 misiones/39 ventajas y doce escenarios de resiliencia: OK. Chromium no instalable; gráfica y Google real pendientes.",
+    "despliegue_exec": "Entregado y piloto comprobado parcialmente; ampliación v0.3.0 sin desplegar",
     "diagnostico_mision0": "Receptor original conservado",
     "ci": {
       "run_id": 38105192674,
       "conclusion": "success",
       "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
-    }
+    },
+    "entrada_estable": {
+      "estado": "preparada_desactivada",
+      "config": "ludaria/gateway-config.js",
+      "rutas": [
+        "forja",
+        "vetas-diseno"
+      ],
+      "requiere": "verificar despliegue real y navegación dentro de Genially antes de activar",
+      "pruebas": "24 escenarios Node y regresión de navegador con dobles OK; Google/Genially reales pendientes",
+      "ci": {
+        "run_id": 38114295394,
+        "conclusion": "success",
+        "commit_codigo": "dba677d0f68bec079ee7bbc5ea2a806dfc52651d"
+      },
+      "pr": 2,
+      "evidencia": "produccion/AUDITORIA_ENTRADA_20261011.md"
+    },
+    "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
+    "rama_trabajo": "codex/ludaria-rpg-guardianes-20261011",
+    "base_remota_pr3": "74de8fb0ff22a44be4654d7abcecdd0e05859259",
+    "base_main_comprobada": "353d3cc5ff3d138762c99c20142fa57047a9fe11",
+    "guardianes": 13,
+    "ventajas": 39,
+    "secretos": 5,
+    "matriz": "produccion/ATRIBUTOS_GUARDIANES_DECISIONES.md",
+    "checklist": "produccion/CHECKLIST_CONEXION_RPG.md",
+    "evidencia_resiliencia": "produccion/AUDITORIA_RESILIENCIA_RPG_20261011.md",
+    "evidencia_google_piloto": "produccion/AUDITORIA_GOOGLE_REAL_20261011.md",
+    "publicacion": {
+      "estado": "autorizada_por_propietario_20261011",
+      "razon": "El propietario pidió actualizar y publicar todo; CI gráfico y despliegue Google pendientes.",
+      "pr_nuevo": null
+    },
+    "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md"
   }
 }

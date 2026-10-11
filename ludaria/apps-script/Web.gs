@@ -1,11 +1,52 @@
-/** LUDARIA · Conexión central v0.2.0. Funciones privadas conservan el sufijo _. */
+/** LUDARIA · Conexión central v0.3.0. Funciones privadas conservan el sufijo _. */
 const LUDARIA_WEB = Object.freeze({
   pages: 'https://nespinozagonzalez-hub.github.io/misiones/',
   raw: 'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/',
-  routes: ['forja', 'vetas-diseno'],
+  routes: ['forja', 'mision-0'].concat(LudariaRPG.missions.map(function(m){return m.slug;})),
   maxCharacters: 300,
   sessionMs: 4 * 60 * 60 * 1000
 });
+
+/**
+ * Ejecutar desde el editor si existe duda sobre qué proyecto conserva el paso 1.
+ * Solo lee estado y nunca devuelve el secreto.
+ */
+function diagnosticarConexionLudaria() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const props = PropertiesService.getScriptProperties();
+  const bound = props.getProperty('LUDARIA_SHEET_ID');
+  const secret = Boolean(props.getProperty('LUDARIA_PIN_PEPPER'));
+  const target = Boolean(ss && ss.getId() === LUDARIA.sheetId);
+  const people = target && ss.getSheetByName('Personajes');
+  const rows = people && people.getLastRow() > 1
+    ? people.getRange(2, 1, people.getLastRow() - 1, LUDARIA.headers.Personajes.length).getValues()
+    : [];
+  const participants = rows.filter(function (row) { return row[6] === 'PARTICIPANTE'; }).length;
+  const demos = rows.filter(function (row) { return row[6] === 'DEMO'; }).length;
+  let next;
+  if (!target) {
+    next = 'Abre la planilla privada y entra por Extensiones > Apps Script. Este proyecto no está vinculado a esa planilla.';
+  } else if (!secret && rows.length) {
+    next = 'Este proyecto no conserva el secreto original. No ejecutes la preparación ni borres filas; intenta restaurar o abrir el proyecto original.';
+  } else if (bound && bound !== LUDARIA.sheetId) {
+    next = 'Este proyecto está vinculado a otra planilla. No continúes aquí.';
+  } else {
+    next = 'El proyecto puede ejecutar prepararConexionLudaria sin regenerar el secreto ni sobrescribir personajes.';
+  }
+  const result = {
+    ok: true,
+    planillaCorrecta: target,
+    proyectoVinculado: bound === LUDARIA.sheetId,
+    secretoConservado: secret,
+    personajes: rows.length,
+    demos: demos,
+    participantes: participants,
+    puedePreparar: target && secret && (!bound || bound === LUDARIA.sheetId),
+    siguientePaso: next
+  };
+  console.log(JSON.stringify(result));
+  return result;
+}
 
 /** Ejecutar desde el editor con la cuenta propietaria, antes de implementar. */
 function prepararConexionLudaria() {
@@ -15,13 +56,14 @@ function prepararConexionLudaria() {
     throw new Error('Ejecuta esta preparación desde el editor, con la cuenta propietaria.');
   }
   instalarLudaria_();
+  sincronizarCatalogoRpg_(base_());
   const props = PropertiesService.getScriptProperties();
   props.setProperty('LUDARIA_WEB_ENABLED', 'true');
   // Autoriza UrlFetch al ejecutar en el editor. No se descargan datos de participantes.
   const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + 'forja/index.html');
   if (response.getResponseCode() !== 200) throw new Error('No se pudo comprobar la interfaz de Forja.');
   console.log('Conexión preparada. Implementa como aplicación web, ejecutada como propietario. La planilla sigue privada.');
-  return { ok: true, version: '0.2.0' };
+  return { ok: true, version: '0.3.0' };
 }
 
 function doGet(e) {
@@ -34,17 +76,19 @@ function doGet(e) {
   if (props.getProperty('LUDARIA_WEB_ENABLED') !== 'true') {
     return HtmlService.createHtmlOutput('<h1>Conexión pendiente</h1><p>El propietario debe ejecutar prepararConexionLudaria desde el editor.</p>');
   }
-  const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + route + '/index.html');
+  const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + route + '/' + (LUDARIA_MISSION_ENTRIES[route] || 'index.html'));
   if (response.getResponseCode() !== 200) throw new Error('No se pudo cargar la presentación.');
   const entry = params.entrada === 'mochi';
   let html = response.getContentText();
   html = html.replace(/<base\b[^>]*>/gi, '');
-  const config = JSON.stringify({ route: route, market: entry }).replace(/</g, '\\u003c');
+  const config = JSON.stringify({ route: route, market: entry, rpgVersion: LudariaRPG.version }).replace(/</g, '\\u003c');
   const insertion = '<base href="' + LUDARIA_WEB.pages + route + '/" target="_self">' +
     '<script>window.LUDARIA_CLOUD_CONFIG=' + config + ';window.FORJA_ENTRY=' + entry + ';</script>' +
+    '<script>' + LUDARIA_CATALOG_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
+    '<script>' + LUDARIA_RPG_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
     '<script>' + LUDARIA_CLIENT_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>';
   html = html.replace(/<head[^>]*>/i, function (head) { return head + insertion; });
-  return HtmlService.createHtmlOutput(html).setTitle('Ludaria · ' + (entry ? 'Mercadito de Mochi' : route === 'forja' ? 'Forja del Buscador' : 'Las Vetas del Diseño'))
+  return HtmlService.createHtmlOutput(html).setTitle('Ludaria · ' + (entry ? 'Mercadito de Mochi' : route === 'forja' ? 'Forja del Buscador' : contextoRpg_(route).name))
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
@@ -75,7 +119,9 @@ function ludariaApi(request) {
         return { ok: true, snapshot: last ? JSON.parse(last[6]).snapshot : null, revision: last ? last[0] : null };
       }
       if (request.action === 'guardarMision') return guardarMision_(ss, id, request);
-      if (request.action === 'ventaja') return consultarVentaja_(ss, id, request);
+      if (request.action === 'ventaja') return consultarVentajaRpg_(ss, id, request);
+      if (request.action === 'catalogoRpg') return catalogoRpg_(ss,id,data.mission);
+      if (request.action === 'accionRpg') return accionRpg_(ss,id,request);
       if (!['runa', 'compra', 'talento', 'redistribuir'].includes(request.action)) throw new Error('Acción no disponible.');
       validarSolicitud_(request.requestId);
       const signature = firma_(JSON.stringify({ action: request.action, data: data }));
@@ -87,7 +133,8 @@ function ludariaApi(request) {
       }
       const latest = moves[moves.length - 1];
       if (request.expectedRevision !== latest[0]) throw new Error('El perfil cambió. Actualízalo antes de confirmar.');
-      const p = perfilActual_(ss, id), before = p.points;
+      const p = perfilActual_(ss, id), before = p.points, skillsBefore=Object.assign({},p.skills), xpBefore=p.xp;
+      const reason=textoDecision_(data.reason,1000);
       let detail;
       if (request.action === 'runa') {
         const result = LudariaCore.redeem(p, data.code);
@@ -110,7 +157,7 @@ function ludariaApi(request) {
       }
       delete p.pending;
       ss.getSheetByName('Movimientos').appendRow([request.requestId, new Date().toISOString(), id, request.action.toUpperCase(),
-        JSON.stringify({ signature: signature, detail: detail, before: before, after: p.points, data: data }), JSON.stringify(p)]);
+        JSON.stringify({ signature: signature, detail: detail, before: before, after: p.points, data: data, skillsBefore: skillsBefore, skillsAfter: Object.assign({},p.skills), xpBefore: xpBefore, xpAfter: p.xp, reason:reason, reasonSource:reason?'AUTOINFORME':'NO_DECLARADO' }), JSON.stringify(p)]);
       // El movimiento confirmado es la fuente de verdad. Una vista se puede reconstruir.
       try { actualizarVistas_(ss, record, p); } catch (_) { console.log('LUDARIA: vista derivada pendiente de reconstruir.'); }
       return respuestaPerfil_(ss, id);
@@ -163,15 +210,16 @@ function cantidades_(raw, min, max) {
 }
 function respuestaPerfil_(ss, id, access) {
   const p = perfilActual_(ss, id), moves = filas_(ss, 'Movimientos').filter(function (r) { return r[2] === id; });
-  p.history = moves.slice(-1000).map(function (r) { const d = JSON.parse(r[4]); return { id: r[0], at: r[1], type: String(r[3]).toLowerCase(), detail: d.detail || 'Creación del personaje', before: d.before || 0, after: d.after || 0, cost: (d.before || 0) - (d.after || 0) }; });
+  p.history = moves.slice(-1000).map(function (r) { const d = JSON.parse(r[4]); return { id: r[0], at: r[1], type: String(r[3]).toLowerCase(), detail: d.detail || 'Creación del personaje', before: d.before || 0, after: d.after || 0, cost: (d.before || 0) - (d.after || 0), skillsBefore:d.skillsBefore||null, skillsAfter:d.skillsAfter||null, reason:d.reason||'', reasonSource:d.reasonSource||'NO_DECLARADO' }; });
   const result = { ok: true, profile: p, revision: moves[moves.length - 1][0], advantages: ventajasDisponibles_(p.skills) };
   if (access) result.access = access;
   return result;
 }
-function validarMision_(mission) { if (mission !== 'vetas-diseno') throw new Error('Esta misión aún no está conectada.'); }
+function validarMision_(mission) { if (!LudariaRPG.missions.some(function(m){return m.slug===mission;})) throw new Error('Esta misión aún no está conectada.'); }
 function guardarMision_(ss, id, request) {
   const data = request.data; validarMision_(data.mission); validarSolicitud_(request.requestId);
   if (!data.snapshot || typeof data.snapshot !== 'object' || Array.isArray(data.snapshot) || JSON.stringify(data.snapshot).length > 40000) throw new Error('Borrador inválido o demasiado extenso.');
+  validarCuadernoRpg_(data.mission,data.snapshot);
   const events = filas_(ss, 'Aventuras').filter(function (r) { return r[2] === id && r[3] === data.mission && r[5] === 'BORRADOR'; });
   const signature = firma_(JSON.stringify(data.snapshot));
   const repeated = events.find(function (r) { return r[0] === request.requestId; });
@@ -181,10 +229,4 @@ function guardarMision_(ss, id, request) {
   ss.getSheetByName('Aventuras').appendRow([request.requestId, new Date().toISOString(), id, data.mission, '', 'BORRADOR', JSON.stringify({ signature: signature, snapshot: data.snapshot })]);
   return { ok: true, revision: request.requestId };
 }
-function consultarVentaja_(ss, id, request) {
-  validarSolicitud_(request.requestId);
-  if (request.data.id !== 'ojo_artesano' || !ventajasDisponibles_(perfilActual_(ss, id).skills).length) throw new Error('Ojo del Artesano requiere Maestría 5 actual.');
-  const repeated = filas_(ss, 'Aventuras').some(function (r) { return r[0] === request.requestId && r[2] === id && r[5] === 'CONSULTA_VENTAJA'; });
-  if (!repeated) ss.getSheetByName('Aventuras').appendRow([request.requestId, new Date().toISOString(), id, 'vetas-diseno', 'ojo_artesano', 'CONSULTA_VENTAJA', '{}']);
-  return { ok: true, text: 'Dinámicas: experiencia global y relaciones. Mecánicas: reglas y procesos que hacen actuar. Componentes: representaciones concretas. Identifica la unidad de análisis y justifica según el contexto. Esta pauta no resuelve la actividad ni cambia su evaluación.' };
-}
+function consultarVentaja_(ss,id,request){return consultarVentajaRpg_(ss,id,request);}

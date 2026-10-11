@@ -237,11 +237,9 @@ function identificarExplorador_(ss, name, pin) {
 }
 /** Regla piloto; el apoyo todavía no existe dentro de la misión publicada. */
 function ventajasDisponibles_(skills) {
-  return Number.isInteger(skills.maestria) && skills.maestria >= 5 ? [{
-    id: 'ojo_artesano', attribute: 'maestria', minimum: 5, mission: 'vetas-diseno',
-    name: 'Ojo del Artesano', integration: 'PILOTO'
-  }] : [];
+ return LudariaRPG.available(skills).map(function(p){return {id:p.id,attribute:p.attribute,minimum:p.minimum,mission:p.mission,name:p.name,integration:'PREPARADA'};});
 }
+
 function escribirVista_(ss, name, id, values) {
   const existing = filas_(ss, name).findIndex(function (r) { return r[0] === id; });
   const sheet = ss.getSheetByName(name);
