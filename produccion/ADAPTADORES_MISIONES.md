@@ -5,7 +5,7 @@ Inventario generado desde las entradas efectivamente enlazadas en el catálogo, 
 | Sesión | Entrada ya incrustada | Aplicación cargada | Estado |
 | --- | --- | --- | --- |
 | 1 | mision-0/presentacion.html | app.d8f7de9958.js | Receptor original independiente; excluido |
-| 2 | pergaminos-dispersos/presentacion.html | app.participantes-1a36e9e09e.js | Adaptación pendiente; sin habilitar servidor |
+| 2 | pergaminos-dispersos/presentacion.html | app.participantes-1a36e9e09e.js | Adaptador central preparado; ruta del servidor todavía bloqueada |
 | 3 | senda-ejemplos/index.html | app.participantes-85ed383dfe.js | Adaptación pendiente; sin habilitar servidor |
 | 4 | claro-debate/presentacion.html | app.participantes-0a1f81fd6b.js | Adaptación pendiente; sin habilitar servidor |
 | 5 | vetas-diseno/presentacion.html | app.central-d10b770f97.js | Piloto preparado, pendiente Google |

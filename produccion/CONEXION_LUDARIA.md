@@ -33,3 +33,9 @@ No pedir otra instalación completa. Se sustituye el único Código.gs en el mis
 Preparada entrada estable, desactivada, para Forja/Mochi y las dos entradas de Vetas. `ludaria/gateway-config.js` permitiría configurar una sola URL /exec ya validada y conservar las URLs GitHub incrustadas. No hay conexión nueva activada. Pruebas y pendientes: `AUDITORIA_ENTRADA_20261011.md`. Inventario de las aplicaciones realmente cargadas por las 14 sesiones: `ADAPTADORES_MISIONES.md`. Se conserva el receptor independiente de Misión 0.
 
 La regresión del piloto y las pruebas de entrada en navegador con dobles pasaron en el workflow 38114295394 (commit dba677d0f68bec079ee7bbc5ea2a806dfc52651d). PR #2 preparado, sin fusionar y con redirección desactivada. Google/Genially real permanece pendiente.
+
+## Adaptador siguiente preparado
+
+`pergaminos-dispersos` reconoce el cliente central, espera la identidad, recupera la bitácora antes del primer render y guarda sin `localStorage`. La ruta continúa bloqueada en el servidor hasta validar el piloto real. Evidencia: `AUDITORIA_PERGAMINOS_20261011.md`.
+
+El código completo incorpora `diagnosticarConexionLudaria`, una comprobación de solo lectura para distinguir el proyecto original de uno nuevo. Debe ejecutarse antes de `prepararConexionLudaria` cuando exista duda; no muestra el secreto ni altera la planilla.

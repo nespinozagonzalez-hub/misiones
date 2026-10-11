@@ -4,6 +4,7 @@ La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto A
 
 ## Activar una sola vez
 
+0. Si no estás seguro de haber abierto el proyecto original, pega el código completo, guarda y ejecuta primero `diagnosticarConexionLudaria`. Revisa el registro de ejecución. Continúa únicamente si `puedePreparar` es `true`. Esta función no escribe ni muestra el secreto.
 1. En el proyecto donde ejecutaste `iniciarLudaria`, sustituye TODO el contenido de `Código.gs` por `Code-Ludaria-Conectado.gs`. No crees otro proyecto ni pegues dos versiones juntas.
 2. Guarda y ejecuta `prepararConexionLudaria` desde el editor con la cuenta propietaria. Autoriza los permisos solicitados. No ejecuta pruebas sobre personajes reales ni borra registros.
 3. **Implementar → Nueva implementación → Aplicación web**. Ejecutar como **yo / propietario**. Para el acceso dentro de Genially sin inicio de sesión Google, seleccionar **Cualquier persona**, si tu cuenta permite esa opción. La hoja permanece restringida. Si tu institución no permite acceso anónimo, debemos adaptar la entrada; no publicar la planilla como alternativa.

@@ -7,6 +7,47 @@ const LUDARIA_WEB = Object.freeze({
   sessionMs: 4 * 60 * 60 * 1000
 });
 
+/**
+ * Ejecutar desde el editor si existe duda sobre qué proyecto conserva el paso 1.
+ * Solo lee estado y nunca devuelve el secreto.
+ */
+function diagnosticarConexionLudaria() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const props = PropertiesService.getScriptProperties();
+  const bound = props.getProperty('LUDARIA_SHEET_ID');
+  const secret = Boolean(props.getProperty('LUDARIA_PIN_PEPPER'));
+  const target = Boolean(ss && ss.getId() === LUDARIA.sheetId);
+  const people = target && ss.getSheetByName('Personajes');
+  const rows = people && people.getLastRow() > 1
+    ? people.getRange(2, 1, people.getLastRow() - 1, LUDARIA.headers.Personajes.length).getValues()
+    : [];
+  const participants = rows.filter(function (row) { return row[6] === 'PARTICIPANTE'; }).length;
+  const demos = rows.filter(function (row) { return row[6] === 'DEMO'; }).length;
+  let next;
+  if (!target) {
+    next = 'Abre la planilla privada y entra por Extensiones > Apps Script. Este proyecto no está vinculado a esa planilla.';
+  } else if (!secret && rows.length) {
+    next = 'Este proyecto no conserva el secreto original. No ejecutes la preparación ni borres filas; intenta restaurar o abrir el proyecto original.';
+  } else if (bound && bound !== LUDARIA.sheetId) {
+    next = 'Este proyecto está vinculado a otra planilla. No continúes aquí.';
+  } else {
+    next = 'El proyecto puede ejecutar prepararConexionLudaria sin regenerar el secreto ni sobrescribir personajes.';
+  }
+  const result = {
+    ok: true,
+    planillaCorrecta: target,
+    proyectoVinculado: bound === LUDARIA.sheetId,
+    secretoConservado: secret,
+    personajes: rows.length,
+    demos: demos,
+    participantes: participants,
+    puedePreparar: target && secret && (!bound || bound === LUDARIA.sheetId),
+    siguientePaso: next
+  };
+  console.log(JSON.stringify(result));
+  return result;
+}
+
 /** Ejecutar desde el editor con la cuenta propietaria, antes de implementar. */
 function prepararConexionLudaria() {
   const active = Session.getActiveUser().getEmail();
