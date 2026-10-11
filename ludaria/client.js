@@ -90,6 +90,7 @@
   }
   async function flushMission() {
     clearTimeout(saveTimer); if (saving) return;
+    if (!failedSave && !pendingSnapshot) return;
     saving = true;
     try {
       while (failedSave || pendingSnapshot) {
@@ -101,7 +102,10 @@
       }
       stateText('Cuaderno confirmado en tu bitácora');
     } catch (error) { stateText('Sin confirmar: ' + error.message); }
-    finally { saving = false; }
+    finally {
+      saving = false;
+      window.dispatchEvent(new CustomEvent('ludaria:savestatus', { detail: status?.textContent || '' }));
+    }
   }
   async function advantage() { if(window.LudariaRPGUI){window.LudariaRPGUI.open();return;}
     try { const result = await api('ventaja', { id: 'ojo_artesano' }); dialog('Ojo del Artesano · Maestría 5', '<p>' + esc(result.text) + '</p><button onclick="this.closest(\'dialog\').close()">Continuar mi práctica</button>'); }
@@ -120,7 +124,20 @@
     bar = document.createElement('div'); bar.className = 'ludaria-cloud-bar';
     bar.innerHTML = '<strong data-cloud-identity>Ludaria</strong><span data-cloud-status role="status">Identificación central</span><button data-cloud-refresh>Actualizar perfil</button>' + (config.route !== 'forja' && config.route !== 'mision-0' ? '<button data-cloud-save>Guardar cuaderno</button>' : '') + '<button data-cloud-advantage>'+ (config.route==='forja'?'Examinar el sello de la Forja':'Ayudas del guardián')+'</button><button data-cloud-logout>Cerrar acceso</button>';
     document.body.prepend(bar); status = bar.querySelector('[data-cloud-status]');
-    bar.querySelector('[data-cloud-refresh]').onclick = async () => { try { await api('cargar'); stateText('Tu historia está al día'); } catch (error) { stateText(error.message); } };
+    bar.querySelector('[data-cloud-refresh]').onclick = async () => {
+      const button = bar.querySelector('[data-cloud-refresh]');
+      if (button.disabled) return;
+      button.disabled = true;
+      try {
+        await api('cargar');
+        // Consultar atributos no confirma el cuaderno ni los ensayos pendientes.
+        if (!hasPending()) stateText('Perfil actualizado · tu historia está al día');
+      } catch (error) {
+        const draftStatus = status.textContent;
+        stateText('No se pudo actualizar el perfil: ' + error.message +
+          (hasPending() ? ' · ' + draftStatus : ''));
+      } finally { button.disabled = false; }
+    };
     bar.querySelector('[data-cloud-save]')?.addEventListener('click', flushMission);
     bar.querySelector('[data-cloud-advantage]')?.addEventListener('click', advantage);
     bar.querySelector('[data-cloud-logout]').onclick = window.LudariaCloud.logout;

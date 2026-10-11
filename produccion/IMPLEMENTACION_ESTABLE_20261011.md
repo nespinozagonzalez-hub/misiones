@@ -30,3 +30,11 @@
 3. Hacer un ensayo completo de continuidad del mismo personaje en la implementación original de Google, sin revelar claves.
 4. Probar redirección del iframe viejo en un Genially de ensayo publicado, sin tocar el Genially original.
 5. Revisar indicadores pedagógicos y exportación anonimizada para el análisis doctoral antes de uso con participantes.
+
+## Continuación sobre las mismas misiones
+- No se añaden sesiones ni se cambian slugs, rutas o iframe. Misión 0 permanece intacta.
+- Corregido: consultar el perfil no sustituye el aviso de notas o ensayos pendientes por una confirmación de guardado.
+- Corregido: pulsar Guardar sin cuaderno pendiente no inventa una nueva confirmación.
+- El cierre con Mochi muestra si quedan notas sin confirmar. Tras la respuesta de guardado muestra cuaderno confirmado, distinguiéndolo de entrega y evaluación.
+- Pruebas locales aprobadas: servidor general, servidor RPG (13 guardianes / 39 ventajas), 24 escenarios de gateway, 14 escenarios de resiliencia y DOM de las 13 misiones con comprobaciones de avisos pendientes y confirmados.
+- Las pruebas de navegador del nuevo cambio quedan sujetas al CI del PR correspondiente. El cliente integrado en Código.gs requiere actualizar la misma implementación de Google para recibir esta corrección; el archivo actualizado en GitHub no publica Apps Script por sí solo.

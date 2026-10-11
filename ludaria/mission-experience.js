@@ -17,6 +17,20 @@
       : '';
   }
 
+  function updateNotebookStatus() {
+    const note = stage.querySelector('[data-mochi-notebook]');
+    const cloud = window.LudariaCloud;
+    if (!note) return;
+    note.hidden = !cloud?.active;
+    if (!cloud?.active) return;
+    const state = document.querySelector('[data-cloud-status]')?.textContent || '';
+    note.textContent = cloud.hasPending
+      ? 'Antes de volver al mapa: quedan notas o ensayos sin confirmar. Guarda tu cuaderno y revisa el aviso de guardado.'
+      : state === 'Cuaderno confirmado en tu bitácora'
+        ? 'Tu cuaderno quedó confirmado. Guardar no equivale a entregar ni recibir evaluación.'
+        : 'Revisa el estado de tu cuaderno antes de volver al mapa. Llegar al cierre no confirma una entrega ni concede puntos.';
+  }
+
   function decorate() {
     const match = counter.textContent.match(/(\d+)\s*\/\s*(\d+)/);
     if (!match || !stage.firstElementChild) return;
@@ -32,10 +46,11 @@
     card.innerHTML = '<div class="mochi-visit-art"><img alt="Mochi te espera en su mercadito" loading="lazy" decoding="async"><div class="mochi-visit-sparks" aria-hidden="true"><i></i><i></i><i></i></div></div>' +
       '<div class="mochi-visit-copy"><span class="mochi-visit-kicker">Tu próxima parada · Mercadito de Mochi</span><h2>Mochi te espera</h2>' +
       '<blockquote>«Veeen a mejorar tu personaje. Usa tus puntos conmigo y descubre qué nuevas ayudas se abren para ti.»</blockquote>' +
-      '<p data-mochi-balance hidden></p><p class="mochi-visit-note">Activa la runa de esta misión en la Forja. Después, vuelve al mapa y visita mi mercadito.</p></div>';
+      '<p data-mochi-balance hidden></p><p class="mochi-visit-note" data-mochi-notebook hidden></p><p class="mochi-visit-note">Activa la runa de esta misión en la Forja. Después, vuelve al mapa y visita mi mercadito.</p></div>';
     card.querySelector('img').src = new URL('../forja/assets/mochi.webp', document.baseURI).href;
     (stage.querySelector('.scene-content, .cover-content') || stage.firstElementChild).append(card);
     updateBalance();
+    updateNotebookStatus();
   }
 
 
@@ -115,6 +130,7 @@
   new MutationObserver(renderEnhancements).observe(stage, { childList: true });
   window.addEventListener('ludaria:profile', () => {
     updateBalance();
+    updateNotebookStatus();
     const panel = stage.querySelector('[data-contextual-perk]');
     const perk = window.LudariaRPG?.all?.find(p => p.id === panel?.dataset.contextualPerk);
     const skill = window.LudariaCloud?.profile?.skills?.[perk?.attribute];
@@ -122,6 +138,7 @@
     if (panel && perk && String(skill) === panel.dataset.contextSkill) return;
     refreshContext();
   });
+  window.addEventListener('ludaria:savestatus', updateNotebookStatus);
   window.LudariaCloud?.ready?.then(async () => {
     contextualAdvantage();
     try {
