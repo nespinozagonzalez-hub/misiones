@@ -38,8 +38,79 @@
     updateBalance();
   }
 
-  new MutationObserver(decorate).observe(stage, { childList: true });
-  window.addEventListener('ludaria:profile', updateBalance);
+
+  // Cada tramo del recorrido propone una de las tres ventajas según el personaje.
+  // No cambia la evaluación, no revela ayudas bloqueadas y no registra clics pasivos.
+  const skipped = new Set(), skipRequests = new Map();
+  function contextualAdvantage() {
+    const cloud = window.LudariaCloud;
+    const mission = window.LudariaRPG?.find(window.LUDARIA_CLOUD_CONFIG?.route);
+    const match = counter.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+    if (!cloud?.active || !cloud.profile || !mission?.perks?.length || !match || !stage.firstElementChild) return;
+    if (stage.querySelector('[data-contextual-perk]')) return;
+    const page = Number(match[1]), total = Number(match[2]);
+    if (!page || !total) return;
+    const perk = mission.perks[Math.min(2, Math.floor((page - 1) * 3 / total))];
+    const current = cloud.profile.skills?.[perk.attribute] ?? 1;
+    const available = current >= perk.minimum;
+    const container = stage.querySelector('.scene-content, .cover-content') || stage.firstElementChild;
+    const panel = document.createElement('aside');
+    panel.dataset.contextualPerk = perk.id;
+    panel.className = 'ludaria-contextual-perk' + (available ? ' is-unlocked' : ' is-locked');
+    panel.setAttribute('aria-label', 'Encuentro opcional con el guardián');
+    panel.innerHTML = '<span class="ludaria-contextual-perk-kicker">Encuentro opcional · Guardián</span><h3 data-contextual-name></h3><p data-contextual-threshold></p><p data-contextual-explanation></p><div class="ludaria-contextual-perk-actions"></div><p data-contextual-status role="status"></p>';
+    panel.querySelector('[data-contextual-name]').textContent = perk.name;
+    panel.querySelector('[data-contextual-threshold]').textContent = window.LudariaRPG.attributes[perk.attribute] + ' ' + current + ' / requisito ' + perk.minimum;
+    panel.querySelector('[data-contextual-explanation]').textContent = available
+      ? 'Tienes una posibilidad adicional para explorar esta parte de la misión. La actividad principal sigue siendo la misma.'
+      : 'Esta alternativa se activa al mejorar tu atributo con Mochi. Puedes continuar sin ella.';
+    if (available) {
+      const actions = panel.querySelector('.ludaria-contextual-perk-actions');
+      const consult = document.createElement('button');
+      consult.type = 'button';
+      consult.textContent = perk.kind === 'accion' ? 'Explorar otra ruta' : 'Consultar orientación';
+      consult.addEventListener('click', () => window.LudariaRPGUI?.openPerk(perk.id));
+      actions.append(consult);
+      const omit = document.createElement('button');
+      omit.type = 'button';
+      omit.className = 'contextual-skip';
+      omit.textContent = skipped.has(perk.id) ? 'Continuaste sin esta ayuda' : 'Seguir sin esta ayuda';
+      omit.disabled = skipped.has(perk.id);
+      omit.addEventListener('click', async () => {
+        if (skipped.has(perk.id) || omit.disabled) return;
+        omit.disabled = true;
+        const status = panel.querySelector('[data-contextual-status]');
+        status.textContent = 'Registrando tu elección…';
+        const key = perk.id + ':' + page;
+        if (!skipRequests.has(key)) skipRequests.set(key, crypto.randomUUID());
+        try {
+          await cloud.api('accionRpg', {type:'omitir_ventaja',mission:mission.slug,id:perk.id,page,reason:'continuar_sin_ayuda'},skipRequests.get(key));
+          skipped.add(perk.id);
+          omit.textContent = 'Continuaste sin esta ayuda';
+          status.textContent = 'Elección confirmada. Puedes continuar sin penalizaciones.';
+        } catch (error) {
+          omit.disabled = false;
+          status.textContent = 'Sin confirmar: ' + error.message + '. Puedes reintentar.';
+        }
+      });
+      actions.append(omit);
+    }
+    const mochi = container.querySelector('[data-mochi-visit]');
+    if (mochi) container.insertBefore(panel, mochi);
+    else container.append(panel);
+  }
+  function refreshContext() {
+    stage.querySelector('[data-contextual-perk]')?.remove();
+    contextualAdvantage();
+  }
+  function renderEnhancements() {
+    decorate();
+    contextualAdvantage();
+  }
+
+  new MutationObserver(renderEnhancements).observe(stage, { childList: true });
+  window.addEventListener('ludaria:profile', () => { updateBalance(); refreshContext(); });
+  window.LudariaCloud?.ready?.then(contextualAdvantage);
   document.addEventListener('ludaria:confirmed', event => {
     if (!['decision', 'secreto'].includes(event.detail?.type)) return;
     const surface = document.querySelector('.ludaria-cloud-dialog[open]');
@@ -51,5 +122,5 @@
     surface.classList.add('mission-confirmed');
     confirmationTimer = setTimeout(() => surface.classList.remove('mission-confirmed'), 1100);
   });
-  decorate();
+  renderEnhancements();
 })();
