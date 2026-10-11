@@ -64,7 +64,7 @@ async function login(page,name,key){const f=page.locator('#cloud-login');await f
     assert.equal(await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
     await m.screenshot({path:__dirname+'/preview-mochi-mobile.png',fullPage:true});
     const v=await createPage();await v.goto(base+'/cloud?mision=vetas-diseno');await login(v,'Exploradora de prueba',key);await v.locator('#stage h1, #stage h2').first().waitFor();
-    await v.locator('[data-cloud-advantage]').click();await v.locator('[data-rpg-open=ojo_artesano]').click();await v.getByText('Ojo del Artesano',{exact:true}).waitFor();assert.ok((await v.locator('.ludaria-cloud-dialog').innerText()).includes('Dinámicas:'));await v.keyboard.press('Escape');
+    await v.locator('[data-cloud-advantage]').click();await v.locator('[data-rpg-open=ojo_artesano]').click();await v.getByRole('heading',{name:'Ojo del Artesano',exact:true,level:2}).waitFor();assert.ok((await v.locator('.ludaria-cloud-dialog[open]').innerText()).includes('Dinámicas:'));await v.keyboard.press('Escape');
     await v.locator('[data-action=notebook]').first().click();await v.locator('[data-field=note]').fill('Mi nota recuperable en otra sesión');
     await v.locator('[data-cloud-save]').click({force:true});await v.waitForFunction(()=>!window.LudariaCloud.hasPending);
     await v.keyboard.press('Escape');await v.screenshot({path:__dirname+'/preview-vetas.png',fullPage:true});
