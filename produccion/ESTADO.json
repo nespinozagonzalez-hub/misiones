@@ -162,5 +162,29 @@
       },
       "apps_script": "No se modificó ni verificó la conexión central"
     }
+  },
+  "conexion_ludaria": {
+    "version": "0.2.0",
+    "fase": "piloto_preparado_pendiente_de_despliegue",
+    "fecha": "2026-10-11",
+    "base_paso1": "Instalada por el propietario; nueve pruebas OK verificadas",
+    "rutas_piloto": [
+      "Forja",
+      "Mochi",
+      "vetas-diseno"
+    ],
+    "resto_misiones": "Pendientes de adaptar después del piloto real",
+    "script": "ludaria/Code-Ludaria-Conectado.gs",
+    "guia": "ludaria/LEEME.md",
+    "automatizacion": "Revisión activa cada tres horas hasta completar integración y auditorías",
+    "auditoria_funcional": "Pruebas del servidor con dobles locales: OK",
+    "auditoria_navegador": "Prueba de navegador en GitHub OK: recuperación sin localStorage, compras, cuaderno, apoyo, móvil 390px, foco e iframe local 720px; Google/Genially real pendientes",
+    "despliegue_exec": "Pendiente del propietario",
+    "diagnostico_mision0": "Receptor original conservado",
+    "ci": {
+      "run_id": 38105192674,
+      "conclusion": "success",
+      "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
+    }
   }
 }
