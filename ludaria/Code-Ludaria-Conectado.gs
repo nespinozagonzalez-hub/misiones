@@ -639,14 +639,66 @@ function registrarPublico_(ss, request) {
   const response = respuestaPerfil_(ss, record[0], tokenSesion_(record[0])); response.key = key; return response;
 }
 function tokenSesion_(id) {
-  const value = id + '.' + (Date.now() + LUDARIA_WEB.sessionMs) + '.' + Utilities.getUuid();
+  const version = PropertiesService.getScriptProperties().getProperty('LUDARIA_ACCESS_VERSION_' + id);
+  const nonce = (version ? version + '~' : '') + Utilities.getUuid();
+  const value = id + '.' + (Date.now() + LUDARIA_WEB.sessionMs) + '.' + nonce;
   return value + '.' + firma_('sesion|' + value);
 }
 function validarSesion_(token) {
   if (typeof token !== 'string' || token.length > 250) throw new Error('Identifícate con tu nombre y clave.');
   const parts = token.split('.'), value = parts.slice(0, 3).join('.');
   if (parts.length !== 4 || !iguales_(firma_('sesion|' + value), parts[3]) || !/^\d+$/.test(parts[1]) || Number(parts[1]) <= Date.now()) throw new Error('Tu sesión terminó. Vuelve a entrar con tu nombre y clave.');
+  const version = PropertiesService.getScriptProperties().getProperty('LUDARIA_ACCESS_VERSION_' + parts[0]);
+  if (version && !parts[2].startsWith(version + '~')) throw new Error('El facilitador renovó tu acceso. Entra con tu nueva clave personal.');
   return parts[0];
+}
+
+/** Solo el facilitador propietario, desde el editor del proyecto vinculado. */
+function recuperarClaveLudaria() {
+  comprobarFacilitador_();
+  const ui = SpreadsheetApp.getUi();
+  const answer = ui.prompt('Recuperar acceso a Ludaria', 'Nombre de explorador cuya identidad has verificado. Su progreso se conserva.', ui.ButtonSet.OK_CANCEL);
+  if (answer.getSelectedButton() !== ui.Button.OK) return {ok:false,cancelled:true};
+  const name = answer.getResponseText();
+  const confirm = ui.alert('Renovar clave personal', 'Se asignará una nueva clave y se cerrarán los accesos anteriores de este personaje. No se cambian sus puntos, XP, atributos ni cuadernos. ¿Confirmar?', ui.ButtonSet.YES_NO);
+  if (confirm !== ui.Button.YES) return {ok:false,cancelled:true};
+  const result = renovarAccesoExplorador_(name);
+  // La clave se muestra al propietario en la hoja, nunca en registros de ejecución.
+  ui.alert('Clave personal renovada', 'Explorador: ' + result.name + '\nNueva clave: ' + result.key + '\nEntrégala únicamente a este participante. Guarda esta clave antes de cerrar.', ui.ButtonSet.OK);
+  return {ok:true,personaje:result.id};
+}
+function comprobarFacilitador_() {
+  const active = Session.getActiveUser().getEmail(), effective = Session.getEffectiveUser().getEmail();
+  const bound = SpreadsheetApp.getActiveSpreadsheet();
+  if (!active || active !== effective || !bound || bound.getId() !== LUDARIA.sheetId) throw new Error('Esta función requiere al facilitador propietario desde el editor del proyecto original.');
+  if (!PropertiesService.getScriptProperties().getProperty('LUDARIA_PIN_PEPPER')) throw new Error('Falta el secreto original. No se renovó ninguna clave.');
+}
+function renovarAccesoExplorador_(name) {
+  comprobarFacilitador_();
+  const lock = LockService.getScriptLock(); lock.waitLock(30000);
+  try {
+    const ss = base_(), alias = normalizarAlias_(name), records = filas_(ss, 'Personajes');
+    const index = records.findIndex(function(row){return row[2] === alias;});
+    if (index < 0 || records[index][8] !== 'ACTIVO') throw new Error('No hay un personaje activo con ese nombre.');
+    const previous = records[index].slice(), next = previous.slice();
+    const requestId = Utilities.getUuid();
+    const hex = firma_('recuperacion|' + requestId + '|' + previous[0]).slice(0,24).toUpperCase();
+    const key = 'LUD-' + hex.match(/.{6}/g).join('-');
+    next[4] = Utilities.getUuid(); next[5] = firma_(previous[0] + '|' + next[4] + '|' + key);
+    const props = PropertiesService.getScriptProperties(), property = 'LUDARIA_ACCESS_VERSION_' + previous[0];
+    const previousVersion = props.getProperty(property);
+    const row = ss.getSheetByName('Personajes').getRange(index + 2, 1, 1, LUDARIA.headers.Personajes.length);
+    try {
+      row.setValues([next]); props.setProperty(property, requestId);
+      registrarEventoRpg_(ss, previous[0], {requestId:requestId}, 'RECUPERACION_ACCESO', 'forja', '', {source:'FACILITADOR',previousSessionsRevoked:true});
+    } catch(error) {
+      row.setValues([previous]);
+      if (previousVersion) props.setProperty(property, previousVersion); else props.deleteProperty(property);
+      throw error;
+    }
+    props.deleteProperty(claveIntentos_(alias));
+    return {id:previous[0],name:previous[1],key:key};
+  } finally { lock.releaseLock(); }
 }
 function cantidades_(raw, min, max) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw) || Object.keys(raw).some(function (k) { return !LUDARIA.attributes.includes(k); })) throw new Error('Atributos inválidos.');
