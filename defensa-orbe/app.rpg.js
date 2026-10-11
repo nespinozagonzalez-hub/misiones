@@ -1,9 +1,10 @@
 'use strict';
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -26,6 +27,7 @@ document.addEventListener('input',e=>{const x=e.target;if(x.matches('[data-field
 document.addEventListener('change',e=>{if(e.target.id==='select-page'){s.page=Number(e.target.value);render()}if(e.target.matches('[data-check]')){s.checks[e.target.dataset.check]=e.target.checked;save()}});
 document.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.action;if(b.dataset.go!==undefined){s.page=Number(b.dataset.go);if($('#modal').open)$('#modal').close();render()}else if(a==='close')$('#modal').close();else if(a==='sources')show('Fuentes y alcance',C.sources.map(x=>`<article class="panel"><h3>${x.title}</h3><p>${x.apa}</p>${x.url?`<p><a href="${x.url}" target="_blank" rel="noopener">Consultar fuente</a></p>`:''}<p>${x.limit}</p></article>`).join(''));else if(a==='notebook')notebook();else if(a==='download')download();else if(a==='copy'){try{await navigator.clipboard.writeText(record());notify('Registro copiado.')}catch(_){notebook();$('#record').select();notify('Selecciona y copia el registro.')}}else if(a==='check')feedback(b.closest('[data-quiz]'));else if(a==='hint'){b.closest('[data-quiz]').querySelector('.hint').hidden=false;}else if(a==='assist'){const q=b.closest('[data-quiz]');q.querySelector('.extra').hidden=false;q.querySelector('.quiz-feedback').textContent='Apertura acompañada: revisen juntos la pauta. No se otorgan puntos.';q.querySelector('.quiz-feedback').hidden=false;}else if(a==='resources'){show('Recursos externos y alternativa local',Object.entries(CFG).map(([k,v])=>`<article class="panel"><h3>${C.resources[k]||k}</h3>${/^https:\/\//.test(v)?`<a href="${esc(v)}" target="_blank" rel="noopener">Abrir recurso configurado</a>`:'<p>Enlace por configurar. Usa los campos locales y comparte el archivo por el canal que indique el facilitador.</p>'}</article>`).join(''));}else if(a==='orbe'){s.open=true;save();$('#orbe').classList.add('restored');$('#ceremony-message').hidden=false;notify('Orbe restaurado en la ceremonia local.')}else if(a==='fullscreen'){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(_){notify('Pantalla completa no disponible en este marco.')}}else if(a==='reset')show('Iniciar una nueva práctica','<p>Descarga antes de borrar si quieres conservar tus respuestas.</p><div class="actions"><button class="button" data-action="reset-confirm">Borrar solo esta misión</button><button class="button secondary" data-action="close">Cancelar</button></div>');else if(a==='reset-confirm'){try{if(!cloud?.active){localStorage.removeItem(KEY);}}catch(_){}s=blank();$('#modal').close();render();}});
 $('#previous').onclick=()=>{s.page--;render()};$('#next').onclick=()=>{s.page++;render()};$('#modal').addEventListener('close',()=>lastFocus?.focus());document.addEventListener('keydown',e=>{if($('#modal').open||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='ArrowRight'&&s.page<C.pages.length-1){s.page++;render()}if(e.key==='ArrowLeft'&&s.page>0){s.page--;render()}});
-$('#select-page').innerHTML=C.pages.map((p,i)=>`<option value="${i}">${i+1} · ${esc(p.title)}</option>`).join('');const h=location.hash.match(/pantalla-(\d+)/);if(h)s.page=Number(h[1])-1;render();if(!storage)$('#store').textContent='Guardado no disponible: exporta tu registro.';
+$('#select-page').innerHTML=C.pages.map((p,i)=>`<option value="${i}">${i+1} · ${esc(p.title)}</option>`).join('');const h=missionHash().match(/pantalla-(\d+)/);if(h)s.page=Number(h[1])-1;render();if(!storage)$('#store').textContent='Guardado no disponible: exporta tu registro.';
+startingMission=false;
 })();
 

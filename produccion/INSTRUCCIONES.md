@@ -24,4 +24,12 @@ El propietario solicitó adaptar todas las misiones a los atributos, describir c
 
 ## Publicación completada y revisión vigente
 
-El 11 de octubre el propietario autorizó actualizar y publicar todo en misiones. PR #4 integrado, Pages aprobado, Apps Script original actualizado como versión 2 y 13 entradas reales comprobadas. No volver a pedir autorización de publicación, /exec o reinstalación para este encargo. Genially queda a cargo del propietario. Estado y límites de verificación en AUDITORIA_PUBLICACION_RPG_20261011.md; continuar las pruebas autenticadas reales cuando exista acceso a un personaje de prueba. Conservar gateway desactivado hasta verificación real del contenedor.
+El 11 de octubre el propietario autorizó actualizar y publicar todo en misiones. PR #4 integrado, Pages aprobado, Apps Script original actualizado como versión 2 y 13 entradas reales comprobadas. No volver a pedir autorización de publicación, /exec o reinstalación para este encargo. Genially queda a cargo del propietario. Estado y límites de verificación en AUDITORIA_PUBLICACION_RPG_20261011.md; continuar las pruebas autenticadas reales cuando exista acceso a un personaje de prueba. El gateway está activo: Forja, Mochi y los 13 guardianes se comprobaron en el contenedor real. No desactivarlo por una prueba autenticada pendiente.
+
+## Encargo vigente: auditoría total y revisión cada cinco horas
+
+El propietario pidió continuar hasta dejar todo armado, actualizar el código de todas las misiones, Forja y Mochi, y revisar/mejorar cada cinco horas hasta nueva indicación. Esta petición sustituye la cadencia anterior y las instrucciones históricas de gateway desactivado.
+
+La revisión v0.4.1 conserva los 16 iframe originales y repara la recuperación de la pantalla guardada frente a #pantalla-1. Ejecutar adapt-rpg.py debe reproducir exactamente los 13 adaptadores publicados; no volver a generar archivos que pierdan la protección de la URL central. Mantener instrumentos, receptor de Misión 0, personajes, XP, puntos, runas y secretos.
+
+El archivo completo Código.gs SÍ cambia en v0.4.1. El propietario debe reemplazarlo en el mismo proyecto y actualizar la misma implementación /exec. La comprobación pública mostró que aún estaba instalada la bienvenida anterior. No presentar CI con servicios simulados como confirmación de escrituras reales en Google. Evidencia actual: AUDITORIA_ACTUAL.md. Retomar desde main fresco, PR/CI/Pages y este estado cuando se reactive una revisión; no repetir ni revertir trabajo publicado por apuntes antiguos.

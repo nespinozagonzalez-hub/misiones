@@ -1,5 +1,10 @@
 'use strict';
 (async () => {
+let startingMission=true;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -88,5 +93,6 @@ if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission(
   modal.addEventListener('click',e=>{if(e.target===modal)modal.close();});
   for(let i=0;i<18;i++){const f=document.createElement('i');f.className='fly';f.style.left=`${(i*37)%97}%`;f.style.top=`${(i*53)%88}%`;f.style.animationDelay=`-${i%9}s`;$('#fireflies').append(f);}
   render();
+startingMission=false;
 })();
 

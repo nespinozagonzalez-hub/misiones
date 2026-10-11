@@ -6,5 +6,5 @@
 const params=new URLSearchParams(location.search),route=params.get('mision')||'forja';
 window.LUDARIA_CLOUD_CONFIG={route:LudariaRPG.find(route)||route==='mision-0'?route:'forja',market:params.get('entrada')==='mochi'};
 window.google={script:{run:{withSuccessHandler(success){return {withFailureHandler(){return {ludariaApi(){success({ok:false,message:'Esta es una vista de diseño. La creación y recuperación estarán disponibles al actualizar el Apps Script.'});}};}};}}}};
-</script><script src="client.js?v=20261011-bienvenida1"></script></head>
+</script><script src="client.js?v=20261011-auditoria1"></script></head>
 <body><p class="preview-note">Vista de diseño · No registra personajes ni consulta la planilla.</p></body></html>

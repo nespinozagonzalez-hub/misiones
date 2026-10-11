@@ -68,12 +68,29 @@ for m in manifest:
   if m['slug']=='pulido-prototipo':txt=txt.replace('cloud.saveMission(state);return;','cloud.saveMission(state);updateHud();return;',1)
   if m['slug']=='espejo-compartido':txt=txt.replace('cloud.saveMission(state);return;','cloud.saveMission(state);hud();return;',1)
  txt=txt.replace('Comprueba la confirmación de Sheets.','Comprueba la confirmación de tu bitácora.')
+ if 'function setPageHistory(' not in txt:
+  txt=txt.replace('history.replaceState(', 'setPageHistory(')
+  pos=txt.index('{',txt.index('(async'))+1
+  guard="\nfunction setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}\n"
+  txt=txt[:pos]+guard+txt[pos:]
+ # Los iframe originales terminan en #pantalla-1. Una bitácora recuperada
+ # tiene prioridad al iniciar; cambiar el fragmento después conserva su función.
+ # También funciona con el cliente de Apps Script anterior, sin nuevas APIs.
+ if m['slug'] in ['pergaminos-dispersos','vetas-diseno']:
+  txt=txt.replace('await cloud.loadMission()', '(centralSnapshot = await cloud.loadMission())')
+ txt=txt.replace('location.hash', 'missionHash()')
+ pos=txt.index('{',txt.index('(async'))+1
+ navigation="\nlet startingMission=true;\n" + ("let centralSnapshot=null;\n" if m['slug'] in ['pergaminos-dispersos','vetas-diseno'] else "") + "function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}\n"
+ txt=txt[:pos]+navigation+txt[pos:]
+ pos=txt.rfind('})();')
+ if pos < 0:raise RuntimeError('Falta cierre de adaptador '+m['slug'])
+ txt=txt[:pos]+'startingMission=false;\n'+txt[pos:]
  # Nueva app exacta, ambas entradas HTML apuntan al adaptador; fuentes antiguas conservadas.
  (folder/'app.rpg.js').write_text(txt)
  for path in [folder/'index.html',folder/'presentacion.html']:
   if not path.is_file():continue
   h=path.read_text()
-  h=re.sub(r'(<script[^>]+src=")app[^"/]*\.js(?:\?[^\"]*)?("[^>]*>)',r'\1app.rpg.js?v=20261011-rpg1\2',h)
+  h=re.sub(r'(<script[^>]+src=")app[^"/]*\.js(?:\?[^\"]*)?("[^>]*>)',r'\1app.rpg.js?v=20261011-auditoria1\2',h)
   if '../ludaria/gateway-config.js' not in h:
    h=h.replace('<head>','<head>\n<script src="../ludaria/gateway-config.js?v=20261011-rpg1"></script><script src="../ludaria/gateway.js?v=20261011-rpg1"></script>',1)
   path.write_text(h)

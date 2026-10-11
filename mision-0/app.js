@@ -4,9 +4,10 @@
   const $=s=>document.querySelector(s), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const titles=['El Llamado de la Aventura','Las Brumas del Olvido','Quienes cruzan el umbral','La ruta por Ludaria','El Libro de Stats','Códigos y colaboración','Forja tu personaje','El eco del Orbe','Nuestro punto de inicio','Tu registro inicial','La puerta de Ludaria','El Bosque nos espera'];
   const blank=()=>({page:0,visited:[0],question:0,name:'',area:'',answers:{q1:'',q2:'',q3:[],q3None:false,q4:'',q5:'',q6:'',q7:null,q8:''},introLock:false,payload:null,receipt:null});
-  let state=blank(),busy=false,toastTimer,modalOpener;
-  try {const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.answers){state={...state,...saved,answers:{...state.answers,...saved.answers}};state.page=Math.min(11,Math.max(0,Number(state.page)||0));if(!state.receipt&&state.page===11)state.page=10;}}catch{}
-  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));}catch{}};
+  let state=blank(),busy=false,toastTimer,modalOpener,storageOK=true;
+  try {const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.answers){state={...state,...saved,answers:{...state.answers,...saved.answers}};state.page=Math.min(11,Math.max(0,Number(state.page)||0));if(!state.receipt&&state.page===11)state.page=10;}}catch{storageOK=false;}
+  const draftNotice=document.createElement('aside');draftNotice.id='draft-storage-note';draftNotice.setAttribute('role','status');draftNotice.hidden=true;draftNotice.className='small-note';draftNotice.style.cssText='padding:12px 20px;margin:0;background:#2b2713;color:#ead29c;border-bottom:1px solid #7d6a3b';document.querySelector('.hud').after(draftNotice);
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;}draftNotice.hidden=storageOK;draftNotice.textContent=storageOK?'':state.receipt?'Tu diagnóstico fue recibido. Guarda una copia del registro: este navegador no conservará el comprobante al cerrar.':'El navegador no permite conservar este borrador al cerrar. Copia tu registro antes de salir o confirma su recepción en la hoja.';};
   const answered=q=>q==='q3'?state.answers.q3.length>0||state.answers.q3None:q==='q7'?Number.isInteger(state.answers.q7)&&state.answers.q7>=1&&state.answers.q7<=5:typeof state.answers[q]==='string'&&state.answers[q].trim().length>0;
   const count=()=>model.questions.filter(q=>answered(q.id)).length;
   const goButton=(page,label,extra='')=>`<button class="button ${extra}" data-action="go" data-page="${page}">${label}</button>`;

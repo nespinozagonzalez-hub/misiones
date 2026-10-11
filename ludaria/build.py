@@ -4,7 +4,7 @@ import json
 
 root = Path(__file__).resolve().parents[1]
 parts = [
-    '/** LUDARIA v0.4.0. Sustituye Código.gs en el MISMO proyecto del paso 1.\n'
+    '/** LUDARIA v0.4.1. Sustituye Código.gs en el MISMO proyecto del paso 1.\n'
     ' * Conserva propiedades, secretos y registros. No crear un proyecto nuevo.\n'
     ' * Ejecuta prepararConexionLudaria y luego implementa como aplicación web. */',
     (root / 'forja/core.js').read_text(),

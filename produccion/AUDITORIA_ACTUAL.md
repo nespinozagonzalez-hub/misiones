@@ -1,56 +1,42 @@
-# Auditoría inicial · Ludaria
+# Auditoría total · Ludaria v0.4.1
 
-Fecha: 4 de octubre de 2026. Revisión iniciada inmediatamente por encargo del usuario. Esta revisión no sustituye las cinco revisiones programadas cada 3 horas durante 15 horas.
+11 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
 
-## Resultado y alcance
+## Correcciones realizadas
 
-Publicación de efectos y correcciones: commit f3b3272051099051ef9555d798d3c5bf7b05e5d4; GitHub Pages: despliegue correcto. Marco de prueba aislado: commit 1c046276488e7a743c7eab1b7c8832211d0fcdcd; despliegue correcto.
-
-La revisión inicial combina análisis estático, pruebas unitarias/simuladas y acciones reales en el navegador. No equivale a certificar exhaustivamente todas las actividades pedagógicas, todos los navegadores ni la sincronización central.
-
-| Área | Comprobación realizada | Resultado |
+| Área | Problema comprobado | Corrección |
 | --- | --- | --- |
-| Portal | 14 enlaces de misión, acceso a Forja/Mochi y marca Ludaria | Corregido y publicado |
-| 14 sesiones | Apertura pública y avance al siguiente contenido | 14/14 responden a la navegación |
-| Fuentes activas | Sintaxis de 52 archivos/bloques JS; 248 referencias locales contra inventario del repositorio | Sin errores ni referencias locales ausentes en ese conjunto |
-| Fondos S11–13 | Referencias a forja.webp inexistente | Sustituidas por santuario.webp existente |
-| Misión 0 | Configuración de acceso a la Forja | Enlazada; receptor de diagnóstico intacto, sin envío de prueba |
-| Forja/Mochi local | Crear Kira ficticia, activar ECO101, comprar dos mejoras, historial y recarga | +3 puntos / +30 XP; gasto 2; saldo 1; Sabiduría 3/10; persistencia correcta |
-| Duplicados | Repetir ECO101 en navegador | Rechazado sin recompensa adicional |
-| Saldo insuficiente | Seleccionar el último punto en marco móvil | Otras mejoras quedan deshabilitadas; vista previa sin gasto |
-| Diseño adaptable | Forja/Mochi en iframe 375×720 y 1280×720 | Sin desbordamiento horizontal; imágenes cargadas en la vista comprobada |
-| Efectos | Transiciones, énfasis de tarjetas, destellos de acciones confirmadas, pausa persistente | Publicados; pausa y recarga verificadas en navegador |
-| Movimiento reducido | Preferencia del dispositivo, límites y limpieza de partículas | Prueba automatizada aprobada; no emulación de preferencia en navegador |
-| Dominio + servidor | Diez grupos: códigos, compra, cap 10, XP, alias antiguos, acceso, idempotencia, manipulación, migración y API privada | Aprobados con SpreadsheetApp simulado; no Google Sheets real |
+| 13 misiones | El fragmento original #pantalla-1 podía reemplazar la página recuperada. La prueba fallaba al reabrir el campo de una página posterior. | La bitácora recuperada tiene prioridad al iniciar. Una práctica nueva admite enlaces profundos; navegar no abandona el /exec. |
+| Generación de adaptadores | Regenerar desde fuentes antiguas podía perder la protección de la URL central. | adapt-rpg.py incorpora la protección y la recuperación de página; CI comprueba que generar de nuevo no deja diferencias. |
+| Guardado compartido | Una segunda llamada a guardar podía resolverse antes de confirmar la solicitud en curso. | Espera compartida de la confirmación; las ediciones durante el envío o tras un fallo se conservan y reintentan sin duplicar. |
+| Forja y Mochi | Tras entrar no había un acceso directo al nombre y la clave usada. | «Mi nombre y mi clave», con valores ocultos y disponibles solo durante esta sesión. Consultarlos no confirma ensayos pendientes. |
+| Clave y respaldo | Copiar podía fallar si el marco bloqueaba el portapapeles. | Alternativa visible y seleccionada; botón para copiar el código de recuperación. Se conserva la descarga TXT. |
+| Recuperación | Cabecera repetida ocupaba espacio en móvil. | Formulario compacto y columnas de clave que no desbordan. |
+| Nombres largos | Un alias sin espacios podía desbordar el encabezado. | Ajuste del nombre en la barra y la ficha del personaje; caso de 32 caracteres en navegador. |
+| Misión 0 | El almacenamiento bloqueado no avisaba de que el borrador/comprobante se perdería al cerrar. | Aviso persistente para copiar el registro. Instrumento, receptor y transporte originales conservados. |
+| Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y Apps Script original pendiente de actualizar. |
 
-## Mejoras visuales
+## Alcance de las pruebas
 
-Capa compartida ludaria-epic.css / ludaria-epic.js. Decoración sin interacción propia ni cambios en códigos, XP, puntos, respuestas, instrumentos o reglas. Destellos solo después de confirmar y guardar acciones válidas de Forja; no al previsualizar una compra. Máximo 8 partículas en móvil, 14 en escritorio, retirada a los 1,4 segundos. Sin sonido automático ni destellos de pantalla completa.
+- Inventario: 26 entradas HTML, 50 scripts activos y 322 referencias locales; sintaxis y recursos presentes.
+- Contrato de los 16 iframe originales: rutas, queries, fragmentos, alturas y títulos conservados. Misión 0 excluida del gateway.
+- Forja y recompensas: 14 runas, 49 puntos, 570 XP, cuatro fragmentos, duplicados, saldo insuficiente, máximo 10, talentos, migración y pausa de animaciones.
+- Servidor central y acceso: alias equivalentes, clave elegida/confirmada, alta repetible, respaldo privado, recuperación, revocación de sesiones, privacidad, rollback y conservación de XP, puntos y cuadernos.
+- Cliente: guardados simultáneos, edición mientras se guarda, caída de comunicación, reintento del mismo envío y consulta de nombre/clave sin perder avisos pendientes.
+- 13 adaptadores: guardianes, 39 apoyos/acciones, cinco secretos, cuadernos, todas las pantallas y recarga usando el fragmento original #pantalla-1.
+- Diagnóstico: 12 pantallas y ocho preguntas, puerta cerrada hasta recibo, respuesta POST opaca sin falso éxito, aviso de almacenamiento bloqueado. Receptor, instrumento y transporte protegidos por SHA-256.
+- Navegador: escritorio, móvil, marco de 720 px, claves/recuperación, compras, cuadernos, nombres largos, Misión 0 independiente, foco y movimiento reducido.
 
-Control «Animaciones» al pie de las presentaciones. Respeta prefers-reduced-motion y permite pausar. Las animaciones originales también se detienen al pausar. El estado de pausa se conserva; el contenido permanece accesible.
+Las pruebas de servidor, DOM y navegador usan servicios simulados/interceptados. No crean personajes ni envían respuestas a la planilla real. CI debe aprobar la versión final antes de fusionar; después se verifica Pages. El detalle de cada ejecución se conserva en GitHub Actions.
 
-Enlaces de catálogo, portal y guía actualizados con v=20261004-epic1 para evitar HTML antiguo en caché. Los enlaces anteriores siguen existiendo.
+## Comprobación pública real y límite pendiente
 
-## Pruebas reproducibles
+El /exec original respondió durante esta revisión. Forja mostró Nara con nombre/clave y la bienvenida anterior; Mochi respondió con su ruta de mercado. Los retratos y la clave elegida pertenecen a la nueva versión del Código.gs y no se instalan por publicar GitHub Pages.
 
-Desde un clon del repositorio, sin despliegue ni escritura real en Google:
+El archivo completo v0.4.1 debe reemplazar Código.gs en el MISMO proyecto y actualizar la MISMA implementación: guardar, ejecutar prepararConexionLudaria y **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar**. Conservar el /exec, personajes, propiedades y secreto. No reemplazar los iframe de Genially.
 
-```sh
-node forja/tests.cjs
-node produccion/pruebas-efectos.cjs
-```
+Después de instalar: comprobar un personaje de prueba autorizado, conservar su respaldo, recuperar la clave, abrir una misión desde su iframe original, guardar y reabrir el mismo cuaderno, comprar con Mochi y contrastar el movimiento en la hoja. Hasta hacerlo, no afirmar que la escritura autenticada de v0.4.1 está verificada en Google real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
 
-Vista adaptable aislada: https://nespinozagonzalez-hub.github.io/misiones/forja/prueba.html?v=20261004-epic1
+## Retomar y mantener
 
-El modo ?prueba=1 de la Forja pública usa almacenamiento separado, no carga el personaje real y no envía datos a Sheets. No habilita una prueba del servidor desplegado. Las pruebas de esta revisión usaron únicamente una ficha ficticia; no se borraron perfiles ni se enviaron respuestas al diagnóstico.
-
-## Pendientes antes de declarar 100 %
-
-1. **Alta: conexión central Forja/Mochi.** Existe un solo Apps Script compartido por ambos, con el diseño integrado, pero aún no se ha desplegado y validado con una planilla privada real. Misión 0 tiene otro receptor independiente. No se debe reutilizar ese receptor ni publicar claves/planillas personales.
-2. **Media: canales externos de las sesiones.** Formularios, canvas, rúbricas y entrega dependen de las URLs institucionales indicadas en el catálogo; las alternativas locales no prueban recepción externa.
-3. **Media: cobertura exhaustiva.** Esta auditoría hizo comprobación de navegación de las 14 sesiones y flujo completo de compra local. Quedan por contrastar todos los candados, casos, temporizadores, exportaciones, recuperación de copias y guardados de cada actividad en varios navegadores/Genially real. No se modificaron instrumentos E, F ni G.
-4. **Media: respaldo descargable anterior.** La entrega portátil de la Forja anterior no se recompiló en esta revisión. El código publicado y el HTML preparado para Apps Script sí incluyen los cambios; usar el repositorio como fuente actual.
-
-## Seguimiento programado
-
-Cinco revisiones: 4 de octubre 16:58, 19:58 y 22:58; 5 de octubre 01:58 y 04:58, hora de Chile (America/Santiago). La tarea termina tras cinco ejecuciones. Son revisiones de solo lectura con informes de hallazgos; no despliegan Apps Script, cambian permisos, alteran perfiles ni publican correcciones automáticamente. La automatización anterior de producción de misiones permanece pausada.
+La revisión existente está activa cada cinco horas. Consultar main fresco, PR, CI y Pages y este informe antes de cambiar código. Los apuntes históricos no justifican desactivar el gateway ni regresar a claves automáticas. Mantener el diseño de guardianes, clave elegida, recuperación y las correcciones de esta auditoría. No crear nuevos proyectos Apps Script ni regenerar secretos.

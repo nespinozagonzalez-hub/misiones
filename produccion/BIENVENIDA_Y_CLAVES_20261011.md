@@ -1,3 +1,5 @@
+> **Actualización de auditoría:** v0.4.1 añade consulta del nombre/clave en Forja y Mochi, copia del respaldo con alternativa al portapapeles y recuperación compacta. Usar el Código.gs v0.4.1 completo; este documento conserva la descripción de v0.4.0. Evidencia actual: AUDITORIA_ACTUAL.md.
+
 # Bienvenida y acceso v0.4.0 · 11 de octubre de 2026
 
 El propietario pidió una imagen del guardián en la bienvenida, que cada usuario elija su código personal y una opción para recuperar la clave.

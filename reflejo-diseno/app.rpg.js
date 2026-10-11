@@ -1,9 +1,10 @@
 'use strict';
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -51,6 +52,7 @@ case'case-choice':state.caseChoices[el.dataset.id]=el.dataset.level;save();rende
 document.addEventListener('input',e=>{const f=e.target.dataset.field;if(f in state.fields){state.fields[f]=e.target.value.slice(0,5000);save();}});
 $('previous').addEventListener('click',()=>go(state.page-1));$('next').addEventListener('click',()=>state.page===N-1?notebook():go(state.page+1));
 $('modal').addEventListener('click',e=>{if(e.target===$('modal'))close();});document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&!$('modal').open&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName))go(state.page+1);if(e.key==='ArrowLeft'&&!$('modal').open&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName))go(state.page-1);});
-const hash=Number((location.hash.match(/pantalla-(\d+)/)||[])[1])-1;if(Number.isInteger(hash)&&hash>=0&&hash<N)state.page=hash;if(!state.visited.includes(state.page))state.visited.push(state.page);render();
+const hash=Number((missionHash().match(/pantalla-(\d+)/)||[])[1])-1;if(Number.isInteger(hash)&&hash>=0&&hash<N)state.page=hash;if(!state.visited.includes(state.page))state.visited.push(state.page);render();
+startingMission=false;
 })();
 

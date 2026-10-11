@@ -1,9 +1,10 @@
 'use strict';
 (async () => {
-  // La página central conserva su ruta; el cuaderno guarda la pantalla actual.
-  function setPageHistory(state, title, hash) {
-    if (!cloud?.active) history.replaceState(state, title, location.href.split("#")[0] + hash);
-  }
+let startingMission=true;
+function missionHash(){return startingMission && window.LudariaCloud?.active && centralSnapshot ? '' : location.hash;}
+
+function setPageHistory(state,title,hash){if(!window.LudariaCloud?.active)history.replaceState(state,title,location.href.split('#')[0]+hash);}
+
 const cloud=window.LudariaCloud; let centralSnapshot=null;
 if(cloud?.active){await cloud.ready;try{centralSnapshot=await cloud.loadMission();}catch(error){const stage=document.getElementById('stage')||document.querySelector('main');if(stage){stage.textContent='No se pudo recuperar tu cuaderno. '+error.message+' Conserva tus notas y vuelve a intentarlo.';}return;}}
 
@@ -92,7 +93,7 @@ function go(n){
   if(!Number.isInteger(n)||n<0||n>=10)return;
   closeModal();if(n!==8)state.timer.running=false;
   state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();
-  const hash='#pantalla-'+(n+1);if(location.hash!==hash)setPageHistory(null,'',hash);
+  const hash='#pantalla-'+(n+1);if(missionHash()!==hash)setPageHistory(null,'',hash);
   render();window.scrollTo({top:0,behavior:'instant'});
 }
 function reward(n){
@@ -170,10 +171,11 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'&&state.page<9){e.preventDefault();go(state.page+1);}
   if(e.key==='ArrowLeft'&&state.page>0){e.preventDefault();go(state.page-1);}
 });
-window.addEventListener('hashchange',()=>{const match=/^#pantalla-(\d+)$/.exec(location.hash);if(match){const n=Number(match[1])-1;if(n>=0&&n<10&&n!==state.page)go(n);}});
+window.addEventListener('hashchange',()=>{const match=/^#pantalla-(\d+)$/.exec(missionHash());if(match){const n=Number(match[1])-1;if(n>=0&&n<10&&n!==state.page)go(n);}});
 setInterval(()=>{if(state.timer.running&&state.page===8){state.timer.left=Math.max(0,state.timer.left-1);if(state.timer.left===0){state.timer.running=false;render(false);toast('Terminó el tiempo orientativo. Pueden seguir conversando.');}else if($('timer'))$('timer').textContent=timerText();save();}},1000);
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)$('fireflies').innerHTML=Array.from({length:12},(_,n)=>`<i class="fly" style="left:${(n*37+9)%100}%;top:${(n*19+13)%100}%;animation-delay:-${n}s"></i>`).join('');
-const start=/^#pantalla-(\d+)$/.exec(location.hash);if(start&&Number(start[1])>=1&&Number(start[1])<=10)state.page=Number(start[1])-1;
+const start=/^#pantalla-(\d+)$/.exec(missionHash());if(start&&Number(start[1])>=1&&Number(start[1])<=10)state.page=Number(start[1])-1;
 if(!state.visited.includes(state.page))state.visited.push(state.page);save();render(false);
+startingMission=false;
 })();
 
