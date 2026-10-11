@@ -20,6 +20,10 @@ async function load(slug){t.c.params={parameter:{mision:slug}};const html=t.run(
 (async()=>{
 for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.window,d=w.document;
  assert.equal(d.querySelector('[data-mochi-visit]'),null,mission.slug+' sin invitación en portada');
+ await until(()=>d.querySelector('[data-contextual-perk]'),'ayuda contextual '+mission.slug);
+ assert.equal(d.querySelector('[data-contextual-perk]').dataset.contextualPerk,mission.perks[0].id);
+ d.querySelector('.ludaria-contextual-perk .contextual-skip').click();
+ await until(()=>d.querySelector('[data-contextual-status]')?.textContent.includes('confirmada'),'omisión confirmada '+mission.slug);
  for(const perk of mission.perks){await w.LudariaRPGUI.openPerk(perk.id);assert.ok(d.querySelector('.ludaria-cloud-dialog').textContent.includes(perk.text),perk.id);if(perk.kind==='accion'){const f=d.querySelector('[data-rpg-form]');f.elements.choice.value=perk.options[0];f.elements.work.value='Ensayo de '+mission.slug;f.elements.reflection.value='Para contrastar consecuencias';f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await until(()=>d.querySelector('[data-rpg-status]')?.textContent.includes('confirmada'),'decisión '+perk.id);}d.querySelector('[data-rpg-close]').click();}
  if(mission.egg){await w.LudariaRPGUI.open();d.querySelector('[data-rpg-egg]').click();await until(()=>d.querySelector('.rpg-lore'),'secreto');d.querySelector('[data-rpg-close]').click();}
  let selected;for(let n=0;n<35;n++){const field=d.querySelector('#stage textarea[data-field]');if(field){selected=field.dataset.field;field.value='Cuaderno '+mission.slug;field.dispatchEvent(new w.Event('input',{bubbles:true}));break;}const next=d.querySelector('#next');if(next.disabled)break;next.click();}
