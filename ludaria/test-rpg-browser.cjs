@@ -28,7 +28,7 @@ try{
   assert.ok(field,'Falta campo de cuaderno '+mission.slug);await p.evaluate(()=>window.LudariaCloud.flushMission());assert.equal(await p.evaluate(()=>window.LudariaCloud.hasPending),false,mission.slug+' guardado');
   assert.equal(new URL(p.url()).pathname,'/cloud',mission.slug+' conserva la conexión al navegar');await p.reload();await login(p);assert.equal(await p.locator('#stage textarea[data-field="'+field+'"]:visible').inputValue(),'Cuaderno recuperable de '+mission.slug);
   // Abrir cada pantalla detecta errores de plantillas que no aparecen en la portada.
-  const count=Number((await p.locator('#page-count, #page-number').innerText()).split('/')[1]);for(let step=0;step<count;step++){if(await p.locator('#next').isDisabled())break;await p.locator('#next').click();assert.ok((await p.locator('#stage').innerText()).length>30,mission.slug+' pantalla');}
+  const count=Number((await p.locator('#page-count, #page-number').innerText()).split('/')[1]);for(let step=0;step<count;step++){if(Number((await p.locator('#page-count, #page-number').innerText()).split('/')[0])===count||await p.locator('#next').isDisabled())break;await p.locator('#next').click();assert.ok((await p.locator('#stage').innerText()).length>30,mission.slug+' pantalla');}
   await p.evaluate(()=>window.LudariaCloud.flushMission());if(mission.slug==='pergaminos-dispersos'||mission.slug==='yunque')await p.screenshot({path:__dirname+'/preview-rpg-'+mission.slug+'.png',fullPage:true});await p.close();console.log('OK '+mission.slug);
  }
  // Las 13 entradas en escritorio y en un marco local de 720px. No es Genially.
