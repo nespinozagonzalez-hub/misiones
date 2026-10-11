@@ -1,3 +1,5 @@
+> Actualización posterior: se comprobaron Forja, Mochi y los 13 guardianes dentro del Genially real con sus iframe originales. El gateway está activo; el estado local/desactivado descrito abajo es histórico. La prueba autenticada de guardado continúa por separado. Véase AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md.
+
 # Publicación y verificación de entradas de Ludaria
 
 11 de octubre de 2026. Evidencia histórica de PR #4 y de la instalación versión 2. El estado posterior a PR #7 está en `CONEXION_LUDARIA.md` y `AUDITORIA_CONTINUIDAD_20261011.md`. Las correcciones de PR #5/#6/#7 no se han acreditado como instaladas en Google. Genially conserva los iframe originales.

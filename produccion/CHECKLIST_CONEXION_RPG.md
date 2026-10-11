@@ -6,7 +6,7 @@ Actualizado el 11 de octubre de 2026. Separar siempre preparación, simulación 
 - [x] Consultar main remoto sin escritura: `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` (PR #7).
 - [x] Conservar la rama v0.3.0 y sus 13 guardianes, 39 posibilidades y cinco secretos.
 - [x] Mantener diagnóstico de Misión 0, atributos, XP, runas e instrumentos originales.
-- [x] Mantener entrada pública desactivada; no sustituir iframes sin verificación real.
+- [x] Mantener identificación central activa en los iframe originales; Forja, Mochi y 13 guardianes comprobados en el Genially real.
 - [x] Describir ventajas, umbrales y demostración antes de comprar con Mochi.
 - [x] Registrar compras y redistribuciones antes/después con motivo opcional en código preparado.
 - [x] Corregir representación de los puntos devueltos en historial en la ampliación preparada.
@@ -24,9 +24,10 @@ Actualizado el 11 de octubre de 2026. Separar siempre preparación, simulación 
 - [x] Actualizar Código.gs y catálogos en el mismo proyecto; versión 2 confirmada de la misma implementación `/exec`.
 - [ ] Google real: continuidad entre sesiones, cuaderno de Vetas, ventaja Maestría 5 y retirada al bajar a 1.
 - [ ] Google real: 13 misiones, decisiones/reflexiones, errores/reintentos, borradores, compras, redistribución y motivos.
-- [ ] Genially real: ensayar los 16 iframe originales en una copia publicada, conservando el origen GitHub Pages; identidad, guardado y recuperación comprobados.
+- [x] Genially real: Forja, Mochi y 13 guardianes con nombre/clave visibles, desde sus iframe originales sin editar el Genially.
+- [ ] Confirmar creación, guardado y recuperación autenticados tras la actualización del script por el propietario.
 - [ ] Segunda pasada real: escritorio, móvil, teclado, accesibilidad y regresión de navegación/iframe.
-- [ ] Solo con evidencia real por ruta, decidir activación del gateway conservando las URL originales; no sustituir iframe en masa.
+- [x] Restaurar gateway activo con evidencia de las entradas reales por ruta, conservando las URL originales; no sustituir iframe en masa.
 - [x] Actualizar Word/PDF de incrustación y guía separada con la versión efectivamente comprobada.
 - [ ] Pausar esta revisión al completar objetivos y ambas auditorías reales; no declarar completada por simulaciones.
 
