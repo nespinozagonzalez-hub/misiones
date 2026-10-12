@@ -36,6 +36,7 @@ jobs:
       - run: npm install --no-save playwright@1.62.1 jsdom@26.1.0
       - run: node ludaria/test-rpg-dom.cjs
       - run: node ludaria/test-client-dom.cjs
+      - run: node ludaria/test-forja-onboarding.cjs
       - run: node ludaria/test-mision0-dom.cjs
       - run: node ludaria/test-rpg-resilience.cjs
       - run: npx playwright install --with-deps chromium

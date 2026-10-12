@@ -1,0 +1,27 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),crypto=require('node:crypto');
+const {JSDOM}=require('jsdom');
+const {context,setSource}=require('./mock.cjs');
+setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));
+const server=context();server.run('prepararConexionLudaria()');
+const read=p=>fs.readFileSync(__dirname+'/../'+p,'utf8');
+const delay=()=>new Promise(r=>setTimeout(r,5));
+async function until(check){for(let i=0;i<200;i++){if(check())return;await delay();}throw Error('Tiempo de espera');}
+async function fixture(legacy=false){
+ const calls=[];
+ const dom=new JSDOM(read('forja/index.html').replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,''),{url:'https://ludaria.test/forja/',runScripts:'outside-only',pretendToBeVisual:true});
+ const w=dom.window,d=w.document;w.crypto.randomUUID=()=>crypto.randomUUID();w.matchMedia=()=>({matches:false});
+ w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
+ w.google={script:{run:{withSuccessHandler:success=>({withFailureHandler:failure=>({ludariaApi(q){calls.push(q);try{server.c.request=q;success(JSON.parse(JSON.stringify(server.run('ludariaApi(request)'))));}catch(e){failure(e);}}})})}}};
+ w.LUDARIA_CLOUD_CONFIG={route:'forja',market:false};w.eval(read('ludaria/rpg-catalog.js'));
+ w.eval(legacy?fs.readFileSync(__dirname+'/../../misiones/ludaria/client.js','utf8'):read('ludaria/client.js'));
+ w.eval(read('forja/core.js'));w.eval(read('forja/app.js'));w.eval(read('forja/onboarding.js'));
+ await delay();return {dom,w,d,calls};
+}
+(async()=>{
+ const t=await fixture();assert.equal(t.d.querySelector('.ludaria-cloud-dialog[open]'),null);assert.equal(t.d.querySelector('#welcome').hidden,false);assert.equal(t.d.querySelectorAll('#welcome img').length,2);
+ t.d.querySelector('[data-action=begin]').click();assert.equal(t.d.querySelector('#creation').hidden,false);assert.equal(t.d.querySelectorAll('.avatar-choice img').length,2);
+ const f=t.d.querySelector('#create-form');f.querySelector('#name').value='Buscadora visual';f.querySelector('[value=Kira]').checked=true;f.elements.key.value='314159';f.elements.keyConfirm.value='000000';f.dispatchEvent(new t.w.Event('submit',{bubbles:true,cancelable:true}));await delay();assert.equal(t.calls.length,0);assert.match(t.d.querySelector('#creation-status').textContent,/no coinciden/);
+ f.elements.keyConfirm.value='314159';f.dispatchEvent(new t.w.Event('submit',{bubbles:true,cancelable:true}));await until(()=>t.d.querySelector('#cloud-key-value'));assert.equal(t.calls.length,1);assert.equal(t.calls[0].action,'registrar');assert.equal(t.calls[0].data.class,'Kira');assert.equal(t.d.querySelector('#cloud-key-value').value,'314159');t.d.querySelector('#cloud-continue').click();await until(()=>!t.d.querySelector('#app').hidden);assert.equal(t.d.querySelector('.hero-portrait img').getAttribute('src'),'assets/kira.webp');t.dom.window.close();
+ const old=await fixture(true);assert.equal(old.d.querySelector('.ludaria-cloud-dialog[open]'),null,'La versión antigua tampoco tapa la Forja');assert.equal(old.d.querySelector('#welcome').hidden,false);old.d.querySelector('[data-action=resume]').click();assert.ok(old.d.querySelector('.ludaria-cloud-dialog[open]'));old.dom.window.close();
+ console.log('PASS Forja visual: bienvenida sin acceso, dos retratos, elección visual, clave confirmada, una sola alta central, ficha Kira y acceso secundario compatible con el script anterior.');
+})().catch(e=>{console.error(e);process.exit(1);});

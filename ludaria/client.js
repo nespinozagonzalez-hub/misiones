@@ -143,7 +143,14 @@
     try { const result = await api('ventaja', { id: 'ojo_artesano' }); dialog('Ojo del Artesano · Maestría 5', '<p>' + esc(result.text) + '</p><button onclick="this.closest(\'dialog\').close()">Continuar mi práctica</button>'); }
     catch (error) { stateText(error.message); }
   }
-  window.LudariaCloud = { active: true, ready, api, notify: stateText, loadMission, saveMission, flushMission,
+  window.LudariaCloud = { active: true, ready, api, openAccess: welcome,
+    async registerCharacter(data, requestId) {
+      if (data.key !== data.keyConfirm) throw Error('Las claves no coinciden. Escríbelas otra vez.');
+      const result = await rpc({action: 'registrar', data, requestId});
+      identityKey = result.key || data.key; identityBackup = result.recoveryCode || '';
+      adopt(result); keyReceipt(identityKey, identityBackup); return result;
+    },
+    notify: stateText, loadMission, saveMission, flushMission,
     get profile() { return profile; }, get hasPending() { return hasPending(); },
     registerPendingCheck(check) { pendingChecks.add(check); return () => pendingChecks.delete(check); },
     logout() { if (!hasPending() || confirm('Hay un cuaderno o ensayo sin confirmar. Copia o guarda tus notas antes de salir. ¿Cerrar el acceso?')) { access = null; identityKey = ''; identityBackup = ''; location.reload(); } }
@@ -206,6 +213,8 @@
     bar.querySelector('[data-cloud-access]')?.addEventListener('click',() => {if(profile&&identityKey)keyReceipt(identityKey,identityBackup,{review:true});});
     bar.querySelector('[data-cloud-advantage]')?.addEventListener('click', advantage);
     bar.querySelector('[data-cloud-logout]').onclick = window.LudariaCloud.logout;
-    welcome();
+    if (config.route === 'forja' && !config.market && document.getElementById('create-form')) {
+      bar.hidden = true; ready.then(() => { bar.hidden = false; });
+    } else welcome();
   });
 })();
