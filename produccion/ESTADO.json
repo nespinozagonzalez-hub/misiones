@@ -4,12 +4,12 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; código de misiones, Forja y Mochi revisado; instalar Apps Script v0.4.1",
+  "estado_general": "14 sesiones publicadas; código y cliente Apps Script v0.4.1 publicados; escritura autenticada pendiente",
   "actualizado_en": "2026-10-12",
   "siguiente_sesion": null,
   "ejecucion_actual": {
     "fase": "accesos_visuales_publicados",
-    "detalle": "PR #16 publicado: Forja con carga/volver y 13 misiones con paisaje, guardián, nombre y código; iframe originales conservados; actualizar el mismo Apps Script"
+    "detalle": "PR #16 publicado y cliente v0.4.1 detectado en el /exec original: Forja con carga/volver y 13 misiones con paisaje, guardián, nombre y código; iframe originales conservados"
   },
   "automatizacion": {
     "estado": "activa",
@@ -141,7 +141,7 @@
     "forja": "forja/",
     "mochi": "forja/?entrada=mochi",
     "apps_script": "Uno compartido por Forja/Mochi; Misión 0 independiente",
-    "conexion_central": "Gateway activo. Código compartido v0.4.1 preparado; instalar en el mismo proyecto original",
+    "conexion_central": "Gateway activo. Cliente v0.4.1 instalado en el /exec original; escritura autenticada pendiente de comprobación",
     "auditoria": "produccion/AUDITORIA_CONTINUIDAD_20261011.md",
     "revisiones_programadas": 5,
     "intervalo_horas": 3,
@@ -185,7 +185,7 @@
     "automatizacion": "Revisión activa cada cinco horas, hasta que el propietario pida detenerla",
     "auditoria_funcional": "Inventario, Forja/recompensas, servidor, acceso/recuperación, cliente, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
     "auditoria_navegador": "CI 38196210522 de PR #16 aprobado: escritorio, móvil, iframe, Forja, accesos visuales y fragmentos originales",
-    "despliegue_exec": "Responde con bienvenida anterior; instalar Código.gs v0.4.1 en la misma implementación",
+    "despliegue_exec": "El /exec original responde con el cliente v0.4.1 en Forja, Mochi y 13 misiones; escritura autenticada pendiente",
     "diagnostico_mision0": "Receptor original conservado",
     "ci": {
       "run_id": 38196210522,
@@ -245,12 +245,12 @@
     },
     "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md",
     "bienvenida_y_claves": {
-      "estado": "v0.4.1 con accesos visuales de PR #16; instalar el Apps Script y verificar Google real",
+      "estado": "v0.4.1 con accesos visuales de PR #16 instalado en el /exec original; verificar escrituras en Google real",
       "informe": "produccion/BIENVENIDA_Y_CLAVES_20261011.md",
       "clave": "elegida por el usuario; seis dígitos con confirmación",
       "recuperacion": "nombre y respaldo privado RES; alternativa del facilitador",
-      "nueva_implementacion": "Actualizar la implementación existente con Código.gs v0.4.1; conservar /exec e iframe",
-      "prueba_real": "pendiente de instalación por el propietario"
+      "nueva_implementacion": "Instalada en la implementación existente; conservar /exec e iframe",
+      "prueba_real": "cliente público comprobado; operaciones autenticadas y escritura en Sheet pendientes"
     },
     "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md",
     "publicacion_actual": {
@@ -259,7 +259,8 @@
       "ci_run_id": 38196210522,
       "pages_run_id": 38196426658,
       "codigo_gs_sha256": "600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49",
-      "apps_script_instalado": false,
+      "apps_script_instalado": true,
+      "apps_script_cliente_publico_verificado": true,
       "google_genially_autenticado": false
     }
   }
