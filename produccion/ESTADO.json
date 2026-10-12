@@ -230,7 +230,7 @@
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
     "rama_trabajo": "main",
     "base_remota_pr3": "74de8fb0ff22a44be4654d7abcecdd0e05859259",
-    "base_main_comprobada": "227053d8d7d96c67f885bbee314de98d769e8a36",
+    "base_codigo_comprobada": "227053d8d7d96c67f885bbee314de98d769e8a36",
     "guardianes": 13,
     "ventajas": 39,
     "secretos": 5,
@@ -254,7 +254,7 @@
     },
     "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md",
     "publicacion_actual": {
-      "head_main": "227053d8d7d96c67f885bbee314de98d769e8a36",
+      "head_codigo_publicado": "227053d8d7d96c67f885bbee314de98d769e8a36",
       "pr": 16,
       "ci_run_id": 38196210522,
       "pages_run_id": 38196426658,
