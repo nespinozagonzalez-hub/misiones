@@ -86,7 +86,8 @@ function doGet(e) {
     '<script>window.LUDARIA_CLOUD_CONFIG=' + config + ';window.FORJA_ENTRY=' + entry + ';</script>' +
     '<script>' + LUDARIA_CATALOG_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
     '<script>' + LUDARIA_RPG_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
-    '<script>' + LUDARIA_CLIENT_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>';
+    '<script>' + LUDARIA_CLIENT_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
+    '<script defer id="ludaria-access-scenery" src="../ludaria/access-scenery.js?v=20261012-acceso1"></script>';
   html = html.replace(/<head[^>]*>/i, function (head) { return head + insertion; });
   return HtmlService.createHtmlOutput(html).setTitle('Ludaria · ' + (entry ? 'Mercadito de Mochi' : route === 'forja' ? 'Forja del Buscador' : contextoRpg_(route).name))
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
