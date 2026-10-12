@@ -21,7 +21,7 @@
     d.close(); d.hidden = true;
     document.querySelector('.ludaria-cloud-bar').hidden = true;
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', preserveWelcome);
+  if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', preserveWelcome);
   else preserveWelcome();
   cloud.ready.then(() => {
     document.querySelector('.ludaria-cloud-bar').hidden = false;
