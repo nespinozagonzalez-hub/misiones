@@ -8,12 +8,12 @@
   const status = document.getElementById('creation-status');
   access.hidden = false;
   for (const name of ['key', 'keyConfirm']) form.elements[name].required = true;
-  let legacyDialog = null, busy = false, requestId = crypto.randomUUID(), signature = '';
+  let legacyDialog = null, welcomeObserver = null, busy = false, requestId = crypto.randomUUID(), signature = '';
   function preserveWelcome() {
     if (cloud.openAccess || cloud.profile) return;
     const d = document.querySelector('.ludaria-cloud-dialog[open]');
     if (!d || !d.querySelector('#cloud-login')) return;
-    legacyDialog = d;
+    legacyDialog = d; welcomeObserver?.disconnect();
     // Compatibilidad con la implementación anterior: conserva sus manejadores
     // de acceso y quita únicamente la barrera modal delante de la Forja.
     d.addEventListener('close', e => {if(!cloud.profile){e.stopImmediatePropagation();d.hidden=true;}}, {capture:true});
@@ -21,9 +21,14 @@
     d.close(); d.hidden = true;
     document.querySelector('.ludaria-cloud-bar').hidden = true;
   }
+  if (!cloud.openAccess) {
+    welcomeObserver = new MutationObserver(preserveWelcome);
+    welcomeObserver.observe(document.body, {childList:true, subtree:true, attributes:true, attributeFilter:['open']});
+  }
   if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', preserveWelcome);
   else preserveWelcome();
   cloud.ready.then(() => {
+    welcomeObserver?.disconnect();
     document.querySelector('.ludaria-cloud-bar').hidden = false;
     form.reset();
   });
