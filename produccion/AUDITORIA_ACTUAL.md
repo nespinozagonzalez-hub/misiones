@@ -41,11 +41,11 @@ Las pruebas de servidor, DOM y navegador usan servicios simulados/interceptados.
 
 ## Comprobación pública real y límite pendiente
 
-El /exec original respondió durante esta revisión. Forja mostró Nara con nombre/clave y la bienvenida anterior; Mochi respondió con su ruta de mercado. Los retratos y la clave elegida pertenecen a la nueva versión del Código.gs y no se instalan por publicar GitHub Pages.
+El 12 de octubre el /exec original respondió HTTP 200 con la bienvenida v0.4.1 en Forja, Mochi y las 13 rutas de misión. Se detectaron el atlas de guardianes, el adaptador visual, «Cargar mi personaje», «Volver a la Forja» y «Recuperar clave»; «Voy a crear mi personaje» ya no aparece. Esto acredita la instalación del cliente nuevo en la misma URL.
 
-El archivo completo v0.4.1 debe reemplazar Código.gs en el MISMO proyecto y actualizar la MISMA implementación: guardar, ejecutar prepararConexionLudaria y **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar**. Conservar el /exec, personajes, propiedades y secreto. No reemplazar los iframe de Genially.
+No volver a reemplazar Código.gs ni crear otra implementación mientras no exista una corrección posterior. Conservar el /exec, personajes, propiedades, secreto e iframe de Genially.
 
-Después de instalar: comprobar un personaje de prueba autorizado, conservar su respaldo, recuperar la clave, abrir una misión desde su iframe original, guardar y reabrir el mismo cuaderno, comprar con Mochi y contrastar el movimiento en la hoja. Hasta hacerlo, no afirmar que la escritura autenticada de v0.4.1 está verificada en Google real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
+Permanece pendiente comprobar un personaje de prueba autorizado: conservar su respaldo, recuperar la clave, abrir una misión desde su iframe original, guardar y reabrir el mismo cuaderno, comprar con Mochi y contrastar el movimiento en la hoja. Hasta hacerlo, no afirmar que la escritura autenticada de v0.4.1 está verificada en Google real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
 
 ## Retomar y mantener
 
