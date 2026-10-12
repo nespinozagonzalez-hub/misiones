@@ -51,6 +51,12 @@
     const newKey = (label,name) => '<label>'+label+'<input name="'+name+'" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="new-password" aria-describedby="cloud-key-help" required></label>';
     const d = dialog(title, ''); d.classList.add('ludaria-welcome');
     d.innerHTML = '<div class="cloud-welcome-grid"><aside class="cloud-guardian"><div class="cloud-portrait" role="img" aria-label="Retrato de '+esc(title)+'" style="background-position:'+(portraitIndex%4/3*100)+'% '+(Math.floor(portraitIndex/4)/3*100)+'%"></div><div class="cloud-guardian-copy"><span class="cloud-eyebrow">LUDARIA · TU AVENTURA CONTINÚA</span><h2>'+esc(title)+'</h2><p>'+esc(guardian?.purpose || 'Tu historia continúa aquí.')+'</p><span class="cloud-guardian-seal" aria-hidden="true">✦</span></div></aside><section class="cloud-access"><div class="cloud-access-intro"><span class="cloud-eyebrow">EL UMBRAL DEL BUSCADOR</span><h3>Bienvenido a Ludaria</h3><p>Tu nombre y tu clave abren el mismo personaje en cada misión.</p></div><nav class="cloud-access-tabs" aria-label="Opciones de acceso"><button type="button" data-access-panel="login" aria-pressed="true">Ya tengo personaje</button><button type="button" data-access-panel="register" aria-pressed="false">Crear personaje</button></nav><form id="cloud-login"><label>Nombre de explorador<input name="name" maxlength="32" autocomplete="username" required></label><label>Clave personal<input name="key" type="password" autocomplete="current-password" required></label><button class="cloud-primary" type="submit">Entrar a mi aventura <span aria-hidden="true">→</span></button><button class="cloud-text-button" type="button" data-access-panel="recover">Recuperar clave</button></form><form id="cloud-register" hidden><p id="cloud-key-help">Elige una clave de seis dígitos que puedas recordar. No uses la contraseña de otro servicio.</p><label>Nombre de explorador<input name="name" maxlength="32" autocomplete="nickname" required></label><label>Personaje<select name="avatar"><option value="Kira">Kira</option><option value="Kael">Kael</option></select></label><div class="cloud-key-pair">'+newKey('Elige tu clave personal','key')+newKey('Confirma tu clave','keyConfirm')+'</div><button class="cloud-primary" type="submit">Forjar mi personaje <span aria-hidden="true">✦</span></button></form><form id="cloud-recover" hidden><h3>Recuperar clave</h3><p>Usa el código de recuperación que guardaste al crear tu personaje y elige una nueva clave de seis dígitos.</p><label>Nombre de explorador<input name="name" maxlength="32" autocomplete="username" required></label><label>Código de recuperación<input name="recoveryCode" type="password" maxlength="31" autocomplete="off" placeholder="RES-…" required></label><div class="cloud-key-pair">'+newKey('Nueva clave personal','key')+newKey('Confirma tu nueva clave','keyConfirm')+'</div><button class="cloud-primary" type="submit">Guardar nueva clave</button><details class="cloud-recovery-help"><summary>No tengo mi código de recuperación</summary><p>Pide al facilitador que verifique tu identidad y renueve tu acceso. Tu personaje, tus puntos y tu cuaderno se conservan.</p><p>Si creaste tu personaje antes de que existieran estos códigos, también puedes recuperarlo con su ayuda.</p></details><button class="cloud-text-button" type="button" data-access-panel="login">Volver al acceso</button></form><p role="status" aria-live="polite" id="cloud-error"></p><p class="cloud-access-note">✧ Tu bitácora conserva las decisiones de tu recorrido.</p></section></div>';
+    if (config.route === 'forja' && !config.market && document.getElementById('create-form')) {
+      d.querySelector('[data-access-panel=register]').remove();
+      const back = document.createElement('button'); back.type = 'button'; back.className = 'cloud-text-button'; back.textContent = 'Volver a la Forja';
+      back.onclick = () => { d.close(); document.querySelector('[data-action=resume]').focus(); };
+      d.querySelector('.cloud-access').append(back);
+    }
     d.addEventListener('cancel', event => event.preventDefault());
     let busy = false, registrationId = uid(), registrationSignature = '', recoveryId = uid(), recoverySignature = '';
     d.querySelectorAll('[data-access-panel]').forEach(button => button.onclick = () => {
@@ -143,7 +149,14 @@
     try { const result = await api('ventaja', { id: 'ojo_artesano' }); dialog('Ojo del Artesano · Maestría 5', '<p>' + esc(result.text) + '</p><button onclick="this.closest(\'dialog\').close()">Continuar mi práctica</button>'); }
     catch (error) { stateText(error.message); }
   }
-  window.LudariaCloud = { active: true, ready, api, notify: stateText, loadMission, saveMission, flushMission,
+  window.LudariaCloud = { active: true, ready, api, openAccess: welcome,
+    async registerCharacter(data, requestId) {
+      if (data.key !== data.keyConfirm) throw Error('Las claves no coinciden. Escríbelas otra vez.');
+      const result = await rpc({action: 'registrar', data, requestId});
+      identityKey = result.key || data.key; identityBackup = result.recoveryCode || '';
+      adopt(result); keyReceipt(identityKey, identityBackup); return result;
+    },
+    notify: stateText, loadMission, saveMission, flushMission,
     get profile() { return profile; }, get hasPending() { return hasPending(); },
     registerPendingCheck(check) { pendingChecks.add(check); return () => pendingChecks.delete(check); },
     logout() { if (!hasPending() || confirm('Hay un cuaderno o ensayo sin confirmar. Copia o guarda tus notas antes de salir. ¿Cerrar el acceso?')) { access = null; identityKey = ''; identityBackup = ''; location.reload(); } }
@@ -206,6 +219,8 @@
     bar.querySelector('[data-cloud-access]')?.addEventListener('click',() => {if(profile&&identityKey)keyReceipt(identityKey,identityBackup,{review:true});});
     bar.querySelector('[data-cloud-advantage]')?.addEventListener('click', advantage);
     bar.querySelector('[data-cloud-logout]').onclick = window.LudariaCloud.logout;
-    welcome();
+    if (config.route === 'forja' && !config.market && document.getElementById('create-form')) {
+      bar.hidden = true; ready.then(() => { bar.hidden = false; });
+    } else welcome();
   });
 })();

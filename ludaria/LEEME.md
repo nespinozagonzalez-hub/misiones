@@ -2,6 +2,12 @@
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
+## Inicio de la Forja
+
+La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forjar mi personaje». La creación usa sus tarjetas visuales y permite elegir nombre y clave de seis dígitos; no exige una clave existente. «Ya tengo un personaje» abre identificación y recuperación como una opción secundaria, con regreso a la Forja.
+
+El adaptador conserva esa bienvenida aunque la implementación de Google aún sirva el cliente anterior. La clave elegida y su respaldo requieren actualizar el mismo Código.gs y la implementación existente. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
+
 ## Activar una sola vez
 
 0. Si no estás seguro de haber abierto el proyecto original, pega el código completo, guarda y ejecuta primero `diagnosticarConexionLudaria`. Revisa el registro de ejecución. Continúa únicamente si `puedePreparar` es `true`. Esta función no escribe ni muestra el secreto.
