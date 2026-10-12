@@ -16,7 +16,8 @@
     legacyDialog = d;
     // Compatibilidad con la implementación anterior: conserva sus manejadores
     // de acceso y quita únicamente la barrera modal delante de la Forja.
-    d.addEventListener('close', e => e.stopImmediatePropagation(), {capture:true, once:true});
+    d.addEventListener('close', e => {if(!cloud.profile){e.stopImmediatePropagation();d.hidden=true;}}, {capture:true});
+    const back=document.createElement('button');back.type='button';back.textContent='Volver a la Forja';back.onclick=()=>d.close();d.append(back);
     d.close(); d.hidden = true;
     document.querySelector('.ludaria-cloud-bar').hidden = true;
   }
