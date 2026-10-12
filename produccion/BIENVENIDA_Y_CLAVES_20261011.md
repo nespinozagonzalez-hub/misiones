@@ -17,7 +17,7 @@ El propietario pidió una imagen del guardián en la bienvenida, que cada usuari
 
 Este cambio modificó el archivo completo `ludaria/Code-Ludaria-Conectado.gs`, generado mediante `python ludaria/build.py` desde los fuentes. El 12 de octubre el cliente v0.4.1 fue detectado en el mismo /exec. Ante una corrección futura, actualizar únicamente ese proyecto e implementación; conservar la URL, propiedades, secreto y datos existentes.
 
-GitHub Pages por sí solo no reemplaza el cliente incrustado en la versión desplegada de Apps Script. La nueva bienvenida se verá en los iframe originales cuando el propietario actualice esa implementación. No cambiar los iframe de Genially ni el receptor independiente de Misión 0. El gateway se conserva activo.
+GitHub Pages por sí solo no reemplaza el cliente incrustado en la versión desplegada de Apps Script. La nueva bienvenida ya está disponible a través de los iframe originales. No cambiar los iframe de Genially ni el receptor independiente de Misión 0. El gateway se conserva activo.
 
 `ludaria/vista-bienvenida.html` permite ver el diseño publicado sin crear personajes ni consultar la planilla. Es una vista de diseño; sus formularios no llaman al servidor.
 
