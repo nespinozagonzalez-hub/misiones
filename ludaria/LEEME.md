@@ -4,7 +4,7 @@ La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto A
 
 ## Inicio de la Forja
 
-La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forjar mi personaje». La creación usa sus tarjetas visuales y permite elegir nombre y clave de seis dígitos; no exige una clave existente. «Ya tengo un personaje» abre identificación y recuperación como una opción secundaria, con regreso a la Forja.
+La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forjar mi personaje». La creación usa sus tarjetas visuales y permite elegir nombre y clave de seis dígitos; no exige una clave existente. «Ya tengo un personaje» abre una pantalla secundaria con solo «Cargar mi personaje» y «Volver a la Forja».
 
 El adaptador conserva esa bienvenida aunque la implementación de Google aún sirva el cliente anterior. La clave elegida y su respaldo requieren actualizar el mismo Código.gs y la implementación existente. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
 
@@ -40,7 +40,7 @@ Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico nave
 
 El participante elige y confirma una **clave personal de seis dígitos**, que usará con su nombre en todas las misiones. Recibe además un **código de recuperación RES** privado; puede guardar ambos en un TXT. El servidor guarda verificadores, nunca las credenciales en texto. Los alias equivalentes identifican el mismo personaje. Las claves LUD anteriores siguen entrando. Las runas de recompensa siguen siendo distintas de la clave personal.
 
-La bienvenida muestra el retrato de cada guardián. «Recuperar clave» permite escribir nombre y código RES para elegir una nueva clave, conservando íntegro el progreso y revocando sesiones anteriores. Si no tiene el respaldo o su cuenta es anterior a v0.4.1, el facilitador puede renovar el acceso con `recuperarClaveLudaria` desde el editor del proyecto original. Esta renovación invalida el respaldo anterior. No se recupera un personaje solo con conocer su nombre.
+La entrada de cada misión muestra su paisaje y el retrato de su guardián, y pide el mismo nombre y clave creados en la Forja. Allí, «Recuperar clave» permite escribir nombre y código RES para elegir una nueva clave, conservando íntegro el progreso y revocando sesiones anteriores. Si no tiene el respaldo o su cuenta es anterior a v0.4.1, el facilitador puede renovar el acceso con `recuperarClaveLudaria` desde el editor del proyecto original. Esta renovación invalida el respaldo anterior. No se recupera un personaje solo con conocer su nombre.
 
 El perfil y el cuaderno se recuperan desde el servidor. La sesión vive en memoria cuatro horas; cerrar o recargar requiere identificación. No depende de compartir localStorage entre iframes. Ver [el detalle de esta versión](../produccion/BIENVENIDA_Y_CLAVES_20261011.md).
 

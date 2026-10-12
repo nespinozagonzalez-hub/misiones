@@ -5,14 +5,14 @@
 
 Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques de esta guía conservan las URL originales del catálogo, con sus rutas, parámetros, fragmentos y alturas. Son una referencia para comprobar las incrustaciones existentes: no sustituir en masa los iframe de Genially.
 
-## Estado de conexión · 11 de octubre de 2026
+## Estado de conexión · 12 de octubre de 2026
 
 | Capa | Estado comprobado |
 | --- | --- |
-| Código en main | PR #12 integrado como `0e4ab92b9580fca3e14a22349bd61413f7f8e4ae`: Ludaria v0.4.1, bienvenida con retratos, clave elegida, recuperación privada y correcciones de navegación/guardado. |
-| GitHub Pages | Despliegue `38179958459` aprobado para ese mismo HEAD; las 16 URL originales responden 200 y conservan rutas, queries, fragmentos, títulos y alturas. |
-| Apps Script original | Código.gs v0.4.1 preparado (SHA-256 `7f3ccb6ff27975c7239c9bc934e69d392b2875a3196fb862f9f46b34ad037f78`). El `/exec` mostró todavía la bienvenida anterior en la última comprobación real: falta reemplazar el archivo y actualizar la misma implementación. |
-| Genially real | Forja, Mochi y 13 guardianes con nombre/clave fueron comprobados en los iframe originales. La bienvenida v0.4.1 y sus escrituras autenticadas se comprueban después de instalar el Apps Script actualizado. |
+| Código en main | PR #16 integrado como `227053d8d7d96c67f885bbee314de98d769e8a36`: Ludaria v0.4.1 conserva recuperación y guardado; la Forja deja solo «Cargar mi personaje» y «Volver a la Forja» en el acceso secundario, y las 13 misiones presentan paisaje, retrato del guardián, nombre y código. |
+| GitHub Pages | Despliegue `38196426658` aprobado para ese mismo HEAD; el 12 de octubre se volvieron a consultar las 16 URL originales y todas respondieron 200, sin cambiar rutas, queries, fragmentos, títulos ni alturas. |
+| Apps Script original | Código.gs v0.4.1 actualizado por PR #16 y preparado (SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`). El `/exec` mostró todavía la bienvenida anterior en la última comprobación real: falta reemplazar el archivo y actualizar la misma implementación. |
+| Genially real | Forja, Mochi y 13 guardianes con nombre/clave fueron comprobados anteriormente en los iframe originales. La presentación visual de PR #16 y sus escrituras autenticadas se comprueban después de instalar el Apps Script actualizado. |
 | Gateway | `enabled:true`, `verified:true`; las URL originales de GitHub abren identificación central. |
 
 Los enlaces centrales directos se describen en `ludaria/LEEME.md` para un ensayo independiente. No reemplazan las URL de esta guía. Misión 0 conserva su receptor de diagnóstico independiente.

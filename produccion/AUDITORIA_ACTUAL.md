@@ -1,6 +1,15 @@
 # Auditoría total · Ludaria v0.4.1
 
-11 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+11–12 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+
+## Actualización publicada del 12 de octubre
+
+- PR #16 fue integrado como `227053d8d7d96c67f885bbee314de98d769e8a36`, sin PR abiertos al cerrar esta revisión.
+- La Forja conserva la creación visual con Kael/Kira, nombre y clave. Su opción «Ya tengo un personaje» muestra únicamente «Cargar mi personaje» y «Volver a la Forja».
+- Las 13 misiones presentan paisaje, retrato de su guardián y acceso mediante el mismo nombre/código, conservando formularios, eventos, actividades y recompensas.
+- CI `38196210522` aprobó los 26 pasos, incluidos servidor, acceso/recuperación, 13 adaptadores, escritorio, móvil e iframe. Pages `38196426658` publicó el mismo HEAD correctamente.
+- Las 16 URL originales se consultaron de nuevo y respondieron HTTP 200. La prueba contractual mantiene rutas, queries, fragmentos, títulos y alturas.
+- Código.gs vigente: SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`. Requiere reemplazar el archivo y actualizar la MISMA implementación para aparecer en `/exec`.
 
 ## Correcciones realizadas
 
@@ -15,10 +24,11 @@
 | Nombres largos | Un alias sin espacios podía desbordar el encabezado. | Ajuste del nombre en la barra y la ficha del personaje; caso de 32 caracteres en navegador. |
 | Misión 0 | El almacenamiento bloqueado no avisaba de que el borrador/comprobante se perdería al cerrar. | Aviso persistente para copiar el registro. Instrumento, receptor y transporte originales conservados. |
 | Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y Apps Script original pendiente de actualizar. |
+| Acceso visual | Las misiones no igualaban la entrada de la Forja y la carga secundaria ofrecía opciones adicionales. | Paisaje y guardián por misión; nombre/código comunes. En la Forja, cargar o volver son las dos únicas acciones de esa pantalla. |
 
 ## Alcance de las pruebas
 
-- Inventario: 26 entradas HTML, 50 scripts activos y 322 referencias locales; sintaxis y recursos presentes.
+- Inventario: 26 entradas HTML, 51 scripts activos y 323 referencias locales; sintaxis y recursos presentes.
 - Contrato de los 16 iframe originales: rutas, queries, fragmentos, alturas y títulos conservados. Misión 0 excluida del gateway.
 - Forja y recompensas: 14 runas, 49 puntos, 570 XP, cuatro fragmentos, duplicados, saldo insuficiente, máximo 10, talentos, migración y pausa de animaciones.
 - Servidor central y acceso: alias equivalentes, clave elegida/confirmada, alta repetible, respaldo privado, recuperación, revocación de sesiones, privacidad, rollback y conservación de XP, puntos y cuadernos.

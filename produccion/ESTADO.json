@@ -5,11 +5,11 @@
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
   "estado_general": "14 sesiones publicadas; código de misiones, Forja y Mochi revisado; instalar Apps Script v0.4.1",
-  "actualizado_en": "2026-10-11",
+  "actualizado_en": "2026-10-12",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "auditoria_total_v041",
-    "detalle": "Gateway activo, iframe originales conservados; v0.4.1 repara navegación/guardado y requiere actualizar el mismo Apps Script"
+    "fase": "accesos_visuales_publicados",
+    "detalle": "PR #16 publicado: Forja con carga/volver y 13 misiones con paisaje, guardián, nombre y código; iframe originales conservados; actualizar el mismo Apps Script"
   },
   "automatizacion": {
     "estado": "activa",
@@ -184,13 +184,13 @@
     "guia": "ludaria/LEEME.md",
     "automatizacion": "Revisión activa cada cinco horas, hasta que el propietario pida detenerla",
     "auditoria_funcional": "Inventario, Forja/recompensas, servidor, acceso/recuperación, cliente, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
-    "auditoria_navegador": "CI completo de v0.4.0 aprobado; v0.4.1 repite escritorio, móvil e iframe con los fragmentos originales",
+    "auditoria_navegador": "CI 38196210522 de PR #16 aprobado: escritorio, móvil, iframe, Forja, accesos visuales y fragmentos originales",
     "despliegue_exec": "Responde con bienvenida anterior; instalar Código.gs v0.4.1 en la misma implementación",
     "diagnostico_mision0": "Receptor original conservado",
     "ci": {
-      "run_id": 38105192674,
+      "run_id": 38196210522,
       "conclusion": "success",
-      "commit_codigo": "f3dd79008a85b08ecd2382b84f15dc2ad2109d47"
+      "commit_codigo": "b9d7b1b8696fd6d6d1dd751c96ac85bd0c9ef5a5"
     },
     "entrada_estable": {
       "estado": "activa_entrada_real_comprobada",
@@ -222,15 +222,15 @@
         "commit_codigo": "528df38c2f33561f5d083bc26346178b6ba12035"
       },
       "pages": {
-        "run_id": 38158920841,
+        "run_id": 38196426658,
         "conclusion": "success",
-        "commit": "200a5bf8e4fc94adce7f5aed29a0bd19aa529500"
+        "commit": "227053d8d7d96c67f885bbee314de98d769e8a36"
       }
     },
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
-    "rama_trabajo": "codex/ludaria-rpg-guardianes-20261011",
+    "rama_trabajo": "main",
     "base_remota_pr3": "74de8fb0ff22a44be4654d7abcecdd0e05859259",
-    "base_main_comprobada": "353d3cc5ff3d138762c99c20142fa57047a9fe11",
+    "base_main_comprobada": "227053d8d7d96c67f885bbee314de98d769e8a36",
     "guardianes": 13,
     "ventajas": 39,
     "secretos": 5,
@@ -241,17 +241,26 @@
     "publicacion": {
       "estado": "autorizada_por_propietario_20261011",
       "razon": "Actualización de todas las misiones, Forja y Mochi autorizada; prueba autenticada de la nueva implementación pendiente",
-      "pr_nuevo": null
+      "pr_nuevo": 16
     },
     "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md",
     "bienvenida_y_claves": {
-      "estado": "v0.4.1 código actualizado; instalar el Apps Script y verificar Google real",
+      "estado": "v0.4.1 con accesos visuales de PR #16; instalar el Apps Script y verificar Google real",
       "informe": "produccion/BIENVENIDA_Y_CLAVES_20261011.md",
       "clave": "elegida por el usuario; seis dígitos con confirmación",
       "recuperacion": "nombre y respaldo privado RES; alternativa del facilitador",
       "nueva_implementacion": "Actualizar la implementación existente con Código.gs v0.4.1; conservar /exec e iframe",
       "prueba_real": "pendiente de instalación por el propietario"
     },
-    "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md"
+    "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md",
+    "publicacion_actual": {
+      "head_main": "227053d8d7d96c67f885bbee314de98d769e8a36",
+      "pr": 16,
+      "ci_run_id": 38196210522,
+      "pages_run_id": 38196426658,
+      "codigo_gs_sha256": "600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49",
+      "apps_script_instalado": false,
+      "google_genially_autenticado": false
+    }
   }
 }

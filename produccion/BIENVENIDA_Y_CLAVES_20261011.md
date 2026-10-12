@@ -1,4 +1,4 @@
-> **Actualización de auditoría:** v0.4.1 añade consulta del nombre/clave en Forja y Mochi, copia del respaldo con alternativa al portapapeles y recuperación compacta. Usar el Código.gs v0.4.1 completo; este documento conserva la descripción de v0.4.0. Evidencia actual: AUDITORIA_ACTUAL.md.
+> **Actualización de auditoría:** v0.4.1 añade consulta del nombre/clave en Forja y Mochi, copia del respaldo con alternativa al portapapeles y recuperación compacta. PR #16 conserva esa recuperación en las entradas de misión, presenta los 13 guardianes con sus paisajes y deja en «Ya tengo un personaje» de la Forja solo «Cargar mi personaje» y «Volver a la Forja». Usar el Código.gs v0.4.1 completo vigente (SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`); este documento conserva la descripción de v0.4.0. Evidencia actual: AUDITORIA_ACTUAL.md.
 
 # Bienvenida y acceso v0.4.0 · 11 de octubre de 2026
 
