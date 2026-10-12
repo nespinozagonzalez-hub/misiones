@@ -55,7 +55,7 @@ async function login(page,name,key){if(await page.locator('[data-action=resume]'
     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
     await p.screenshot({path:__dirname+'/preview-bienvenida-mobile.png',fullPage:true});
     await p.locator('[data-action=begin]').click();
-    const form=p.locator('#create-form');await form.locator('#name').fill('Exploradora de prueba');await form.locator('[name=avatar][value=Kira]').check();await form.locator('[name=key]').fill('314159');await form.locator('[name=keyConfirm]').fill('314159');
+    const form=p.locator('#create-form');await form.locator('#name').fill('Exploradora de prueba');await form.locator('.avatar-choice').filter({has:form.locator('[name=avatar][value=Kira]')}).click();await form.locator('[name=key]').fill('314159');await form.locator('[name=keyConfirm]').fill('314159');
     await p.screenshot({path:__dirname+'/preview-creacion-mobile.png',fullPage:true});
     await form.locator('button[type=submit]').click();
     await p.locator('#cloud-key-value').waitFor();const key=await p.locator('#cloud-key-value').inputValue();assert.equal(key,'314159');const recoveryCode=await p.locator('#cloud-recovery-value').inputValue();assert.match(recoveryCode,/^RES-/);

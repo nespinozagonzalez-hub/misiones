@@ -13,7 +13,10 @@ async function fixture(legacy=false){
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
  w.google={script:{run:{withSuccessHandler:success=>({withFailureHandler:failure=>({ludariaApi(q){calls.push(q);try{server.c.request=q;success(JSON.parse(JSON.stringify(server.run('ludariaApi(request)'))));}catch(e){failure(e);}}})})}}};
  w.LUDARIA_CLOUD_CONFIG={route:'forja',market:false};w.eval(read('ludaria/rpg-catalog.js'));
- w.eval(legacy?fs.readFileSync(__dirname+'/../../misiones/ludaria/client.js','utf8'):read('ludaria/client.js'));
+ if(legacy) {
+  w.LudariaCloud={active:true,ready:new Promise(()=>{}),registerPendingCheck:()=>{},api:()=>{throw Error('No registrar con la clave antigua');}};
+  d.addEventListener('DOMContentLoaded',()=>{const bar=d.createElement('div');bar.className='ludaria-cloud-bar';d.body.prepend(bar);const dialog=d.createElement('dialog');dialog.className='ludaria-cloud-dialog';dialog.innerHTML='<form id="cloud-login"><input name="name"><input name="key"><button>Recuperar mi personaje</button></form><details><summary>Voy a crear mi personaje</summary><form id="cloud-register"><input name="name"><select name="avatar"><option>Kira</option></select></form></details><p id="cloud-error"></p>';d.body.append(dialog);dialog.addEventListener('close',()=>dialog.remove());dialog.showModal();});
+ } else w.eval(read('ludaria/client.js'));
  w.eval(read('forja/core.js'));w.eval(read('forja/app.js'));w.eval(read('forja/onboarding.js'));
  await delay();return {dom,w,d,calls};
 }
