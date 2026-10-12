@@ -50,6 +50,7 @@ async function login(page,name,key){if(await page.locator('[data-action=resume]'
     assert.equal(await p.locator('.ludaria-cloud-dialog[open]').count(),0,'La Forja no exige acceso antes de crear');
     assert.equal(await p.locator('#welcome input').count(),0);
     assert.equal(await p.locator('#welcome img').count(),2);
+    await p.locator('[data-action=resume]').click();await p.locator('[data-access-scenery=forja]').waitFor();assert.equal(await p.locator('.ludaria-cloud-dialog[open] button:visible').count(),2);await p.getByRole('button',{name:'Volver a la Forja',exact:true}).click();
     await p.screenshot({path:__dirname+'/preview-bienvenida.png',fullPage:true});
     await p.setViewportSize({width:390,height:844});
     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
@@ -83,7 +84,7 @@ async function login(page,name,key){if(await page.locator('[data-action=resume]'
     await m.locator('#redistribute-maestria').fill('1');await m.locator('[data-action=redistribute-confirm]').click();await m.waitForFunction(()=>window.LudariaCloud.profile.skills.maestria===1);assert.equal(await m.evaluate(()=>window.LudariaCloud.profile.points),5);
     await v2.locator('[data-cloud-refresh]').click();await v2.locator('[data-cloud-advantage]').click();await v2.locator('[data-rpg-open=ojo_artesano]').waitFor();assert.equal(await v2.locator('[data-rpg-open=ojo_artesano]').isDisabled(),true);
     const f=await createPage();await f.goto(base+'/frame');const frame=f.frameLocator('iframe');await frame.locator('[data-action=resume]').click();await frame.locator('#cloud-login [name=name]').fill('Exploradora de prueba');await frame.locator('#cloud-login [name=key]').fill(key);await frame.locator('#cloud-login button[type=submit]').click();await frame.locator('#app').waitFor({state:'visible'});
-    const recoverPage=await createPage({width:390,height:844});await recoverPage.goto(base+'/cloud');await recoverPage.locator('[data-action=resume]').click();
+    const recoverPage=await createPage({width:390,height:844});await recoverPage.goto(base+'/cloud?entrada=mochi');
     await recoverPage.getByRole('button',{name:'Recuperar clave',exact:true}).click();
     const recovery=recoverPage.locator('#cloud-recover');await recovery.locator('[name=name]').fill('Exploradora de prueba');await recovery.locator('[name=recoveryCode]').fill(recoveryCode);await recovery.locator('[name=key]').fill('271828');await recovery.locator('[name=keyConfirm]').fill('271828');
     await recoverPage.screenshot({path:__dirname+'/preview-recuperar-mobile.png',fullPage:true});

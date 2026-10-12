@@ -1,6 +1,7 @@
 /** La Forja conserva su bienvenida y sus tarjetas; el acceso es secundario. */
 (() => {
   'use strict';
+  if(!document.getElementById('ludaria-access-scenery')){const script=document.createElement('script');script.id='ludaria-access-scenery';script.src=new URL('../ludaria/access-scenery.js?v=20261012-acceso1',document.baseURI);document.head.append(script);}
   const cloud = window.LudariaCloud;
   const form = document.getElementById('create-form');
   if (!cloud?.active || !form || window.FORJA_ENTRY) return;

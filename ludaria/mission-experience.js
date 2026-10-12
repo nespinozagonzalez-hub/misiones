@@ -1,6 +1,7 @@
 /** Cierres de las 13 misiones. Decoración y orientación; nunca concede puntos. */
 (() => {
   'use strict';
+  if(!document.getElementById('ludaria-access-scenery')){const script=document.createElement('script');script.id='ludaria-access-scenery';script.src=new URL('../ludaria/access-scenery.js?v=20261012-acceso1',document.baseURI);document.head.append(script);}
   const stage = document.getElementById('stage');
   const counter = document.querySelector('#page-count, #page-number');
   if (!stage || !counter || document.body.hasAttribute('data-mission-experience')) return;
