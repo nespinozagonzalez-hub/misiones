@@ -4,12 +4,12 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; código v0.4.3 preparado; Apps Script v0.4.1 instalada; actualización y prueba autenticada pendientes",
+  "estado_general": "14 sesiones publicadas; código y cliente Apps Script v0.4.3 publicados; escritura autenticada pendiente",
   "actualizado_en": "2026-10-13",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "fluidez_v043_en_validacion",
-    "detalle": "v0.4.3 conserva los accesos visuales y agrega ventajas inmediatas y ventana de carga; requiere CI/Pages y actualizar el mismo Apps Script; iframe originales conservados"
+    "fase": "fluidez_v043_publicada",
+    "detalle": "PR #24 integrado, CI y Pages aprobados; el /exec original sirve v0.4.3 en Forja, Mochi y 13 misiones; iframe originales conservados y escritura autenticada pendiente"
   },
   "automatizacion": {
     "estado": "activa",
@@ -184,13 +184,13 @@
     "guia": "ludaria/LEEME.md",
     "automatizacion": "Revisión activa cada cinco horas, hasta que el propietario pida detenerla",
     "auditoria_funcional": "Inventario, Forja/recompensas, servidor, rendimiento, acceso/recuperación, sesión, fluidez, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
-    "auditoria_navegador": "La base v0.4.2 aprobó CI 38410029621; v0.4.3 debe aprobar navegador, móvil e iframe antes de integrarse",
-    "despliegue_exec": "El /exec original responde con el cliente v0.4.1 en Forja, Mochi y 13 misiones; escritura autenticada pendiente",
+    "auditoria_navegador": "v0.4.3 aprobó CI 38421818356: escritorio, móvil, iframe, sesión, fluidez, 13 guardianes y 39 ventajas",
+    "despliegue_exec": "El /exec original responde con el cliente v0.4.3 en Forja, Mochi y 13 misiones; escritura autenticada pendiente",
     "diagnostico_mision0": "Receptor original conservado",
     "ci": {
-      "run_id": 38196210522,
+      "run_id": 38421818356,
       "conclusion": "success",
-      "commit_codigo": "b9d7b1b8696fd6d6d1dd751c96ac85bd0c9ef5a5"
+      "commit_codigo": "d4f1b9baef7661eae08245c06eeb0c67996c2152"
     },
     "entrada_estable": {
       "estado": "activa_entrada_real_comprobada",
@@ -214,23 +214,23 @@
       ],
       "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
       "script_entregado": "v0.4.3 reemplaza v0.4.1 e incluye v0.4.2; conservar el proyecto original",
-      "requiere": "Conservar activa la entrada; actualizar la misma implementación con v0.4.3 y comprobar las operaciones autenticadas",
+      "requiere": "Conservar activa la entrada y comprobar las operaciones autenticadas de v0.4.3 sin volver a desplegar mientras no exista otra corrección",
       "alcance": "Navegación y formularios de identificación reales; operaciones autenticadas pendientes de prueba manual",
       "ci": {
-        "run_id": 38158661315,
+        "run_id": 38421818356,
         "conclusion": "success",
-        "commit_codigo": "528df38c2f33561f5d083bc26346178b6ba12035"
+        "commit_codigo": "d4f1b9baef7661eae08245c06eeb0c67996c2152"
       },
       "pages": {
-        "run_id": 38196426658,
+        "run_id": 38460289154,
         "conclusion": "success",
-        "commit": "227053d8d7d96c67f885bbee314de98d769e8a36"
+        "commit": "c592435db2e8c826ce4bdc4303e148dcf0198683"
       }
     },
     "inventario_adaptadores": "produccion/ADAPTADORES_MISIONES.md",
     "rama_trabajo": "main",
     "base_remota_pr3": "74de8fb0ff22a44be4654d7abcecdd0e05859259",
-    "base_codigo_comprobada": "227053d8d7d96c67f885bbee314de98d769e8a36",
+    "base_codigo_comprobada": "c592435db2e8c826ce4bdc4303e148dcf0198683",
     "guardianes": 13,
     "ventajas": 39,
     "secretos": 5,
@@ -241,24 +241,24 @@
     "publicacion": {
       "estado": "autorizada_por_propietario_20261011",
       "razon": "Actualización de todas las misiones, Forja y Mochi autorizada; prueba autenticada de la nueva implementación pendiente",
-      "pr_nuevo": 16
+      "pr_nuevo": 24
     },
     "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md",
     "bienvenida_y_claves": {
-      "estado": "v0.4.1 instalada en el /exec original; código v0.4.3 preparado con continuidad, ventajas inmediatas y carga visual",
+      "estado": "v0.4.3 instalada en el /exec original con continuidad, ventajas inmediatas y carga visual; verificar escrituras en Google real",
       "informe": "produccion/BIENVENIDA_Y_CLAVES_20261011.md",
       "clave": "elegida por el usuario; seis dígitos con confirmación",
       "recuperacion": "nombre y respaldo privado RES; alternativa del facilitador",
-      "nueva_implementacion": "Actualizar la implementación existente con v0.4.3; conservar /exec e iframe",
-      "prueba_real": "v0.4.1 pública comprobada; v0.4.3 y escritura autenticada en Sheet pendientes"
+      "nueva_implementacion": "Instalada en la implementación existente; conservar /exec e iframe",
+      "prueba_real": "cliente público v0.4.3 comprobado; operaciones autenticadas y escritura en Sheet pendientes"
     },
     "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md",
     "publicacion_actual": {
-      "head_codigo_publicado": "227053d8d7d96c67f885bbee314de98d769e8a36",
-      "pr": 16,
-      "ci_run_id": 38196210522,
-      "pages_run_id": 38196426658,
-      "codigo_gs_sha256": "600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49",
+      "head_codigo_publicado": "c592435db2e8c826ce4bdc4303e148dcf0198683",
+      "pr": 24,
+      "ci_run_id": 38421818356,
+      "pages_run_id": 38460289154,
+      "codigo_gs_sha256": "00438e9601b9432fcb53ae8d4d583c0c67e1c7dd248adebf95ead99183a81ea0",
       "apps_script_instalado": true,
       "apps_script_cliente_publico_verificado": true,
       "google_genially_autenticado": false
