@@ -13,7 +13,7 @@
     if (!access || !profile) return;
     const expires = Number(access.split('.')[1]);
     if (!Number.isFinite(expires) || expires <= Date.now()) return;
-    try { sessionStorage.setItem(sessionKey, JSON.stringify({access,expires,name:profile.name})); } catch (_) {}
+    try { sessionStorage.setItem(sessionKey, JSON.stringify({access,expires,name:profile.name,class:profile.class})); } catch (_) {}
   }
   function previousSession() {
     try {
@@ -228,6 +228,7 @@
       @media(max-width:620px){.ludaria-welcome{width:calc(100% - 20px);max-height:calc(100dvh - 20px);border-radius:16px}.cloud-welcome-grid{display:block;min-height:0}.cloud-guardian{display:flex;align-items:center;border-right:0;border-bottom:1px solid #b6965438;padding:16px;gap:16px}.cloud-portrait{width:94px;flex:0 0 94px;border:1px solid #b69654;border-radius:50%}.cloud-guardian-copy{padding:0;background:none}.cloud-guardian-copy p,.cloud-guardian-seal{display:none}.ludaria-welcome .cloud-guardian h2{font-size:23px;margin:7px 0}.cloud-guardian .cloud-eyebrow{font-size:8px;letter-spacing:1px}.cloud-access{padding:22px}.cloud-access h3{font-size:26px}.cloud-key-pair{gap:10px}}
       @media(prefers-reduced-motion:reduce){.ludaria-welcome::backdrop{backdrop-filter:none}}
     `;
+    style.textContent += '.cloud-loading-screen{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at top,#173b29,#07120d 70%);display:grid;place-items:center;padding:20px;box-sizing:border-box}.cloud-loading-card{box-sizing:border-box;width:min(100%,520px);padding:36px;text-align:center;border:1px solid #b69654;border-radius:24px;background:#102018;color:#e8dfc8;box-shadow:0 24px 70px #0008;font:16px/1.6 system-ui}.cloud-loading-card img{object-fit:cover;border-radius:50%;border:1px solid #b69654;margin-bottom:20px}.cloud-loading-card h2{font:30px/1.2 Georgia;color:#dfbf72;overflow-wrap:anywhere}.cloud-loading-seal{display:block;font-size:44px;color:#dfbf72;margin-bottom:18px}.cloud-loading-track{height:4px;margin-top:24px;background:#284b33;border-radius:6px;overflow:hidden}.cloud-loading-track span{display:block;width:35%;height:100%;background:#dfbf72;animation:cloud-loading 1.8s ease-in-out infinite alternate}@keyframes cloud-loading{to{transform:translateX(180%)}}@media(prefers-reduced-motion:reduce){.cloud-loading-track span{animation:none;width:100%}}';
     document.head.append(style);
     bar = document.createElement('div'); bar.className = 'ludaria-cloud-bar';
     bar.innerHTML = '<strong data-cloud-identity>Ludaria</strong><span data-cloud-status role="status">Identificación central</span><button data-cloud-refresh>Actualizar perfil</button>' + (config.route !== 'forja' && config.route !== 'mision-0' ? '<button data-cloud-save>Guardar cuaderno</button>' : '<button data-cloud-access>Mi nombre y mi clave</button>') + '<button data-cloud-advantage>'+ (config.route==='forja'?'Examinar el sello de la Forja':'Ayudas del guardián')+'</button><button data-cloud-logout>Cerrar acceso</button>';
@@ -256,7 +257,16 @@
     const saved = previousSession();
     if (saved) {
       access = saved.access; stateText('Recuperando tu personaje…');
-      rpc({action:'cargarInicio',access,data:{mission:config.route}}).then(result => {adopt(result);finishWelcome();}).catch(error => {
+      const preview = document.createElement('section'); preview.id='cloud-session-preview'; preview.setAttribute('role','status');
+      if(config.route==='forja'){
+        preview.className='cloud-loading-screen';
+        const avatar=['Kael','Kira'].includes(saved.class)?saved.class.toLowerCase():null;
+        preview.innerHTML='<div class="cloud-loading-card">'+(avatar?'<img alt="" width="100" height="100" src="https://nespinozagonzalez-hub.github.io/misiones/forja/assets/'+avatar+'.webp">':'<span class="cloud-loading-seal" aria-hidden="true">✦</span>')+'<span class="cloud-eyebrow">'+(config.market?'EL MERCADITO DE MOCHI':'LA FORJA DEL BUSCADOR')+'</span><h2>Tu aventura continúa, '+esc(saved.name||'buscador')+'</h2><p>Recuperando tus atributos y tu progreso…</p><div class="cloud-loading-track" aria-hidden="true"><span></span></div></div>';
+        document.body.append(preview);
+      }
+
+      rpc({action:'cargarInicio',access,data:{mission:config.route}}).then(result => {preview.remove();adopt(result);finishWelcome();}).catch(error => {
+        preview.remove();
         forgetSession(); access = null;
         stateText('Vuelve a cargar tu personaje · '+error.message);
         if (!(config.route === 'forja' && !config.market && document.getElementById('create-form'))) welcome();
