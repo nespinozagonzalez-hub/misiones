@@ -7,6 +7,6 @@ El propietario confirmó que v0.4.2 conserva la sesión entre las misiones. Esta
 - La consulta de ventaja devuelve también la decisión guardada y su revisión: una llamada en lugar de dos llamadas consecutivas. El formulario de decisión se habilita solo después de recuperar la revisión confirmada. Se conserva compatibilidad con la respuesta del servidor anterior.
 - Forja y Mochi muestran una ventana de carga con el nombre del personaje, su retrato cuando ya se conoce y una barra animada sin porcentaje ficticio. Desaparece al confirmar la sesión o vuelve al acceso manual si falla. Respeta movimiento reducido.
 
-Para activar: reemplaza Código.gs por el archivo completo v0.4.3, guarda, ejecuta diagnosticarConexionLudaria y prepararConexionLudaria, y publica Nueva versión de la implementación existente. No cambies los iframe ni el /exec.
+Estado instalado: el 13 de octubre el /exec original respondió con estos marcadores de v0.4.3 en Forja, Mochi y las 13 misiones. No vuelvas a reemplazar Código.gs ni a publicar otra versión mientras no exista una corrección posterior. No cambies los iframe ni el /exec.
 
 Validación nueva: explicación y catálogo visibles antes de responder el servicio simulado; una solicitud por ventaja; los formularios esperan la revisión confirmada; ventanas de Forja/Mochi y cierre tras confirmación. Las confirmaciones reales de Google pueden seguir tardando varios segundos; no se garantiza guardado instantáneo. Las imágenes de Genially quedan a cargo del propietario.

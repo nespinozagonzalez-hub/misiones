@@ -8,17 +8,11 @@ La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forj
 
 El adaptador y la implementación original de Google ya sirven esa bienvenida. La clave elegida y su respaldo están disponibles desde el mismo `/exec`; las escrituras autenticadas todavía deben comprobarse con un personaje autorizado. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
 
-## Estado instalado y actualización necesaria
+## Estado instalado
 
-v0.4.1 está instalada en el proyecto original. v0.4.3 es la corrección vigente y también contiene v0.4.2; requiere reemplazar `Código.gs` en ese mismo proyecto. Conserva la misma planilla, sus propiedades, el secreto y la implementación `/exec`:
+v0.4.3 está instalada en el proyecto original y también contiene v0.4.2. El `/exec` público mostró la sesión de pestaña, la ventana de carga y la explicación inmediata protegida de ventajas en Forja, Mochi y las 13 misiones. Conserva la misma planilla, sus propiedades, el secreto y la implementación `/exec`.
 
-0. Si no estás seguro de haber abierto el proyecto original, pega el código completo, guarda y ejecuta primero `diagnosticarConexionLudaria`. Revisa el registro de ejecución. Continúa únicamente si `puedePreparar` es `true`. Esta función no escribe ni muestra el secreto.
-1. En el proyecto donde ejecutaste `iniciarLudaria`, sustituye TODO el contenido de `Código.gs` por `Code-Ludaria-Conectado.gs`. No crees otro proyecto ni pegues dos versiones juntas.
-2. Guarda y ejecuta `prepararConexionLudaria` desde el editor con la cuenta propietaria. Autoriza los permisos solicitados. No ejecuta pruebas sobre personajes reales ni borra registros.
-3. La URL /exec ya está entregada. Ve a **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar** para actualizar la implementación existente y conservar el mismo enlace.
-4. Recargar el Genially y comprobar la bienvenida con retrato, la creación con clave elegida y la recuperación. Las rutas originales permanecen activas; no cambies los iframe.
-
-El código de las interfaces de esta versión debe estar publicado en `main` antes de la prueba real. La rama y el PR mantienen el trabajo revisable; la guía de producción registra su estado. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios. No es necesario instalar v0.4.2 por separado.
+No vuelvas a reemplazar `Código.gs` ni a publicar otra versión mientras no exista una corrección posterior. Si aparece una, actualiza únicamente el proyecto original y conserva la URL, propiedades, secreto y datos. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios.
 
 ## Entradas para Genially
 
@@ -36,7 +30,7 @@ Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vet
 
 Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico navegan al mismo `/exec`, conservando las URL originales de GitHub. El gateway está activo; Forja, Mochi y los 13 guardianes se comprobaron dentro del Genially real. La prueba autenticada de guardado/recuperación se verifica por separado. Las direcciones centrales entregadas también siguen siendo válidas.
 
-**v0.4.3 modifica Código.gs y todavía no consta instalada.** GitHub Pages no reemplaza el cliente incrustado en Apps Script. Reemplaza el archivo completo y actualiza la misma implementación; no crees otra. Misión 0 conserva su receptor independiente.
+**v0.4.3 ya está instalada en la implementación original.** GitHub Pages no reemplaza el cliente incrustado en Apps Script. No crees otra implementación. Misión 0 conserva su receptor independiente.
 
 ## Identidad y progreso
 
@@ -52,7 +46,7 @@ El piloto Ojo del Artesano requiere Maestría 5 actual. Ofrece una pauta de aná
 
 Las Vetas guarda versiones del borrador en `Aventuras`, separadas por ID y misión. Un cambio desde otra sesión se detecta y se rechaza antes de sobrescribir. Se muestran estados pendiente/guardando/confirmado. No se acredita una evaluación ni se entregan runas por guardar. El receptor del diagnóstico de Misión 0 se conserva independiente.
 
-## Comprobación real pendiente
+## Comprobación autenticada pendiente
 
 - Crear un personaje ficticio y conservar su clave.
 - Abrir Mochi desde otro iframe/dispositivo e identificarlo con el mismo nombre y clave.

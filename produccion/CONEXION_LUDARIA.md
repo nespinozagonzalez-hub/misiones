@@ -4,7 +4,7 @@
 
 Actualizar y revisar todas las misiones, la Forja y Mochi; continuar hasta dejarlo armado y revisar/mejorar cada cinco horas. El propietario conserva la edición de Genially y la actualización de su mismo proyecto Apps Script. Mantener exactamente los 16 iframe originales, incluyendo sus rutas, queries, fragmentos, alturas y títulos.
 
-## Código actual: v0.4.3 · Apps Script instalada: v0.4.1
+## Código actual: v0.4.3 · Apps Script instalada: v0.4.3
 
 - v0.4.0 fue publicada por PR #11 como 704d6d92f21e221287a57ed4c2a4b4857aca21ea, CI 38176763248 y Pages 38176965235 aprobados. Incorpora retratos, clave elegida de seis dígitos y recuperación mediante respaldo RES.
 - v0.4.1 actualiza los 13 adaptadores y sus entradas HTML para recuperar la pantalla guardada aunque el iframe siga incluyendo #pantalla-1. Conserva la ruta central y los enlaces profundos de una práctica nueva.
@@ -13,19 +13,19 @@ Actualizar y revisar todas las misiones, la Forja y Mochi; continuar hasta dejar
 - PR #16 quedó integrado como `227053d8d7d96c67f885bbee314de98d769e8a36`. El acceso secundario de la Forja contiene únicamente «Cargar mi personaje» y «Volver a la Forja»; las 13 misiones muestran su paisaje, el retrato del guardián y los campos para el mismo nombre/código. No altera actividades, recompensas ni el contrato de los iframe.
 - El cliente compartido espera la confirmación de guardados simultáneos, conserva ediciones posteriores y permite consultar nombre/clave desde Forja y Mochi. Copiar códigos tiene alternativa si el portapapeles está bloqueado. El formulario de recuperación es más compacto.
 - Misión 0 avisa si no puede conservar el borrador al cerrar. Instrumento, receptor y transporte originales conservados por huellas SHA-256 y prueba de ocho preguntas/recibo interceptado.
-- El gateway permanece activo. La identificación de Forja, Mochi y los 13 guardianes se comprobó en el Genially original. El 12 de octubre el mismo /exec comenzó a servir la bienvenida v0.4.1: atlas de guardianes, clave elegida, «Cargar mi personaje», «Volver a la Forja» y recuperación. v0.4.3 todavía requiere actualizar esa misma implementación.
+- El gateway permanece activo. La identificación de Forja, Mochi y los 13 guardianes se comprobó en el Genially original. El 13 de octubre el mismo /exec comenzó a servir v0.4.3: continuidad de sesión, ventajas inmediatas y ventana de carga, además del atlas, clave elegida y recuperación ya presentes.
 
 ## Límites de la comprobación real
 
-El /exec original respondió HTTP 200 con v0.4.1 en Forja, Mochi y las 13 rutas de misión. Las 13 entradas incluyen el atlas y el adaptador visual; Forja/Mochi muestran las opciones nuevas y ya no contienen «Voy a crear mi personaje». Esta comprobación pública acredita que el cliente nuevo está instalado en la misma URL, no que una operación autenticada haya escrito correctamente en la planilla. El Código.gs vigente de PR #16 tiene SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`.
+El /exec original respondió HTTP 200 con v0.4.3 en Forja, Mochi y las 13 rutas de misión. En las 15 respuestas aparecen la sesión de pestaña, la ventana de carga y la explicación provisional protegida de ventajas, además del atlas y la recuperación. Esta comprobación pública acredita que el cliente nuevo está instalado en la misma URL, no que una operación autenticada haya escrito correctamente en la planilla. El Código.gs vigente tiene SHA-256 `00438e9601b9432fcb53ae8d4d583c0c67e1c7dd248adebf95ead99183a81ea0`.
 
 La auditoría de código usa servicios simulados y no escribe en la planilla real. Registro, recuperación, compras, XP, cuadernos y diagnóstico pasan con esos servicios; la escritura autenticada real de la nueva versión aún debe comprobarse con un personaje autorizado. Los recursos externos opcionales de las sesiones requieren sus enlaces institucionales; las alternativas locales no acreditan una recepción externa.
 
-## Actualización del mismo Apps Script
+## Estado del mismo Apps Script
 
-La instalación pública detectada en el /exec original continúa en v0.4.1. v0.4.3 es una corrección posterior y reemplaza también a v0.4.2: respaldar el Código.gs actual, sustituirlo por `ludaria/Code-Ludaria-Conectado.gs`, ejecutar `diagnosticarConexionLudaria` y comprobar `puedePreparar:true`, ejecutar `prepararConexionLudaria` y publicar una **Nueva versión de la implementación existente**. Conservar el mismo proyecto, planilla, propiedades, secreto y `/exec`.
+v0.4.3 ya está instalada en el /exec original. No volver a reemplazar Código.gs ni publicar otra versión mientras no exista una corrección posterior. Conservar el mismo proyecto, planilla, propiedades, secreto y `/exec`.
 
-Después de instalar v0.4.3: comprobar la ventana de carga en Forja/Mochi, continuidad de sesión entre dos misiones, explicación inmediata de una ventaja, compra de STAT, guardado/recuperación de cuaderno y recuperación mediante RES; después contrastar los movimientos en la planilla. CI usa servicios simulados y no acredita estas escrituras reales.
+Siguiente verificación autorizada: con un personaje de prueba, comprobar continuidad de sesión entre dos misiones, explicación inmediata de una ventaja, compra de STAT, guardado/recuperación de cuaderno y recuperación mediante RES; después contrastar los movimientos en la planilla. CI usa servicios simulados y no acredita estas escrituras reales.
 
 Misión 0 conserva su receptor independiente. No crear otro proyecto ni reemplazar los iframe.
 
