@@ -1,6 +1,15 @@
 # Auditoría total · Ludaria v0.4.1
 
-11 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+11–12 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+
+## Actualización publicada del 12 de octubre
+
+- PR #16 fue integrado como `227053d8d7d96c67f885bbee314de98d769e8a36`, sin PR abiertos al cerrar esta revisión.
+- La Forja conserva la creación visual con Kael/Kira, nombre y clave. Su opción «Ya tengo un personaje» muestra únicamente «Cargar mi personaje» y «Volver a la Forja».
+- Las 13 misiones presentan paisaje, retrato de su guardián y acceso mediante el mismo nombre/código, conservando formularios, eventos, actividades y recompensas.
+- CI `38196210522` aprobó los 26 pasos, incluidos servidor, acceso/recuperación, 13 adaptadores, escritorio, móvil e iframe. Pages `38196426658` publicó el mismo HEAD correctamente.
+- Las 16 URL originales se consultaron de nuevo y respondieron HTTP 200. La prueba contractual mantiene rutas, queries, fragmentos, títulos y alturas.
+- Código.gs vigente: SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`. El cliente v0.4.1 ya aparece en el `/exec` original; las escrituras autenticadas continúan pendientes de verificación.
 
 ## Correcciones realizadas
 
@@ -14,11 +23,12 @@
 | Recuperación | Cabecera repetida ocupaba espacio en móvil. | Formulario compacto y columnas de clave que no desbordan. |
 | Nombres largos | Un alias sin espacios podía desbordar el encabezado. | Ajuste del nombre en la barra y la ficha del personaje; caso de 32 caracteres en navegador. |
 | Misión 0 | El almacenamiento bloqueado no avisaba de que el borrador/comprobante se perdería al cerrar. | Aviso persistente para copiar el registro. Instrumento, receptor y transporte originales conservados. |
-| Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y Apps Script original pendiente de actualizar. |
+| Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway, reinstalar Apps Script o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y cliente v0.4.1 instalado en el Apps Script original. |
+| Acceso visual | Las misiones no igualaban la entrada de la Forja y la carga secundaria ofrecía opciones adicionales. | Paisaje y guardián por misión; nombre/código comunes. En la Forja, cargar o volver son las dos únicas acciones de esa pantalla. |
 
 ## Alcance de las pruebas
 
-- Inventario: 26 entradas HTML, 50 scripts activos y 322 referencias locales; sintaxis y recursos presentes.
+- Inventario: 26 entradas HTML, 51 scripts activos y 323 referencias locales; sintaxis y recursos presentes.
 - Contrato de los 16 iframe originales: rutas, queries, fragmentos, alturas y títulos conservados. Misión 0 excluida del gateway.
 - Forja y recompensas: 14 runas, 49 puntos, 570 XP, cuatro fragmentos, duplicados, saldo insuficiente, máximo 10, talentos, migración y pausa de animaciones.
 - Servidor central y acceso: alias equivalentes, clave elegida/confirmada, alta repetible, respaldo privado, recuperación, revocación de sesiones, privacidad, rollback y conservación de XP, puntos y cuadernos.
@@ -31,11 +41,11 @@ Las pruebas de servidor, DOM y navegador usan servicios simulados/interceptados.
 
 ## Comprobación pública real y límite pendiente
 
-El /exec original respondió durante esta revisión. Forja mostró Nara con nombre/clave y la bienvenida anterior; Mochi respondió con su ruta de mercado. Los retratos y la clave elegida pertenecen a la nueva versión del Código.gs y no se instalan por publicar GitHub Pages.
+El 12 de octubre el /exec original respondió HTTP 200 con la bienvenida v0.4.1 en Forja, Mochi y las 13 rutas de misión. Se detectaron el atlas de guardianes, el adaptador visual, «Cargar mi personaje», «Volver a la Forja» y «Recuperar clave»; «Voy a crear mi personaje» ya no aparece. Esto acredita la instalación del cliente nuevo en la misma URL.
 
-El archivo completo v0.4.1 debe reemplazar Código.gs en el MISMO proyecto y actualizar la MISMA implementación: guardar, ejecutar prepararConexionLudaria y **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar**. Conservar el /exec, personajes, propiedades y secreto. No reemplazar los iframe de Genially.
+No volver a reemplazar Código.gs ni crear otra implementación mientras no exista una corrección posterior. Conservar el /exec, personajes, propiedades, secreto e iframe de Genially.
 
-Después de instalar: comprobar un personaje de prueba autorizado, conservar su respaldo, recuperar la clave, abrir una misión desde su iframe original, guardar y reabrir el mismo cuaderno, comprar con Mochi y contrastar el movimiento en la hoja. Hasta hacerlo, no afirmar que la escritura autenticada de v0.4.1 está verificada en Google real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
+Permanece pendiente comprobar un personaje de prueba autorizado: conservar su respaldo, recuperar la clave, abrir una misión desde su iframe original, guardar y reabrir el mismo cuaderno, comprar con Mochi y contrastar el movimiento en la hoja. Hasta hacerlo, no afirmar que la escritura autenticada de v0.4.1 está verificada en Google real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
 
 ## Retomar y mantener
 
