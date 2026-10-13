@@ -90,6 +90,20 @@ async function login(page,name,key){if(await page.locator('[data-action=resume]'
     await recoverPage.screenshot({path:__dirname+'/preview-recuperar-mobile.png',fullPage:true});
     await recovery.locator('button[type=submit]').click();await recoverPage.locator('#cloud-key-value').waitFor();assert.equal(await recoverPage.locator('#cloud-key-value').inputValue(),'271828');await recoverPage.locator('#cloud-continue').click();
     const restored=await createPage();await restored.goto(base+'/cloud?mision=vetas-diseno');await login(restored,'Exploradora de prueba','271828');await restored.locator('[data-action=notebook]').first().click();assert.equal(await restored.locator('[data-field=note]').inputValue(),'Mi nota recuperable en otra sesión');
+    // Sesión conservada en la misma pestaña y dentro de un iframe del mismo origen.
+    const continuous=await browser.newContext({viewport:{width:390,height:844}});await continuous.addInitScript(bridge);
+    const sessionPage=await continuous.newPage();await sessionPage.exposeFunction('mockApi',q=>{t.c.request=q;return t.run('ludariaApi(request)');});
+    sessionPage.on('pageerror',e=>errors.push(e.message));
+    await sessionPage.goto(base+'/cloud');await login(sessionPage,'Exploradora de prueba','271828');
+    await sessionPage.goto(base+'/cloud?mision=vetas-diseno');await sessionPage.waitForFunction(()=>Boolean(window.LudariaCloud.profile));
+    assert.equal(await sessionPage.locator('#cloud-login').count(),0,'Cambio de misión sin volver a pedir la clave');
+    await sessionPage.locator('[data-action=notebook]').first().click();assert.equal(await sessionPage.locator('[data-field=note]').inputValue(),'Mi nota recuperable en otra sesión');
+    await sessionPage.keyboard.press('Escape');await sessionPage.reload();await sessionPage.waitForFunction(()=>Boolean(window.LudariaCloud.profile));
+    assert.equal(await sessionPage.locator('#cloud-login').count(),0,'Recarga conserva la sesión');
+    await sessionPage.goto(base+'/frame');const shared=sessionPage.frameLocator('iframe');await shared.locator('#app').waitFor({state:'visible'});
+    assert.equal(await shared.locator('#cloud-login').count(),0,'Iframe del mismo origen recupera la sesión');
+    assert.equal(await shared.locator('.hero-portrait img').getAttribute('src'),'assets/kira.webp');
+    await continuous.close();
     const longName='W'.repeat(32);t.c.request={action:'registrar',requestId:require('node:crypto').randomUUID(),data:{name:longName,class:'Kael',key:'161803',keyConfirm:'161803'}};assert.equal(t.run('ludariaApi(request)').ok,true);
     const long=await createPage({width:390,height:844});await long.goto(base+'/cloud');await login(long,longName,'161803');assert.equal(await long.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Nombre de 32 caracteres sin desbordamiento');
     const opening=await createPage({width:390,height:900});await opening.goto(base+'/frame-mision0');const diagnosis=opening.frames().find(frame=>frame.url().includes('/mision-0/'));assert.ok(diagnosis);await diagnosis.locator('#stage h1').waitFor();await diagnosis.locator('#draft-storage-note').waitFor();assert.equal(await diagnosis.evaluate(()=>window.LudariaCloud===undefined),true);assert.equal(await diagnosis.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
