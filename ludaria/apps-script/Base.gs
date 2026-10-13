@@ -135,22 +135,36 @@ function validarCabecera_(sheet, headers) {
     throw new Error('La pestaña ' + sheet.getName() + ' tiene otra estructura. No se sobrescribió.');
   }
 }
+let LUDARIA_REQUEST_READS_ = null;
+function cacheTemporal_() {
+  try { return CacheService.getScriptCache(); } catch (_) { return null; }
+}
 function base_() {
   const props = PropertiesService.getScriptProperties();
   if (props.getProperty('LUDARIA_SHEET_ID') !== LUDARIA.sheetId || !props.getProperty('LUDARIA_PIN_PEPPER')) {
     throw new Error('Primero ejecuta instalarLudaria_.');
   }
   const ss = SpreadsheetApp.openById(LUDARIA.sheetId);
-  Object.keys(LUDARIA.headers).forEach(function (name) {
-    const sheet = ss.getSheetByName(name);
-    if (!sheet) throw new Error('Falta la pestaña ' + name + '. Ejecuta instalarLudaria_.');
-    validarCabecera_(sheet, LUDARIA.headers[name]);
-  });
+  const cache = cacheTemporal_(), schemaKey = 'ludaria-schema-v042-' + LUDARIA.sheetId;
+  let checked = false;
+  try { checked = cache && cache.get(schemaKey) === 'ok'; } catch (_) {}
+  if (!checked) {
+    Object.keys(LUDARIA.headers).forEach(function (name) {
+      const sheet = ss.getSheetByName(name);
+      if (!sheet) throw new Error('Falta la pestaña ' + name + '. Ejecuta instalarLudaria_.');
+      validarCabecera_(sheet, LUDARIA.headers[name]);
+    });
+    try { if (cache) cache.put(schemaKey, 'ok', 60); } catch (_) {}
+  }
   return ss;
 }
 function filas_(ss, name) {
   const sheet = ss.getSheetByName(name);
-  return sheet.getLastRow() < 2 ? [] : sheet.getRange(2, 1, sheet.getLastRow() - 1, LUDARIA.headers[name].length).getValues();
+  const count = sheet.getLastRow(), saved = LUDARIA_REQUEST_READS_ && LUDARIA_REQUEST_READS_[name];
+  if (saved && saved.count === count) return saved.rows;
+  const rows = count < 2 ? [] : sheet.getRange(2, 1, count - 1, LUDARIA.headers[name].length).getValues();
+  if (LUDARIA_REQUEST_READS_) LUDARIA_REQUEST_READS_[name] = {count:count, rows:rows};
+  return rows;
 }
 function normalizarAlias_(raw) {
   if (typeof raw !== 'string' || raw.length > 100) throw new Error('Nombre inválido.');
@@ -244,6 +258,7 @@ function escribirVista_(ss, name, id, values) {
   const existing = filas_(ss, name).findIndex(function (r) { return r[0] === id; });
   const sheet = ss.getSheetByName(name);
   sheet.getRange(existing < 0 ? sheet.getLastRow() + 1 : existing + 2, 1, 1, values.length).setValues([values]);
+  if (LUDARIA_REQUEST_READS_) delete LUDARIA_REQUEST_READS_[name];
 }
 function actualizarVistas_(ss, record, p) {
   const at = new Date().toISOString(), advantages = ventajasDisponibles_(p.skills);

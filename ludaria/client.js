@@ -5,6 +5,23 @@
   let access = null, profile = null, revision = null, missionRevision = null;
   let resolveReady, bar, status, pendingSnapshot = null, saving = false, failedSave = null, saveTimer, flushTask = null;
   let identityKey = '', identityBackup = '';
+  let initialMission = null, lastSavedSnapshot = null;
+  const reads = new Map();
+  const sessionKey = 'ludaria-session-v1';
+  function forgetSession() { try { sessionStorage.removeItem(sessionKey); } catch (_) {} }
+  function rememberSession() {
+    if (!access || !profile) return;
+    const expires = Number(access.split('.')[1]);
+    if (!Number.isFinite(expires) || expires <= Date.now()) return;
+    try { sessionStorage.setItem(sessionKey, JSON.stringify({access,expires,name:profile.name})); } catch (_) {}
+  }
+  function previousSession() {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(sessionKey) || 'null');
+      if (saved && typeof saved.access === 'string' && saved.expires > Date.now()) return saved;
+    } catch (_) {}
+    forgetSession(); return null;
+  }
   const pendingChecks = new Set();
   const hasPending = () => Boolean(pendingSnapshot || failedSave || saving || [...pendingChecks].some(check => check()));
   const guardian = config.market ? {guardian:'Mochi, custodio de las posibilidades',purpose:'Antes de ofrecerte una mejora, necesito reconocer al buscador que llega a mi mercado.'} : config.route==='mision-0' ? {guardian:'Aster, guardián del umbral',purpose:'Responde al llamado y reconoce tu punto de partida.'} : LudariaRPG.find(config.route);
@@ -27,13 +44,21 @@
   }
   function adopt(result) {
     if (result.access) access = result.access;
-    if (result.profile) { profile = result.profile; revision = result.revision; }
+    if (result.profile) { profile = result.profile; revision = result.revision; rememberSession(); }
+    if (result.initialMission?.mission === config.route) initialMission = result.initialMission;
     if (bar && profile) bar.querySelector('[data-cloud-identity]').textContent = profile.name + ' · ' + profile.class;
     if (profile) window.dispatchEvent(new CustomEvent('ludaria:profile', { detail: profile }));
     return result;
   }
   async function api(action, data = {}, requestId = uid()) {
-    const result = await rpc({ action, data, requestId, access, expectedRevision: revision });
+    const readKey = ['cargar','cargarMision','catalogoRpg'].includes(action) ? action + ':' + JSON.stringify(data) : null;
+    let task = readKey && reads.get(readKey);
+    if (!task) {
+      task = rpc({ action, data, requestId, access, expectedRevision: revision });
+      if (readKey) reads.set(readKey, task);
+    }
+    let result;
+    try { result = await task; } finally { if (readKey && reads.get(readKey) === task) reads.delete(readKey); }
     adopt(result);
     if (action === 'accionRpg' && ['decision', 'easter'].includes(data.type)) {
       document.dispatchEvent(new CustomEvent('ludaria:confirmed', { detail: { type: data.type === 'easter' ? 'secreto' : 'decision' } }));
@@ -75,15 +100,15 @@
       const form = event.target, error = d.querySelector('#cloud-error'); error.textContent = 'Comprobando…';
       try {
         let result;
-        if (form.id === 'cloud-login') result = await rpc({ action: 'entrar', data: { name: form.elements.name.value, key: form.elements.key.value } });
+        if (form.id === 'cloud-login') result = await rpc({ action: 'entrar', data: { name: form.elements.name.value, key: form.elements.key.value, mission: config.route } });
         else if (form.id === 'cloud-register') {
-          const data = { name: form.elements.name.value, class: form.elements.avatar.value, key: form.elements.key.value, keyConfirm: form.elements.keyConfirm.value }, signature = JSON.stringify(data);
+          const data = { name: form.elements.name.value, class: form.elements.avatar.value, mission: config.route, key: form.elements.key.value, keyConfirm: form.elements.keyConfirm.value }, signature = JSON.stringify(data);
           if (data.key !== data.keyConfirm) throw Error('Las claves no coinciden. Escríbelas otra vez.');
           if (registrationSignature && registrationSignature !== signature) registrationId = uid();
           registrationSignature = signature;
           result = await rpc({ action: 'registrar', data, requestId: registrationId });
         } else {
-          const data = { name: form.elements.name.value, recoveryCode: form.elements.recoveryCode.value, key: form.elements.key.value, keyConfirm: form.elements.keyConfirm.value }, signature = JSON.stringify(data);
+          const data = { name: form.elements.name.value, mission: config.route, recoveryCode: form.elements.recoveryCode.value, key: form.elements.key.value, keyConfirm: form.elements.keyConfirm.value }, signature = JSON.stringify(data);
           if (data.key !== data.keyConfirm) throw Error('Las claves no coinciden. Escríbelas otra vez.');
           if (recoverySignature && recoverySignature !== signature) recoveryId = uid();
           recoverySignature = signature;
@@ -116,10 +141,14 @@
   }
   function finishWelcome() { stateText('Tu historia está al día'); resolveReady(profile); }
   async function loadMission() {
-    const result = await api('cargarMision', { mission: config.route }); missionRevision = result.revision; return validateSnapshot(result.snapshot);
+    const result = initialMission || await api('cargarMision', { mission: config.route });
+    initialMission = null; missionRevision = result.revision;
+    const snapshot = validateSnapshot(result.snapshot); lastSavedSnapshot = JSON.stringify(snapshot); return snapshot;
   }
   function saveMission(snapshot) {
-    pendingSnapshot = JSON.parse(JSON.stringify(snapshot)); stateText('Cuaderno pendiente de guardar');
+    const serialized = JSON.stringify(snapshot);
+    if (!pendingSnapshot && !failedSave && !saving && serialized === lastSavedSnapshot) return;
+    pendingSnapshot = JSON.parse(serialized); stateText('Cuaderno pendiente de guardar');
     clearTimeout(saveTimer); saveTimer = setTimeout(flushMission, 1200);
   }
   function flushMission() {
@@ -137,7 +166,7 @@
         if (!failedSave) pendingSnapshot = null;
         failedSave = job; stateText('Guardando cuaderno…');
         const result = await rpc({ action: 'guardarMision', data: { mission: config.route, snapshot: job.snapshot }, requestId: job.id, access, expectedRevision: job.revision });
-        missionRevision = result.revision; failedSave = null;
+        missionRevision = result.revision; lastSavedSnapshot = JSON.stringify(job.snapshot); failedSave = null;
       }
       stateText('Cuaderno confirmado en tu bitácora');
     } catch (error) { stateText('Sin confirmar: ' + error.message); }
@@ -154,14 +183,14 @@
   window.LudariaCloud = { active: true, ready, api, openAccess: welcome,
     async registerCharacter(data, requestId) {
       if (data.key !== data.keyConfirm) throw Error('Las claves no coinciden. Escríbelas otra vez.');
-      const result = await rpc({action: 'registrar', data, requestId});
+      const result = await rpc({action: 'registrar', data: {...data, mission: config.route}, requestId});
       identityKey = result.key || data.key; identityBackup = result.recoveryCode || '';
       adopt(result); keyReceipt(identityKey, identityBackup); return result;
     },
     notify: stateText, loadMission, saveMission, flushMission,
     get profile() { return profile; }, get hasPending() { return hasPending(); },
     registerPendingCheck(check) { pendingChecks.add(check); return () => pendingChecks.delete(check); },
-    logout() { if (!hasPending() || confirm('Hay un cuaderno o ensayo sin confirmar. Copia o guarda tus notas antes de salir. ¿Cerrar el acceso?')) { access = null; identityKey = ''; identityBackup = ''; location.reload(); } }
+    logout() { if (!hasPending() || confirm('Hay un cuaderno o ensayo sin confirmar. Copia o guarda tus notas antes de salir. ¿Cerrar el acceso?')) { forgetSession(); access = null; identityKey = ''; identityBackup = ''; location.reload(); } }
   };
   window.addEventListener('beforeunload', event => { if (hasPending()) { event.preventDefault(); event.returnValue = ''; } });
   document.addEventListener('DOMContentLoaded', () => {
@@ -218,11 +247,20 @@
       } finally { button.disabled = false; }
     };
     bar.querySelector('[data-cloud-save]')?.addEventListener('click', flushMission);
-    bar.querySelector('[data-cloud-access]')?.addEventListener('click',() => {if(profile&&identityKey)keyReceipt(identityKey,identityBackup,{review:true});});
+    bar.querySelector('[data-cloud-access]')?.addEventListener('click',() => {if(profile&&identityKey)keyReceipt(identityKey,identityBackup,{review:true});else if(profile)dialog('Mi personaje', '<p>Estás conectado como <strong>'+esc(profile.name)+'</strong>.</p><p>Tu clave no se conserva en este navegador. Puedes consultarla en tu archivo de acceso.</p><button onclick="this.closest(\'dialog\').close()">Volver a mi aventura</button>');});
     bar.querySelector('[data-cloud-advantage]')?.addEventListener('click', advantage);
     bar.querySelector('[data-cloud-logout]').onclick = window.LudariaCloud.logout;
     if (config.route === 'forja' && !config.market && document.getElementById('create-form')) {
       bar.hidden = true; ready.then(() => { bar.hidden = false; });
-    } else welcome();
+    }
+    const saved = previousSession();
+    if (saved) {
+      access = saved.access; stateText('Recuperando tu personaje…');
+      rpc({action:'cargarInicio',access,data:{mission:config.route}}).then(result => {adopt(result);finishWelcome();}).catch(error => {
+        forgetSession(); access = null;
+        stateText('Vuelve a cargar tu personaje · '+error.message);
+        if (!(config.route === 'forja' && !config.market && document.getElementById('create-form'))) welcome();
+      });
+    } else if (!(config.route === 'forja' && !config.market && document.getElementById('create-form'))) welcome();
   });
 })();

@@ -31,10 +31,12 @@ jobs:
       - run: node forja/tests.cjs && node forja/rewards.test.cjs && node produccion/pruebas-efectos.cjs
       - run: node ludaria/test-gateway.cjs
       - run: node ludaria/test-server.cjs
+      - run: node ludaria/test-performance.cjs
       - run: node ludaria/test-access.cjs
       - run: node ludaria/test-rpg-server.cjs
       - run: npm install --no-save playwright@1.62.1 jsdom@26.1.0
       - run: node ludaria/test-rpg-dom.cjs
+      - run: node ludaria/test-session.cjs
       - run: node ludaria/test-client-dom.cjs
       - run: node ludaria/test-forja-onboarding.cjs
       - run: node ludaria/test-access-scenery.cjs

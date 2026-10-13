@@ -55,6 +55,8 @@ function prepararConexionLudaria() {
   if (!active || active !== effective || !SpreadsheetApp.getActiveSpreadsheet()) {
     throw new Error('Ejecuta esta preparación desde el editor, con la cuenta propietaria.');
   }
+  const cache = cacheTemporal_();
+  try { if (cache) cache.remove('ludaria-schema-v042-' + LUDARIA.sheetId); } catch (_) {}
   instalarLudaria_();
   sincronizarCatalogoRpg_(base_());
   const props = PropertiesService.getScriptProperties();
@@ -63,7 +65,7 @@ function prepararConexionLudaria() {
   const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + 'forja/index.html');
   if (response.getResponseCode() !== 200) throw new Error('No se pudo comprobar la interfaz de Forja.');
   console.log('Conexión preparada. Implementa como aplicación web, ejecutada como propietario. La planilla sigue privada.');
-  return { ok: true, version: '0.4.1' };
+  return { ok: true, version: '0.4.2' };
 }
 
 function doGet(e) {
@@ -76,10 +78,16 @@ function doGet(e) {
   if (props.getProperty('LUDARIA_WEB_ENABLED') !== 'true') {
     return HtmlService.createHtmlOutput('<h1>Conexión pendiente</h1><p>El propietario debe ejecutar prepararConexionLudaria desde el editor.</p>');
   }
-  const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + route + '/' + (LUDARIA_MISSION_ENTRIES[route] || 'index.html'));
-  if (response.getResponseCode() !== 200) throw new Error('No se pudo cargar la presentación.');
+  const cache = cacheTemporal_(), htmlKey = 'ludaria-html-v042-' + route;
+  let html = null;
+  try { html = cache && cache.get(htmlKey); } catch (_) {}
+  if (!html) {
+    const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + route + '/' + (LUDARIA_MISSION_ENTRIES[route] || 'index.html'));
+    if (response.getResponseCode() !== 200) throw new Error('No se pudo cargar la presentación.');
+    html = response.getContentText();
+    try { if (cache && html.length < 30000) cache.put(htmlKey, html, 60); } catch (_) {}
+  }
   const entry = params.entrada === 'mochi';
-  let html = response.getContentText();
   html = html.replace(/<base\b[^>]*>/gi, '');
   const config = JSON.stringify({ route: route, market: entry, rpgVersion: LudariaRPG.version }).replace(/</g, '\\u003c');
   const insertion = '<base href="' + LUDARIA_WEB.pages + route + '/" target="_self">' +
@@ -96,6 +104,7 @@ function doGet(e) {
 
 /** Único punto público para operaciones de participantes. No devuelve filas privadas. */
 function ludariaApi(request) {
+  LUDARIA_REQUEST_READS_ = {};
   try {
     return conBloqueo_(function () {
       if (PropertiesService.getScriptProperties().getProperty('LUDARIA_WEB_ENABLED') !== 'true') throw new Error('Conexión pendiente de activar.');
@@ -106,13 +115,14 @@ function ludariaApi(request) {
         const key = limpiarClave_(data.key);
         const result = identificarExplorador_(ss, data.name, key);
         if (!result.ok) return result;
-        return respuestaPerfil_(ss, result.profile.id, tokenSesion_(result.profile.id));
+        return inicioPerfil_(ss, respuestaPerfil_(ss, result.profile.id, tokenSesion_(result.profile.id)), data.mission);
       }
-      if (request.action === 'registrar') return registrarPublico_(ss, request);
-      if (request.action === 'recuperarClave') return recuperarClavePublica_(ss, request);
+      if (request.action === 'registrar') return inicioPerfil_(ss, registrarPublico_(ss, request), data.mission);
+      if (request.action === 'recuperarClave') return inicioPerfil_(ss, recuperarClavePublica_(ss, request), data.mission);
       const id = validarSesion_(request.access);
       const record = filas_(ss, 'Personajes').find(function (r) { return r[0] === id && r[8] === 'ACTIVO'; });
       if (!record) throw new Error('Acceso cerrado. Vuelve a identificarte.');
+      if (request.action === 'cargarInicio') return inicioPerfil_(ss, respuestaPerfil_(ss, id), data.mission);
       if (request.action === 'cargar') return respuestaPerfil_(ss, id);
       if (request.action === 'cargarMision') {
         validarMision_(data.mission);
@@ -165,6 +175,16 @@ function ludariaApi(request) {
       return respuestaPerfil_(ss, id);
     });
   } catch (error) { return { ok: false, message: error.message || 'No se pudo confirmar la operación.' }; }
+  finally { LUDARIA_REQUEST_READS_ = null; }
+}
+
+/** El perfil y el cuaderno se recuperan en una sola llamada. No modifica progreso. */
+function inicioPerfil_(ss, result, mission) {
+  if (!result.ok || !mission || !LudariaRPG.missions.some(function(m){return m.slug===mission;})) return result;
+  const events = filas_(ss, 'Aventuras').filter(function(r){return r[2]===result.profile.id && r[3]===mission && r[5]==='BORRADOR';});
+  const last = events.length ? events[events.length-1] : null;
+  result.initialMission = {mission:mission, snapshot:last ? JSON.parse(last[6]).snapshot : null, revision:last ? last[0] : null};
+  return result;
 }
 
 function limitePublico_() {
@@ -339,3 +359,32 @@ function guardarMision_(ss, id, request) {
   return { ok: true, revision: request.requestId };
 }
 function consultarVentaja_(ss,id,request){return consultarVentajaRpg_(ss,id,request);}
+
+/** Vista derivada para revisión docente. No altera los cuadernos ni su historial. */
+function actualizarResumenCuadernosLudaria() {
+  if (!Session.getActiveUser().getEmail() || Session.getActiveUser().getEmail() !== Session.getEffectiveUser().getEmail() || !SpreadsheetApp.getActiveSpreadsheet()) {
+    throw new Error('Actualiza el resumen desde el editor con la cuenta propietaria.');
+  }
+  return conBloqueo_(function () {
+    const ss = base_(), names = {}, latest = {};
+    filas_(ss, 'Personajes').forEach(function(r){names[r[0]]=r[1];});
+    filas_(ss, 'Aventuras').forEach(function(r){if(r[5]==='BORRADOR')latest[r[2]+'|'+r[3]]=r;});
+    const headers = ['ID personaje','Nombre','Misión','Índice de página (base 0)','Último guardado','Estado','Revisión','Respuestas actuales'];
+    const rows = Object.keys(latest).sort().map(function(key){
+      const r = latest[key], snapshot = JSON.parse(r[6]).snapshot;
+      const fields = snapshot.fields || {tarjetas:snapshot.cards,nota:snapshot.note};
+      const text = Object.keys(fields).map(function(k){const v=fields[k];return k+': '+(typeof v==='string'?v:JSON.stringify(v));}).join('\n');
+      return [r[2],names[r[2]]||'Personaje no encontrado',r[3],snapshot.page,r[1],'Confirmado',r[0],text].map(function(v){return typeof v==='string' && /^[=+@-]/.test(v) ? "'"+v : v;});
+    });
+    let sheet = ss.getSheetByName('CuadernosActuales');
+    if (sheet && sheet.getLastRow()) validarCabecera_(sheet,headers);
+    if (!sheet) sheet=ss.insertSheet('CuadernosActuales');
+    const oldCount=sheet.getLastRow();
+    sheet.getRange(1,1,1,headers.length).setValues([headers]).setBackground('#163e2a').setFontColor('#ffffff').setFontWeight('bold');
+    if(rows.length)sheet.getRange(2,1,rows.length,headers.length).setValues(rows);
+    if(oldCount>rows.length+1)sheet.getRange(rows.length+2,1,oldCount-rows.length-1,headers.length).clearContent();
+    sheet.setFrozenRows(1);
+    console.log('Resumen actualizado: '+rows.length+' cuadernos confirmados. El historial se conserva.');
+    return {ok:true,cuadernos:rows.length,actualizado:new Date().toISOString()};
+  });
+}
