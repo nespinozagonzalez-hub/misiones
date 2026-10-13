@@ -9,7 +9,7 @@
 - Las 13 misiones presentan paisaje, retrato de su guardián y acceso mediante el mismo nombre/código, conservando formularios, eventos, actividades y recompensas.
 - CI `38196210522` aprobó los 26 pasos, incluidos servidor, acceso/recuperación, 13 adaptadores, escritorio, móvil e iframe. Pages `38196426658` publicó el mismo HEAD correctamente.
 - Las 16 URL originales se consultaron de nuevo y respondieron HTTP 200. La prueba contractual mantiene rutas, queries, fragmentos, títulos y alturas.
-- Código.gs vigente: SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`. Requiere reemplazar el archivo y actualizar la MISMA implementación para aparecer en `/exec`.
+- Código.gs vigente: SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`. El cliente v0.4.1 ya aparece en el `/exec` original; las escrituras autenticadas continúan pendientes de verificación.
 
 ## Correcciones realizadas
 
@@ -23,7 +23,7 @@
 | Recuperación | Cabecera repetida ocupaba espacio en móvil. | Formulario compacto y columnas de clave que no desbordan. |
 | Nombres largos | Un alias sin espacios podía desbordar el encabezado. | Ajuste del nombre en la barra y la ficha del personaje; caso de 32 caracteres en navegador. |
 | Misión 0 | El almacenamiento bloqueado no avisaba de que el borrador/comprobante se perdería al cerrar. | Aviso persistente para copiar el registro. Instrumento, receptor y transporte originales conservados. |
-| Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y Apps Script original pendiente de actualizar. |
+| Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway, reinstalar Apps Script o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y cliente v0.4.1 instalado en el Apps Script original. |
 | Acceso visual | Las misiones no igualaban la entrada de la Forja y la carga secundaria ofrecía opciones adicionales. | Paisaje y guardián por misión; nombre/código comunes. En la Forja, cargar o volver son las dos únicas acciones de esa pantalla. |
 
 ## Alcance de las pruebas

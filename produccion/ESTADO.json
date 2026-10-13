@@ -214,7 +214,7 @@
       ],
       "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
       "script_entregado": "v0.4.1 reemplaza el anterior por auditoría total",
-      "requiere": "Conservar activa la entrada; comprobar la nueva versión autenticada tras actualizar Apps Script",
+      "requiere": "Conservar activa la entrada; comprobar las operaciones autenticadas con el cliente v0.4.1 ya instalado",
       "alcance": "Navegación y formularios de identificación reales; operaciones autenticadas pendientes de prueba manual",
       "ci": {
         "run_id": 38158661315,
