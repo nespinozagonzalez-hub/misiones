@@ -14,10 +14,12 @@ function showPending(id){const draft=pendingDraft(id);if(!draft)return;const d=m
  d.querySelector('[data-rpg-close]').onclick=()=>close(d);d.querySelector('[data-rpg-download]').onclick=()=>{const url=URL.createObjectURL(new Blob(['LUDARIA · ENSAYO SIN CONFIRMAR\nMisión: '+route+'\nRuta: '+draft.data.choice+'\n\nEnsayo:\n'+draft.data.work+'\n\nMotivo:\n'+draft.data.reflection],{type:'text/plain'}));const a=document.createElement('a');a.href=url;a.download='Ludaria-ensayo-pendiente.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);};focusTitle(d);
 }
 async function openPerk(id){
- const d=modal('El guardián abre su cuaderno','<p role="status">Consultando tus posibilidades…</p><button data-rpg-close>Volver</button>');d.querySelector('[data-rpg-close]').onclick=()=>close(d);
+ const known=LudariaRPG.all.find(p=>p.id===id&&p.mission===route);
+ const preview=known && cloud.profile?.skills[known.attribute]>=known.minimum;
+ const d=modal(preview?known.name:'El guardián abre su cuaderno', (preview?'<section data-rpg-preview><p class="rpg-threshold">'+esc(LudariaRPG.attributes[known.attribute])+' '+known.minimum+'</p><p>'+esc(known.text)+'</p></section>':'')+'<p role="status">'+(preview?'Comprobando tu acceso y recuperando tu decisión…':'Consultando tus posibilidades…')+'</p><button data-rpg-close>Volver</button>');d.querySelector('[data-rpg-close]').onclick=()=>close(d);focusTitle(d);
  try{
   const r=await cloud.api('ventaja',{id,mission:route});if(!d.isConnected||!d.open)return;const p=r.perk;
-  const c=await cloud.api('catalogoRpg',{mission:route}),old=c.responses[id]||{};
+  const c=r.catalog || await cloud.api('catalogoRpg',{mission:route}),old=c.responses[id]||{};
   if(!d.isConnected||!d.open)return;
   d.setAttribute('aria-label',p.name);d.innerHTML='<h2>'+esc(p.name)+'</h2><p class="rpg-threshold">'+esc(LudariaRPG.attributes[p.attribute])+' '+p.minimum+' · '+esc(LudariaRPG.find(route)?.name||'Ludaria')+'</p><p>'+esc(r.text)+'</p>'+
     (p.kind==='accion'?'<form data-rpg-form><label>Ruta elegida<select name="choice" required><option value="">Elige cómo abordar el desafío</option>'+p.options.map(x=>'<option>'+esc(x)+'</option>').join('')+'</select></label><label>Mi ensayo o decisión<textarea name="work" maxlength="6000" rows="5"></textarea></label><label>¿Qué te llevó a elegir esta ruta? <small>Opcional</small><textarea name="reflection" maxlength="2000" rows="3"></textarea></label><button type="submit">Conservar esta decisión</button><p role="status" data-rpg-status></p></form>':'')+
@@ -38,18 +40,24 @@ async function openPerk(id){
    };
   }
   focusTitle(d);
- }catch(error){if(d.isConnected){d.querySelector('p').textContent=error.message;if(pendingDraft(id)){const b=document.createElement('button');b.textContent='Conservar mi ensayo pendiente';b.onclick=()=>{close(d);showPending(id);};d.querySelector('p').after(b);}}}
+ }catch(error){if(d.isConnected){d.querySelector('[data-rpg-preview]')?.remove();d.querySelector('[role=status]').textContent=error.message;if(pendingDraft(id)){const b=document.createElement('button');b.textContent='Conservar mi ensayo pendiente';b.onclick=()=>{close(d);showPending(id);};d.querySelector('p').after(b);}}}
 }
-async function open(){
- const d=modal('El cuaderno del guardián','<p role="status">Revisando tus atributos actuales…</p><button data-rpg-close>Volver</button>');d.querySelector('button').onclick=()=>close(d);
- try{const r=await cloud.api('catalogoRpg',{mission:route});if(!d.isConnected||!d.open)return;d.innerHTML='<h2>'+esc(r.guardian)+'</h2><p>'+esc(r.purpose)+'</p><p>Estas posibilidades dependen de tus atributos actuales. Puedes consultar el catálogo completo con Mochi.</p><div class="rpg-perks">'+r.perks.map(p=>'<article class="rpg-perk '+(p.available?'is-available':'is-locked')+'"><h3>'+esc(p.name)+'</h3><p>'+esc(LudariaRPG.attributes[p.attribute])+' '+r.skills[p.attribute]+' / umbral '+p.minimum+'</p><button data-rpg-open="'+esc(p.id)+'" '+(p.available?'':'disabled')+'>'+(p.available?(p.kind==='accion'?'Ensayar una ruta diferente':'Consultar apoyo'):'Disponible con '+esc(LudariaRPG.attributes[p.attribute])+' '+p.minimum)+'</button>'+(pendingDraft(p.id)?'<button data-rpg-recover="'+esc(p.id)+'">Conservar mi ensayo pendiente</button>':'')+'</article>').join('')+'</div>'+
+function renderCatalogue(d,r,preliminary){
+ d.innerHTML='<h2>'+esc(r.guardian)+'</h2><p>'+esc(r.purpose)+'</p><p>Estas posibilidades dependen de tus atributos actuales. Puedes consultar el catálogo completo con Mochi.</p><div class="rpg-perks">'+r.perks.map(p=>'<article class="rpg-perk '+(p.available?'is-available':'is-locked')+'"><h3>'+esc(p.name)+'</h3><p>'+esc(LudariaRPG.attributes[p.attribute])+' '+r.skills[p.attribute]+' / umbral '+p.minimum+'</p><button data-rpg-open="'+esc(p.id)+'" '+(p.available?'':'disabled')+'>'+(p.available?(p.kind==='accion'?'Ensayar una ruta diferente':'Consultar apoyo'):'Disponible con '+esc(LudariaRPG.attributes[p.attribute])+' '+p.minimum)+'</button>'+(pendingDraft(p.id)?'<button data-rpg-recover="'+esc(p.id)+'">Conservar mi ensayo pendiente</button>':'')+'</article>').join('')+'</div>'+
   (!r.perks.length?'<p>Este umbral abre tu aventura. Tu registro inicial se conserva con el protocolo de diagnóstico previsto.</p>':'')+
   (r.egg?'<button class="rpg-seal" data-rpg-egg="'+esc(r.egg.id)+'" aria-label="Examinar el sello del guardián">◇ Examinar el sello del guardián</button>':'')+'<button data-rpg-close>Volver a mi recorrido</button>';
   d.querySelector('[data-rpg-close]').onclick=()=>close(d);d.querySelectorAll('[data-rpg-open]').forEach(b=>b.onclick=()=>{close(d);openPerk(b.dataset.rpgOpen);});
   d.querySelectorAll('[data-rpg-recover]').forEach(b=>b.onclick=()=>{close(d);showPending(b.dataset.rpgRecover);});
   d.querySelector('[data-rpg-egg]')?.addEventListener('click',async e=>{const b=e.currentTarget;b.disabled=true;try{const x=await cloud.api('accionRpg',{type:'easter',mission:route,id:b.dataset.rpgEgg});const note=document.createElement('p');note.className='rpg-lore';note.textContent=x.name+' · '+x.text;b.after(note);b.textContent='Sello descubierto · sin coste ni puntos';}catch(error){b.disabled=false;b.textContent='Volver a examinar · '+error.message;}});
+  if(preliminary){const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Comprobando tus atributos actuales…';d.querySelector('h2').after(status);}
   focusTitle(d);
- }catch(error){if(d.isConnected)d.querySelector('p').textContent=error.message;}
+}
+async function open(){
+ const d=modal('El cuaderno del guardián','<p role="status">Revisando tus atributos actuales…</p><button data-rpg-close>Volver</button>');d.querySelector('button').onclick=()=>close(d);
+ const mission=LudariaRPG.find(route),skills=cloud.profile?.skills;
+ if(mission&&skills)renderCatalogue(d,{...mission,skills,perks:mission.perks.map(p=>({...p,available:skills[p.attribute]>=p.minimum}))},true);
+ try{const r=await cloud.api('catalogoRpg',{mission:route});if(!d.isConnected||!d.open)return;renderCatalogue(d,r,false);
+ }catch(error){if(d.isConnected){const status=d.querySelector('[role=status]')||d.querySelector('p');status.textContent='Sin confirmar: '+error.message;d.querySelectorAll('[data-rpg-open],[data-rpg-egg]').forEach(b=>b.disabled=true);}}
 }
 window.LudariaRPGUI={open,openPerk};
 document.addEventListener('DOMContentLoaded',async()=>{

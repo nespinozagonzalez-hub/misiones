@@ -5,14 +5,14 @@
 
 Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques de esta guía conservan las URL originales del catálogo, con sus rutas, parámetros, fragmentos y alturas. Son una referencia para comprobar las incrustaciones existentes: no sustituir en masa los iframe de Genially.
 
-## Estado de conexión · 12 de octubre de 2026
+## Estado de conexión · 11 de octubre de 2026
 
 | Capa | Estado comprobado |
 | --- | --- |
-| Código en main | PR #16 integrado como `227053d8d7d96c67f885bbee314de98d769e8a36`: Ludaria v0.4.1 conserva recuperación y guardado; la Forja deja solo «Cargar mi personaje» y «Volver a la Forja» en el acceso secundario, y las 13 misiones presentan paisaje, retrato del guardián, nombre y código. |
-| GitHub Pages | Despliegue `38196426658` aprobado para ese mismo HEAD; el 12 de octubre se volvieron a consultar las 16 URL originales y todas respondieron 200, sin cambiar rutas, queries, fragmentos, títulos ni alturas. |
-| Apps Script original | Código.gs v0.4.1 de PR #16 instalado en la misma implementación (SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`). El `/exec` sirve atlas, clave elegida, carga, vuelta a la Forja y recuperación. |
-| Genially real | Forja, Mochi y 13 guardianes con nombre/clave fueron comprobados anteriormente en los iframe originales. La presentación pública de PR #16 está disponible; las escrituras autenticadas siguen pendientes de comprobación con un personaje autorizado. |
+| Código en main | PR #7 integrado: recuperación de clave, avisos de cuaderno y decisiones opcionales. |
+| GitHub Pages | HEAD `60dbe24702b09ed2066a3a5ec1a75e77d3650fab` publicado; 16 entradas originales y seis recursos compartidos responden 200 y coinciden con la fuente. |
+| Apps Script original | Última instalación documentada: versión 2. Las correcciones posteriores de cliente/servidor requieren actualizar esa misma implementación; publicar GitHub no instala Google. |
+| Genially real | Forja, Mochi y 13 guardianes con nombre/clave visibles comprobados en los iframe originales. El guardado y la recuperación autenticados se verifican por separado. |
 | Gateway | `enabled:true`, `verified:true`; las URL originales de GitHub abren identificación central. |
 
 Los enlaces centrales directos se describen en `ludaria/LEEME.md` para un ensayo independiente. No reemplazan las URL de esta guía. Misión 0 conserva su receptor de diagnóstico independiente.
@@ -282,7 +282,7 @@ No son sesiones adicionales: ambas entradas utilizan el mismo HTML y personaje.
 <iframe src="https://nespinozagonzalez-hub.github.io/misiones/forja/?entrada=mochi" title="Mercadito de Mochi · Ludaria" width="100%" height="850" style="border:0;" allow="fullscreen" allowfullscreen></iframe>
 ```
 
-Un Apps Script original compartido por Forja y Mochi; Misión 0 mantiene su receptor independiente. Las entradas GitHub conservan sus URL y abren el registro central mediante el gateway activo. `ludaria/Code-Ludaria-Conectado.gs` v0.4.1 ya está publicado en la misma implementación. No volver a desplegar sin una corrección posterior ni crear otro proyecto, hojas o secreto. Las pruebas automáticas de guardado usan servicios simulados y no acreditan la recuperación autenticada real.
+Un Apps Script original compartido por Forja y Mochi; Misión 0 mantiene su receptor independiente. Las entradas GitHub conservan sus URL y abren el registro central mediante el gateway activo. La versión 2 central está documentada como instalada, pero el código completo actualizado de `ludaria/Code-Ludaria-Conectado.gs` aún requiere publicar una nueva versión de la misma implementación. No crear otro proyecto, hojas o secreto. Las pruebas automáticas de guardado usan servicios simulados y no acreditan la recuperación autenticada real.
 
 Todas las presentaciones incluyen efectos decorativos opcionales, control «Animaciones» al pie y respeto automático de movimiento reducido. Sin sonidos automáticos ni cambios de puntuación.
 

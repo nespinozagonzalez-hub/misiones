@@ -33,8 +33,12 @@ function consultarVentajaRpg_(ss,id,request) {
   if(!perk||data.mission&&data.mission!==perk.mission)throw new Error('Ventaja desconocida para esta misión.');
   const p=perfilActual_(ss,id);
   if(p.skills[perk.attribute]<perk.minimum)throw new Error(perk.name+' requiere '+LudariaRPG.attributes[perk.attribute]+' '+perk.minimum+' actual.');
+  const decisions=filas_(ss,'Aventuras').filter(function(r){return r[2]===id&&r[3]===perk.mission&&r[4]===perk.id&&r[5]==='ACCION_RPG';});
+  const last=decisions.length?decisions[decisions.length-1]:null;
+  const responses={},responseRevisions={};
+  if(last){responses[perk.id]=JSON.parse(last[6]).detail;responseRevisions[perk.id]=last[0];}
   registrarEventoRpg_(ss,id,request,'CONSULTA_VENTAJA',perk.mission,perk.id,{kind:perk.kind});
-  return {ok:true,text:perk.text,perk:perk};
+  return {ok:true,text:perk.text,perk:perk,catalog:{responses:responses,responseRevisions:responseRevisions}};
 }
 function accionRpg_(ss,id,request) {
   const data=request.data||{},mission=contextoRpg_(data.mission);

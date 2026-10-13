@@ -32,14 +32,6 @@ const expected = catalogue.map(item => ({src:item.url, title:item.name + ' · Lu
 expected.push({src:origin + '/misiones/forja/', title:'Forja del Buscador · Ludaria', height:850});
 expected.push({src:origin + '/misiones/forja/?entrada=mochi', title:'Mercadito de Mochi · Ludaria', height:850});
 const guide = read('produccion/RESUMEN_PARA_INCRUSTAR.md');
-const activeGuides = [
-  guide,
-  read('produccion/INSTRUCCIONES.md'),
-  read('ludaria/LEEME.md')
-].join('\n');
-assert.doesNotMatch(activeGuides, /falta reemplazar el archivo y actualizar la misma implementación/i, 'Las guías activas no deben pedir reinstalar v0.4.1');
-assert.doesNotMatch(activeGuides, /aún requiere publicar una nueva versión de la misma implementación/i, 'Las guías activas reconocen el Apps Script instalado');
-assert.match(activeGuides, /v0\.4\.1 ya (?:fue instalada|está instalada|está publicado)/i, 'Las guías activas registran la instalación de v0.4.1');
 const blocks = [...guide.matchAll(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/g)].map(match => match[0]);
 assert.equal(blocks.length, 16, '14 sesiones y dos complementos; sin duplicaciones');
 for (let i = 0; i < expected.length; i++) {

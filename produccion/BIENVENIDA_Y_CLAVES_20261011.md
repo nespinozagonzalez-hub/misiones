@@ -1,4 +1,4 @@
-> **Actualización de auditoría:** v0.4.1 añade consulta del nombre/clave en Forja y Mochi, copia del respaldo con alternativa al portapapeles y recuperación compacta. PR #16 conserva esa recuperación en las entradas de misión, presenta los 13 guardianes con sus paisajes y deja en «Ya tengo un personaje» de la Forja solo «Cargar mi personaje» y «Volver a la Forja». El 12 de octubre el /exec original comenzó a servir este cliente (Código.gs SHA-256 `600fc8e1cae58f0de69f9bb4be9c99ab26f33cc22fee71ac2f9e8c47c2704d49`); falta acreditar escrituras autenticadas. Este documento conserva la descripción de v0.4.0. Evidencia actual: AUDITORIA_ACTUAL.md.
+> **Actualización de auditoría:** v0.4.1 añade consulta del nombre/clave en Forja y Mochi, copia del respaldo con alternativa al portapapeles y recuperación compacta. Usar el Código.gs v0.4.1 completo; este documento conserva la descripción de v0.4.0. Evidencia actual: AUDITORIA_ACTUAL.md.
 
 # Bienvenida y acceso v0.4.0 · 11 de octubre de 2026
 
@@ -13,17 +13,17 @@ El propietario pidió una imagen del guardián en la bienvenida, que cada usuari
 - Si falta el respaldo o el personaje es anterior a esta versión, la interfaz explica la recuperación asistida. `recuperarClaveLudaria` permanece disponible solo al facilitador desde el proyecto original; su renovación invalida el respaldo anterior.
 - No se agregan columnas ni se publican datos de la planilla. Se conservan secreto y propiedades existentes. Las nuevas propiedades contienen verificadores y firmas, sin claves ni códigos de recuperación en texto.
 
-## Instalación realizada
+## Instalación necesaria
 
-Este cambio modificó el archivo completo `ludaria/Code-Ludaria-Conectado.gs`, generado mediante `python ludaria/build.py` desde los fuentes. El 12 de octubre el cliente v0.4.1 fue detectado en el mismo /exec. Ante una corrección futura, actualizar únicamente ese proyecto e implementación; conservar la URL, propiedades, secreto y datos existentes.
+Este cambio SÍ modifica el archivo completo `ludaria/Code-Ludaria-Conectado.gs`, generado mediante `python ludaria/build.py` desde los fuentes. Reemplazar TODO Código.gs en el MISMO proyecto vinculado a la planilla. Guardar, ejecutar `prepararConexionLudaria` y actualizar la implementación existente: **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar**. Conservar el /exec actual.
 
-GitHub Pages por sí solo no reemplaza el cliente incrustado en la versión desplegada de Apps Script. La nueva bienvenida ya está disponible a través de los iframe originales. No cambiar los iframe de Genially ni el receptor independiente de Misión 0. El gateway se conserva activo.
+GitHub Pages por sí solo no reemplaza el cliente incrustado en la versión desplegada de Apps Script. La nueva bienvenida se verá en los iframe originales cuando el propietario actualice esa implementación. No cambiar los iframe de Genially ni el receptor independiente de Misión 0. El gateway se conserva activo.
 
 `ludaria/vista-bienvenida.html` permite ver el diseño publicado sin crear personajes ni consultar la planilla. Es una vista de diseño; sus formularios no llaman al servidor.
 
 ## Comprobaciones
 
-`test-access.cjs` verifica formato/confirmación, reintentos de alta, respaldo privado, cinco intentos fallidos, rechazo de nombres inexistentes sin revelar su existencia, recuperación idempotente, credenciales antiguas revocadas, compatibilidad LUD, conservación de perfil/cuaderno y rollback si la auditoría falla. El workflow vuelve a comprobar todos los adaptadores, RPG, DOM, resiliencia, escritorio, móvil e iframe con servicios simulados. El cliente de esta versión ya está instalado en Apps Script; la comprobación autenticada real de escrituras sigue pendiente.
+`test-access.cjs` verifica formato/confirmación, reintentos de alta, respaldo privado, cinco intentos fallidos, rechazo de nombres inexistentes sin revelar su existencia, recuperación idempotente, credenciales antiguas revocadas, compatibilidad LUD, conservación de perfil/cuaderno y rollback si la auditoría falla. El workflow vuelve a comprobar todos los adaptadores, RPG, DOM, resiliencia, escritorio, móvil e iframe con servicios simulados. La comprobación autenticada real de esta nueva versión queda pendiente de instalarla en Apps Script.
 
 ## Arte visual
 

@@ -42,6 +42,17 @@ assert.equal(call('accionRpg',{...decision,work:'Texto comparado',expectedEventI
 assert.equal(call('accionRpg',decision,first).ok,true,'Reintento después de otro cambio: recuperar sin duplicar');
 assert.equal(t.sheets.get('Aventuras').data.length,beforeConflict+1);
 assert.equal(call('catalogoRpg',{mission:mission.slug}).responses[perk.id].work,'Texto comparado');
+// Cada ventaja exige su atributo, justo debajo y exactamente en el umbral.
+for(const benefit of catalog.all){
+ t.props.delete('LUDARIA_WEB_RATE'); // Cada caso representa un intervalo independiente.
+ const below={...high,[benefit.attribute]:benefit.minimum-1};
+ assert.equal(call('redistribuir',{skills:below}).ok,true);
+ assert.equal(call('ventaja',{mission:benefit.mission,id:benefit.id}).ok,false,benefit.id+' bloqueada bajo umbral');
+ if(benefit.kind==='accion')assert.equal(call('accionRpg',{type:'decision',mission:benefit.mission,id:benefit.id,choice:benefit.options[0],work:'No debe guardarse'}).ok,false);
+ const exact={...high,[benefit.attribute]:benefit.minimum};
+ assert.equal(call('redistribuir',{skills:exact}).ok,true);
+ assert.equal(call('ventaja',{mission:benefit.mission,id:benefit.id}).ok,true,benefit.id+' disponible en umbral');
+}
 const low=Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,1]));assert.equal(call('redistribuir',{skills:low}).ok,true);
 assert.equal(call('ventaja',{id:'ojo_artesano'}).ok,false);
 assert.equal(call('accionRpg',{type:'omitir_ventaja',mission:'vetas-diseno',id:'ojo_artesano',page:1,reason:'continuar_sin_ayuda'}).ok,false);assert.equal(p.profile.xp,xp);assert.equal(p.profile.history.at(-1).reasonSource,'NO_DECLARADO');
