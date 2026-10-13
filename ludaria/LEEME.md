@@ -6,15 +6,17 @@ La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto A
 
 La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forjar mi personaje». La creación usa sus tarjetas visuales y permite elegir nombre y clave de seis dígitos; no exige una clave existente. «Ya tengo un personaje» abre una pantalla secundaria con solo «Cargar mi personaje» y «Volver a la Forja».
 
-El adaptador conserva esa bienvenida aunque la implementación de Google aún sirva el cliente anterior. La clave elegida y su respaldo requieren actualizar el mismo Código.gs y la implementación existente. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
+El adaptador y la implementación original de Google ya sirven esa bienvenida. La clave elegida y su respaldo están disponibles desde el mismo `/exec`; las escrituras autenticadas todavía deben comprobarse con un personaje autorizado. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
 
-## Activar una sola vez
+## Estado instalado y actualización futura
+
+v0.4.1 ya está instalada en el proyecto original. No repitas estos pasos mientras no exista una corrección posterior. Si una versión futura modifica `Código.gs`, conserva el mismo proyecto, la misma planilla, sus propiedades, el secreto y la implementación `/exec`:
 
 0. Si no estás seguro de haber abierto el proyecto original, pega el código completo, guarda y ejecuta primero `diagnosticarConexionLudaria`. Revisa el registro de ejecución. Continúa únicamente si `puedePreparar` es `true`. Esta función no escribe ni muestra el secreto.
 1. En el proyecto donde ejecutaste `iniciarLudaria`, sustituye TODO el contenido de `Código.gs` por `Code-Ludaria-Conectado.gs`. No crees otro proyecto ni pegues dos versiones juntas.
 2. Guarda y ejecuta `prepararConexionLudaria` desde el editor con la cuenta propietaria. Autoriza los permisos solicitados. No ejecuta pruebas sobre personajes reales ni borra registros.
 3. La URL /exec ya está entregada. Ve a **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar** para actualizar la implementación existente y conservar el mismo enlace.
-4. Recargar el Genially y comprobar la bienvenida con retrato, la creación con clave elegida y la recuperación. Las rutas originales ya están activas; no cambies los iframe.
+4. Recargar el Genially y comprobar la bienvenida con retrato, la creación con clave elegida y la recuperación. Las rutas originales permanecen activas; no cambies los iframe.
 
 El código de las interfaces de esta versión debe estar publicado en `main` antes de la prueba real. La rama y el PR mantienen el trabajo revisable; la guía de producción registra su estado. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios.
 
@@ -34,7 +36,7 @@ Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vet
 
 Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico navegan al mismo `/exec`, conservando las URL originales de GitHub. El gateway está activo; Forja, Mochi y los 13 guardianes se comprobaron dentro del Genially real. La prueba autenticada de guardado/recuperación se verifica por separado. Las direcciones centrales entregadas también siguen siendo válidas.
 
-**Esta versión sí modifica Código.gs.** Reemplaza el archivo completo anterior por el de v0.4.1 y actualiza la misma implementación. GitHub Pages no reemplaza el cliente incrustado en Apps Script. Misión 0 conserva su receptor independiente.
+**Esta versión modificó Código.gs y ya está instalada.** GitHub Pages no reemplaza el cliente incrustado en Apps Script. Ante una corrección futura, reemplaza el archivo completo y actualiza la misma implementación; no crees otra. Misión 0 conserva su receptor independiente.
 
 ## Identidad y progreso
 
