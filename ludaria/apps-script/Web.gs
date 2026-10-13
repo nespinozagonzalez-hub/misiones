@@ -1,4 +1,4 @@
-/** LUDARIA · Conexión central v0.4.1. Funciones privadas conservan el sufijo _. */
+/** LUDARIA · Conexión central v0.4.3. Funciones privadas conservan el sufijo _. */
 const LUDARIA_WEB = Object.freeze({
   pages: 'https://nespinozagonzalez-hub.github.io/misiones/',
   raw: 'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/',

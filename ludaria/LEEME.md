@@ -1,4 +1,4 @@
-# Ludaria · conexión central v0.4.1
+# Ludaria · conexión central v0.4.3
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
@@ -8,9 +8,9 @@ La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forj
 
 El adaptador y la implementación original de Google ya sirven esa bienvenida. La clave elegida y su respaldo están disponibles desde el mismo `/exec`; las escrituras autenticadas todavía deben comprobarse con un personaje autorizado. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
 
-## Estado instalado y actualización futura
+## Estado instalado y actualización necesaria
 
-v0.4.1 ya está instalada en el proyecto original. No repitas estos pasos mientras no exista una corrección posterior. Si una versión futura modifica `Código.gs`, conserva el mismo proyecto, la misma planilla, sus propiedades, el secreto y la implementación `/exec`:
+v0.4.1 está instalada en el proyecto original. v0.4.3 es la corrección vigente y también contiene v0.4.2; requiere reemplazar `Código.gs` en ese mismo proyecto. Conserva la misma planilla, sus propiedades, el secreto y la implementación `/exec`:
 
 0. Si no estás seguro de haber abierto el proyecto original, pega el código completo, guarda y ejecuta primero `diagnosticarConexionLudaria`. Revisa el registro de ejecución. Continúa únicamente si `puedePreparar` es `true`. Esta función no escribe ni muestra el secreto.
 1. En el proyecto donde ejecutaste `iniciarLudaria`, sustituye TODO el contenido de `Código.gs` por `Code-Ludaria-Conectado.gs`. No crees otro proyecto ni pegues dos versiones juntas.
@@ -18,7 +18,7 @@ v0.4.1 ya está instalada en el proyecto original. No repitas estos pasos mientr
 3. La URL /exec ya está entregada. Ve a **Implementar → Gestionar implementaciones → Editar → Nueva versión → Implementar** para actualizar la implementación existente y conservar el mismo enlace.
 4. Recargar el Genially y comprobar la bienvenida con retrato, la creación con clave elegida y la recuperación. Las rutas originales permanecen activas; no cambies los iframe.
 
-El código de las interfaces de esta versión debe estar publicado en `main` antes de la prueba real. La rama y el PR mantienen el trabajo revisable; la guía de producción registra su estado. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios.
+El código de las interfaces de esta versión debe estar publicado en `main` antes de la prueba real. La rama y el PR mantienen el trabajo revisable; la guía de producción registra su estado. El servidor carga únicamente rutas autorizadas de este repositorio, sin URLs aportadas por usuarios. No es necesario instalar v0.4.2 por separado.
 
 ## Entradas para Genially
 
@@ -36,7 +36,7 @@ Recomendación de iframe: ancho 100%, altura 850 para Forja/Mochi y 720 para Vet
 
 Las 23 entradas HTML de Forja y las 13 misiones posteriores al diagnóstico navegan al mismo `/exec`, conservando las URL originales de GitHub. El gateway está activo; Forja, Mochi y los 13 guardianes se comprobaron dentro del Genially real. La prueba autenticada de guardado/recuperación se verifica por separado. Las direcciones centrales entregadas también siguen siendo válidas.
 
-**Esta versión modificó Código.gs y ya está instalada.** GitHub Pages no reemplaza el cliente incrustado en Apps Script. Ante una corrección futura, reemplaza el archivo completo y actualiza la misma implementación; no crees otra. Misión 0 conserva su receptor independiente.
+**v0.4.3 modifica Código.gs y todavía no consta instalada.** GitHub Pages no reemplaza el cliente incrustado en Apps Script. Reemplaza el archivo completo y actualiza la misma implementación; no crees otra. Misión 0 conserva su receptor independiente.
 
 ## Identidad y progreso
 
@@ -44,7 +44,7 @@ El participante elige y confirma una **clave personal de seis dígitos**, que us
 
 La entrada de cada misión muestra su paisaje y el retrato de su guardián, y pide el mismo nombre y clave creados en la Forja. Allí, «Recuperar clave» permite escribir nombre y código RES para elegir una nueva clave, conservando íntegro el progreso y revocando sesiones anteriores. Si no tiene el respaldo o su cuenta es anterior a v0.4.1, el facilitador puede renovar el acceso con `recuperarClaveLudaria` desde el editor del proyecto original. Esta renovación invalida el respaldo anterior. No se recupera un personaje solo con conocer su nombre.
 
-El perfil y el cuaderno se recuperan desde el servidor. La sesión vive en memoria cuatro horas; cerrar o recargar requiere identificación. No depende de compartir localStorage entre iframes. Ver [el detalle de esta versión](../produccion/BIENVENIDA_Y_CLAVES_20261011.md).
+El perfil y el cuaderno se recuperan desde el servidor. v0.4.3 conserva la sesión firmada hasta cuatro horas en `sessionStorage` de la misma pestaña y origen; no guarda clave, RES ni cuadernos. Si el navegador separa orígenes o bloquea almacenamiento, permanece el acceso manual. Ver [bienvenida y recuperación](../produccion/BIENVENIDA_Y_CLAVES_20261011.md) y [fluidez v0.4.3](../produccion/FLUIDEZ_V043.md).
 
 Las compras se validan sobre el saldo actual. El cliente muestra el resultado después de confirmarlo; el ID de solicitud evita repetir cobros. Redistribuir atributos conserva el total de puntos obtenidos, la XP, las runas y los movimientos. Los talentos activos y las ventajas se ajustan a los atributos actuales. Las copias de personajes locales requieren revisión antes de migrar: no se acreditan saldos aportados por el navegador.
 
@@ -70,6 +70,8 @@ node ludaria/test-access.cjs
 node ludaria/test-rpg-server.cjs
 # Para la comprobación DOM: npm install --no-save jsdom@26.1.0
 node ludaria/test-rpg-dom.cjs
+node ludaria/test-session.cjs
+node ludaria/test-fluidez.cjs
 node ludaria/test-rpg-resilience.cjs
 npm install --no-save playwright@1.62.1
 npx playwright install --with-deps chromium
@@ -85,10 +87,12 @@ Referencias oficiales: [Apps web](https://developers.google.com/apps-script/guid
 
 El ensayo conserva la revisión desde la que se editó. Si cambia en otra sesión, el envío se rechaza sin reemplazarlo. El botón «Comparar con la decisión confirmada» permite revisar el registro actual; «Retomar mi ensayo tras comparar» conserva tu borrador y prepara otra confirmación. No equivale a guardado ni evaluación. Evidencia: `produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md`.
 
-## Auditoría total v0.4.1
+## Auditoría total v0.4.3
 
 Las 13 misiones recuperan la pantalla guardada aunque el iframe original termine en #pantalla-1. La práctica nueva admite enlaces a otras pantallas. Los adaptadores mantienen el /exec al navegar y su generación se valida como repetible.
 
 Forja y Mochi permiten consultar el nombre y la clave usada desde «Mi nombre y mi clave». Se mantiene solo en memoria de esta sesión; cerrar el acceso la descarta. Consultarla no confirma notas ni ensayos pendientes. El guardado compartido espera las solicitudes simultáneas y conserva las ediciones posteriores a un fallo. Misión 0 muestra un aviso si localStorage está bloqueado, manteniendo su instrumento y receptor originales.
+
+Las ayudas disponibles muestran su explicación y catálogo de inmediato desde el perfil cargado. Google valida el umbral y recupera la revisión antes de habilitar una decisión. Forja y Mochi muestran una ventana de carga mientras recuperan una sesión conocida.
 
 La revisión programada es cada cinco horas. Consulta produccion/AUDITORIA_ACTUAL.md para alcance y límites.

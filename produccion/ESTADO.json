@@ -4,12 +4,12 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; código y cliente Apps Script v0.4.1 publicados; escritura autenticada pendiente",
-  "actualizado_en": "2026-10-12",
+  "estado_general": "14 sesiones publicadas; código v0.4.3 preparado; Apps Script v0.4.1 instalada; actualización y prueba autenticada pendientes",
+  "actualizado_en": "2026-10-13",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "accesos_visuales_publicados",
-    "detalle": "PR #16 publicado y cliente v0.4.1 detectado en el /exec original: Forja con carga/volver y 13 misiones con paisaje, guardián, nombre y código; iframe originales conservados"
+    "fase": "fluidez_v043_en_validacion",
+    "detalle": "v0.4.3 conserva los accesos visuales y agrega ventajas inmediatas y ventana de carga; requiere CI/Pages y actualizar el mismo Apps Script; iframe originales conservados"
   },
   "automatizacion": {
     "estado": "activa",
@@ -170,9 +170,9 @@
     }
   },
   "conexion_ludaria": {
-    "version": "0.4.1",
+    "version": "0.4.3",
     "fase": "publicacion_autorizada_en_validacion",
-    "fecha": "2026-10-11",
+    "fecha": "2026-10-13",
     "base_paso1": "Instalada por el propietario; nueve pruebas OK verificadas",
     "rutas_piloto": [
       "Forja",
@@ -183,8 +183,8 @@
     "script": "ludaria/Code-Ludaria-Conectado.gs",
     "guia": "ludaria/LEEME.md",
     "automatizacion": "Revisión activa cada cinco horas, hasta que el propietario pida detenerla",
-    "auditoria_funcional": "Inventario, Forja/recompensas, servidor, acceso/recuperación, cliente, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
-    "auditoria_navegador": "CI 38196210522 de PR #16 aprobado: escritorio, móvil, iframe, Forja, accesos visuales y fragmentos originales",
+    "auditoria_funcional": "Inventario, Forja/recompensas, servidor, rendimiento, acceso/recuperación, sesión, fluidez, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
+    "auditoria_navegador": "La base v0.4.2 aprobó CI 38410029621; v0.4.3 debe aprobar navegador, móvil e iframe antes de integrarse",
     "despliegue_exec": "El /exec original responde con el cliente v0.4.1 en Forja, Mochi y 13 misiones; escritura autenticada pendiente",
     "diagnostico_mision0": "Receptor original conservado",
     "ci": {
@@ -213,8 +213,8 @@
         "defensa-orbe"
       ],
       "evidencia": "produccion/AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md",
-      "script_entregado": "v0.4.1 reemplaza el anterior por auditoría total",
-      "requiere": "Conservar activa la entrada; comprobar las operaciones autenticadas con el cliente v0.4.1 ya instalado",
+      "script_entregado": "v0.4.3 reemplaza v0.4.1 e incluye v0.4.2; conservar el proyecto original",
+      "requiere": "Conservar activa la entrada; actualizar la misma implementación con v0.4.3 y comprobar las operaciones autenticadas",
       "alcance": "Navegación y formularios de identificación reales; operaciones autenticadas pendientes de prueba manual",
       "ci": {
         "run_id": 38158661315,
@@ -245,12 +245,12 @@
     },
     "evidencia_conflictos": "produccion/AUDITORIA_CONFLICTOS_RPG_20261011.md",
     "bienvenida_y_claves": {
-      "estado": "v0.4.1 con accesos visuales de PR #16 instalado en el /exec original; verificar escrituras en Google real",
+      "estado": "v0.4.1 instalada en el /exec original; código v0.4.3 preparado con continuidad, ventajas inmediatas y carga visual",
       "informe": "produccion/BIENVENIDA_Y_CLAVES_20261011.md",
       "clave": "elegida por el usuario; seis dígitos con confirmación",
       "recuperacion": "nombre y respaldo privado RES; alternativa del facilitador",
-      "nueva_implementacion": "Instalada en la implementación existente; conservar /exec e iframe",
-      "prueba_real": "cliente público comprobado; operaciones autenticadas y escritura en Sheet pendientes"
+      "nueva_implementacion": "Actualizar la implementación existente con v0.4.3; conservar /exec e iframe",
+      "prueba_real": "v0.4.1 pública comprobada; v0.4.3 y escritura autenticada en Sheet pendientes"
     },
     "auditoria_actual": "produccion/AUDITORIA_ACTUAL.md",
     "publicacion_actual": {
