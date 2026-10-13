@@ -1,6 +1,14 @@
-# Auditoría total · Ludaria v0.4.1
+# Auditoría total · Ludaria v0.4.3
 
 11–12 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+
+## Actualización del 13 de octubre
+
+- v0.4.2 redujo la espera al conservar la sesión de la pestaña, recuperar perfil y cuaderno en una llamada, compartir lecturas simultáneas y omitir guardados sin cambios.
+- v0.4.3 hace visible inmediatamente la explicación de una ventaja disponible según el perfil cargado. El servidor sigue validando el atributo antes de habilitar el formulario; si lo rechaza, la vista provisional se retira. La decisión confirmada y su revisión regresan en la misma consulta.
+- Forja y Mochi muestran una ventana de carga con el nombre y retrato conocido mientras Google confirma la sesión, sin porcentajes ficticios y respetando movimiento reducido.
+- La nueva regresión recorre las 39 ventajas justo bajo y exactamente en sus umbrales 3/5/8, y comprueba que un perfil local desactualizado no conserva la explicación ni permite escribir cuando el servidor niega el acceso.
+- Los 16 iframe, Misión 0, el gateway, personajes, recompensas y datos no cambian. Apps Script continúa sirviendo v0.4.1 hasta que el propietario actualice la misma implementación con el Código.gs v0.4.3.
 
 ## Actualización publicada del 12 de octubre
 
@@ -25,6 +33,8 @@
 | Misión 0 | El almacenamiento bloqueado no avisaba de que el borrador/comprobante se perdería al cerrar. | Aviso persistente para copiar el registro. Instrumento, receptor y transporte originales conservados. |
 | Continuidad | Instrucciones antiguas todavía pedían desactivar el gateway, reinstalar Apps Script o revisar cada tres horas. | Estado vigente consistente: gateway activo, iframe conservados, revisión cada cinco horas y cliente v0.4.1 instalado en el Apps Script original. |
 | Acceso visual | Las misiones no igualaban la entrada de la Forja y la carga secundaria ofrecía opciones adicionales. | Paisaje y guardián por misión; nombre/código comunes. En la Forja, cargar o volver son las dos únicas acciones de esa pantalla. |
+| Fluidez de ventajas | Abrir una ayuda realizaba dos consultas consecutivas y ocultaba incluso la explicación pública durante la espera. | Explicación y catálogo inmediatos desde el perfil cargado; una consulta confirma umbral, decisión y revisión antes de habilitar escritura. |
+| Carga de Forja/Mochi | Recuperar una sesión podía dejar 3–5 segundos sin una transición clara. | Ventana de carga con identidad conocida, retrato y barra indeterminada; se cierra al confirmar o vuelve al acceso manual si falla. |
 
 ## Alcance de las pruebas
 
@@ -32,7 +42,7 @@
 - Contrato de los 16 iframe originales: rutas, queries, fragmentos, alturas y títulos conservados. Misión 0 excluida del gateway.
 - Forja y recompensas: 14 runas, 49 puntos, 570 XP, cuatro fragmentos, duplicados, saldo insuficiente, máximo 10, talentos, migración y pausa de animaciones.
 - Servidor central y acceso: alias equivalentes, clave elegida/confirmada, alta repetible, respaldo privado, recuperación, revocación de sesiones, privacidad, rollback y conservación de XP, puntos y cuadernos.
-- Cliente: guardados simultáneos, edición mientras se guarda, caída de comunicación, reintento del mismo envío y consulta de nombre/clave sin perder avisos pendientes.
+- Cliente: guardados simultáneos, edición mientras se guarda, caída de comunicación, reintento del mismo envío, continuidad de sesión, carga conjunta y consulta de nombre/clave sin perder avisos pendientes.
 - 13 adaptadores: guardianes, 39 apoyos/acciones, cinco secretos, cuadernos, todas las pantallas y recarga usando el fragmento original #pantalla-1.
 - Diagnóstico: 12 pantallas y ocho preguntas, puerta cerrada hasta recibo, respuesta POST opaca sin falso éxito, aviso de almacenamiento bloqueado. Receptor, instrumento y transporte protegidos por SHA-256.
 - Navegador: escritorio, móvil, marco de 720 px, claves/recuperación, compras, cuadernos, nombres largos, Misión 0 independiente, foco y movimiento reducido.
@@ -43,9 +53,9 @@ Las pruebas de servidor, DOM y navegador usan servicios simulados/interceptados.
 
 El 12 de octubre el /exec original respondió HTTP 200 con la bienvenida v0.4.1 en Forja, Mochi y las 13 rutas de misión. Se detectaron el atlas de guardianes, el adaptador visual, «Cargar mi personaje», «Volver a la Forja» y «Recuperar clave»; «Voy a crear mi personaje» ya no aparece. Esto acredita la instalación del cliente nuevo en la misma URL.
 
-No volver a reemplazar Código.gs ni crear otra implementación mientras no exista una corrección posterior. Conservar el /exec, personajes, propiedades, secreto e iframe de Genially.
+v0.4.3 es una corrección posterior y modifica Código.gs. Reemplazarlo únicamente en el proyecto original y publicar una nueva versión de la implementación existente. Conservar el /exec, personajes, propiedades, secreto e iframe de Genially; no crear otro proyecto.
 
-Permanece pendiente comprobar un personaje de prueba autorizado: conservar su respaldo, recuperar la clave, abrir una misión desde su iframe original, guardar y reabrir el mismo cuaderno, comprar con Mochi y contrastar el movimiento en la hoja. Hasta hacerlo, no afirmar que la escritura autenticada de v0.4.1 está verificada en Google real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
+Permanece pendiente instalar v0.4.3 y comprobar un personaje de prueba autorizado: continuidad de sesión, ventana de carga, ventaja inmediata, respaldo/recuperación, cuaderno, compra en Mochi y movimientos en la hoja. Hasta hacerlo, no afirmar que v0.4.3 ni sus escrituras están verificadas en Google/Genially real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
 
 ## Retomar y mantener
 
