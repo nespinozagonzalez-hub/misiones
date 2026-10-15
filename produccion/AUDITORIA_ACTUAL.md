@@ -1,6 +1,10 @@
 # Auditoría total · Ludaria v0.4.3
 
-11–13 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+11–15 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+
+## Protección de la vista de diseño · 15 de octubre
+
+`test-design-preview.cjs` comprueba Forja, Mochi, la apertura y los 13 guardianes en DOM local. Los 48 intentos simulados de acceso, alta y recuperación muestran el aviso de diseño, no adoptan perfiles ni persisten credenciales o progreso. La prueba intercepta y bloquea cualquier intento de red de scripts o API antes de realizarlo. Se incorpora al CI sin modificar la aplicación, Código.gs, gateway, datos, Genially ni los 16 iframe. No requiere volver a instalar Apps Script y no acredita escrituras en Google real.
 
 ## Actualización del 13 de octubre
 
