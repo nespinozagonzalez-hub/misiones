@@ -5,6 +5,10 @@
 
 Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques de esta guía conservan las URL originales del catálogo, con sus rutas, parámetros, fragmentos y alturas. Son una referencia para comprobar las incrustaciones existentes: no sustituir en masa los iframe de Genially.
 
+## Cierre de revisión · 16 de octubre de 2026
+
+La revisión periódica queda cerrada por solicitud del propietario. El cliente público v0.4.3 ya está instalado y el gateway continúa activo. El paquete de mantenimiento v0.4.4 retira únicamente una rutina antigua de prueba del editor; requiere actualizar el Código.gs completo en el MISMO proyecto e implementación `/exec` para aplicar esa corrección. No consta instalado y no añade funciones al cliente. Informe final, archivo actualizado y pendientes: [CIERRE_REVISION_20261016.md](CIERRE_REVISION_20261016.md). Los bloques siguientes permanecen exactamente iguales; la tabla del 13 de octubre documenta la instalación pública comprobada.
+
 ## Estado de conexión · 13 de octubre de 2026
 
 | Capa | Estado comprobado |
