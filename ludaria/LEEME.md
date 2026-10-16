@@ -1,4 +1,10 @@
-# Ludaria · conexión central v0.4.3
+# Ludaria · paquete v0.4.4, cliente instalado v0.4.3
+
+## Ajuste final del 16 de octubre
+
+v0.4.4 retira la prueba histórica `probarLudaria_`, que creaba un DEMO y persistía su PIN en texto. La función ahora solo explica su retirada; no toca datos ni propiedades. Las pruebas actuales se ejecutan en CI con servicios aislados. No cambian la interfaz, recuperación, API de participantes ni ventajas.
+
+Este ajuste cambia el Código.gs completo y aún no está instalado en Google. Para aplicarlo, reemplaza el archivo por `Code-Ludaria-Conectado.gs` y actualiza la MISMA implementación `/exec` del proyecto original. No ejecutes otra preparación ni la prueba antigua. Si existe `LUDARIA_DEMO_PIN` de una ejecución anterior, elimina únicamente esa propiedad histórica, sin mostrar su valor y sin tocar el secreto original, respaldos o datos. El cliente v0.4.3 ya está instalado y sigue siendo compatible. Detalle y límites en [el informe final](../produccion/CIERRE_REVISION_20261016.md).
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
@@ -89,4 +95,4 @@ Forja y Mochi permiten consultar el nombre y la clave usada desde «Mi nombre y 
 
 Las ayudas disponibles muestran su explicación y catálogo de inmediato desde el perfil cargado. Google valida el umbral y recupera la revisión antes de habilitar una decisión. Forja y Mochi muestran una ventana de carga mientras recuperan una sesión conocida.
 
-La revisión programada es cada cinco horas. Consulta produccion/AUDITORIA_ACTUAL.md para alcance y límites.
+La revisión periódica quedó cerrada por solicitud del propietario el 16 de octubre de 2026. No reactivarla sin un nuevo encargo. Consulta produccion/CIERRE_REVISION_20261016.md para el diagnóstico, el mantenimiento preparado y los límites de verificación.
