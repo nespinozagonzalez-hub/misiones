@@ -1,4 +1,8 @@
-# Encargo programable · Continuar misiones de Ludaria
+# Historial de encargos programados · Ludaria
+
+**Estado vigente del 16 de octubre de 2026: revisión periódica cerrada por solicitud del propietario**, tras pedir una última auditoría e informe. No reactivar sin un nuevo encargo. La producción anterior también está pausada. Este archivo conserva debajo el encargo original como historial; sus referencias a tareas activas no tienen vigencia. Informe de cierre: `CIERRE_REVISION_20261016.md`.
+
+## Archivo histórico del 2 de octubre
 
 **Estado:** activa. Las cinco tareas anteriores fueron desactivadas a petición del usuario; la producción programada se concentra en Ludaria. El ID operativo está registrado en ESTADO.json.
 
