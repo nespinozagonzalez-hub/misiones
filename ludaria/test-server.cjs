@@ -14,6 +14,13 @@ assert.equal(diagnostic.proyectoVinculado,true);
 assert.equal(diagnostic.secretoConservado,true);
 assert.equal(diagnostic.puedePreparar,true);
 const secret=t.props.get('LUDARIA_PIN_PEPPER');
+// La prueba histórica no debe crear DEMO, guardar PIN ni escribir resultados en Sheets.
+const beforeRetired=JSON.stringify({sheets:[...t.sheets].map(([name,sheet])=>[name,sheet.data]),props:[...t.props],messages:t.messages});
+const retired=t.run('probarLudaria_()');
+assert.equal(retired.ok,false);assert.equal(retired.retired,true);
+assert.match(retired.message,/pruebas aisladas/);
+assert.equal(JSON.stringify({sheets:[...t.sheets].map(([name,sheet])=>[name,sheet.data]),props:[...t.props],messages:t.messages}),beforeRetired);
+assert.equal(t.props.has('LUDARIA_DEMO_PIN'),false);
 const signup={action:'registrar',requestId:id(),data:{name:'Nicolás del Bosque',class:'Kira',key:'314159',keyConfirm:'314159'}};
 const account=send(signup); assert.equal(account.ok,true,account.message);
 assert.equal(account.key,'314159');
