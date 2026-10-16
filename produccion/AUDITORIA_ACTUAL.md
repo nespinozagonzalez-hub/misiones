@@ -1,6 +1,12 @@
-# Auditoría total · Ludaria v0.4.3
+# Auditoría total · cierre de Ludaria, 16 de octubre de 2026
 
-11–15 de octubre de 2026. Encargo vigente: revisar y actualizar todas las misiones, Forja y Mochi, continuar hasta dejarlo armado y mantener revisiones cada cinco horas. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+11–16 de octubre de 2026. El propietario pidió una última auditoría, un informe y cerrar la revisión periódica. Esta auditoría sustituye el estado inicial del 4 de octubre; su contenido anterior permanece en el historial Git.
+
+## Cierre y ajuste final
+
+Informe: `CIERRE_REVISION_20261016.md`. Se conserva el cliente v0.4.3 instalado. El paquete v0.4.4 retira la rutina antigua de editor `probarLudaria_`, que guardaba un PIN DEMO en texto y fallaba con el catálogo actual. La regresión comprueba que la rutina retirada no toca hojas, propiedades ni registros. No se modifica la API de participantes, la bienvenida, el gateway ni los 16 iframe. Las pruebas siguen siendo aisladas.
+
+Código.gs preparado: SHA-256 `35583c8482761b60fbb9c448a524aa19702a8c0963dd318f287c8cda5882c7c1`; requiere reemplazar el archivo y actualizar la MISMA implementación para instalar esta corrección. No se actualizó el proyecto Google ni se borró una propiedad real. La instalación pública v0.4.3 y las operaciones autenticadas pendientes se mantienen separadas.
 
 ## Protección de la vista de diseño · 15 de octubre
 
@@ -62,6 +68,6 @@ Código.gs v0.4.3 tiene SHA-256 `00438e9601b9432fcb53ae8d4d583c0c67e1c7dd248adeb
 
 Permanece pendiente comprobar un personaje de prueba autorizado: continuidad de sesión, ventana de carga, ventaja inmediata, respaldo/recuperación, cuaderno, compra en Mochi y movimientos en la hoja. Hasta hacerlo, no afirmar que las escrituras de v0.4.3 están verificadas en Google/Genially real. Los recursos externos opcionales siguen requiriendo sus enlaces institucionales; las alternativas locales no confirman una recepción externa.
 
-## Retomar y mantener
+## Mantenimiento posterior
 
-La revisión existente está activa cada cinco horas. Consultar main fresco, PR, CI y Pages y este informe antes de cambiar código. Los apuntes históricos no justifican desactivar el gateway ni regresar a claves automáticas. Mantener el diseño de guardianes, clave elegida, recuperación y las correcciones de esta auditoría. No crear nuevos proyectos Apps Script ni regenerar secretos.
+La revisión periódica queda cerrada a petición del propietario. No reactivarla sin un nuevo encargo. Antes de un cambio posterior, consultar main fresco, PR, CI y Pages y el informe final. Los apuntes históricos no justifican desactivar el gateway ni regresar a claves automáticas. Mantener el diseño de guardianes, clave elegida, recuperación y las correcciones de esta auditoría. No crear nuevos proyectos Apps Script ni regenerar secretos.

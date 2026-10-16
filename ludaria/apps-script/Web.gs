@@ -1,4 +1,4 @@
-/** LUDARIA · Conexión central v0.4.3. Funciones privadas conservan el sufijo _. */
+/** LUDARIA · Conexión central v0.4.4. Cliente compatible v0.4.3; rutina DEMO retirada. */
 const LUDARIA_WEB = Object.freeze({
   pages: 'https://nespinozagonzalez-hub.github.io/misiones/',
   raw: 'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/',
@@ -65,7 +65,7 @@ function prepararConexionLudaria() {
   const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + 'forja/index.html');
   if (response.getResponseCode() !== 200) throw new Error('No se pudo comprobar la interfaz de Forja.');
   console.log('Conexión preparada. Implementa como aplicación web, ejecutada como propietario. La planilla sigue privada.');
-  return { ok: true, version: '0.4.3' };
+  return { ok: true, version: '0.4.4' };
 }
 
 function doGet(e) {

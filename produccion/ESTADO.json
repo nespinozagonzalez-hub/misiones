@@ -4,16 +4,17 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; código y cliente Apps Script v0.4.3 publicados; escritura autenticada pendiente",
-  "actualizado_en": "2026-10-13",
+  "estado_general": "Revisión cerrada por el propietario; 14 sesiones publicadas; cliente v0.4.3 instalado y mantenimiento v0.4.4 preparado; escritura autenticada pendiente",
+  "actualizado_en": "2026-10-16",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "fluidez_v043_publicada",
-    "detalle": "PR #24 integrado, CI y Pages aprobados; el /exec original sirve v0.4.3 en Forja, Mochi y 13 misiones; iframe originales conservados y escritura autenticada pendiente"
+    "fase": "revision_final_cerrada",
+    "detalle": "Última auditoría e informe solicitados por el propietario; v0.4.4 retira la rutina histórica DEMO en código preparado; el /exec sigue en v0.4.3 y la escritura autenticada no está acreditada",
+    "informe": "produccion/CIERRE_REVISION_20261016.md"
   },
   "automatizacion": {
-    "estado": "activa",
-    "motivo": "Revisión de conexión y rediseño autorizada; producción de sesiones ya completada."
+    "estado": "cerrada_por_propietario",
+    "motivo": "Solicitud explícita del 16 de octubre de 2026: última revisión, informe y cierre. No reactivar sin nuevo encargo."
   },
   "misiones": [
     {
@@ -165,14 +166,16 @@
     },
     "revision_actual": {
       "intervalo_horas": 5,
-      "continua_hasta_indicacion_del_propietario": true,
+      "continua_hasta_indicacion_del_propietario": false,
+      "estado": "cerrada_por_propietario_20261016",
       "alcance": "14 sesiones, Forja, Mochi, navegación y conexión"
     }
   },
   "conexion_ludaria": {
-    "version": "0.4.3",
-    "fase": "publicacion_autorizada_en_validacion",
-    "fecha": "2026-10-13",
+    "version": "0.4.4",
+    "cliente_instalado": "0.4.3",
+    "fase": "revision_cerrada_mantenimiento_preparado",
+    "fecha": "2026-10-16",
     "base_paso1": "Instalada por el propietario; nueve pruebas OK verificadas",
     "rutas_piloto": [
       "Forja",
@@ -182,7 +185,15 @@
     "resto_misiones": "13 adaptadores actualizados; restauran pantalla guardada con #pantalla-1",
     "script": "ludaria/Code-Ludaria-Conectado.gs",
     "guia": "ludaria/LEEME.md",
-    "automatizacion": "Revisión activa cada cinco horas, hasta que el propietario pida detenerla",
+    "automatizacion": "Revisión cerrada por solicitud del propietario el 16 de octubre de 2026",
+    "mantenimiento_preparado": {
+      "version": "0.4.4",
+      "motivo": "Retirar la rutina histórica DEMO que persistía un PIN en texto y fallaba con el catálogo actual",
+      "codigo_gs_sha256": "35583c8482761b60fbb9c448a524aa19702a8c0963dd318f287c8cda5882c7c1",
+      "apps_script_instalado": false,
+      "requiere": "Reemplazar el Código.gs completo y actualizar la MISMA implementación /exec; no repetir preparación ni pruebas antiguas",
+      "limpieza_historica": "Si existe LUDARIA_DEMO_PIN, el propietario debe eliminar solo esa propiedad sin mostrar su valor; no se realizó en Google"
+    },
     "auditoria_funcional": "Inventario, Forja/recompensas, servidor, rendimiento, acceso/recuperación, sesión, fluidez, 13 adaptadores y Misión 0 con servicios simulados: comprobados",
     "auditoria_navegador": "v0.4.3 aprobó CI 38421818356: escritorio, móvil, iframe, sesión, fluidez, 13 guardianes y 39 ventajas",
     "despliegue_exec": "El /exec original responde con el cliente v0.4.3 en Forja, Mochi y 13 misiones; escritura autenticada pendiente",

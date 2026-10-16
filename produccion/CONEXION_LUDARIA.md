@@ -1,10 +1,14 @@
-# Conexión central · estado vigente del 13 de octubre de 2026
+# Conexión central · cierre de revisión del 16 de octubre de 2026
 
 ## Solicitud vigente
 
-Actualizar y revisar todas las misiones, la Forja y Mochi; continuar hasta dejarlo armado y revisar/mejorar cada cinco horas. El propietario conserva la edición de Genially y la actualización de su mismo proyecto Apps Script. Mantener exactamente los 16 iframe originales, incluyendo sus rutas, queries, fragmentos, alturas y títulos.
+El propietario pidió una última revisión, un informe de mejoras y el cierre de la revisión periódica el 16 de octubre. El encargo anterior de repetir cada cinco horas queda cerrado. El propietario conserva la edición de Genially y la actualización de su mismo proyecto Apps Script. Mantener exactamente los 16 iframe originales, incluyendo sus rutas, queries, fragmentos, alturas y títulos.
 
-## Código actual: v0.4.3 · Apps Script instalada: v0.4.3
+## Código preparado: v0.4.4 · cliente Apps Script instalado: v0.4.3
+
+v0.4.4 retira únicamente la rutina histórica `probarLudaria_`: guardaba un PIN DEMO en una propiedad en texto y sus comprobaciones ya no correspondían al catálogo actual. Ahora devuelve una explicación sin crear personajes, escribir hojas o modificar propiedades. Las pruebas vigentes se ejecutan con servicios aislados en CI. El cliente, API de participantes, catálogo y gateway no cambian.
+
+La corrección modifica el Código.gs completo, SHA-256 `35583c8482761b60fbb9c448a524aa19702a8c0963dd318f287c8cda5882c7c1`. Su instalación en Google queda pendiente del propietario: reemplazar `ludaria/Code-Ludaria-Conectado.gs` en el proyecto original y actualizar la MISMA implementación `/exec`. No ejecutar de nuevo la preparación ni la rutina antigua. Si existe la propiedad histórica `LUDARIA_DEMO_PIN`, retirar solo esa propiedad desde la configuración del proyecto, sin mostrar/copiar su valor; conservar el secreto original, los verificadores, respaldos, personajes y demás propiedades. No se hizo esa limpieza en Google durante la revisión.
 
 - v0.4.0 fue publicada por PR #11 como 704d6d92f21e221287a57ed4c2a4b4857aca21ea, CI 38176763248 y Pages 38176965235 aprobados. Incorpora retratos, clave elegida de seis dígitos y recuperación mediante respaldo RES.
 - v0.4.1 actualiza los 13 adaptadores y sus entradas HTML para recuperar la pantalla guardada aunque el iframe siga incluyendo #pantalla-1. Conserva la ruta central y los enlaces profundos de una práctica nueva.
@@ -23,14 +27,14 @@ La auditoría de código usa servicios simulados y no escribe en la planilla rea
 
 ## Estado del mismo Apps Script
 
-v0.4.3 ya está instalada en el /exec original. No volver a reemplazar Código.gs ni publicar otra versión mientras no exista una corrección posterior. Conservar el mismo proyecto, planilla, propiedades, secreto y `/exec`.
+v0.4.3 ya está instalada en el /exec original. La corrección posterior v0.4.4 está preparada para retirar la utilidad de editor, pero no consta instalada. No es necesaria para seguir usando los formularios actuales: no hay nuevas funciones del cliente ni cambios del contrato. Conservar el mismo proyecto, planilla, propiedades, secreto y `/exec`.
 
 Siguiente verificación autorizada: con un personaje de prueba, comprobar continuidad de sesión entre dos misiones, explicación inmediata de una ventaja, compra de STAT, guardado/recuperación de cuaderno y recuperación mediante RES; después contrastar los movimientos en la planilla. CI usa servicios simulados y no acredita estas escrituras reales.
 
 Misión 0 conserva su receptor independiente. No crear otro proyecto ni reemplazar los iframe.
 
-## Revisión periódica
+## Revisión periódica cerrada
 
-Activa cada cinco horas, sin límite de ciclos hasta que el propietario pida detenerla. Leer primero main, PR, CI y Pages reales. Conservar las entradas activas; una operación autenticada pendiente no justifica devolverlas al modo local. Si se pausa el trabajo por límite de contexto o recursos, retomar el estado publicado, no reiniciar ni revertir avances.
+El propietario pidió cerrarla el 16 de octubre. No reactivarla sin una nueva solicitud. El gateway sigue activo: cerrar la revisión no desactiva Ludaria. Una operación autenticada pendiente no justifica devolver las entradas al modo local. Informe final y prioridades: `CIERRE_REVISION_20261016.md`.
 
 Detalle de pruebas y correcciones: AUDITORIA_ACTUAL.md. Identificación real anterior: AUDITORIA_IDENTIDAD_ENTRADAS_20261011.md. Diseño y recuperación: BIENVENIDA_Y_CLAVES_20261011.md.

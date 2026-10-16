@@ -1,6 +1,6 @@
-/** LUDARIA v0.4.3. Sustituye Código.gs en el MISMO proyecto del paso 1.
+/** LUDARIA v0.4.4. Sustituye Código.gs en el MISMO proyecto del paso 1.
  * Conserva propiedades, secretos y registros. No crear un proyecto nuevo.
- * Ejecuta prepararConexionLudaria y luego implementa como aplicación web. */
+ * En un proyecto ya preparado, guarda y actualiza la MISMA implementación /exec. */
 
 (function(root){
 'use strict';
@@ -249,64 +249,18 @@ function instalarLudaria_() {
     ]);
     props.setProperty('LUDARIA_SCHEMA_VERSION', LUDARIA.version);
     SpreadsheetApp.flush();
-    console.log('LUDARIA: instalación completada. Ahora ejecuta probarLudaria_.');
+    console.log('LUDARIA: instalación completada. Usa las pruebas aisladas de GitHub Actions; no acreditan escrituras reales.');
     return { ok: true, version: LUDARIA.version, sheets: Object.keys(LUDARIA.headers).length };
   });
 }
 
-/** Solo editor. Crea un único personaje DEMO; nunca acredita puntos de misiones. */
+/** Rutina histórica retirada. Las pruebas actuales usan servicios aislados, no la planilla. */
 function probarLudaria_() {
-  return conBloqueo_(function () {
-    const ss = base_();
-    const props = PropertiesService.getScriptProperties();
-    const pin = props.getProperty('LUDARIA_DEMO_PIN') ||
-      ('000000' + (parseInt(Utilities.getUuid().replace(/-/g, '').slice(0, 10), 16) % 1000000)).slice(-6);
-    props.setProperty('LUDARIA_DEMO_PIN', pin);
-    const alias = 'Explorador Demo Ludaria';
-    const existing = buscarPersonaje_(ss, normalizarAlias_(alias));
-    if (existing && existing[6] !== 'DEMO') throw new Error('El alias de prueba pertenece a un personaje real.');
-    const record = existing || crearPersonaje_(ss, alias, pin, 'Kira', 'DEMO');
-    asegurarCreacion_(ss, record);
-    const attemptKey = claveIntentos_(normalizarAlias_(alias));
-    const previousAttempts = props.getProperty(attemptKey);
-    props.deleteProperty(attemptKey); // Solo la cuenta DEMO para una prueba repetible.
-    const run = Utilities.getUuid();
-    const results = [];
-    const check = function (name, passed, detail) {
-      results.push([run, new Date().toISOString(), name, passed ? 'OK' : 'ERROR', detail]);
-    };
-    try {
-      const original = perfilActual_(ss, record[0]);
-      const auth = identificarExplorador_(ss, '  EXPLORADOR   DEMO LUDARIA  ', pin);
-      check('Identificación central con mayúsculas y espacios', auth.ok && auth.profile.id === record[0], 'Consulta el perfil guardado en Movimientos.');
-      check('Acentos equivalentes', normalizarAlias_('  NÍCOLAS  del Bosque ') === normalizarAlias_('nicolas del bosque'), 'No utiliza coincidencias aproximadas.');
-      const wrongPin = pin === '000000' ? '000001' : '000000';
-      const wrong = identificarExplorador_(ss, alias, wrongPin);
-      check('PIN incorrecto rechazado', !wrong.ok && !wrong.profile, 'No devuelve atributos ni datos del personaje.');
-      const absent = identificarExplorador_(ss, 'personaje inexistente ' + run.slice(0, 8), pin);
-      check('Personaje inexistente rechazado', !absent.ok && !absent.profile, 'Mismo mensaje para credenciales incorrectas.');
-      for (let i = 1; i < LUDARIA.maxAttempts; i++) identificarExplorador_(ss, alias, wrongPin);
-      const blocked = identificarExplorador_(ss, alias, pin);
-      check('Límite de intentos', !blocked.ok && blocked.error === 'ESPERA', 'Cinco fallos bloquean temporalmente ese alias.');
-      props.deleteProperty(attemptKey);
-      const low = ventajasDisponibles_(original.skills);
-      const simulated = Object.assign({}, original.skills, { maestria: 5 });
-      check('Ventaja condicionada al atributo', low.length === 0 && ventajasDisponibles_(simulated).some(function (v) { return v.id === 'ojo_artesano'; }), 'Maestría 5 se simula en memoria; no modifica el personaje.');
-      check('Ventaja desaparece al bajar el atributo', ventajasDisponibles_(Object.assign({}, simulated, { maestria: 4 })).length === 0, 'Se calcula con atributos actuales, no con desbloqueos históricos.');
-      const final = perfilActual_(ss, record[0]);
-      check('Pruebas sin alterar progreso', JSON.stringify(final) === JSON.stringify(original), 'Conserva puntos, XP, atributos e historial del personaje DEMO.');
-      check('PIN no guardado en texto', record[5] !== pin && /^[a-f0-9]{64}$/.test(record[5]), 'Se guarda un verificador con sal y secreto privado del proyecto.');
-      actualizarVistas_(ss, record, final);
-      ss.getSheetByName('Pruebas').getRange(ss.getSheetByName('Pruebas').getLastRow() + 1, 1, results.length, 5).setValues(results);
-      SpreadsheetApp.flush();
-      if (results.some(function (r) { return r[3] !== 'OK'; })) throw new Error('Alguna prueba falló. Revisa la pestaña Pruebas.');
-      console.log('LUDARIA: ' + results.length + '/' + results.length + ' pruebas OK. Base privada preparada; conexión con Genially pendiente.');
-      return { ok: true, checks: results.length, demoId: record[0] };
-    } finally {
-      if (previousAttempts) props.setProperty(attemptKey, previousAttempts);
-      else props.deleteProperty(attemptKey);
-    }
-  });
+  return {
+    ok: false,
+    retired: true,
+    message: 'Esta rutina histórica está retirada. Usa las pruebas aisladas de GitHub Actions; no crean personajes ni escriben en la planilla real.'
+  };
 }
 
 /** Todo lo que sigue es privado; las funciones terminadas en _ no se exponen a google.script.run. */
@@ -459,7 +413,7 @@ function actualizarVistas_(ss, record, p) {
 }
 
 
-/** LUDARIA · Conexión central v0.4.3. Funciones privadas conservan el sufijo _. */
+/** LUDARIA · Conexión central v0.4.4. Cliente compatible v0.4.3; rutina DEMO retirada. */
 const LUDARIA_WEB = Object.freeze({
   pages: 'https://nespinozagonzalez-hub.github.io/misiones/',
   raw: 'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/',
@@ -526,7 +480,7 @@ function prepararConexionLudaria() {
   const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + 'forja/index.html');
   if (response.getResponseCode() !== 200) throw new Error('No se pudo comprobar la interfaz de Forja.');
   console.log('Conexión preparada. Implementa como aplicación web, ejecutada como propietario. La planilla sigue privada.');
-  return { ok: true, version: '0.4.3' };
+  return { ok: true, version: '0.4.4' };
 }
 
 function doGet(e) {

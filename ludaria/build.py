@@ -4,9 +4,9 @@ import json
 
 root = Path(__file__).resolve().parents[1]
 parts = [
-    '/** LUDARIA v0.4.3. Sustituye Código.gs en el MISMO proyecto del paso 1.\n'
+    '/** LUDARIA v0.4.4. Sustituye Código.gs en el MISMO proyecto del paso 1.\n'
     ' * Conserva propiedades, secretos y registros. No crear un proyecto nuevo.\n'
-    ' * Ejecuta prepararConexionLudaria y luego implementa como aplicación web. */',
+    ' * En un proyecto ya preparado, guarda y actualiza la MISMA implementación /exec. */',
     (root / 'forja/core.js').read_text(),
     (root / 'ludaria/rpg-catalog.js').read_text(),
     'const LUDARIA_MISSION_ENTRIES = '+(root/'ludaria/mission-entries.json').read_text()+';',
