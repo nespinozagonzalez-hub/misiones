@@ -35,6 +35,7 @@ jobs:
       - run: node ludaria/test-performance.cjs
       - run: node ludaria/test-access.cjs
       - run: node ludaria/test-rpg-server.cjs
+      - run: node ludaria/test-batalla-core.cjs
       - run: npm install --no-save playwright@1.62.1 jsdom@26.1.0
       - run: node ludaria/test-design-preview.cjs
       - run: node ludaria/test-rpg-dom.cjs
