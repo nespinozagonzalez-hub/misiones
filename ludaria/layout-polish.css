@@ -1,0 +1,13 @@
+/* Presentación exclusivamente: no altera formularios, almacenamiento o reglas. */
+.ludaria-cloud-dialog{max-height:calc(100dvh - 24px)!important;overflow-y:auto!important;overscroll-behavior:contain;overflow-wrap:anywhere}
+.ludaria-cloud-dialog input,.ludaria-cloud-dialog textarea,.ludaria-cloud-dialog select{min-width:0;max-width:100%;font-size:16px!important}
+.ludaria-cloud-dialog button,.ludaria-cloud-bar button{min-height:42px;white-space:normal}
+.ludaria-cloud-dialog form,.cloud-welcome-grid>*,.scene-content,.cover-content,.panel,.card{min-width:0}
+.ludaria-cloud-dialog .cloud-access{overflow-wrap:anywhere}
+.ludaria-cloud-dialog [role="status"]:not(:empty),.cloud-access [role="alert"]:not(:empty){overflow-wrap:anywhere}
+.ludaria-cloud-bar{max-width:100%;box-sizing:border-box}.ludaria-cloud-bar [data-cloud-status]{overflow-wrap:anywhere}
+.ludaria-cloud-dialog form:has(button[type="submit"]:disabled)::after{content:"Consultando tu bitácora… Conserva esta ventana mientras confirmamos.";display:block;margin-top:14px;padding:12px;border-left:2px solid #d5bb78;background:#193b29;color:#e7d9b8;font-size:13px;line-height:1.5}
+#create-form:has(button[type="submit"]:disabled) #creation-status:empty::after{content:"Forjando tu identidad… Espera la confirmación de tu personaje.";color:#e7d9b8}
+.stage img,.scene-content img{max-width:100%}
+@media(max-width:620px){.ludaria-cloud-bar{gap:7px;padding:9px 12px}.ludaria-cloud-bar [data-cloud-identity]{flex-basis:100%}.ludaria-cloud-bar [data-cloud-status]{flex-basis:100%;min-width:0}.ludaria-access-scene .cloud-guardian{grid-template-columns:76px minmax(0,1fr);gap:14px;min-height:0;padding:17px}.ludaria-access-scene .cloud-portrait{width:76px}.ludaria-access-scene.ludaria-welcome .cloud-guardian h2{font-size:22px}.ludaria-access-scene .cloud-access{padding:20px}.ludaria-cloud-dialog .cloud-welcome-grid{min-height:0}.ludaria-cloud-dialog .cloud-access h3{font-size:25px}.navigation .route-progress{min-width:0}.navigation select{min-width:0;max-width:100%}}
+@media(max-height:500px){.ludaria-cloud-dialog{max-height:calc(100dvh - 12px)!important}.ludaria-access-scene .cloud-welcome-grid{min-height:0}.ludaria-access-scene .cloud-guardian{padding:18px}.ludaria-access-scene .cloud-portrait{width:85px;margin-bottom:12px}.ludaria-access-scene .cloud-access{padding:20px}}

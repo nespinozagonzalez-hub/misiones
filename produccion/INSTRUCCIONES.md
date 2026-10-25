@@ -1,5 +1,7 @@
 # Producción cerrada · Ludaria
 
+> **Encargo del 25 de octubre de 2026:** revisión y cierre RPG autorizados, conservando todos los datos. La ceremonia se incorpora como presentación del cierre existente, sin modificar Apps Script ni evaluación. Estado y pruebas en `CIERRE_RPG_20261025.md`. No reactiva revisiones programadas. El cierre del 16 de octubre que sigue es el antecedente de esta nueva edición.
+
 > **Cierre vigente · 16 de octubre de 2026:** el propietario solicitó una última revisión, su informe y cerrar la revisión periódica. No continuar ni reactivar tareas programadas sin un nuevo encargo. El cliente v0.4.3 sigue instalado y el gateway activo; el paquete v0.4.4 preparado retira una rutina histórica de pruebas del editor y requiere actualizar el archivo completo en la misma implementación para aplicarse. No consta instalado. Fuente actual: `CIERRE_REVISION_20261016.md`. Los encargos fechados que siguen son historial, no instrucciones de reactivación.
 
 14 sesiones publicadas. La principal del módulo 1 Los Pergaminos Dispersos (S2) y el cierre La Defensa del Orbe (S14) completan el recorrido. Automatización de producción pausada. No continuar ni duplicar misiones sin un nuevo encargo.

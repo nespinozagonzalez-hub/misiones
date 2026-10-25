@@ -9,6 +9,7 @@ on:
       - 'vetas-diseno/**'
       - 'pergaminos-dispersos/**'
       - 'mision-0/**'
+      - 'defensa-orbe/**'
       - '**/app.rpg.js'
       - '.github/workflows/ludaria-central.yml'
   workflow_dispatch:
@@ -49,6 +50,7 @@ jobs:
       - run: node ludaria/test-gateway-browser.cjs
       - run: node ludaria/test-pergaminos-adapter.cjs
       - run: node ludaria/test-rpg-browser.cjs
+      - run: node ludaria/test-orbe-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
