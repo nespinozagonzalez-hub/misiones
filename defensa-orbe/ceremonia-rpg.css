@@ -1,0 +1,39 @@
+.orbe-invitation{color:#c3d4bf;font-size:15px;max-width:650px}
+dialog.orbe-rpg{box-sizing:border-box;width:min(1040px,calc(100% - 24px));max-width:1040px;max-height:calc(100dvh - 24px);margin:auto;padding:0;overflow:auto;overscroll-behavior:contain;background:#08150f;color:#eee8d9;border:1px solid #b89c61;border-radius:18px;box-shadow:0 28px 100px #000b;font:15px/1.5 system-ui,sans-serif}
+.orbe-rpg::backdrop{background:#020906ed}
+.orbe-rpg *{box-sizing:border-box}.orbe-rpg [hidden]{display:none!important}
+.orbe-rpg-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:#0c1c14}
+.orbe-kicker{display:block;color:#c8b17b;font:600 10px/1.5 system-ui,sans-serif;letter-spacing:.14em}
+.orbe-rpg-header h2{font:400 clamp(23px,3vw,33px)/1.2 Georgia,serif;margin:3px 0 0;color:#f1e3c2}
+.orbe-close{border:1px solid #637d62;border-radius:50%;background:#142b1d;color:#f1e3c2;font:26px/1 system-ui;width:40px;height:40px;flex-shrink:0;cursor:pointer}
+.orbe-arena{position:relative;isolation:isolate;height:clamp(230px,32vh,340px);overflow:hidden;background:radial-gradient(ellipse at 20% 40%,#2b452b,#07150e 70%)}
+.orbe-arena-art,.orbe-arena-shade{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:right center;z-index:-2}
+.orbe-arena-art{left:auto;right:0;top:auto;bottom:0;width:auto;max-width:100%;height:83%;aspect-ratio:3/2;mask-image:linear-gradient(90deg,transparent,#000 25%)}
+.orbe-arena-shade{z-index:-1;background:linear-gradient(180deg,#020a0777,transparent 32%,#08150fb8)}
+.orbe-fighter{position:absolute;top:16px;max-width:42%;display:flex;flex-direction:column;z-index:1;text-shadow:0 2px 7px #000}
+.orbe-hero{left:22px;bottom:16px;width:34%}.orbe-enemy{right:22px;text-align:right;align-items:flex-end;width:34%}
+.orbe-fighter-name{font:600 clamp(15px,2.1vw,22px)/1.3 Georgia,serif;color:#fff2cf;overflow-wrap:anywhere}
+.orbe-fighter-caption{font-size:11px;color:#dfdec8;margin-top:4px}
+.orbe-hero-art{position:absolute;bottom:-24px;left:-4px;height:82%;max-width:100%;object-fit:contain;object-position:bottom left;filter:drop-shadow(0 10px 15px #0009)}
+.orbe-hero-seal{position:absolute;bottom:20px;left:20px;font:100px Georgia;color:#dfcc8a;filter:drop-shadow(0 0 20px #6fba7b)}
+.orbe-mist-meter{display:block;margin-top:9px;height:6px;width:140px;max-width:100%;background:#050b08;border:1px solid #8f927f;border-radius:5px;overflow:hidden}
+.orbe-mist-meter i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#c4ad75,#798c72);transition:width .5s ease}
+.orbe-fragments{position:absolute;bottom:16px;right:22px;display:flex;gap:8px}
+.orbe-fragments span{width:35px;height:35px;display:grid;place-items:center;border:1px solid #b3c0a855;border-radius:9px;background:#06100dc9;color:#a6b59f;font:16px Georgia;transition:background .3s,box-shadow .3s}
+.orbe-fragments .is-reunited{background:#264f33;color:#f1d99e;border-color:#ddc17a;box-shadow:0 0 16px #a4cb7155}
+.orbe-command{padding:17px 24px 18px}.orbe-progress-label{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#bed2b9}.orbe-progress-label strong{color:#e8d09a;white-space:nowrap}
+.orbe-command progress{display:block;width:100%;height:7px;margin:7px 0 16px;accent-color:#c9b270;border:0;border-radius:4px;overflow:hidden;background:#213c29}
+.orbe-command progress::-webkit-progress-bar{background:#213c29}.orbe-command progress::-webkit-progress-value{background:linear-gradient(90deg,#5b9968,#d5be7d)}.orbe-command progress::-moz-progress-bar{background:#b7c17a}
+.orbe-story{min-height:97px}.orbe-story h3{font:400 clamp(21px,2.7vw,29px)/1.2 Georgia,serif;color:#f0e2c2;margin:7px 0}.orbe-story p{font-size:14px;color:#c7d7c1;margin:7px 0 12px;max-width:850px}
+.orbe-actions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.orbe-actions button,.orbe-next{font:inherit;cursor:pointer;border:1px solid #708e66;border-radius:9px;background:linear-gradient(140deg,#1b3926,#10271c);color:#f2e6cc;min-height:67px;padding:9px 10px;text-align:left}
+.orbe-actions button>span{float:right;font:24px Georgia;color:#d6bf83}.orbe-actions strong{display:block;font-size:13px}.orbe-actions small{display:block;color:#acc7ac;font-size:10px;margin-top:4px}
+.orbe-next{min-height:46px;width:100%;text-align:center;background:#c9ad70;color:#0c1b11;font-weight:600;margin-top:12px}
+.orbe-footnote,.orbe-save-note{font-size:11px;color:#a8bba3;margin:12px 0 0}.orbe-save-note:empty{display:none}.orbe-save-note{color:#dfcb99}
+.orbe-rpg :focus-visible{outline:3px solid #f0d598;outline-offset:3px}.orbe-actions button:hover{background:#2b4b30;border-color:#ddc482}
+.orbe-rpg.is-restored .orbe-arena-shade{background:linear-gradient(180deg,#e3c97720,#4a8e6840 60%,#08150fb8)}
+@media(max-width:600px){dialog.orbe-rpg{width:calc(100% - 16px);max-height:calc(100dvh - 16px);border-radius:12px}.orbe-rpg-header{padding:12px 15px}.orbe-rpg-header h2{font-size:23px}.orbe-arena{height:230px}.orbe-arena-art{object-position:right center;mask-image:linear-gradient(90deg,transparent,#000 38%)}.orbe-command{padding:15px}.orbe-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.orbe-actions button{min-height:62px;padding:8px}.orbe-actions button>span{font-size:19px}.orbe-hero{left:15px;width:37%}.orbe-enemy{right:15px;width:42%}.orbe-fighter-name{font-size:16px}.orbe-fighter-caption{font-size:9px}.orbe-hero-art{height:75%;bottom:-15px}.orbe-fragments{right:15px;bottom:15px;gap:5px}.orbe-fragments span{width:29px;height:29px;font-size:14px}.orbe-story{min-height:119px}.orbe-story p{font-size:13px}.orbe-progress-label{font-size:10px}}
+@media(max-height:550px) and (min-width:601px){.orbe-arena{height:190px}.orbe-rpg-header{padding:10px 20px}.orbe-command{padding:12px 20px}.orbe-story{min-height:0}}
+@media(prefers-reduced-motion:reduce){.orbe-rpg *{animation:none!important;transition:none!important}}
+body[data-ludaria-motion="off"] .orbe-rpg *{animation:none!important;transition:none!important}
+@media print{.orbe-rpg{display:none!important}}
