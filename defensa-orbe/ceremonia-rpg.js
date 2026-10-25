@@ -95,6 +95,7 @@
           if (toast) toast.textContent = 'Orbe restaurado. Revisa la confirmación de tu cuaderno.';
         }
         q('[data-orbe-heading]').textContent = 'El saber continúa contigo.';
+        if (button.isConnected) button.textContent = 'Revivir el encuentro con Lethon';
         q('[data-orbe-story]').textContent = 'Lethon se disuelve entre las últimas brumas. La siguiente aventura empieza cuando llevas una decisión a tu aula y observas qué ocurre.';
         b.textContent = 'Volver a mi cuaderno';
         const cloud = window.LudariaCloud;

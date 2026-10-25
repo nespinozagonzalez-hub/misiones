@@ -6,7 +6,7 @@ dialog.orbe-rpg{box-sizing:border-box;width:min(1040px,calc(100% - 24px));max-wi
 .orbe-kicker{display:block;color:#c8b17b;font:600 10px/1.5 system-ui,sans-serif;letter-spacing:.14em}
 .orbe-rpg-header h2{font:400 clamp(23px,3vw,33px)/1.2 Georgia,serif;margin:3px 0 0;color:#f1e3c2}
 .orbe-close{border:1px solid #637d62;border-radius:50%;background:#142b1d;color:#f1e3c2;font:26px/1 system-ui;width:40px;height:40px;flex-shrink:0;cursor:pointer}
-.orbe-arena{position:relative;isolation:isolate;height:clamp(230px,32vh,340px);overflow:hidden;background:radial-gradient(ellipse at 20% 40%,#2b452b,#07150e 70%)}
+.orbe-arena{position:relative;isolation:isolate;height:clamp(230px,32vh,340px);overflow:hidden;background:linear-gradient(90deg,#0c201566,#06150b99),url('assets/paisaje.webp') center 45%/cover}
 .orbe-arena-art,.orbe-arena-shade{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:right center;z-index:-2}
 .orbe-arena-art{left:auto;right:0;top:auto;bottom:0;width:auto;max-width:100%;height:83%;aspect-ratio:3/2;mask-image:linear-gradient(90deg,transparent,#000 25%)}
 .orbe-arena-shade{z-index:-1;background:linear-gradient(180deg,#020a0777,transparent 32%,#08150fb8)}
