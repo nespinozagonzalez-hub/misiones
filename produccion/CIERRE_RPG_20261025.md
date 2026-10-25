@@ -24,13 +24,13 @@ La ausencia de una escritura real en esta revisión protege el curso, pero no eq
 | Comprobación | Resultado |
 | --- | --- |
 | Contrato de iframe | Las 16 rutas, queries, fragmentos, títulos y alturas originales se conservan |
-| Recursos y sintaxis | Inventario original de 26 entradas; 52 scripts activos y 352 referencias locales válidas |
+| Recursos y sintaxis | Inventario original de 26 entradas; 52 scripts activos y 353 referencias locales válidas |
 | Imágenes | 32 WebP decodificados y verificados, incluido el arte nuevo |
 | Regresión funcional | 19 programas de prueba existentes aprobados: reglas, cuentas, recuperación, sesiones, servidor, ventajas, resiliencia, acceso visual, Misión 0, efectos y recursos |
 | Cierre RPG | Seis encuadres: 1280×900, 768×1024, 1024×768, 390×844, 320×568 y 844×390; imágenes cargadas; sin desborde horizontal; teclado y cancelación |
 | Integridad del cierre | Perfil y movimientos antes/después idénticos; campos y reflexiones conservados; solo se activa la restauración existente. Repetir no genera otro guardado |
 | Red de la prueba del cierre | Solicitudes reales externas bloqueadas; servidor de prueba en memoria |
-| Regresión gráfica completa | Se ejecuta mediante los cuatro programas de navegador anteriores y el nuevo `test-orbe-browser.cjs`; consultar el resultado del workflow de esta edición |
+| Regresión gráfica completa | Aprobada: los cuatro programas de navegador anteriores y el nuevo `test-orbe-browser.cjs`, workflow 40244274185, código `4f5ed277e3822788b078b0369020650da8a4adfd` |
 
 Las dimensiones son pruebas de navegador, no pruebas físicas de todos los modelos de teléfono. La estética del Genially no se editó: conserva sus recursos y enlaces.
 

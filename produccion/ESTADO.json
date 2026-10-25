@@ -4,13 +4,13 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "Revisión cerrada por el propietario; 14 sesiones publicadas; cliente v0.4.3 instalado y mantenimiento v0.4.4 preparado; escritura autenticada pendiente",
-  "actualizado_en": "2026-10-16",
+  "estado_general": "14 sesiones publicadas; cierre RPG de Lethon incorporado, suites aprobadas y datos conservados; cliente central v0.4.3 sin cambios",
+  "actualizado_en": "2026-10-25",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "revision_final_cerrada",
-    "detalle": "Última auditoría e informe solicitados por el propietario; v0.4.4 retira la rutina histórica DEMO en código preparado; el /exec sigue en v0.4.3 y la escritura autenticada no está acreditada",
-    "informe": "produccion/CIERRE_REVISION_20261016.md"
+    "fase": "cierre_rpg_publicado",
+    "detalle": "Encargo del 25 de octubre: ceremonia visual, encuadres y revisión sin modificar datos, Apps Script o instrumentos. PR #28 integrado tras CI aprobado.",
+    "informe": "produccion/CIERRE_RPG_20261025.md"
   },
   "automatizacion": {
     "estado": "cerrada_por_propietario",
@@ -274,5 +274,17 @@
       "apps_script_cliente_publico_verificado": true,
       "google_genially_autenticado": false
     }
+  },
+  "ultima_revision_rpg": {
+    "fecha": "2026-10-25",
+    "pr": 28,
+    "commit_codigo": "4f5ed277e3822788b078b0369020650da8a4adfd",
+    "ci_run_id": 40244274185,
+    "ci_conclusion": "success",
+    "datos_reales": "No consultados ni modificados; QA con servicios simulados",
+    "apps_script": "Sin cambios; no requiere reinstalación para el cierre visual",
+    "vista_revision": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/revision.html",
+    "iframes_conservados": 16,
+    "informe": "produccion/CIERRE_RPG_20261025.md"
   }
 }
