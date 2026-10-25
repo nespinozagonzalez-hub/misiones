@@ -66,7 +66,7 @@
    }
    if(!b.hasAttribute('data-orbe-next'))return;
    if(screen==='intro'){nextTurn();q('[data-orbe-action]').focus({preventScroll:true});return;}
-   if(screen==='breather'){state=Core.recover(state);nextTurn();return;}
+   if(screen==='breather'){state=Core.recover(state);nextTurn();q('[data-orbe-action]').focus({preventScroll:true});return;}
    if(screen==='battle'){nextTurn();q('[data-orbe-action]').focus({preventScroll:true});return;}
    if(screen==='epilogue'){d.close();return;}
    if(screen==='victory'&&!completed){

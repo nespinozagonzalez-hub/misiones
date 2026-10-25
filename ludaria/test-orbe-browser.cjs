@@ -56,6 +56,14 @@ const server=http.createServer((req,res)=>{
    for(const side of ['hero','enemy'])assert.equal(await p.locator('.orbe-'+side).evaluate(e=>e.querySelector('img').getBoundingClientRect().top>=e.querySelector('.orbe-nameplate').getBoundingClientRect().bottom-1),true,'El nombre no tapa al personaje '+side);
    if(size.width===390){await p.locator('[data-orbe-sound]').click();await p.waitForFunction(()=>/activado|no disponible/.test(document.querySelector('[data-orbe-sound]').textContent));if(await p.locator('[data-orbe-sound]').getAttribute('aria-pressed')==='true')await p.locator('[data-orbe-sound]').click();}
    await p.screenshot({path:__dirname+`/preview-orbe-${size.width}x${size.height}.png`,fullPage:true});
+   if(size.width===320){
+    for(let turn=0;turn<6;turn++){await p.locator('[data-orbe-action=sabiduria]').click();if(await p.locator('dialog.orbe-rpg').getAttribute('data-screen')==='battle')await p.locator('[data-orbe-next]').click();}
+    assert.equal(await p.locator('dialog.orbe-rpg').getAttribute('data-screen'),'breather');
+    const fragments=await p.locator('.orbe-progress').getAttribute('value');
+    await p.locator('[data-orbe-next]').click();
+    assert.equal(await p.locator('.orbe-progress').getAttribute('value'),fragments,'Reagruparse conserva los fragmentos');
+    assert.equal(await p.evaluate(()=>document.activeElement?.hasAttribute('data-orbe-action')),true,'El teclado vuelve a una habilidad visible al reagruparse');
+   }
    // Cerrar antes de terminar no restaura ni escribe datos.
    await p.keyboard.press('Escape');await p.locator('dialog.orbe-rpg').waitFor({state:'detached'});assert.equal(await p.locator('#orbe').evaluate(el=>el.classList.contains('restored')),false);
    assert.equal(await p.evaluate(()=>JSON.stringify(Object.entries(localStorage))),before);
