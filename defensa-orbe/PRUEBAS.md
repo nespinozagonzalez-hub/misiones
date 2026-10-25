@@ -1,5 +1,7 @@
 # Pruebas finales
 
+Actualización del 25 de octubre de 2026: batalla por turnos y desenlace aprobados en seis encuadres; regresión completa de 25 programas aprobada en [CI 40246575014](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40246575014). Alcance, integridad y pendientes en [el checklist final](../produccion/CHECKLIST_FINAL_LUDARIA_20261025.md). Las pruebas siguientes son el antecedente de publicación inicial.
+
 12 pantallas recorridas en Chrome real y marcos de 1280 y 375 por 720. Escritorio sin desbordamiento horizontal; móvil con desplazamiento vertical accesible. Persistencia de respuestas comprobada tras recarga.
 
 Texto, checkbox y valoración Likert persistentes. Ceremonia del Orbe conservada tras recarga, bitácora visible y borrado local confirmado.

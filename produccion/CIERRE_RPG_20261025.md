@@ -1,5 +1,7 @@
 # Ludaria · cierre RPG y revisión de integridad
 
+> Antecedente: este informe describe la ceremonia inicial del PR #28. El encargo posterior la amplía a una batalla por turnos con Lethon; la versión vigente y sus pruebas están en [CHECKLIST_FINAL_LUDARIA_20261025.md](CHECKLIST_FINAL_LUDARIA_20261025.md). Las cifras y características siguientes corresponden a la versión anterior.
+
 25 de octubre de 2026. Encargo: revisar funcionamiento, imágenes y encuadres, incorporar el cierre RPG y conservar los datos. Base: `a31fb38e0f318d636f13a70aca75fc68501fe17c`.
 
 ## Qué cambia

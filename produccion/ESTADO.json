@@ -4,13 +4,13 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; cierre RPG de Lethon incorporado, suites aprobadas y datos conservados; cliente central v0.4.3 sin cambios",
+  "estado_general": "14 sesiones publicadas; batalla por turnos con Lethon integrada, 25 programas de prueba aprobados y datos conservados; cliente central v0.4.3 sin cambios",
   "actualizado_en": "2026-10-25",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "cierre_rpg_publicado",
-    "detalle": "Encargo del 25 de octubre: ceremonia visual, encuadres y revisión sin modificar datos, Apps Script o instrumentos. PR #28 integrado tras CI aprobado.",
-    "informe": "produccion/CIERRE_RPG_20261025.md"
+    "fase": "batalla_lethon_publicada",
+    "detalle": "Encargo del 25 de octubre: batalla narrativa con Lethon, arte nuevo y checklist del repositorio. PR #29 integrado tras regresión completa aprobada. Sin cambios de datos, Apps Script o instrumentos.",
+    "informe": "produccion/CHECKLIST_FINAL_LUDARIA_20261025.md"
   },
   "automatizacion": {
     "estado": "cerrada_por_propietario",
@@ -286,5 +286,21 @@
     "vista_revision": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/revision.html",
     "iframes_conservados": 16,
     "informe": "produccion/CIERRE_RPG_20261025.md"
+  },
+  "ultima_batalla_rpg": {
+    "fecha": "2026-10-25",
+    "pr": 29,
+    "head_comprobado": "9a02433acc60a76936190ae0e4f67b927fc9bc39",
+    "commit_integracion": "c910aa2d4e8851d398190d94ed4ee66cd47a5187",
+    "ci_run_id": 40246575014,
+    "ci_conclusion": "success",
+    "programas_funcionales": 20,
+    "programas_navegador": 5,
+    "encuadres_cierre": 6,
+    "datos_reales": "No consultados ni modificados; QA con servicios simulados",
+    "apps_script": "Sin cambios; cliente instalado v0.4.3, mantenimiento v0.4.4 no instalado",
+    "vista_revision": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/revision.html",
+    "iframes_conservados": 16,
+    "informe": "produccion/CHECKLIST_FINAL_LUDARIA_20261025.md"
   }
 }

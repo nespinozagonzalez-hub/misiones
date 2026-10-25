@@ -263,7 +263,7 @@ Cierre de 12 pantallas con prototipo, instrumentos E, F y G y bloque inicial fin
 
 Producto: Prototipo final, reflexión, valoración y restauración del Orbe.
 
-Interacción: Campos editables, rúbrica desplegable y ceremonia acompañada.
+Interacción: Campos editables, rúbrica desplegable y batalla narrativa acompañada con Lethon después de los instrumentos.
 
 [Presentación](https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/presentacion.html?v=20261004-epic1#pantalla-1)
 

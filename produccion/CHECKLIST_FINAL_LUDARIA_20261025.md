@@ -77,7 +77,7 @@ Los campos heredados `cloudUrl`/`assetBase` de Forja vacíos no demuestran una d
 - 20 programas funcionales locales aprobados, incluido el nuevo motor de combate.
 - Prueba gráfica del cierre en 1280×900, 768×1024, 1024×768, 390×844, 320×568 y 844×390: prólogo, actores, barras, controles, batalla, victoria, epílogo, cancelación y repetición.
 - Comparación antes/después de identidad, movimientos, respuestas y reflexiones en el servidor simulado; solo cambia la restauración existente al confirmar el cierre.
-- El workflow ejecuta además la regresión gráfica completa anterior. La conclusión final y publicación se consultan en el PR de esta edición; no se declara un despliegue solo por preparar el código.
+- Regresión completa aprobada: 20 programas funcionales y 5 de navegador en [CI 40246575014](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40246575014), sobre `9a02433acc60a76936190ae0e4f67b927fc9bc39`. [PR #29](https://github.com/nespinozagonzalez-hub/misiones/pull/29) integrado como `c910aa2d4e8851d398190d94ed4ee66cd47a5187`. Incluye la reagrupación con foco de teclado y fragmentos conservados. La publicación web se comprueba por separado del resultado de CI.
 
 ## Continuidad y datos
 
