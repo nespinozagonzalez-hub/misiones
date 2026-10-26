@@ -1,5 +1,7 @@
 # Ludaria · checklist final y batalla con Lethon
 
+> Revisión del 25 de octubre. El 26 de octubre el propietario amplió el combate con preguntas formativas y ataques animados; la versión vigente y sus pruebas están en [QUIZ_COMBATE_20261026.md](QUIZ_COMBATE_20261026.md). Los inventarios y cifras siguientes describen la edición anterior.
+
 25 de octubre de 2026. Encargo: reforzar la batalla y realizar un último repaso del repositorio sin perder datos. Base de esta edición: `4d3e81626acb4be9c956163f2c564a1e160c3c94`.
 
 ## Resultado y límites

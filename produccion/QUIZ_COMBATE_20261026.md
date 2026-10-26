@@ -14,7 +14,7 @@ El banco tiene diez preguntas, dos por ámbito: propósito y coherencia, reglas 
 
 ## Alcance pedagógico y datos
 
-Es un repaso formativo posterior a la recogida de los instrumentos. Las preguntas son nuevas y no reemplazan ni reproducen los ítems comparables del diagnóstico/postest. No constituyen una nueva medida de aprendizaje, calificación o evaluación del prototipo.
+Es un repaso formativo posterior a la recogida de los instrumentos. Su duración depende de las respuestas y reintentos; se acompaña dentro del bloque de cierre, sin desplazar la recogida de evidencias. Las preguntas son nuevas y no reemplazan ni reproducen los ítems comparables del diagnóstico/postest. No constituyen una nueva medida de aprendizaje, calificación o evaluación del prototipo.
 
 Las respuestas y los intentos viven en la memoria del encuentro y no se guardan en el cuaderno ni se envían a Google. No hay nuevas recompensas, costes o atributos. La restauración final conserva el circuito anterior y los campos existentes. Salir durante una pregunta o animación no restaura el Orbe ni escribe un resultado del quiz. Las imágenes se solicitan al sitio como recursos estáticos; no existe una solicitud de respuestas del quiz.
 
@@ -32,12 +32,12 @@ Prompts exactos, método integrado y recursos en [ARTE_SPRITES_20261026.md](../d
 ## Checklist de comprobación
 
 - [x] Banco: diez preguntas, cuatro opciones distintas, explicación de cada opción, pista, fuentes locales y rotación.
-- [x] Gating: elegir una habilidad o una respuesta equivocada no ejecuta el movimiento. Acertar muestra la devolución antes del botón de ejecución.
+- [x] Activación: elegir una habilidad o una respuesta equivocada no ejecuta el movimiento. Acertar muestra la devolución antes del botón de ejecución.
 - [x] Ataque y defensa, pista, reintento, cambio de habilidad, cancelación y recuperación.
 - [x] Seis encuadres: 1280×900, 768×1024, 1024×768, 390×844, 320×568 y 844×390; sin desborde horizontal.
 - [x] Los tres atlas cargan; poses de Kael, Kira y Lethon activadas en navegador. Se comprueba el cambio de fotograma, contraataque, retorno al retrato, movimiento reducido y respaldo si falta un atlas.
 - [x] Victoria, epílogo y repetición; respuestas y reflexiones anteriores, identidad, XP y saldo conservados en servicios simulados.
 - [x] 170 fuentes JS/CJS/GS pasan sintaxis; 26 entradas activas, 54 scripts y 358 referencias locales válidas. Los 16 iframe conservan sus direcciones.
-- [x] Apps Script, cliente de cuentas, adaptadores, contenidos, instrumentos, catálogos y reglas de recompensa sin cambios.
+- [x] Apps Script, cliente de cuentas, adaptadores, contenidos, instrumentos, catálogo RPG y reglas de recompensa sin cambios.
 
-La regresión completa y publicación se verifican por separado. La prueba autenticada de escrituras reales, los formularios externos configurables y la comprobación física de dispositivos siguen siendo los pendientes documentados en el [checklist general](CHECKLIST_FINAL_LUDARIA_20261025.md). No se accedió ni escribió la planilla real para estas pruebas.
+Regresión completa aprobada: 21 programas funcionales y 5 de navegador en [CI 40248387437](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40248387437), sobre `7bc68913a637ae8b72948913389212acf4471b9d`. [PR #30](https://github.com/nespinozagonzalez-hub/misiones/pull/30) integrado como `ada9645869fb86c13ff78154de1abaa9d6b2ab96`. Publicación del código aprobada en [Pages 40248659889](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40248659889). En la vista pública se comprobó pregunta, error con pista, explicación y ejecución; los atlas de Kira y Lethon se decodificaron correctamente, sin iniciar sesión ni consultar datos reales. La prueba autenticada de escrituras reales, los formularios externos configurables y la comprobación física de dispositivos siguen siendo los pendientes documentados en el [checklist general](CHECKLIST_FINAL_LUDARIA_20261025.md). No se accedió ni escribió la planilla real para estas pruebas.

@@ -4,13 +4,13 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; batalla por turnos con Lethon integrada, 25 programas de prueba aprobados y datos conservados; cliente central v0.4.3 sin cambios",
-  "actualizado_en": "2026-10-25",
+  "estado_general": "14 sesiones publicadas; combate con preguntas formativas y ataques animados de Kael, Kira y Lethon; 26 programas de prueba aprobados; datos e instrumentos conservados",
+  "actualizado_en": "2026-10-26",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "batalla_lethon_publicada",
-    "detalle": "Encargo del 25 de octubre: batalla narrativa con Lethon, arte nuevo y checklist del repositorio. PR #29 integrado tras regresión completa aprobada. Sin cambios de datos, Apps Script o instrumentos.",
-    "informe": "produccion/CHECKLIST_FINAL_LUDARIA_20261025.md"
+    "fase": "quiz_y_sprites_publicados",
+    "detalle": "Ampliación del 26 de octubre: preguntas para activar ataque/defensa, pistas sin penalización y atlas de seis poses por personaje. PR #30 integrado tras regresión completa aprobada. No modifica datos, instrumentos ni Apps Script.",
+    "informe": "produccion/QUIZ_COMBATE_20261026.md"
   },
   "automatizacion": {
     "estado": "cerrada_por_propietario",
@@ -302,5 +302,34 @@
     "vista_revision": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/revision.html",
     "iframes_conservados": 16,
     "informe": "produccion/CHECKLIST_FINAL_LUDARIA_20261025.md"
+  },
+  "ultima_ampliacion_quiz_sprites": {
+    "fecha": "2026-10-26",
+    "pr": 30,
+    "head_comprobado": "7bc68913a637ae8b72948913389212acf4471b9d",
+    "commit_integracion": "ada9645869fb86c13ff78154de1abaa9d6b2ab96",
+    "ci_run_id": 40248387437,
+    "ci_conclusion": "success",
+    "programas_funcionales": 21,
+    "programas_navegador": 5,
+    "preguntas": 10,
+    "poses_por_personaje": 6,
+    "personajes": [
+      "Kael",
+      "Kira",
+      "Lethon"
+    ],
+    "respuestas_quiz": "Solo en memoria; sin registro ni envío a Google",
+    "datos_reales": "No consultados ni modificados; pruebas con servicios simulados",
+    "apps_script": "Sin cambios; cliente instalado v0.4.3, mantenimiento v0.4.4 no instalado",
+    "vista_revision": "https://nespinozagonzalez-hub.github.io/misiones/defensa-orbe/revision.html",
+    "iframes_conservados": 16,
+    "informe": "produccion/QUIZ_COMBATE_20261026.md",
+    "pages": {
+      "run_id": 40248659889,
+      "conclusion": "success",
+      "commit_codigo": "ada9645869fb86c13ff78154de1abaa9d6b2ab96"
+    },
+    "vista_publica_comprobada": "Pregunta, error/pista, explicación, ejecución y atlas Kira/Lethon cargados; sin iniciar sesión"
   }
 }
