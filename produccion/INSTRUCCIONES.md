@@ -1,5 +1,7 @@
 # Producción cerrada · Ludaria
 
+> **Corrección de sprites · 26 de octubre de 2026:** el propietario reportó encuadre incorrecto y brazo repetido durante el ataque. PR #31 corrige la presentación con 18 recortes independientes, suelo/escala alineados y sin solapar el retrato. Conserva el arte original, preguntas, combate, datos e instrumentos. 27 programas aprobados en CI. Fuente vigente: `ENCUADRE_SPRITES_20261026.md`. No reactiva tareas programadas.
+
 > **Ampliación del 26 de octubre de 2026:** el propietario solicitó preguntas para atacar/defender y sprites de ataques más detallados. PR #30 integrado con diez preguntas formativas, pistas y reintentos sin penalización, y seis poses por Kael/Kira/Lethon. Después de los instrumentos, sin registrar las respuestas del quiz ni alterar notas, recompensas, cuentas o Apps Script. Regresión completa de 26 programas aprobada. Fuente vigente: `QUIZ_COMBATE_20261026.md`. No reactiva tareas programadas.
 
 > **Encargo del 25 de octubre de 2026:** revisión y cierre RPG autorizados, conservando todos los datos. La ceremonia inicial (PR #28) se amplía por petición del propietario a una batalla narrativa por turnos con Lethon (PR #29), después de los instrumentos, sin nuevas recompensas ni cambios de evaluación o Apps Script. Estado, 25 programas de prueba aprobados, alcance y pendientes en `CHECKLIST_FINAL_LUDARIA_20261025.md`. No reactiva revisiones programadas. El cierre del 16 de octubre que sigue es el antecedente de esta nueva edición.

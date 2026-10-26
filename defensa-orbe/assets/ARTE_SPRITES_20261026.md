@@ -1,5 +1,7 @@
 # Ludaria · atlas de ataques v3
 
+> El arte original se conserva. Tras detectar que algunos elementos cruzaban la cuadrícula teórica, la presentación se corrigió con recortes propios por pose y un lienzo limpio entre fotogramas. Ya no se desplaza un fondo de celdas uniformes. Ver [ENCUADRE_SPRITES_20261026.md](../../produccion/ENCUADRE_SPRITES_20261026.md). Los prompts originales siguientes se mantienen como antecedente de generación.
+
 26 de octubre de 2026. Generados con la herramienta integrada ImageGen, usando los retratos existentes como referencias de identidad. No se reemplazan los originales.
 
 Tres atlas RGBA de 1536 × 1024: tres columnas y dos filas, seis poses consecutivas por personaje, leídas de izquierda a derecha y de arriba abajo. Celdas de 512 × 512, con anticipación, preparación, lanzamiento, extensión, continuación y recuperación. Son secuencias ilustradas de poses, no animación esquelética ni vídeo. La interfaz añade trayectoria, brillo, impacto y contraataque en turnos separados.

@@ -1,5 +1,7 @@
 # Ludaria · preguntas y ataques animados
 
+> Corrección posterior del encuadre: la animación de cuadrícula se reemplaza por recortes independientes para evitar mostrar partes de la pose vecina. Se conservan el quiz y el arte. Fuente vigente: [ENCUADRE_SPRITES_20261026.md](ENCUADRE_SPRITES_20261026.md).
+
 26 de octubre de 2026. Ampliación autorizada del encuentro con Lethon, sobre `d5e66cbc58c8c02dce6cebe812fe15cc198645e6`.
 
 ## Flujo

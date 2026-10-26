@@ -1,5 +1,7 @@
 # Pruebas finales
 
+Corrección posterior del 26 de octubre: 18 recortes independientes, sin brazos de la pose vecina ni superposición del retrato. 27 programas aprobados en [CI 40320982073](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40320982073). [Informe del encuadre](../produccion/ENCUADRE_SPRITES_20261026.md).
+
 Actualización del 26 de octubre de 2026: preguntas para ataque/defensa, pistas, reintentos y atlas animados de Kael/Kira/Lethon. Regresión de 26 programas aprobada en [CI 40248387437](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40248387437). Alcance y datos conservados en [QUIZ_COMBATE_20261026.md](../produccion/QUIZ_COMBATE_20261026.md).
 
 Actualización del 25 de octubre de 2026: batalla por turnos y desenlace aprobados en seis encuadres; regresión completa de 25 programas aprobada en [CI 40246575014](https://github.com/nespinozagonzalez-hub/misiones/actions/runs/40246575014). Alcance, integridad y pendientes en [el checklist final](../produccion/CHECKLIST_FINAL_LUDARIA_20261025.md). Las pruebas siguientes son el antecedente de publicación inicial.
