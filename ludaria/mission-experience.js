@@ -76,17 +76,18 @@
     panel.dataset.contextSkill = String(current);
     panel.className = 'ludaria-contextual-perk' + (available ? ' is-unlocked' : ' is-locked');
     panel.setAttribute('aria-label', 'Encuentro opcional con el guardián');
-    panel.innerHTML = '<span class="ludaria-contextual-perk-kicker">Encuentro opcional · Guardián</span><h3 data-contextual-name></h3><p data-contextual-threshold></p><p data-contextual-explanation></p><div class="ludaria-contextual-perk-actions"></div><p data-contextual-status role="status"></p>';
+    panel.innerHTML = '<div class="ludaria-contextual-perk-emblem" aria-hidden="true"><img alt="" width="112" height="112" src="'+new URL('../ludaria/assets/brujula-guardian-v1.png',document.baseURI).href+'"></div><div class="ludaria-contextual-perk-copy"><span class="ludaria-contextual-perk-kicker">'+(perk.kind==='accion'?'Ruta del guardián':'Pista del guardián')+' · opcional</span><span class="ludaria-contextual-perk-state">'+(available?'Ayuda disponible':'Por desbloquear')+'</span><h3 data-contextual-name></h3><p class="ludaria-contextual-guardian"></p><p data-contextual-threshold></p><p data-contextual-explanation></p><div class="ludaria-contextual-perk-actions"></div><p data-contextual-status role="status"></p></div>';
+    panel.querySelector('.ludaria-contextual-guardian').textContent = mission.guardian;
     panel.querySelector('[data-contextual-name]').textContent = perk.name;
     panel.querySelector('[data-contextual-threshold]').textContent = window.LudariaRPG.attributes[perk.attribute] + ' ' + current + ' / requisito ' + perk.minimum;
     panel.querySelector('[data-contextual-explanation]').textContent = available
-      ? 'Tienes una posibilidad adicional para explorar esta parte de la misión. La actividad principal sigue siendo la misma.'
-      : 'Esta alternativa se activa al mejorar tu atributo con Mochi. Puedes continuar sin ella.';
+      ? (perk.kind === 'accion' ? 'El guardián te ofrece otra forma de abordar este desafío. Tú eliges el camino.' : 'Tu guardián ha dejado una pista para este tramo. Invócala si necesitas encontrar el rumbo.')
+      : 'Esta ayuda despertará al mejorar tu atributo con Mochi. Tu misión sigue abierta: puedes continuar sin ella.';
     if (available) {
       const actions = panel.querySelector('.ludaria-contextual-perk-actions');
       const consult = document.createElement('button');
       consult.type = 'button';
-      consult.textContent = perk.kind === 'accion' ? 'Explorar otra ruta' : 'Consultar orientación';
+      consult.textContent = perk.kind === 'accion' ? 'Explorar otra ruta' : 'Invocar pista';
       consult.addEventListener('click', () => window.LudariaRPGUI?.openPerk(perk.id));
       actions.append(consult);
       if (supportsOmission) {

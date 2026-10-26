@@ -1,0 +1,22 @@
+/* El mismo emblema acompaña la pista, el cuaderno y su acceso. */
+.ludaria-aid-emblem{display:block;object-fit:contain;flex:0 0 auto}
+.ludaria-cloud-bar [data-cloud-advantage]{display:inline-flex;align-items:center;gap:7px}
+.ludaria-cloud-bar [data-cloud-advantage]>.ludaria-aid-emblem{width:26px;height:26px;margin:-5px 0}
+.ludaria-cloud-dialog.ludaria-guardian-aid{width:min(680px,calc(100% - 28px));max-width:680px;padding:clamp(20px,4vw,34px);border-color:#b89b60;background:radial-gradient(ellipse at top left,#2b513055,transparent 60%),#0b1d14;box-shadow:0 24px 90px #0009;color:#f1ead9;overflow-wrap:anywhere}
+.ludaria-guardian-aid .ludaria-aid-heading{display:flex;align-items:center;gap:14px;padding-bottom:18px;margin-bottom:22px;border-bottom:1px solid #d0b47644;min-width:0}
+.ludaria-aid-heading .ludaria-aid-emblem{width:64px;height:64px;filter:drop-shadow(0 4px 7px #0007)}
+.ludaria-aid-heading span{display:block;font:600 10px/1.6 system-ui;letter-spacing:.12em;color:#d8c087}
+.ludaria-aid-heading p{font:16px/1.4 Georgia,serif;color:#e6d4a8;margin:4px 0 0}
+.ludaria-guardian-aid h2{font:500 clamp(25px,4vw,32px)/1.2 Georgia,serif;color:#efd69b}
+.ludaria-guardian-aid>p,.ludaria-guardian-aid [data-rpg-preview]>p{line-height:1.7}
+.ludaria-guardian-aid .rpg-perk{position:relative;border:1px solid #748f5666;background:linear-gradient(120deg,#19352488,#08160e);padding:18px;border-radius:12px}
+.ludaria-guardian-aid .rpg-perk.is-locked{border-style:solid;border-color:#8b7d5566;background:#161f14}
+.ludaria-guardian-aid .rpg-perk h3{margin:10px 0;font:23px/1.25 Georgia,serif;color:#e6cb91}
+.ludaria-aid-badge{display:inline-block;padding:3px 8px;border:1px solid #82b67b55;border-radius:5px;background:#29472b;color:#cae8be;font:600 10px/1.5 system-ui}
+.is-locked>.ludaria-aid-badge{color:#d6c9a5;background:#332f20;border-color:#b69a5b55}
+.ludaria-guardian-aid button{min-height:44px;max-width:100%;white-space:normal}
+.ludaria-guardian-aid button[data-rpg-open]:not(:disabled){background:linear-gradient(120deg,#c5a25e,#dfc182);border-color:#e0c27c;color:#14251a;font-weight:600}
+.ludaria-guardian-aid button:disabled{opacity:.65;cursor:default}
+.ludaria-guardian-aid :focus-visible{outline:3px solid #ebcd86;outline-offset:3px}
+@media(max-width:420px){.ludaria-aid-heading .ludaria-aid-emblem{width:48px;height:48px}.ludaria-aid-heading span{font-size:9px}.ludaria-aid-heading p{font-size:15px}.ludaria-guardian-aid .rpg-perk{padding:14px}}
+@media print{.ludaria-cloud-dialog.ludaria-guardian-aid{box-shadow:none}}
