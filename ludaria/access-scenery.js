@@ -2,15 +2,17 @@
 (() => {
   'use strict';
   const config=window.LUDARIA_CLOUD_CONFIG;
-  if(!config || config.market || window.LUDARIA_ACCESS_SCENERY)return;
+  if(!config || window.LUDARIA_ACCESS_SCENERY)return;
   const scenes={forja:'../forja/assets/bosque.webp','pergaminos-dispersos':'assets/paisaje.webp','senda-ejemplos':'assets/bosque.webp','claro-debate':'assets/claro.webp','vetas-diseno':'assets/cantera.webp','tallado-mecanicas':'assets/taller.webp','gema-motivacional':'assets/gema.webp','planos-arquitecto':'assets/forja.webp',yunque:'assets/forja.webp','templado-pares':'assets/forja.webp','reflejo-diseno':'assets/santuario.webp','pulido-prototipo':'assets/santuario.webp','espejo-compartido':'assets/santuario.webp','defensa-orbe':'assets/paisaje.webp'};
   if(!scenes[config.route])return;
   window.LUDARIA_ACCESS_SCENERY=true;
   const routes=Object.keys(scenes),index=routes.indexOf(config.route),forja=config.route==='forja';
   const mission=window.LudariaRPG?.find(config.route);
-  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('../ludaria/access-scenery.css?v=20261012-acceso1',document.baseURI);document.head.append(css);
+  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('../ludaria/access-scenery.css?v=20261026-ayudas1',document.baseURI);document.head.append(css);
+  const aid=document.createElement('script');aid.src=new URL('../ludaria/guardian-aid.js?v=20261026-ayudas1',document.baseURI);document.head.append(aid);
   const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function polish(d){
+    if(config.market)return;
     if(d.dataset.accessScenery || !d.querySelector('#cloud-login'))return;
     d.dataset.accessScenery=config.route;
     d.classList.add('ludaria-welcome','ludaria-access-scene');

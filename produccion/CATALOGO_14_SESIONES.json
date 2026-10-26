@@ -23,7 +23,8 @@
     "summary": "Clase de 14 pantallas sobre gamificación, ABJ, juegos serios y edutainment.",
     "product": "Clasificación justificada y microdesafío individual.",
     "interaction": "Casos de equipo, pistas, reintentos y registro editable.",
-    "dep": "Canales de lectura, pizarra y microdesafío configurables; registro local disponible."
+    "dep": "Canales de lectura, pizarra y microdesafío configurables; registro local disponible.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 3,
@@ -36,7 +37,8 @@
     "summary": "Análisis de dos experiencias documentadas para reconocer elementos y función pedagógica.",
     "product": "Análisis en parejas y bitácora.",
     "interaction": "Ventanas de evidencia, clasificación y tres candados complementarios.",
-    "dep": "Registro local; compartir por el canal indicado por el facilitador."
+    "dep": "Registro local; compartir por el canal indicado por el facilitador.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 4,
@@ -49,7 +51,8 @@
     "summary": "Contraste de mitos y evidencia, con posturas iniciales y revisadas después de leer.",
     "product": "Argumentación y recuperación del Fragmento I.",
     "interaction": "Tres candados, temporizador, bitácora y comparación de posturas.",
-    "dep": "Formulario externo de cierre configurable."
+    "dep": "Formulario externo de cierre configurable.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 5,
@@ -62,7 +65,8 @@
     "summary": "Pirámide de dinámicas, mecánicas y componentes, con Toda como complemento.",
     "product": "Clasificación justificada y microdesafío individual.",
     "interaction": "Pirámide explorable, caso, 18 tarjetas y guía por pantalla.",
-    "dep": "Cuaderno local descargable; facilitador conduce el avance."
+    "dep": "Cuaderno local descargable; facilitador conduce el avance.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 6,
@@ -75,7 +79,8 @@
     "summary": "Deconstrucción de un juego conocido en parejas: reglas, acciones y experiencia.",
     "product": "Plantilla de análisis y bitácora.",
     "interaction": "Cuatro en línea jugable, ordenamiento de bucle y tres candados.",
-    "dep": "Registro local; intercambio real organizado por el facilitador."
+    "dep": "Registro local; intercambio real organizado por el facilitador.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 7,
@@ -88,7 +93,8 @@
     "summary": "Necesidades psicológicas y riesgos éticos mediante dilemas y rediseño.",
     "product": "Rediseño argumentado y Fragmento II.",
     "interaction": "Tres facetas, candados y cuaderno.",
-    "dep": "Formulario externo de cierre configurable."
+    "dep": "Formulario externo de cierre configurable.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 8,
@@ -101,7 +107,8 @@
     "summary": "Seis decisiones del marco 6D, ejemplo completo y panorámica de otros marcos.",
     "product": "Primer canvas personal.",
     "interaction": "Canvas editable, bucle, ventanas y dos candados.",
-    "dep": "URL del canvas externo configurable; canvas local disponible."
+    "dep": "URL del canvas externo configurable; canvas local disponible.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 9,
@@ -114,7 +121,8 @@
     "summary": "Taller para construir narrativa, misiones, progresión y componentes.",
     "product": "Primera versión del prototipo y bitácora.",
     "interaction": "17 campos, ejemplo y práctica con feedback.",
-    "dep": "Canvas y bitácora externos configurables; alternativas locales."
+    "dep": "Canvas y bitácora externos configurables; alternativas locales.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 10,
@@ -127,7 +135,8 @@
     "summary": "Revisión del diseño por dos pares con la pauta exacta del Anexo H.",
     "product": "Dos revisiones y canvas ajustado; Fragmento III.",
     "interaction": "Dos pautas independientes, ensayo y bitácora.",
-    "dep": "Canal externo de coevaluación y canvas pendientes."
+    "dep": "Canal externo de coevaluación y canvas pendientes.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 11,
@@ -140,7 +149,8 @@
     "summary": "Interpretar la rúbrica exacta del Anexo E y aplicarla a un caso modelo.",
     "product": "Aplicación argumentada y acuerdos de interpretación.",
     "interaction": "Cinco criterios, tres niveles y cuaderno.",
-    "dep": "URLs opcionales de rúbrica y caso configurables."
+    "dep": "URLs opcionales de rúbrica y caso configurables.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 12,
@@ -153,7 +163,8 @@
     "summary": "Autoevaluación, priorización, ajuste y plan de implementación.",
     "product": "Prototipo ajustado y plan breve.",
     "interaction": "Rúbrica, evidencia por criterio y plan editable.",
-    "dep": "Enlaces externos opcionales; herramientas locales disponibles."
+    "dep": "Enlaces externos opcionales; herramientas locales disponibles.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 13,
@@ -166,7 +177,8 @@
     "summary": "Presentaciones de cinco minutos y retroalimentación cruzada.",
     "product": "Defensa breve, próximo ajuste y Fragmento IV.",
     "interaction": "Pauta exacta del Anexo H reutilizada, temporizador y bitácora.",
-    "dep": "Prototipo, plantilla y canal de feedback externos configurables."
+    "dep": "Prototipo, plantilla y canal de feedback externos configurables.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   },
   {
     "s": 14,
@@ -179,6 +191,7 @@
     "summary": "Cierre de 12 pantallas con prototipo, instrumentos E, F y G y bloque inicial final.",
     "product": "Prototipo final, reflexión, valoración y restauración del Orbe.",
     "interaction": "Campos locales, rúbrica desplegable y batalla narrativa con preguntas formativas y ataques animados de Lethon después de los instrumentos.",
-    "dep": "Formularios reales configurables; registro local disponible, sin envío automático de datos."
+    "dep": "Formularios reales configurables; registro local disponible, sin envío automático de datos.",
+    "help_presentation": "Pistas y rutas del guardián, emblema PNG y estados de disponibilidad; requisitos y contenido conservados. Revisión visual: AYUDAS_Y_CARGA_20261026.md."
   }
 ]

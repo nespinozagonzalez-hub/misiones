@@ -9,4 +9,12 @@ for(const mission of catalog.missions){
  const image=dialog.style.getPropertyValue('--access-landscape').match(/"([^"]+)"/)[1];assert.ok(fs.existsSync(path.join(__dirname,'..',new URL(image).pathname)),'Paisaje real: '+mission.slug);
  form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));assert.equal(submitted,1);assert.equal(d.querySelector('#cloud-error').getAttribute('role'),'status');dom.window.close();
 }
+// Mochi conserva su acceso; comparte únicamente el arreglo visual de la carga.
+{
+ const dom=new JSDOM('<html><head></head><body><dialog class="ludaria-cloud-dialog"><form id="cloud-login"><input name="name"><button>Entrar</button></form></dialog></body></html>',{url:'https://ludaria.test/forja/',runScripts:'outside-only'});
+ const w=dom.window,d=w.document;w.LUDARIA_CLOUD_CONFIG={route:'forja',market:true};
+ const form=d.querySelector('form'),dialog=d.querySelector('dialog');w.eval(fs.readFileSync(__dirname+'/access-scenery.js','utf8'));
+ assert.equal(d.querySelector('form'),form);assert.equal(dialog.dataset.accessScenery,undefined);assert.equal(d.querySelector('.cloud-welcome-grid'),null);
+ assert.ok(d.querySelector('link').href.includes('access-scenery.css?v=20261026-ayudas1'));assert.ok(d.querySelector('script').src.includes('guardian-aid.js'));dom.window.close();
+}
 console.log('PASS accesos: 13 guardianes y paisajes existentes, nombre/código, creación oculta y eventos originales conservados.');
