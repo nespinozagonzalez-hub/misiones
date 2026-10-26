@@ -4,13 +4,13 @@
   "universo": "Ludaria",
   "repositorio": "nespinozagonzalez-hub/misiones",
   "rama": "main",
-  "estado_general": "14 sesiones publicadas; batalla con preguntas y ataques corregidos mediante recortes independientes; arte, datos e instrumentos conservados; 27 programas de prueba aprobados",
+  "estado_general": "14 sesiones publicadas; carga y pistas del guardián mejoradas; datos e instrumentos conservados; 28 programas de prueba aprobados",
   "actualizado_en": "2026-10-26",
   "siguiente_sesion": null,
   "ejecucion_actual": {
-    "fase": "encuadre_sprites_corregido",
-    "detalle": "Corrección solicitada de encuadre y brazo repetido: 18 recortes propios, suelo/escala alineados, limpieza entre poses y sin superposición del retrato. PR #31 integrado tras regresión completa aprobada.",
-    "informe": "produccion/ENCUADRE_SPRITES_20261026.md"
+    "fase": "ayudas_y_carga_revisadas",
+    "detalle": "Personaje completo en la carga de Forja/Mochi y presentación de pistas/rutas del guardián con PNG transparente en las 13 misiones. Conserva contenido, requisitos, decisiones y cliente instalado.",
+    "informe": "produccion/AYUDAS_Y_CARGA_20261026.md"
   },
   "automatizacion": {
     "estado": "cerrada_por_propietario",
@@ -354,5 +354,35 @@
     },
     "verificacion_publica": "18 poses cargadas en Chrome; primer ataque y contraataque avanzan con retrato de respaldo oculto",
     "evidencia": "produccion/evidencias/poses_corregidas_20261026.png"
+  },
+  "ultima_revision_ayudas_carga": {
+    "fecha": "2026-10-26",
+    "pr": 32,
+    "head_comprobado": "1413b0acedb5a78a561f37f63c20b7f46e4770c7",
+    "ci_run_id": 40326213936,
+    "programas_funcionales": 22,
+    "programas_navegador": 6,
+    "guardianes": 13,
+    "posibilidades": 39,
+    "encuadres": 6,
+    "carga": "Kael y Kira en Forja y Mochi; figura completa con object-fit:contain",
+    "emblema": "ludaria/assets/brujula-guardian-v1.png",
+    "vista_revision": "https://nespinozagonzalez-hub.github.io/misiones/ludaria/ayudas-revision.html",
+    "datos_reales": "No consultados ni modificados; servicios simulados en pruebas",
+    "apps_script": "Sin cambios ni reinstalación; cliente instalado v0.4.3 y mantenimiento v0.4.4 sin instalar",
+    "iframes_conservados": 16,
+    "informe": "produccion/AYUDAS_Y_CARGA_20261026.md",
+    "commit_integracion": "417dd785f5624574863812383a4b386ff43ab266",
+    "ci_conclusion": "success",
+    "pages": {
+      "run_id": 40327088620,
+      "conclusion": "success",
+      "commit_codigo": "417dd785f5624574863812383a4b386ff43ab266"
+    },
+    "verificacion_publica": "Vista publicada comprobada en Chrome: personaje completo, PNG cargado, pista abierta/cerrada con retorno del foco. Sin iniciar sesión.",
+    "evidencias": [
+      "produccion/evidencias/ayudas_publicadas_20261026.jpg",
+      "produccion/evidencias/carga_publicada_20261026.jpg"
+    ]
   }
 }

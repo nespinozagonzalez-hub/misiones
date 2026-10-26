@@ -28,6 +28,8 @@ Los cambios se cargan desde los recursos públicos compartidos sobre el cliente 
 
 ## Validación y publicación
 
-Prueba gráfica específica: `node ludaria/test-aid-browser.cjs`. Se integra en la regresión completa de 28 programas (22 funcionales y 6 de navegador). La validación local específica pasó; la ejecución remota y el despliegue se registrarán al completarse.
+Prueba gráfica específica: `node ludaria/test-aid-browser.cjs`. Se integra en la regresión completa de 28 programas (22 funcionales y 6 de navegador). La validación específica y la regresión completa pasaron. PR #32 integrado como `417dd785f5624574863812383a4b386ff43ab266`, tras comprobar el head `1413b0acedb5a78a561f37f63c20b7f46e4770c7`. CI 40326213936, job 121583462584: **success**. Sintaxis de 176 fuentes, 26 entradas y 360 referencias locales válidas. Pages 40327088620: build/deploy aprobados para ese commit. La vista pública se comprobó en Chrome: Kael completo en el marco vertical, PNG cargado, pista consultada y cierre con retorno del foco. No se inició sesión ni se consultaron datos reales.
 
-El PNG y su prompt están documentados en `ludaria/assets/ARTE_AYUDAS_20261026.md`. Las capturas de prueba se generan como `ludaria/preview-ayuda-*`, `preview-cuaderno-guardian.png` y `preview-carga-*`.
+El PNG y su prompt están documentados en `ludaria/assets/ARTE_AYUDAS_20261026.md`. Evidencia de la publicación: `produccion/evidencias/ayudas_publicadas_20261026.jpg` y `produccion/evidencias/carga_publicada_20261026.jpg`.
+
+Las capturas de prueba se generan como `ludaria/preview-ayuda-*`, `preview-cuaderno-guardian.png` y `preview-carga-*`.

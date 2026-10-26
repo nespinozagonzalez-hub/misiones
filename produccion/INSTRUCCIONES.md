@@ -1,5 +1,7 @@
 # Producción cerrada · Ludaria
 
+> **Carga y ayudas · 26 de octubre de 2026:** nuevo encargo del propietario para encuadrar el personaje de la ventana de carga y dar a las ayudas una presentación de videojuego. PR #32 integrado tras 28 programas aprobados, con Pages y vista pública comprobados: marco vertical de Kael/Kira, pistas/rutas del guardián con PNG transparente, cuaderno coherente y vista segura. Conserva datos, lógica, contenido y requisitos. Se carga desde los recursos públicos sobre v0.4.3; no reinstalar Apps Script ni reactivar tareas programadas. Fuente: `AYUDAS_Y_CARGA_20261026.md`.
+
 > **Corrección de sprites · 26 de octubre de 2026:** el propietario reportó encuadre incorrecto y brazo repetido durante el ataque. PR #31 corrige la presentación con 18 recortes independientes, suelo/escala alineados y sin solapar el retrato. Conserva el arte original, preguntas, combate, datos e instrumentos. 27 programas aprobados en CI. Fuente vigente: `ENCUADRE_SPRITES_20261026.md`. No reactiva tareas programadas.
 
 > **Ampliación del 26 de octubre de 2026:** el propietario solicitó preguntas para atacar/defender y sprites de ataques más detallados. PR #30 integrado con diez preguntas formativas, pistas y reintentos sin penalización, y seis poses por Kael/Kira/Lethon. Después de los instrumentos, sin registrar las respuestas del quiz ni alterar notas, recompensas, cuentas o Apps Script. Regresión completa de 26 programas aprobada. Fuente vigente: `QUIZ_COMBATE_20261026.md`. No reactiva tareas programadas.
