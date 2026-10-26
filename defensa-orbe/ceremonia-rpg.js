@@ -20,12 +20,12 @@
   const avatar=['Kael','Kira'].includes(profile?.class)?profile.class.toLowerCase():null,name=profile?.name||'La expedición';
   const wasRestored=Boolean(document.querySelector('#orbe.restored'));
   let state=Core.fresh(),screen='intro',report=false,completed=false,fxTimer,motionTimer,sound=false,audio;
-  let pending=null,quizPassed=false;const seen=[],questions=new Map();
+  let pending=null,quizPassed=false;const seen=[],questions=new Map(),players={};
   const d=document.createElement('dialog');dialog=d;d.className='orbe-rpg';d.setAttribute('aria-labelledby','orbe-rpg-title');
   d.innerHTML=`<header class="orbe-rpg-header"><div><span class="orbe-kicker">LUDARIA · LA BATALLA POR LA MEMORIA</span><h2 id="orbe-rpg-title">La última defensa</h2></div><div class="orbe-tools"><button type="button" data-orbe-sound aria-pressed="false">Sonido: apagado</button><button type="button" class="orbe-close" data-orbe-close aria-label="Cerrar la batalla y volver al cuaderno">×</button></div></header>
    <div class="orbe-layout"><div class="orbe-arena" role="group" aria-label="Campo de batalla de la Bóveda"><img class="orbe-victory-art" src="${asset('orbe-amanecer-v2.webp')}" alt="El Orbe restaurado ilumina la Bóveda al amanecer" decoding="async"><div class="orbe-arena-shade"></div>
-    <div class="orbe-fighter orbe-hero" role="group" aria-label="Tu personaje y su escudo"><div class="orbe-nameplate"><strong>${esc(name)}</strong><small>Escudo de la expedición · <span data-orbe-ward-value>100</span>/100</small><progress data-orbe-ward max="100" value="100" aria-label="Escudo narrativo de la expedición"></progress></div>${avatar?`<div class="orbe-actor-art"><img class="orbe-hero-art" src="${heroAsset(avatar)}" alt="${esc(profile.class)}, personaje de ${esc(name)}"><span class="orbe-sprite" style="background-image:url('${asset(avatar+'-ataque-v3.webp')}')" aria-hidden="true"></span><img hidden data-sprite-preload src="${asset(avatar+'-ataque-v3.webp')}" alt=""></div>`:'<span class="orbe-hero-seal" aria-hidden="true">✧</span>'}</div>
-    <div class="orbe-fighter orbe-enemy" role="group" aria-label="Lethon y su poder"><div class="orbe-nameplate"><strong>Lethon</strong><small>Poder del Olvido · <span data-orbe-hp-value>100</span>/100</small><progress data-orbe-hp max="100" value="100" aria-label="Poder del Olvido de Lethon"></progress></div><div class="orbe-actor-art"><img class="orbe-enemy-art" src="${asset('lethon-combate-v2.webp')}" alt="Lethon, el Devorador del Saber, invoca las Brumas del Olvido"><span class="orbe-sprite" style="background-image:url('${asset('lethon-ataque-v3.webp')}')" aria-hidden="true"></span><img hidden data-sprite-preload src="${asset('lethon-ataque-v3.webp')}" alt=""></div></div>
+    <div class="orbe-fighter orbe-hero" role="group" aria-label="Tu personaje y su escudo"><div class="orbe-nameplate"><strong>${esc(name)}</strong><small>Escudo de la expedición · <span data-orbe-ward-value>100</span>/100</small><progress data-orbe-ward max="100" value="100" aria-label="Escudo narrativo de la expedición"></progress></div>${avatar?`<div class="orbe-actor-art"><img class="orbe-hero-art" src="${heroAsset(avatar)}" alt="${esc(profile.class)}, personaje de ${esc(name)}"><canvas class="orbe-sprite" data-sprite="${avatar}" width="704" height="576" aria-hidden="true"></canvas></div>`:'<span class="orbe-hero-seal" aria-hidden="true">✧</span>'}</div>
+    <div class="orbe-fighter orbe-enemy" role="group" aria-label="Lethon y su poder"><div class="orbe-nameplate"><strong>Lethon</strong><small>Poder del Olvido · <span data-orbe-hp-value>100</span>/100</small><progress data-orbe-hp max="100" value="100" aria-label="Poder del Olvido de Lethon"></progress></div><div class="orbe-actor-art"><img class="orbe-enemy-art" src="${asset('lethon-combate-v2.webp')}" alt="Lethon, el Devorador del Saber, invoca las Brumas del Olvido"><canvas class="orbe-sprite" data-sprite="lethon" width="704" height="576" aria-hidden="true"></canvas></div></div>
     <span class="orbe-spell" aria-hidden="true"></span><div class="orbe-impact" aria-hidden="true" data-orbe-impact></div><div class="orbe-fragments" aria-label="Fragmentos de esta batalla">${['I','II','III','IV'].map(x=>`<span data-orbe-fragment>${x}</span>`).join('')}</div>
    </div><section class="orbe-command"><div class="orbe-progress-label"><span data-orbe-turn></span><strong data-orbe-count>0 / 4 fragmentos</strong></div><progress class="orbe-progress" max="4" value="0" aria-label="Restauración narrativa del Orbe"></progress>
     <div class="orbe-story" aria-live="polite" aria-atomic="true"><span class="orbe-kicker" data-orbe-place></span><h3 data-orbe-heading></h3><p data-orbe-story></p></div>
@@ -35,7 +35,7 @@
     <button type="button" class="orbe-next" data-orbe-next></button><p class="orbe-footnote">Repaso formativo sin nota ni registro de respuestas. El escudo y el poder de Lethon solo pertenecen a este encuentro; tus atributos, notas y recompensas se conservan.</p><p class="orbe-save-note" data-orbe-save role="status"></p>
    </section></div>`;
   document.body.append(d);const q=s=>d.querySelector(s);
-  d.querySelectorAll('[data-sprite-preload]').forEach(img=>{const ready=()=>{if(img.naturalWidth)img.closest('.orbe-fighter').dataset.spriteReady='1';};img.addEventListener('load',ready,{once:true});if(img.complete)ready();});
+  if(window.LudariaSprites)d.querySelectorAll('[data-sprite]').forEach(canvas=>{const actor=canvas.dataset.sprite;canvas.addEventListener('sprite-ready',()=>canvas.closest('.orbe-fighter').dataset.spriteReady='1',{once:true});players[actor]=window.LudariaSprites.load(canvas,asset(window.LudariaSprites.sources[actor]),actor);});
   function tell(k,t,text){q('[data-orbe-place]').textContent=k;q('[data-orbe-heading]').textContent=t;q('[data-orbe-story]').textContent=text;}
   function sync(){
    d.dataset.screen=screen;d.classList.toggle('is-restored',screen==='victory'||screen==='epilogue');
@@ -77,8 +77,8 @@
    tell('TU HABILIDAD SE DESPIERTA',Core.moves[key].name,'Tu respuesta abre una brecha en las brumas. La expedición actúa.');
    const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||document.body.dataset.ludariaMotion==='off';
    if(reduced){finishMove();return;}
-   d.dataset.move=key;d.dataset.motion='hero';q('.orbe-arena').scrollIntoView({block:'nearest'});pulse(key,state.lastEvent.damage);
-   motionTimer=setTimeout(()=>{if(!d.isConnected)return;if(state.lastEvent.incoming){d.dataset.motion='enemy';tell('LETHON CONTRAATACA',state.lastEvent.attack,'La expedición sostiene el escudo frente a las Brumas del Olvido.');motionTimer=setTimeout(finishMove,850);}else finishMove();},850);
+   d.dataset.move=key;d.dataset.motion='hero';players[avatar]?.play();q('.orbe-arena').scrollIntoView({block:'nearest'});pulse(key,state.lastEvent.damage);
+   motionTimer=setTimeout(()=>{if(!d.isConnected)return;if(state.lastEvent.incoming){d.dataset.motion='enemy';players.lethon?.play();tell('LETHON CONTRAATACA',state.lastEvent.attack,'La expedición sostiene el escudo frente a las Brumas del Olvido.');motionTimer=setTimeout(finishMove,850);}else finishMove();},850);
   }
   d.addEventListener('click',async event=>{
    const b=event.target.closest('button');if(!b)return;
@@ -108,7 +108,7 @@
   });
   function suspend(){if(document.hidden&&audio){sound=false;audio.suspend().catch(()=>{});q('[data-orbe-sound]').textContent='Sonido: apagado';q('[data-orbe-sound]').setAttribute('aria-pressed','false');}}
   document.addEventListener('visibilitychange',suspend);
-  d.addEventListener('close',()=>{clearTimeout(fxTimer);clearTimeout(motionTimer);document.removeEventListener('visibilitychange',suspend);if(audio)audio.close().catch(()=>{});d.remove();if(dialog===d)dialog=null;if(!dialog?.open&&button.isConnected)button.focus({preventScroll:true});});
+  d.addEventListener('close',()=>{clearTimeout(fxTimer);clearTimeout(motionTimer);Object.values(players).forEach(player=>player.stop());document.removeEventListener('visibilitychange',suspend);if(audio)audio.close().catch(()=>{});d.remove();if(dialog===d)dialog=null;if(!dialog?.open&&button.isConnected)button.focus({preventScroll:true});});
   sync();tell('LA BÓVEDA DEL ORBE','«Habéis llegado lejos. Aquí termina vuestra memoria».','Lethon cierra el paso. Los cuatro fragmentos tiemblan entre sus manos. A tu espalda resuenan las voces de tus compañeros: protege la expedición, responde a los desafíos, combina tus habilidades y rompe las Brumas del Olvido.');d.showModal();q('[data-orbe-next]').focus({preventScroll:true});
  }
  document.addEventListener('click',event=>{const b=event.target.closest('[data-action="orbe"]');if(!b||allowingOriginal)return;event.preventDefault();event.stopImmediatePropagation();open(b);},true);

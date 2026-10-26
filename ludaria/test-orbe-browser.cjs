@@ -60,6 +60,11 @@ const server=http.createServer((req,res)=>{
   const ctx=await browser.newContext();
   await ctx.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin===base)return r.continue();if(u.origin==='https://nespinozagonzalez-hub.github.io'&&u.pathname.startsWith('/misiones/'))return r.fulfill({path:path.join(root,u.pathname.slice('/misiones/'.length))});external.push(u.origin);return r.abort();});
   const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));
+  await p.setViewportSize({width:1600,height:1200});await p.goto(base+'/defensa-orbe/sprites-revision.html');
+  await p.getByText('18 poses cargadas.',{exact:true}).waitFor();assert.equal(await p.locator('canvas').count(),18);
+  assert.equal(await p.locator('canvas').evaluateAll(nodes=>nodes.every(c=>c.width===704&&c.height===576&&c.getContext('2d').getImageData(0,0,704,576).data.some((value,index)=>index%4===3&&value>0))),true,'Cada pose está aislada en un lienzo con contenido');
+  await p.screenshot({path:__dirname+'/preview-18-poses-independientes.png',fullPage:true});
+
   for(const size of [{width:1280,height:900},{width:768,height:1024},{width:1024,height:768},{width:390,height:844},{width:320,height:568},{width:844,height:390}]){
    await p.setViewportSize(size);await p.emulateMedia({reducedMotion:'reduce'});await p.goto(base+'/defensa-orbe/revision.html');
    await p.evaluate(()=>localStorage.setItem('QA-preserved','no modificar'));
@@ -72,6 +77,11 @@ const server=http.createServer((req,res)=>{
    if(size.width===1280||size.width===390)await p.screenshot({path:__dirname+`/preview-intro-${size.width}.png`,fullPage:true});
    await p.locator('[data-orbe-next]').click();
    for(const side of ['hero','enemy'])assert.equal(await p.locator('.orbe-'+side).evaluate(e=>e.querySelector('img').getBoundingClientRect().top>=e.querySelector('.orbe-nameplate').getBoundingClientRect().bottom-1),true,'El nombre no tapa al personaje '+side);
+   await p.waitForFunction(()=>document.querySelector('.orbe-hero')?.dataset.spriteReady==='1'&&document.querySelector('.orbe-enemy')?.dataset.spriteReady==='1');
+   await p.emulateMedia({reducedMotion:'no-preference'});
+   for(const side of ['hero','enemy'])assert.equal(await p.locator('.orbe-'+side).evaluate(e=>{const actor=e.querySelector('canvas'),box=actor.getBoundingClientRect(),area=e.querySelector('.orbe-actor-art').getBoundingClientRect();return actor.width===704&&actor.height===576&&box.top>=e.querySelector('.orbe-nameplate').getBoundingClientRect().bottom-1&&box.bottom<=area.bottom+1&&box.left>=area.left-1&&box.right<=area.right+1&&getComputedStyle(e.querySelector('img')).opacity==='0';}),true,'Cada pose cabe bajo su nombre sin superponer el retrato '+side+' '+JSON.stringify(size));
+   await p.emulateMedia({reducedMotion:'reduce'});
+
    if(size.width===390){await p.locator('[data-orbe-sound]').click();await p.waitForFunction(()=>/activado|no disponible/.test(document.querySelector('[data-orbe-sound]').textContent));if(await p.locator('[data-orbe-sound]').getAttribute('aria-pressed')==='true')await p.locator('[data-orbe-sound]').click();}
    await p.screenshot({path:__dirname+`/preview-orbe-${size.width}x${size.height}.png`,fullPage:true});
    if(size.width===320){
@@ -87,6 +97,10 @@ const server=http.createServer((req,res)=>{
     assert.equal(await p.locator('[data-orbe-hp]').getAttribute('value'),'100','Cancelar pregunta conserva el encuentro');
     await chooseAndAnswer(p,'evaluacion',{wrong:true,capture:true});
     assert.equal(await p.locator('[data-orbe-ward]').getAttribute('value'),'100','Responder activa la defensa real');
+    await p.locator('[data-orbe-next]').click();await p.emulateMedia({reducedMotion:'no-preference'});await chooseAndAnswer(p,'creacion');
+    assert.equal(await p.locator('.orbe-hero canvas').getAttribute('data-frame'),'5','Ataque móvil termina en su pose de recuperación');
+    await p.emulateMedia({reducedMotion:'reduce'});
+
    }
    // Cerrar antes de terminar no restaura ni escribe datos.
    await p.keyboard.press('Escape');await p.locator('dialog.orbe-rpg').waitFor({state:'detached'});assert.equal(await p.locator('#orbe').evaluate(el=>el.classList.contains('restored')),false);
@@ -107,28 +121,28 @@ const server=http.createServer((req,res)=>{
   const motionTitle=await p.locator('#orbe-quiz-question').innerText(),motionQuestion=Quiz.bank.find(q=>q.question===motionTitle);
   await p.locator('[data-quiz-option="'+motionQuestion.correct+'"]').click();await p.locator('[data-quiz-execute]').click();
   assert.equal(await p.locator('.orbe-rpg').getAttribute('data-motion'),'hero');
-  const firstPosition=await p.locator('.orbe-hero .orbe-sprite').evaluate(e=>getComputedStyle(e).backgroundPosition);
-  await p.waitForFunction(previous=>getComputedStyle(document.querySelector('.orbe-hero .orbe-sprite')).backgroundPosition!==previous,firstPosition);
-  assert.equal(await p.locator('.orbe-hero-art').evaluate(e=>getComputedStyle(e).visibility),'hidden');
+  const firstPosition=await p.locator('.orbe-hero .orbe-sprite').getAttribute('data-frame');
+  await p.waitForFunction(previous=>document.querySelector('.orbe-hero .orbe-sprite').dataset.frame!==previous,firstPosition);
+  assert.equal(await p.locator('.orbe-hero-art').evaluate(e=>getComputedStyle(e).opacity),'0');
   await p.screenshot({path:__dirname+'/preview-sprite-kael.png',fullPage:true});
   await p.waitForFunction(()=>document.querySelector('.orbe-rpg')?.dataset.motion==='enemy');
-  assert.equal(await p.locator('.orbe-enemy-art').evaluate(e=>getComputedStyle(e).visibility),'hidden');
+  assert.equal(await p.locator('.orbe-enemy-art').evaluate(e=>getComputedStyle(e).opacity),'0');
   await p.screenshot({path:__dirname+'/preview-sprite-lethon.png',fullPage:true});
   await p.waitForFunction(()=>document.querySelector('.orbe-rpg')?.dataset.screen==='battle');
-  assert.equal(await p.locator('.orbe-hero-art').evaluate(e=>getComputedStyle(e).visibility),'visible');await p.keyboard.press('Escape');
+  assert.equal(await p.locator('.orbe-hero-art').evaluate(e=>getComputedStyle(e).opacity),'0');await p.keyboard.press('Escape');
   await p.goto(base+'/defensa-orbe/revision.html');await p.locator('[data-action=orbe]').click();await p.locator('[data-orbe-next]').click();
   await p.waitForFunction(()=>document.querySelector('.orbe-hero')?.dataset.spriteReady==='1');
   await p.locator('[data-orbe-action=evaluacion]').click();
   const kiraTitle=await p.locator('#orbe-quiz-question').innerText(),kiraQuestion=Quiz.bank.find(q=>q.question===kiraTitle);
   await p.locator('[data-quiz-option="'+kiraQuestion.correct+'"]').click();await p.locator('[data-quiz-execute]').click();
-  assert.match(await p.locator('.orbe-hero .orbe-sprite').evaluate(e=>getComputedStyle(e).backgroundImage),/kira-ataque/);
-  assert.equal(await p.locator('.orbe-hero .orbe-sprite').evaluate(e=>getComputedStyle(e).animationName),'orbe-frames');
+  assert.equal(await p.locator('.orbe-hero .orbe-sprite').getAttribute('data-actor'),'kira');
+  assert.equal(await p.locator('.orbe-hero .orbe-sprite').evaluate(e=>getComputedStyle(e).backgroundImage),'none','El fotograma no desliza un atlas de fondo');
   await p.screenshot({path:__dirname+'/preview-sprite-kira.png',fullPage:true});
   await p.waitForFunction(()=>document.querySelector('.orbe-rpg')?.dataset.screen==='battle');await p.keyboard.press('Escape');
   // Si falta un atlas se conserva el retrato y la batalla sigue disponible.
   await p.route('**/kira-ataque-v3.webp',r=>r.abort());await p.goto(base+'/defensa-orbe/revision.html');await p.locator('[data-action=orbe]').click();await p.locator('[data-orbe-next]').click();
   await p.emulateMedia({reducedMotion:'reduce'});await chooseAndAnswer(p,'maestria');
-  assert.equal(await p.locator('.orbe-hero-art').evaluate(e=>getComputedStyle(e).visibility),'visible');await p.keyboard.press('Escape');await p.unroute('**/kira-ataque-v3.webp');
+  assert.equal(await p.locator('.orbe-hero-art').evaluate(e=>getComputedStyle(e).opacity),'1');await p.keyboard.press('Escape');await p.unroute('**/kira-ataque-v3.webp');
   await p.emulateMedia({reducedMotion:'reduce'});
   const live=ctx;
   await live.route('**/*',r=>{const u=new URL(r.request().url());if(u.origin===base)return r.continue();if(u.origin==='https://nespinozagonzalez-hub.github.io'&&u.pathname.startsWith('/misiones/'))return r.fulfill({path:path.join(root,u.pathname.slice('/misiones/'.length))});external.push(u.origin);return r.abort();});
@@ -146,6 +160,6 @@ const server=http.createServer((req,res)=>{
   await cloud.locator('[data-orbe-next]').click();await cloud.locator('[data-action=orbe]').click();await fight(cloud);await cloud.locator('[data-orbe-next]').click();
   assert.equal(requests.filter(r=>r.action==='guardarMision').length,countBefore,'Repetir la ceremonia no genera otro guardado');
   assert.deepEqual(errors,[]);assert.deepEqual(external,[],'Toda la QA quedó aislada de servicios externos');
-  console.log('PASS Orbe: seis encuadres, preguntas para ataque y defensa, error/pista/reintento, cancelación, atlas Kael y Lethon con poses distintas, movimiento reducido y respaldo sin atlas, victoria, epílogo y cuaderno/identidad/XP/saldo intactos con servicios simulados.');
+  console.log('PASS Orbe: seis encuadres, preguntas para ataque y defensa, error/pista/reintento, cancelación, poses independientes de Kael/Kira/Lethon, movimiento reducido y respaldo sin atlas, victoria, epílogo y cuaderno/identidad/XP/saldo intactos con servicios simulados.');
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});

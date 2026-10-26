@@ -85,11 +85,10 @@ body[data-ludaria-motion="off"] .orbe-rpg *{animation:none!important;transition:
 
 /* Repaso y atlas de seis poses: cada actor conserva su nombre y su barra. */
 .orbe-actor-art{position:relative;flex:1 1 0;min-height:0;width:100%;display:flex;justify-content:center}
-.orbe-actor-art .orbe-hero-art,.orbe-actor-art .orbe-enemy-art{position:absolute;inset:0;width:100%;height:100%!important;object-fit:contain;object-position:center bottom}
-.orbe-sprite{display:none;position:absolute;height:100%;aspect-ratio:1;max-width:100%;bottom:0;background-size:300% 200%;background-repeat:no-repeat;background-position:0 0;filter:drop-shadow(0 6px 12px #0008)}
-.orbe-enemy .orbe-sprite{mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
-.orbe-rpg[data-motion="hero"] .orbe-hero[data-sprite-ready] .orbe-sprite,.orbe-rpg[data-motion="enemy"] .orbe-enemy[data-sprite-ready] .orbe-sprite{display:block;animation:orbe-frames .84s step-end both}
-.orbe-rpg[data-motion="hero"] .orbe-hero[data-sprite-ready] .orbe-hero-art,.orbe-rpg[data-motion="enemy"] .orbe-enemy[data-sprite-ready] .orbe-enemy-art{visibility:hidden}
+.orbe-actor-art .orbe-hero-art,.orbe-actor-art .orbe-enemy-art{position:absolute;inset:0;width:100%;height:100%!important;object-fit:contain;object-position:center bottom;transition:none}
+.orbe-sprite{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 6px 12px #0008)}
+.orbe-fighter[data-sprite-ready] .orbe-sprite{display:block}
+.orbe-fighter[data-sprite-ready] .orbe-hero-art,.orbe-fighter[data-sprite-ready] .orbe-enemy-art{opacity:0}
 .orbe-spell{position:absolute;pointer-events:none;left:23%;top:62%;width:80px;height:14px;z-index:4;border-radius:100%;opacity:0;background:linear-gradient(90deg,transparent,#a8d88f,#f5e7a6);box-shadow:0 0 22px #b8da78}
 .orbe-rpg[data-motion="hero"] .orbe-spell{animation:orbe-spell-out .85s ease-in both}
 .orbe-rpg[data-motion="enemy"] .orbe-spell{left:auto;right:23%;background:linear-gradient(90deg,#7eb7a4,#29473a,transparent);box-shadow:0 0 20px #5aa989;animation:orbe-spell-back .85s ease-in both}
@@ -108,10 +107,11 @@ body[data-ludaria-motion="off"] .orbe-rpg *{animation:none!important;transition:
 .orbe-quiz-feedback{font:13px/1.5 system-ui;color:#e4d2a1;margin:12px 0 0}.orbe-quiz-feedback:empty{display:none}
 .orbe-quiz-hint{font:13px/1.5 system-ui;border-left:2px solid #9db582;padding:5px 10px;color:#c9d8bf;margin:10px 0}
 .orbe-quiz-tools{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.orbe-quiz-tools button{border:1px solid #617456;border-radius:6px;background:#0d2116;color:#d7d9bf;padding:8px 12px;font:12px system-ui;min-height:38px;cursor:pointer}
-@keyframes orbe-frames{0%{background-position:0 0}16.667%{background-position:50% 0}33.334%{background-position:100% 0}50.001%{background-position:0 100%}66.668%{background-position:50% 100%}83.335%,100%{background-position:100% 100%}}
 @keyframes orbe-spell-out{0%,35%{opacity:0;transform:translateX(0) scale(.3)}45%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateX(30vw) scale(1.4)}}
 @keyframes orbe-spell-back{0%,35%{opacity:0;transform:translateX(0) scale(.3)}45%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateX(-30vw) scale(1.4)}}
 @media(max-width:580px){.orbe-quiz-options{grid-template-columns:1fr;gap:7px}.orbe-quiz-options button{min-height:51px;padding:9px;font-size:12px}.orbe-quiz h3{font-size:21px}.orbe-quiz-tools{margin:9px 0}.orbe-quiz-feedback,.orbe-quiz-hint{font-size:12px}.orbe-rpg[data-screen="quiz"] .orbe-command{padding-top:10px}}
-@media(prefers-reduced-motion:reduce){.orbe-rpg .orbe-sprite,.orbe-rpg .orbe-spell{display:none!important}.orbe-rpg .orbe-actor-art img{visibility:visible!important}}
+@media(prefers-reduced-motion:reduce){.orbe-rpg .orbe-sprite,.orbe-rpg .orbe-spell{display:none!important}.orbe-rpg .orbe-actor-art img{visibility:visible!important;opacity:1!important}}
 body[data-ludaria-motion="off"] .orbe-rpg .orbe-sprite,body[data-ludaria-motion="off"] .orbe-rpg .orbe-spell{display:none!important}
-body[data-ludaria-motion="off"] .orbe-rpg .orbe-actor-art img{visibility:visible!important}
+body[data-ludaria-motion="off"] .orbe-rpg .orbe-actor-art img{visibility:visible!important;opacity:1!important}
+
+.orbe-rpg.is-restored .orbe-hero .orbe-sprite{filter:drop-shadow(0 0 18px #d5c98b99)}
