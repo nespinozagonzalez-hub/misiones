@@ -1,5 +1,7 @@
 # Entregas para incrustar · Ludaria
 
+> **26 de octubre de 2026 · carga y ayudas:** personaje completo en Forja/Mochi y pistas del guardián con emblema PNG en las 13 misiones. Se aplica mediante los recursos públicos compartidos, sin reinstalar Apps Script ni cambiar iframe. Vista segura: [Pistas del guardián](../ludaria/ayudas-revision.html). Checklist: [AYUDAS_Y_CARGA_20261026.md](AYUDAS_Y_CARGA_20261026.md).
+
 > **Importante: conservar Genially.** Los enlaces directos de Apps Script son una alternativa de conexión, no una indicación de reemplazar las incrustaciones anteriores. Las URL originales de GitHub Pages siguen publicadas; el puente está activo y se comprobaron Forja, Mochi y los 13 guardianes dentro del Genially real, conservando los iframe originales. No modificar en bloque los iframe existentes ni el receptor independiente de Misión 0.
 
 
