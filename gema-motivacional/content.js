@@ -38,7 +38,7 @@ window.GEMA={
  {title:'Dilema II · Los puntos arbitrarios',text:'Un taller reconoce avances con puntos. Los criterios no se anuncian y cambian durante la actividad. Aportes similares reciben reconocimientos distintos sin explicación. Un equipo dedica más tiempo a adivinar qué agrada al facilitador que a revisar su propuesta.'}
  ],
  quizzes:[
- {name:'Señales',question:'¿Qué conviene hacer antes de concluir cómo viven la clasificación?',options:[
+ {name:'Señales',question:'¿Qué harías para reunir evidencia sobre cómo afecta la clasificación pública a quienes participan en la actividad?',options:[
  {text:'Preguntar cómo la viven y contrastar esas respuestas con la participación observada.',why:'Relaciona una señal con la voz de quienes participan. El caso permite plantear hipótesis sobre varias necesidades; la posición en la lista no las diagnostica por sí sola.'},
  {text:'Afirmar que todas las personas sienten exactamente lo mismo.',why:'Una señal no describe a todas las personas. Pregunten y contrasten interpretaciones antes de generalizar.'},
  {text:'Subir los puntos sin revisar la regla de comparación.',why:'Mantiene la misma regla. No recoge información sobre la experiencia de quienes participan.'}
