@@ -139,7 +139,7 @@ Necesidades psicológicas y riesgos éticos mediante dilemas y rediseño.
 
 Producto: Rediseño argumentado y Fragmento II.
 
-Interacción: Tres facetas, candados y cuaderno.
+Interacción: Tres facetas, candados, cuaderno y ruta visual de cuatro hitos. El cierre orienta el canje de la runa en la Forja. [Checklist del piloto](PILOTO_AVANCE_GEMA_20261109.md)
 
 [Presentación](https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1)
 
