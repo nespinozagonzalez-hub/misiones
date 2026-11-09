@@ -160,3 +160,39 @@
   .gema-milestone-mark { width: 22px; height: 22px; }
   .gema-ritual-heading { grid-template-columns: 64px minmax(0, 1fr); }
 }
+
+#gema-route-rail { padding: 10px 5vw 0; }
+#gema-route-rail .gema-route { max-width: 1350px; margin: 0 auto; }
+.gema-backpack { position: relative; flex-shrink: 0; }
+.gema-backpack[hidden] { display: none; }
+#gema-backpack-count {
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  min-width: 17px;
+  padding: 1px 4px;
+  border-radius: 10px;
+  background: #e0c181;
+  color: #132319;
+  font: 700 11px/15px system-ui, sans-serif;
+}
+.gema-items { display: grid; gap: 10px; }
+.gema-item { padding: 12px 15px; border: 1px solid #b99c635c; border-radius: 8px; background: #13271b; }
+.gema-item h3 { margin: 0; color: #efcf91; font-size: 18px; }
+.gema-item p { margin: 5px 0 0; font-size: 14px; }
+.gema-item .actions { margin-top: 8px; }
+.gema-item .button { min-height: 38px; padding: 6px 12px; }
+
+@media screen and (min-width: 1000px) and (min-height: 620px) {
+  body[data-gema-loadout] { display: flex; flex-direction: column; height: 100dvh; min-height: 0; overflow: hidden; }
+  body[data-gema-loadout] > :is(.ludaria-cloud-bar, .hud, #gema-route-rail, .navigation, .ludaria-effects) { flex: 0 0 auto; }
+  body[data-gema-loadout] > #stage {
+    display: block;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+}

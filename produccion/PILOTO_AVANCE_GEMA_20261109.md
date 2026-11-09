@@ -30,3 +30,12 @@ La prueba de incrustaciones compara los 16 iframe originales. Las pruebas conect
 - [ ] Probar en clase si los jugadores se ubican, encuentran una decisión propia y explican cómo registrar su logro sin ayuda adicional.
 - [ ] Adaptar los hitos y las consignas de las demás misiones a sus actividades reales.
 - [ ] Evaluar la visualización del avance autenticado directamente en el mapa y la revisión específica de Genially. La consulta vigente del mapa independiente abre «Mi viaje» en la Forja.
+
+## Preparación de la sesión sincrónica
+
+- [x] La portada permite preparar la mochila y entrar con o sin ventajas equipadas.
+- [x] El icono superior indica cuántas ventajas de la misión están desbloqueadas por los atributos del personaje.
+- [x] Equipar y quitar organiza las ventajas durante la visita. Usarlas abre la ayuda existente y su validación habitual.
+- [x] En escritorio, la ruta, la mochila y los botones de navegación quedan fijos. El panel de actividades se desplaza cuando necesita espacio. En pantallas pequeñas, la página conserva el desplazamiento habitual.
+
+El piloto sigue en La Gema. La preparación se valida con personajes de prueba, incluido un personaje sin ventajas desbloqueadas.
