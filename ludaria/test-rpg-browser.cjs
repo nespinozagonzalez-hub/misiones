@@ -10,7 +10,8 @@ const call=(action,data)=>{const r=send({action,data,access,expectedRevision:per
 for(const code of ['ECO101','AXR314','LUM582','VYR207','NEX451','ORB126','KRN693','ZEN248','ELD570','MIR831','ARC419','NEB264','CYR905','ORB714'])call('runa',{code});
 call('redistribuir',{skills:Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,8]))});
 t.c.UrlFetchApp.fetch=url=>({getResponseCode:()=>200,getContentText:()=>fs.readFileSync(path.join(root,url.replace('https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/','')),'utf8')});
-const server=http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');if(url.pathname==='/frame'){const slug=url.searchParams.get('mision');if(!catalog.find(slug)){res.statusCode=404;res.end();return;}res.setHeader('content-type','text/html');res.end('<!doctype html><html lang="es"><body><iframe title="Prueba local de Ludaria" src="/cloud?mision='+encodeURIComponent(slug)+'#pantalla-1" style="width:100%;height:720px;border:0"></iframe></body></html>');return;}if(url.pathname==='/cloud'){const slug=url.searchParams.get('mision')||'forja';t.c.params={parameter:{mision:slug}};res.setHeader('content-type','text/html');res.end(t.run('doGet(params).html').replace('https://nespinozagonzalez-hub.github.io/misiones/'+slug+'/', '/'+slug+'/'));return;}let file=path.join(root,url.pathname);if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){res.statusCode=404;res.end();return;}res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html');res.end(fs.readFileSync(file));});
+const mimeTypes={'.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'};
+const server=http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');if(url.pathname==='/frame'){const slug=url.searchParams.get('mision');if(!catalog.find(slug)){res.statusCode=404;res.end();return;}res.setHeader('content-type','text/html');res.end('<!doctype html><html lang="es"><body><iframe title="Prueba local de Ludaria" src="/cloud?mision='+encodeURIComponent(slug)+'#pantalla-1" style="width:100%;height:720px;border:0"></iframe></body></html>');return;}if(url.pathname==='/cloud'){const slug=url.searchParams.get('mision')||'forja';t.c.params={parameter:{mision:slug}};res.setHeader('content-type','text/html');res.end(t.run('doGet(params).html').replace('https://nespinozagonzalez-hub.github.io/misiones/'+slug+'/', '/'+slug+'/'));return;}let file=path.join(root,url.pathname);if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){res.statusCode=404;res.end();return;}res.setHeader('content-type',mimeTypes[path.extname(file)]||'text/html');res.end(fs.readFileSync(file));});
 async function enterCharacter(surface, name, pin) {
  const form=surface.locator('#cloud-login');
  await form.locator('[name=name]').fill(name);
@@ -68,6 +69,16 @@ async function checkGemaJourney(browser, base) {
   await mission.getByRole('button',{name:'Preparar mochila'}).click();
   const preparation=mission.locator('#modal[open]');
   assert.equal(await preparation.getByRole('button',{name:/^Equipar/}).count(),0);
+  assert.equal(await preparation.getByText('Bloqueado',{exact:true}).count(),3);
+  assert.deepEqual(await preparation.locator('.gema-item-effect > strong').allTextContents(),[
+   '3 preguntas para leer el caso','2 formas de abordar el dilema','1 prueba de inclusión'
+  ]);
+  assert.match(await preparation.getByRole('article',{name:'Tres facetas'}).innerText(),/Requiere Sabiduría 3 · Tienes 1/);
+  assert.match(await preparation.getByRole('article',{name:'Ensayo del cuidado'}).innerText(),/Requiere Evaluación 8 · Tienes 1/);
+  const itemImages=preparation.locator('.gema-item-slot img');
+  assert.equal(await itemImages.count(),3);
+  await itemImages.evaluateAll(images=>Promise.all(images.map(image=>image.decode())));
+  assert.equal(await preparation.evaluate(dialog=>dialog.getBoundingClientRect().bottom<=innerHeight),true);
   await preparation.getByRole('button',{name:'Entrar sin equipar'}).click();
   assert.equal(await mission.locator('#page-count').innerText(),'2 / 12');
   await go(12);
@@ -193,10 +204,35 @@ try{
   await p.locator('[data-access-scenery="'+mission.slug+'"]').waitFor();assert.equal(await p.locator('.ludaria-cloud-dialog h2').innerText(),mission.guardian);assert.equal(await p.locator('#cloud-register').isVisible(),false);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Acceso móvil sin desbordamiento');if(mission.slug==='pergaminos-dispersos')await p.screenshot({path:__dirname+'/preview-acceso-mision-mobile.png',fullPage:true});await login(p);
   if(mission.slug==='gema-motivacional'){
    const before=await p.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp}));
+   await p.setViewportSize({width:390,height:568});
    await p.getByRole('button',{name:'Preparar mochila'}).click();
+   const pack=p.locator('#modal.gema-inventory[open]');
+   const keepEntryVisible=await pack.evaluate(dialog=>{
+    const items=dialog.querySelector('.gema-items');
+    const entry=dialog.querySelector('[data-action=enter-session]');
+    const before=entry.getBoundingClientRect();
+    items.scrollTop=items.scrollHeight;
+    const after=entry.getBoundingClientRect();
+    return items.scrollTop>0 && items.scrollWidth<=items.clientWidth+1 && before.top===after.top && after.bottom<=innerHeight;
+   });
+   assert.equal(keepEntryVisible,true,'La acción de entrada sigue a la vista mientras se desplazan las fichas');
+   await pack.locator('.gema-items').focus();
+   assert.equal(await pack.locator('.gema-items').evaluate(items=>{
+    window.dispatchEvent(new Event('ludaria:profile'));
+    return items===document.activeElement;
+   }),true,'Una actualización de atributos conserva el foco del inventario');
    await p.getByRole('button',{name:'Equipar Tres facetas'}).click();
+   const remove=p.getByRole('button',{name:'Quitar Tres facetas'});
+   assert.equal(await remove.evaluate(button=>button===document.activeElement),true);
+   assert.equal(await pack.locator('.gema-pack-footer [role=status]').innerText(),'1 objeto equipado');
+   assert.equal(await pack.getByRole('article',{name:'Tres facetas'}).getByText('Equipado',{exact:true}).count(),1);
+   await p.getByRole('button',{name:'Equipar Ensayo del cuidado'}).click();
+   assert.equal(await pack.locator('.gema-pack-footer [role=status]').innerText(),'2 objetos equipados');
+   await p.getByRole('button',{name:'Quitar Ensayo del cuidado'}).click();
    await p.getByRole('button',{name:'Entrar a la sesión',exact:true}).click();
-   await p.getByRole('button',{name:/Mochila de ventajas, 3 disponibles y 1 equipadas/}).click();
+   await p.setViewportSize({width:390,height:844});
+   await p.getByRole('button',{name:'Mochila de ventajas, 3 disponibles y 1 equipada'}).click();
+   assert.equal(await pack.getByRole('button',{name:/^Usar/}).count(),1);
    await p.getByRole('button',{name:'Usar Tres facetas',exact:true}).click();
    await p.locator('.ludaria-cloud-dialog[open] h2').getByText('Tres facetas',{exact:true}).waitFor();
    await p.keyboard.press('Escape');

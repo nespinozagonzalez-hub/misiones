@@ -42,15 +42,32 @@ function missionRoute(pageIndex) {
 }
 
 const equipped = new Set();
+const itemGear = {
+  'gema-motivacional_0': {
+    art: 'pocion', type: 'Poción de enfoque', effect: '3 preguntas para leer el caso',
+    benefit: 'Detecta si hay elección, apoyo para avanzar y sentido de pertenencia.',
+    when: 'Úsala al analizar un dilema'
+  },
+  'gema-motivacional_1': {
+    art: 'prisma', type: 'Prisma de contraste', effect: '2 formas de abordar el dilema',
+    benefit: 'Compara dar más opciones con ofrecer más apoyo o fortalecer al equipo.',
+    when: 'Úsalo al decidir qué atender primero'
+  },
+  'gema-motivacional_2': {
+    art: 'corazon', type: 'Corazón del cuidado', effect: '1 prueba de inclusión',
+    benefit: 'Ensaya una forma de participar sin competir ni exponerse.',
+    when: 'Úsalo antes de compartir tu rediseño'
+  }
+};
 
 function missionPerks() {
   const profile = window.LudariaCloud?.profile;
   const mission = window.LudariaRPG?.find('gema-motivacional');
   if (!$('gema-backpack') || !profile || !mission || !window.LudariaRPGUI?.openPerk) return [];
-  return mission.perks.map(perk => ({
-    ...perk,
-    available: (profile.skills?.[perk.attribute] ?? 1) >= perk.minimum
-  }));
+  return mission.perks.map(perk => {
+    const current = profile.skills?.[perk.attribute] ?? 1;
+    return {...perk, current, available: current >= perk.minimum};
+  });
 }
 
 function updateBackpack() {
@@ -63,36 +80,77 @@ function updateBackpack() {
   if (!button) return perks;
   button.hidden = !perks.length;
   $('gema-backpack-count').textContent = available.length;
-  button.setAttribute('aria-label', `Mochila de ventajas, ${available.length} disponibles y ${equipped.size} equipadas`);
+  button.dataset.equipped = String(equipped.size > 0);
+  const availableLabel = available.length === 1 ? '1 disponible' : `${available.length} disponibles`;
+  button.setAttribute('aria-label', `Mochila de ventajas, ${availableLabel} y ${equipped.size} ${equipped.size === 1 ? 'equipada' : 'equipadas'}`);
   return perks;
 }
 
-function backpack(preparing = false, focusId = '') {
+function inventoryCard(perk, preparing) {
+  const gear = itemGear[perk.id];
+  const selected = equipped.has(perk.id);
+  const id = esc(perk.id);
+  const name = esc(perk.name);
+  const attribute = esc(window.LudariaRPG.attributes[perk.attribute]);
+  const itemState = selected ? 'equipped' : perk.available ? 'available' : 'locked';
+  const stateLabel = selected ? 'Equipado' : perk.available ? 'Disponible' : 'Bloqueado';
+  const lock = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5a3 3 0 0 1 6 0v2M3 7h10v7H3z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+  return `<article class="gema-item" data-item-art="${gear?.art || ''}" data-item-state="${itemState}" aria-labelledby="gema-item-${id}">
+    <div class="gema-item-heading">
+      ${gear ? `<div class="gema-item-slot"><img src="assets/objeto-${gear.art}.svg" alt="" width="64" height="64"></div>` : ''}
+      <div>${gear ? `<span class="gema-item-type">${gear.type}</span>` : ''}<h3 id="gema-item-${id}">${name}</h3></div>
+    </div>
+    <div class="gema-item-effect">
+      <strong>${gear?.effect || name}</strong>
+      <p>${gear?.benefit || esc(perk.text)}</p>
+      ${gear ? `<p class="gema-item-when">${gear.when}</p>` : ''}
+    </div>
+    <div class="gema-item-controls">
+      <span class="gema-item-status">${perk.available ? '' : lock}${stateLabel}</span>
+      ${perk.available ? `<div class="gema-item-buttons">
+        ${b('equip-perk', selected ? 'Quitar' : 'Equipar', `data-perk="${id}" aria-label="${selected ? 'Quitar' : 'Equipar'} ${name}"`, true)}
+        ${selected && !preparing ? b('use-perk','Usar',`data-perk="${id}" aria-label="Usar ${name}"`) : ''}
+      </div>` : `<p class="gema-item-requirement">Requiere ${attribute} <strong>${esc(perk.minimum)}</strong> · Tienes ${esc(perk.current)}</p>`}
+    </div>
+  </article>`;
+}
+
+function backpack(preparing = false) {
   const perks = updateBackpack();
-  const cards = perks.map(perk => {
-    const selected = equipped.has(perk.id);
-    const id = esc(perk.id);
-    const requirement = esc(window.LudariaRPG.attributes[perk.attribute]) + ' ' + perk.minimum;
-    return `<article class="gema-item">
-      <div><h3>${esc(perk.name)}</h3><p>${perk.available ? esc(perk.text) : 'Se desbloquea con ' + requirement + '.'}</p></div>
-      <div class="actions">
-        ${perk.available ? b('equip-perk', selected ? 'Quitar' : 'Equipar', `data-perk="${id}" aria-label="${selected ? 'Quitar' : 'Equipar'} ${esc(perk.name)}"`, true) : '<span class="note">Por desbloquear</span>'}
-        ${selected ? '<span class="note">Equipada</span>' : ''}
-        ${selected && !preparing ? b('use-perk','Usar ventaja',`data-perk="${id}" aria-label="Usar ${esc(perk.name)}"`) : ''}
-      </div>
-    </article>`;
-  }).join('');
-  modal(preparing ? 'Prepara tu mochila' : 'Mochila de ventajas', `
-    <div data-gema-preparing="${preparing}">
-      <p>${preparing ? 'Equipa las ventajas que quieras tener a mano durante la sesión sincrónica.' : 'Elige qué ventajas quieres tener a mano. Desde aquí puedes usar las que equipes.'}</p>
-      <p class="note" role="status">${equipped.size} equipadas para esta visita · sin costo</p>
-      <div class="gema-items">${cards}</div>
-      <div class="actions">${preparing ? b('enter-session', equipped.size ? 'Entrar a la sesión' : 'Entrar sin equipar') : b('close','Volver a la sesión')}</div>
-    </div>`);
-  if (focusId) {
-    [...$('modal-body').querySelectorAll('[data-action=equip-perk]')]
-      .find(button => button.dataset.perk === focusId)?.focus({preventScroll:true});
+  const dialog = $('modal');
+  let pack = dialog.open && dialog.querySelector('.gema-pack');
+  if (!perks.length) {
+    if (pack) close();
+    return;
   }
+  if (!pack) {
+    modal(preparing ? 'Prepara tu mochila' : 'Mochila de ventajas', `
+      <div class="gema-pack" data-gema-preparing="${preparing}">
+        <p class="gema-pack-intro" id="gema-pack-intro">${preparing ? 'Equipa lo que quieras llevar. En la sesión, abre <strong>Mochila</strong> y elige <strong>Usar</strong>.' : 'Elige <strong>Usar</strong> en un objeto equipado para abrir su ayuda.'}</p>
+        <div class="gema-items" role="region" aria-label="Objetos de la mochila" tabindex="0"></div>
+        <footer class="gema-pack-footer">
+          <div><strong role="status"></strong><small>Sin costo · Durante esta visita</small></div>
+          ${preparing ? b('enter-session','Entrar sin equipar') : b('close','Volver a la sesión','',true)}
+        </footer>
+      </div>`, true);
+    pack = dialog.querySelector('.gema-pack');
+  }
+  const cards = pack.querySelector('.gema-items');
+  const scrollTop = cards.scrollTop;
+  const active = document.activeElement;
+  const focused = active !== cards && cards.contains(active) ? active.dataset : null;
+  cards.innerHTML = perks.map(perk => inventoryCard(perk, preparing)).join('');
+  cards.scrollTop = scrollTop;
+  if (focused) {
+    const nextFocus = [...cards.querySelectorAll('button')].find(button =>
+      button.dataset.perk === focused.perk && button.dataset.action === focused.action);
+    (nextFocus || $('modal-title')).focus({preventScroll:true});
+  }
+  const count = pack.querySelector('[role=status]');
+  const summary = equipped.size === 1 ? '1 objeto equipado' : `${equipped.size} objetos equipados`;
+  if (count.textContent !== summary) count.textContent = summary;
+  const enter = pack.querySelector('[data-action=enter-session]');
+  if (enter) enter.textContent = equipped.size ? 'Entrar a la sesión' : 'Entrar sin equipar';
 }
 
 function prepareSession() {
@@ -224,9 +282,25 @@ function render(focus=false){
   else $('stage').querySelector('.scene-content, .cover-content')?.insertAdjacentHTML('afterbegin',missionRoute(state.page));
   updateMilestones();
   updateBackpack();
-  $('page-count').textContent=`${state.page+1} / 12`;$('previous').disabled=state.page===0;$('next-label').textContent=state.page===11?'Mi registro':state.page===0&&missionPerks().length?'Entrar sin equipar':'Siguiente';$('route-dots').innerHTML=C.pages.map((p,i)=>`<button class="route-dot ${state.visited.includes(i)?'visited':''} ${i===state.page?'current':''}" data-action="go" data-page="${i}" aria-label="Pantalla ${i+1}: ${p.title}" ${i===state.page?'aria-current="step"':''}></button>`).join('');$('seal-status').innerHTML=C.quizzes.map((q,i)=>`<button class="seal-dot ${state.seals[i]}" data-action="seal" data-quiz="${i}" aria-label="Candado ${q.name}: ${status(state.seals[i])}">${i+1}</button>`).join('');if(focus)$('stage').focus({preventScroll:true});}
+  $('page-count').textContent = `${state.page + 1} / 12`;
+  $('previous').disabled = state.page === 0;
+  $('next-label').textContent = 'Siguiente';
+  if (state.page === 11) $('next-label').textContent = 'Mi registro';
+  if (state.page === 0 && $('gema-backpack')?.hidden === false) {
+    $('next-label').textContent = equipped.size ? 'Entrar a la sesión' : 'Entrar sin equipar';
+  }
+  $('route-dots').innerHTML=C.pages.map((p,i)=>`<button class="route-dot ${state.visited.includes(i)?'visited':''} ${i===state.page?'current':''}" data-action="go" data-page="${i}" aria-label="Pantalla ${i+1}: ${p.title}" ${i===state.page?'aria-current="step"':''}></button>`).join('');$('seal-status').innerHTML=C.quizzes.map((q,i)=>`<button class="seal-dot ${state.seals[i]}" data-action="seal" data-quiz="${i}" aria-label="Candado ${q.name}: ${status(state.seals[i])}">${i+1}</button>`).join('');if(focus)$('stage').focus({preventScroll:true});}
 function go(n){if(!Number.isInteger(n)||n<0||n>=12)return;if($('modal').open)$('modal').close();state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();history.replaceState(null,'',`#pantalla-${n+1}`);render(true);$('stage').scrollTop=0;window.scrollTo({top:0,behavior:'instant'});}
-function modal(h,body){if(!$('modal').open)opener=document.activeElement;$('modal-body').innerHTML=`<h2 id="modal-title" tabindex="-1">${h}</h2>${body}`;if(!$('modal').open)$('modal').showModal();$('modal-title').focus({preventScroll:true});}
+function modal(h, body, inventory = false) {
+  const dialog = $('modal');
+  if (!dialog.open) opener = document.activeElement;
+  dialog.classList.toggle('gema-inventory', inventory);
+  if (inventory) dialog.setAttribute('aria-describedby', 'gema-pack-intro');
+  else dialog.removeAttribute('aria-describedby');
+  $('modal-body').innerHTML = `<h2 id="modal-title" tabindex="-1">${h}</h2>${body}`;
+  if (!dialog.open) dialog.showModal();
+  $('modal-title').focus({preventScroll:true});
+}
 function close(){const old=opener,d=old?.dataset?{...old.dataset}:null;$('modal').close();render();if(old?.isConnected)old.focus({preventScroll:true});else if(d){[...document.querySelectorAll('[data-action]')].find(x=>Object.entries(d).every(([k,v])=>x.dataset[k]===v))?.focus({preventScroll:true});}}
 function toast(msg){clearTimeout(toastTimeout);$('toast').textContent=msg;$('toast').hidden=false;toastTimeout=setTimeout(()=>$('toast').hidden=true,4000);}
 function reward(i){modal('La pauta de '+C.quizzes[i].name,`<p>${status(state.seals[i])}. Recurso complementario para conversar.</p><ul class="reward-list">${C.quizzes[i].reward.map(x=>`<li>${x}</li>`).join('')}</ul><p class="note">La elección que revisamos:</p><p>${C.quizzes[i].options[C.quizzes[i].correct].why}</p><p class="note"><strong>Tu siguiente paso.</strong> ${quizNext[i]}</p><p class="note">Pauta elaborada para esta actividad. No es una rúbrica de la tesis ni una calificación.</p>`);}
@@ -242,7 +316,7 @@ case 'equip-perk': {
   if (!missionPerks().some(perk => perk.id === id && perk.available)) break;
   if (equipped.has(id)) equipped.delete(id);
   else equipped.add(id);
-  backpack(el.closest('[data-gema-preparing]').dataset.gemaPreparing === 'true', id);
+  backpack(el.closest('[data-gema-preparing]').dataset.gemaPreparing === 'true');
   break;
 }
 case 'enter-session':go(1);break;
