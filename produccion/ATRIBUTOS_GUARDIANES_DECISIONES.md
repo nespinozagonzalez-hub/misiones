@@ -13,7 +13,7 @@ La apertura Misión 0 mantiene su receptor de diagnóstico. Las 13 misiones post
 | El Claro del Debate | Liora, guardiana de las voces | presentacion.html | Camaradería 3: Turnos del claro<br>Camaradería 5: La silla del contrapunto<br>Sabiduría 8: Puente entre fuentes |
 | Las Vetas del Diseño | Brina, centinela de la cantera | presentacion.html | Maestría 3: Lente de la cantera<br>Maestría 5: Ojo del Artesano<br>Creación 8: Una veta, dos formas |
 | El Tallado de Mecánicas | Rokan, tallador de rutas | presentacion.html | Maestría 3: Mapa del bucle<br>Maestría 5: Banco de variaciones<br>Evaluación 8: Prueba de tensión |
-| La Gema Motivacional | Savia, guardiana de las facetas | presentacion.html | Sabiduría 3: Tres facetas<br>Sabiduría 5: Contraluz de la gema<br>Evaluación 8: Ensayo del cuidado |
+| La Gema Motivacional | Savia, guardiana de las facetas | presentacion.html | Sabiduría 3 · Poción de enfoque (Tres facetas)<br>Sabiduría 5 · Prisma de contraste (Contraluz de la gema)<br>Evaluación 8 · Corazón del cuidado (Ensayo del cuidado) |
 | Los Planos del Arquitecto | Daren, custodio de los planos | presentacion.html | Creación 3: Regla del arquitecto<br>Creación 5: Taller de bifurcaciones<br>Maestría 8: Circuito del plano |
 | El Yunque | Ferna, guardiana de las chispas | presentacion.html | Creación 3: Molde de la primera pieza<br>Creación 5: Forja de alternativas<br>Camaradería 8: Mesa de artesanos |
 | El Templado entre Pares | Neris, mediadora del taller | presentacion.html | Camaradería 3: Acuerdo entre pares<br>Camaradería 5: Diálogo del templado<br>Evaluación 8: Contraste de recomendaciones |
@@ -70,9 +70,11 @@ Relaciona reglas, acciones del jugador y experiencia en un juego.
 
 Rediseña una decisión atendiendo a autonomía, competencia y relación.
 
-- **Tres facetas · Sabiduría 3.** Pregunta si existe una elección significativa, un desafío con apoyo y una relación respetuosa. Distingue necesidad psicológica de una recompensa material.
-- **Contraluz de la gema · Sabiduría 5.** Revisa el mismo dilema desde dos necesidades psicológicas. Elige cuál atender primero y justifica qué tensión permanece. Rutas: Priorizar autonomía / Priorizar competencia o relación.
-- **Ensayo del cuidado · Evaluación 8.** Revisa el rediseño para alguien que no quiera competir o exponerse. Identifica una alternativa equivalente y comprueba que la participación siga siendo voluntaria. Rutas: Ensayar el desafío / Preparar el ensayo para después.
+| Objeto de la mochila | Beneficio y momento de uso | Desbloqueo |
+| --- | --- | --- |
+| Poción de enfoque · Tres facetas | Tres preguntas al analizar el caso. Comprueba si hay una elección significativa, un desafío con apoyo y una relación respetuosa. Distingue una necesidad psicológica de una recompensa material. | Sabiduría 3 |
+| Prisma de contraste · Contraluz de la gema | Dos enfoques al decidir qué atender primero. Compara priorizar autonomía con priorizar competencia o relación. Elige una ruta y justifica qué tensión permanece. | Sabiduría 5 |
+| Corazón del cuidado · Ensayo del cuidado | Una prueba de inclusión antes de compartir el rediseño. Ensaya ahora o prepara una alternativa que permita aprender lo mismo y participar voluntariamente, sin competir ni exponerse. | Evaluación 8 |
 
 ### Los Planos del Arquitecto
 

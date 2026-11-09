@@ -35,7 +35,8 @@ La prueba de incrustaciones compara los 16 iframe originales. Las pruebas conect
 
 - [x] La portada permite preparar la mochila y entrar con o sin ventajas equipadas.
 - [x] El icono superior indica cuántas ventajas de la misión están desbloqueadas por los atributos del personaje.
-- [x] Equipar y quitar organiza las ventajas durante la visita. Usarlas abre la ayuda existente y su validación habitual.
+- [x] Las fichas de la poción, el prisma y el corazón muestran qué aporta cada objeto, cuándo usarlo y qué atributo pide aunque todavía esté bloqueado. La [tabla de beneficios](ATRIBUTOS_GUARDIANES_DECISIONES.md#la-gema-motivacional) relaciona los objetos con las ayudas del catálogo.
+- [x] Equipar y quitar organiza los objetos durante la visita. El botón «Usar» abre la ayuda correspondiente durante la sesión. El contador y la acción para entrar quedan visibles mientras se revisan los objetos.
 - [x] En escritorio, la ruta, la mochila y los botones de navegación quedan fijos. El panel de actividades se desplaza cuando necesita espacio. En pantallas pequeñas, la página conserva el desplazamiento habitual.
 
 El piloto sigue en La Gema. La preparación se valida con personajes de prueba, incluido un personaje sin ventajas desbloqueadas.
