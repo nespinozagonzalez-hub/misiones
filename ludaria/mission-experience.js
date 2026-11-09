@@ -60,6 +60,7 @@
   const skipped = new Set(), skipRequests = new Map();
   let supportsOmission = false;
   function contextualAdvantage() {
+    if (document.body.hasAttribute('data-gema-loadout')) return;
     const cloud = window.LudariaCloud;
     const mission = window.LudariaRPG?.find(window.LUDARIA_CLOUD_CONFIG?.route);
     const match = counter.textContent.match(/(\d+)\s*\/\s*(\d+)/);
@@ -142,6 +143,7 @@
   });
   window.addEventListener('ludaria:savestatus', updateNotebookStatus);
   window.LudariaCloud?.ready?.then(async () => {
+    if (document.body.hasAttribute('data-gema-loadout')) return;
     contextualAdvantage();
     try {
       const catalogue = await window.LudariaCloud.api('catalogoRpg', {mission:window.LUDARIA_CLOUD_CONFIG.route});

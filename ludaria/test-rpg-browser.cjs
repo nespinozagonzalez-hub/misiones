@@ -65,6 +65,11 @@ async function checkGemaJourney(browser, base) {
 
   assert.equal(await milestones.count(),4);
   assert.match(await step.innerText(),/Explora/);
+  await mission.getByRole('button',{name:'Preparar mochila'}).click();
+  const preparation=mission.locator('#modal[open]');
+  assert.equal(await preparation.getByRole('button',{name:/^Equipar/}).count(),0);
+  await preparation.getByRole('button',{name:'Entrar sin equipar'}).click();
+  assert.equal(await mission.locator('#page-count').innerText(),'2 / 12');
   await go(12);
   assert.match(await step.innerText(),/Cierra/);
   assert.equal(await route.locator('.has-evidence').count(),0,'Visitar el cierre solo cambia la ubicación');
@@ -131,7 +136,17 @@ async function checkGemaJourney(browser, base) {
   const frame=page.frames().find(item=>item.url().includes('/cloud?mision=gema-motivacional'));
   assert.ok(frame);
   assert.equal(await frame.evaluate(()=>innerHeight),720);
-  assert.equal(await forgeLink.evaluate(link=>link.getBoundingClientRect().bottom<=innerHeight+1),true,'La Forja queda visible en el marco de 720px');
+  const fixedLayout=await frame.evaluate(()=>{
+   const stage=document.querySelector('#stage');
+   const bar=document.querySelector('#gema-route-rail');
+   const footer=document.querySelector('.navigation');
+   const before=[bar.getBoundingClientRect().top,footer.getBoundingClientRect().top];
+   stage.scrollTop=stage.scrollHeight;
+   return stage.scrollTop>0 && window.scrollY===0 &&
+     before[0]===bar.getBoundingClientRect().top && before[1]===footer.getBoundingClientRect().top;
+  });
+  assert.equal(fixedLayout,true,'El contenido se desplaza y la ruta y navegación permanecen fijas');
+  await forgeLink.scrollIntoViewIfNeeded();
   await page.screenshot({path:__dirname+'/preview-gema-cierre-720.png'});
   await page.setViewportSize({width:390,height:844});
   assert.equal(await frame.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
@@ -176,6 +191,17 @@ try{
  for(const mission of catalog.missions){
   const p=await ctx.newPage();p.on('pageerror',e=>errors.push(mission.slug+': '+e.message));p.on('dialog',d=>d.type()==='beforeunload'?d.accept():d.dismiss());await p.exposeFunction('mockApi',send);await p.route('https://fonts.googleapis.com/**',r=>r.abort());await p.route('https://fonts.gstatic.com/**',r=>r.abort());await p.goto(base+'/cloud?mision='+mission.slug+'#pantalla-1');
   await p.locator('[data-access-scenery="'+mission.slug+'"]').waitFor();assert.equal(await p.locator('.ludaria-cloud-dialog h2').innerText(),mission.guardian);assert.equal(await p.locator('#cloud-register').isVisible(),false);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Acceso móvil sin desbordamiento');if(mission.slug==='pergaminos-dispersos')await p.screenshot({path:__dirname+'/preview-acceso-mision-mobile.png',fullPage:true});await login(p);
+  if(mission.slug==='gema-motivacional'){
+   const before=await p.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp}));
+   await p.getByRole('button',{name:'Preparar mochila'}).click();
+   await p.getByRole('button',{name:'Equipar Tres facetas'}).click();
+   await p.getByRole('button',{name:'Entrar a la sesión',exact:true}).click();
+   await p.getByRole('button',{name:/Mochila de ventajas, 3 disponibles y 1 equipadas/}).click();
+   await p.getByRole('button',{name:'Usar Tres facetas',exact:true}).click();
+   await p.locator('.ludaria-cloud-dialog[open] h2').getByText('Tres facetas',{exact:true}).waitFor();
+   await p.keyboard.press('Escape');
+   assert.deepEqual(await p.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp})),before);
+  }
   await p.locator('[data-cloud-advantage]').click();await p.locator('[data-rpg-open]').first().waitFor();assert.equal(await p.locator('[data-rpg-open]').count(),3);
   for(const perk of mission.perks){
    await p.locator('[data-rpg-open="'+perk.id+'"]').click();await p.locator('.ludaria-cloud-dialog[open] h2').getByText(perk.name,{exact:true}).waitFor();assert.ok((await p.locator('.ludaria-cloud-dialog').innerText()).includes(perk.text));assert.equal(await p.evaluate(()=>document.querySelector('dialog[open]')?.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
