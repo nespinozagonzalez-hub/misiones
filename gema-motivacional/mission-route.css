@@ -1,0 +1,162 @@
+.gema-route {
+  margin: 0 0 20px;
+  padding: 12px 14px;
+  border: 1px solid #b99c634d;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #163122f5, #08170ff5);
+  box-shadow: 0 10px 28px #0003;
+}
+
+.cover-content .gema-route { margin: 18px 0 0; }
+
+.gema-route-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  align-items: center;
+  color: #e7cd94;
+  font-size: 13px;
+}
+
+.gema-route-heading > span { color: #c8d6c8; }
+
+.gema-milestones {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.gema-milestone {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #8db19630;
+  border-radius: 8px;
+  background: #0a1912;
+  color: #e9eadd;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.gema-milestone[aria-current="step"] {
+  border-color: #d8ba7a;
+  background: #2b3424;
+  box-shadow: inset 0 -2px #d8ba7a;
+}
+
+.gema-milestone-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #8db19661;
+  border-radius: 6px;
+  color: #d1dfca;
+  font: 700 12px/1 system-ui, sans-serif;
+}
+
+.gema-milestone[aria-current="step"] .gema-milestone-mark {
+  color: #132319;
+  border-color: #d8ba7a;
+  background: #e0c181;
+}
+
+.gema-milestone.has-evidence .gema-milestone-note { color: #a6e7b7; }
+.gema-milestone.has-evidence:not([aria-current="step"]) .gema-milestone-mark {
+  border-color: #76c996;
+  background: #275139;
+  color: #e1f5df;
+}
+
+.gema-milestone-note {
+  display: block;
+  margin-top: 2px;
+  color: #c0cbbb;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.gema-now, .gema-choice-label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 7px;
+  border: 1px solid #c9a66b66;
+  border-radius: 5px;
+  color: #f0d498;
+  background: #243021;
+  font: 700 11px/1.5 system-ui, sans-serif;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.gema-reading, .gema-save-note { color: #c7e4ce; }
+.gema-case-reminder { max-width: 800px; }
+.feedback.success { border-color: #80ca95; background: #193e29; }
+
+.gema-finale {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 16px;
+  margin-top: 16px;
+  align-items: start;
+}
+
+.gema-ritual-heading {
+  display: grid;
+  grid-template-columns: minmax(54px, 96px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.gema-ritual .gem-visual { width: 100%; margin: 0; }
+.gema-ritual .fragment > span { font-size: 18px; inset: 33% 0 auto; }
+.gema-ritual .ceremony-title { font-size: clamp(1.25rem, 2.1vw, 1.9rem); margin: 4px 0 0; }
+.gema-finish-guide {
+  padding: clamp(16px, 2.4vw, 24px);
+  border: 1px solid #b99c6366;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #203d29, #102117);
+  color: #efeee1;
+  font-size: 15px;
+}
+
+.gema-finish-guide h3 { margin: 4px 0 8px; color: #f0d498; }
+.gema-finish-guide ol { margin: 0; padding-inline-start: 1.35em; }
+.gema-finish-guide li + li { margin-top: 6px; }
+.gema-finish-guide li::marker { color: #e2be79; font-weight: bold; }
+.stage .gema-finish-guide .actions { margin-top: 12px; }
+.stage .gema-finish-guide .gema-save-note { margin: 9px 0 0; }
+.gema-next-stop {
+  margin: 14px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid #b99c634d;
+  color: #c7d9c7;
+  font-size: 13px;
+}
+.gema-next-stop strong { color: #f0d498; margin-right: 4px; }
+
+@media (min-width: 761px) and (max-height: 800px) {
+  .gema-finale { gap: 12px; margin-top: 12px; }
+  .gema-finish-guide, .gema-ritual { padding: 16px 18px; }
+  .gema-finish-guide { font-size: 14px; line-height: 1.45; }
+  .gema-finish-guide li + li { margin-top: 5px; }
+}
+
+@media (max-width: 760px) {
+  .gema-finale { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 620px) {
+  .gema-route { margin-bottom: 14px; padding: 10px; }
+  .gema-milestones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .gema-milestone { gap: 6px; padding: 7px; font-size: 13px; }
+  .gema-milestone-mark { width: 22px; height: 22px; }
+  .gema-ritual-heading { grid-template-columns: 64px minmax(0, 1fr); }
+}

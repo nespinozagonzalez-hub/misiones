@@ -90,7 +90,8 @@ for m in manifest:
  for path in [folder/'index.html',folder/'presentacion.html']:
   if not path.is_file():continue
   h=path.read_text()
-  h=re.sub(r'(<script[^>]+src=")app[^"/]*\.js(?:\?[^\"]*)?("[^>]*>)',r'\1app.rpg.js?v=20261011-auditoria1\2',h)
+  # Respeta la versión de caché elegida para la entrada canónica.
+  h=re.sub(r'(<script[^>]+src=")app(?!\.rpg\.js\?v=[^"]+")[^"/]*\.js(?:\?[^\"]*)?("[^>]*>)',r'\1app.rpg.js?v=20261011-auditoria1\2',h)
   if '../ludaria/gateway-config.js' not in h:
    h=h.replace('<head>','<head>\n<script src="../ludaria/gateway-config.js?v=20261011-rpg1"></script><script src="../ludaria/gateway.js?v=20261011-rpg1"></script>',1)
   path.write_text(h)

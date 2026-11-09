@@ -10,3 +10,63 @@
 
 /* El registro acompaña la elección visual del personaje. */
 #creation-access{margin:28px 0;padding:24px;border:1px solid #c9a66b55;border-radius:18px;background:#102018} .creation-key-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px} #creation-status:not(:empty){color:#e3bc76;margin-top:16px} .ludaria-cloud-bar[hidden]{display:none!important} @media(max-width:600px){.creation-key-pair{grid-template-columns:1fr}#creation-access{padding:18px}}
+
+/* La travesía registra etapas mediante runas del personaje. */
+.journey-overview {
+  border-color: #c9a66b80;
+  background: linear-gradient(145deg, #233e2a, #101f16);
+}
+.journey-overview p { margin: 8px 0 10px; color: #e8cf98; }
+.journey-meter {
+  display: block;
+  width: 100%;
+  height: 12px;
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  appearance: none;
+  background: #09180f;
+  accent-color: #84d29f;
+}
+.journey-meter::-webkit-progress-bar { background: #09180f; }
+.journey-meter::-webkit-progress-value {
+  border-radius: 12px;
+  background: linear-gradient(90deg, #d0a96d, #84d29f);
+}
+.journey-meter::-moz-progress-bar {
+  border-radius: 12px;
+  background: linear-gradient(90deg, #d0a96d, #84d29f);
+}
+.journey-region summary { align-items: center; }
+.journey-region-meter {
+  flex-shrink: 0;
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+}
+.journey-stops { display: flex; gap: 7px; align-items: center; }
+.journey-chevron { display: inline-block; margin-left: 3px; }
+.journey-region[open] .journey-chevron { transform: rotate(180deg); }
+.journey-stop {
+  display: block;
+  width: 11px;
+  height: 11px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  border: 1px solid #a6bb9c;
+  background: #101d15;
+}
+.journey-stop.is-registered {
+  border-color: #a7e5b8;
+  background: #8ed8a5;
+  box-shadow: 0 0 8px #80cf9666;
+}
+.journey-region .mission.done { background: #24422c80; }
+.journey-region .mission > div { min-width: 0; flex: 1; }
+.journey-region .mission > .small { text-align: right; }
+@media (max-width: 480px) {
+  .journey-region summary { gap: 10px; padding: 14px 12px; }
+  .journey-region-meter { max-width: 92px; text-align: right; }
+  .journey-region .mission { gap: 8px; padding: 12px; }
+  .journey-region .mission > .small { font-size: 11px; }
+}

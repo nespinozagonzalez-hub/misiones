@@ -11,9 +11,167 @@ for(const code of ['ECO101','AXR314','LUM582','VYR207','NEX451','ORB126','KRN693
 call('redistribuir',{skills:Object.fromEntries(Object.keys(catalog.attributes).map(k=>[k,8]))});
 t.c.UrlFetchApp.fetch=url=>({getResponseCode:()=>200,getContentText:()=>fs.readFileSync(path.join(root,url.replace('https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/','')),'utf8')});
 const server=http.createServer((req,res)=>{const url=new URL(req.url,'http://localhost');if(url.pathname==='/frame'){const slug=url.searchParams.get('mision');if(!catalog.find(slug)){res.statusCode=404;res.end();return;}res.setHeader('content-type','text/html');res.end('<!doctype html><html lang="es"><body><iframe title="Prueba local de Ludaria" src="/cloud?mision='+encodeURIComponent(slug)+'#pantalla-1" style="width:100%;height:720px;border:0"></iframe></body></html>');return;}if(url.pathname==='/cloud'){const slug=url.searchParams.get('mision')||'forja';t.c.params={parameter:{mision:slug}};res.setHeader('content-type','text/html');res.end(t.run('doGet(params).html').replace('https://nespinozagonzalez-hub.github.io/misiones/'+slug+'/', '/'+slug+'/'));return;}let file=path.join(root,url.pathname);if(fs.existsSync(file)&&fs.statSync(file).isDirectory())file=path.join(file,'index.html');if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){res.statusCode=404;res.end();return;}res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html');res.end(fs.readFileSync(file));});
-async function login(p){try{await p.locator('#cloud-login [name=name]').fill('Ensayo de guardianes');await p.locator('#cloud-login [name=key]').fill(key);await p.locator('#cloud-login button[type=submit]').click();await p.locator('#cloud-login').waitFor({state:'hidden'});await p.waitForFunction(()=>document.querySelector('#stage')?.textContent.trim().length>50);}catch(e){console.error('Estado de entrada:',p.url(),await p.locator('body').innerText());throw e;}}
+async function enterCharacter(surface, name, pin) {
+ const form=surface.locator('#cloud-login');
+ await form.locator('[name=name]').fill(name);
+ await form.locator('[name=key]').fill(pin);
+ await form.locator('button[type=submit]').click();
+ await form.waitFor({state:'hidden'});
+}
+async function login(p){try{await enterCharacter(p,'Ensayo de guardianes',key);await p.waitForFunction(()=>document.querySelector('#stage')?.textContent.trim().length>50);}catch(e){console.error('Estado de entrada:',p.url(),await p.locator('body').innerText());throw e;}}
+
+async function checkGemaJourney(browser, base) {
+ const name='Buscadora de la Gema de prueba';
+ const pilot=send({action:'registrar',requestId:uid(),data:{name,class:'Kira',key:'314159',keyConfirm:'314159'}});
+ assert.equal(pilot.ok,true,pilot.message);
+ const context=await browser.newContext({viewport:{width:1280,height:800},reducedMotion:'reduce'});
+ const errors=[];
+ let failNextSave=false;
+ await context.exposeFunction('mockApi',request=>{
+  if(failNextSave&&request.action==='guardarMision'){
+   failNextSave=false;
+   return {ok:false,message:'Fallo de confirmación simulado'};
+  }
+  return send(request);
+ });
+ await context.addInitScript(()=>{
+  window.google={script:{run:{withSuccessHandler:success=>({withFailureHandler:failure=>({ludariaApi:request=>window.mockApi(request).then(success).catch(failure)})})}}};
+ });
+ await context.route('https://fonts.googleapis.com/**',route=>route.abort());
+ await context.route('https://fonts.gstatic.com/**',route=>route.abort());
+ // El gateway real se prueba aparte. Aquí se mantiene la Forja conectada al servidor simulado.
+ await context.route(base+'/forja/',route=>route.fulfill({status:302,headers:{location:base+'/cloud?mision=forja'}}));
+ const page=await context.newPage();
+ page.on('pageerror',error=>errors.push(error.message));
+ try {
+  await page.goto(base+'/gema-motivacional/presentacion.html#pantalla-1');
+  await page.locator('#route-dots [data-page="3"]').click();
+  await page.locator('#stage [data-field=initial]').fill('Lectura de prueba en modo local.');
+  await page.goto(base+'/gema-motivacional/index.html#pantalla-1');
+  assert.equal(await page.locator('#page-count').innerText(),'4 / 12');
+  assert.equal(await page.locator('#stage [data-field=initial]').inputValue(),'Lectura de prueba en modo local.');
+  assert.match(await page.locator('#saved-note').innerText(),/guardado en este dispositivo/);
+
+  await page.goto(base+'/frame?mision=gema-motivacional');
+  const mission=page.frameLocator('iframe');
+  await enterCharacter(mission,name,pilot.key);
+  const route=mission.getByRole('region',{name:'Ruta de práctica de la Gema'});
+  await route.waitFor();
+  const milestones=route.locator('li');
+  const step=route.locator('[aria-current=step]');
+  const go=number=>mission.locator('#route-dots [data-page="'+(number-1)+'"]').click();
+  const saveNote=mission.locator('#saved-note');
+  const saveDraft=()=>mission.locator('[data-cloud-save]').click();
+
+  assert.equal(await milestones.count(),4);
+  assert.match(await step.innerText(),/Explora/);
+  await go(12);
+  assert.match(await step.innerText(),/Cierra/);
+  assert.equal(await route.locator('.has-evidence').count(),0,'Visitar el cierre solo cambia la ubicación');
+  await mission.getByRole('button',{name:'Activar cierre en clase'}).click();
+  assert.equal(await route.locator('.has-evidence').count(),0,'El gesto narrativo no anota una reflexión');
+  const beforeRune=send({action:'cargar',access:pilot.access}).profile;
+  assert.deepEqual(beforeRune.codes,[]);
+  assert.equal(beforeRune.xp,0);
+  assert.equal(beforeRune.points,0);
+
+  await go(3);
+  for(const lens of ['Autonomía','Competencia','Vinculación']) {
+   await mission.getByRole('button',{name:new RegExp(lens)}).click();
+   await mission.locator('#modal[open] [data-action=close]').click();
+  }
+  assert.match(await milestones.nth(0).innerText(),/3\/3 facetas/);
+  await go(4);
+  assert.match(await step.innerText(),/Interpreta/);
+  await mission.getByRole('button',{name:'Hay una tensión',exact:true}).click();
+  assert.match(await mission.locator('.gema-reading').innerText(),/Elegiste «Hay una tensión»/);
+  await saveDraft();
+  await saveNote.filter({hasText:'Cuaderno confirmado en tu bitácora'}).waitFor();
+  failNextSave=true;
+  const reading=mission.locator('#stage [data-field=initial]');
+  await reading.fill('La regla de rapidez puede reducir las preguntas.');
+  assert.match(await milestones.nth(1).innerText(),/Lectura anotada/);
+  assert.equal(await reading.evaluate(element=>element===document.activeElement),true);
+  await saveDraft();
+  await saveNote.filter({hasText:'Sin confirmar: Fallo de confirmación simulado'}).waitFor();
+  await saveDraft();
+  await saveNote.filter({hasText:'Cuaderno confirmado en tu bitácora'}).waitFor();
+
+  await go(5);
+  const question=mission.locator('#stage');
+  await question.locator('[data-action=choice][data-option="1"]').click();
+  await question.getByRole('button',{name:'Revisar mi decisión'}).click();
+  assert.match(await question.locator('[data-gema-feedback]').innerText(),/Revisa tu decisión o pide una pista/);
+  await question.locator('[data-action=choice][data-option="0"]').click();
+  await question.getByRole('button',{name:'Revisar mi decisión'}).click();
+  await mission.locator('#modal[open]').getByText('Tu siguiente paso.').waitFor();
+  await mission.locator('#modal[open] [data-action=close]').click();
+  assert.match(await question.locator('[data-gema-feedback]').innerText(),/Sello abierto/);
+
+  await go(8);
+  assert.match(await step.innerText(),/Rediseña/);
+  await mission.getByRole('tab',{name:'Rediseño'}).click();
+  await mission.locator('#stage [data-field=rule]').fill('Reconocemos la explicación conjunta.');
+  assert.match(await milestones.nth(2).innerText(),/Contraste pendiente/);
+  await mission.getByRole('tab',{name:'Contraste'}).click();
+  await mission.locator('#stage [data-field=evidence]').fill('Observaremos las preguntas y los aportes.');
+  assert.match(await milestones.nth(2).innerText(),/Regla y contraste/);
+  await go(11);
+  await mission.locator('#stage [data-field=exit]').fill('Cambiamos la regla que premiaba solo la rapidez.');
+  await saveDraft();
+  await saveNote.filter({hasText:'Cuaderno confirmado en tu bitácora'}).waitFor();
+  await page.reload();
+  await mission.locator('#stage [data-field=exit]').waitFor();
+  assert.equal(await mission.locator('#page-count').innerText(),'11 / 12');
+  assert.equal(await route.locator('.has-evidence').count(),4,'Las cuatro huellas se reconstruyen al recuperar el cuaderno');
+  await go(12);
+  const forgeLink=mission.getByRole('link',{name:'Abrir la Forja'});
+  await forgeLink.waitFor();
+  assert.match(await mission.locator('.gema-next-stop').innerText(),/Los Planos del Arquitecto/);
+  const frame=page.frames().find(item=>item.url().includes('/cloud?mision=gema-motivacional'));
+  assert.ok(frame);
+  assert.equal(await frame.evaluate(()=>innerHeight),720);
+  assert.equal(await forgeLink.evaluate(link=>link.getBoundingClientRect().bottom<=innerHeight+1),true,'La Forja queda visible en el marco de 720px');
+  await page.screenshot({path:__dirname+'/preview-gema-cierre-720.png'});
+  await page.setViewportSize({width:390,height:844});
+  assert.equal(await frame.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+  await route.screenshot({path:__dirname+'/preview-gema-hitos-mobile.png'});
+
+  const [forge]=await Promise.all([context.waitForEvent('page'),forgeLink.click()]);
+  forge.on('pageerror',error=>errors.push(error.message));
+  await forge.locator('[data-action=resume]').click();
+  await enterCharacter(forge,name,pilot.key);
+  await forge.getByRole('button',{name:'Mi viaje',exact:true}).click();
+  const meter=forge.getByRole('progressbar',{name:'Etapas registradas en Ludaria'});
+  assert.equal(await meter.getAttribute('value'),'0');
+  assert.equal(await meter.getAttribute('max'),'14');
+  await forge.getByRole('button',{name:'Runas',exact:true}).click();
+  const [rune, award]=await forge.evaluate(()=>Object.entries(LudariaCore.CM).find(([,entry])=>entry.n==='La Gema Motivacional'));
+  await forge.getByRole('textbox',{name:'Código del Saber'}).fill(rune);
+  await forge.getByRole('button',{name:'Activar runa'}).click();
+  await forge.locator('.reward-dialog').getByRole('button',{name:'Ver mi viaje'}).click();
+  await meter.waitFor();
+  assert.equal(await meter.getAttribute('value'),'1');
+  const quarry=forge.locator('.journey-region').filter({has:forge.getByText('Cantera de los Elementos',{exact:true})});
+  assert.equal(await quarry.getAttribute('open'),'');
+  assert.equal(await quarry.locator('.journey-stop.is-registered').count(),1);
+  assert.match(await quarry.locator('.mission.done').innerText(),/La Gema Motivacional[\s\S]*Registrada/);
+  const afterRune=send({action:'cargar',access:pilot.access}).profile;
+  assert.deepEqual(afterRune.codes,[rune]);
+  assert.equal(afterRune.xp,award.x);
+  assert.equal(afterRune.points,award.p);
+  await forge.screenshot({path:__dirname+'/preview-gema-viaje.png'});
+  await forge.setViewportSize({width:390,height:844});
+  assert.equal(await forge.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+  assert.deepEqual(errors,[]);
+  console.log('PASS piloto Gema: huellas por acciones, feedback, fallo y confirmación de guardado, reanudación, marco de 720px y runa en Mi viaje. Servicios simulados.');
+ } finally {
+  await context.close();
+ }
+}
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;const browser=await chromium.launch({headless:true});const errors=[];
 try{
+ await checkGemaJourney(browser,base);
  const ctx=await browser.newContext({viewport:{width:390,height:844}});const setup=()=>{Storage.prototype.getItem=()=>{throw Error('Storage bloqueado');};Storage.prototype.setItem=()=>{throw Error('Storage bloqueado');};window.google={script:{run:{withSuccessHandler:success=>({withFailureHandler:failure=>({ludariaApi:q=>window.mockApi(q).then(success).catch(failure)})})}}};};await ctx.addInitScript(setup);
  for(const mission of catalog.missions){
   const p=await ctx.newPage();p.on('pageerror',e=>errors.push(mission.slug+': '+e.message));p.on('dialog',d=>d.type()==='beforeunload'?d.accept():d.dismiss());await p.exposeFunction('mockApi',send);await p.route('https://fonts.googleapis.com/**',r=>r.abort());await p.route('https://fonts.gstatic.com/**',r=>r.abort());await p.goto(base+'/cloud?mision='+mission.slug+'#pantalla-1');
