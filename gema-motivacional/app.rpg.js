@@ -145,7 +145,8 @@ function backpack(preparing = false) {
   }
   const cards = pack.querySelector('.gema-items');
   const scrollTop = cards.scrollTop;
-  const focused = cards.contains(document.activeElement) ? document.activeElement.dataset : null;
+  const active = document.activeElement;
+  const focused = active !== cards && cards.contains(active) ? active.dataset : null;
   cards.innerHTML = perks.map(perk => inventoryCard(perk, preparing)).join('');
   cards.scrollTop = scrollTop;
   if (focused) {

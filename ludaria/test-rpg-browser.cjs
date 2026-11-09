@@ -216,6 +216,11 @@ try{
     return items.scrollTop>0 && items.scrollWidth<=items.clientWidth+1 && before.top===after.top && after.bottom<=innerHeight;
    });
    assert.equal(keepEntryVisible,true,'La acción de entrada sigue a la vista mientras se desplazan las fichas');
+   await pack.locator('.gema-items').focus();
+   assert.equal(await pack.locator('.gema-items').evaluate(items=>{
+    window.dispatchEvent(new Event('ludaria:profile'));
+    return items===document.activeElement;
+   }),true,'Una actualización de atributos conserva el foco del inventario');
    await p.getByRole('button',{name:'Equipar Tres facetas'}).click();
    const remove=p.getByRole('button',{name:'Quitar Tres facetas'});
    assert.equal(await remove.evaluate(button=>button===document.activeElement),true);
