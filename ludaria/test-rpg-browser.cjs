@@ -1,6 +1,7 @@
 /** Entradas reales e interfaz RPG con servicios simulados, sin datos de participantes. */
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http'),crypto=require('node:crypto');
 const {chromium}=require('playwright'),{context,setSource}=require('./mock.cjs'),catalog=require('./rpg-catalog.js');
+const journey=require('./mission-journey-data.js');
 const root=path.resolve(__dirname,'..');setSource(fs.readFileSync(__dirname+'/Code-Ludaria-Conectado.gs','utf8'));const t=context();t.run('prepararConexionLudaria()');
 // El reloj del doble representa acciones humanas; no 300 solicitudes en segundos de CI.
 let simulatedTime=Date.now();const RealDate=Date;t.c.Date=class extends RealDate{constructor(...args){super(...(args.length?args:[simulatedTime]));}static now(){return simulatedTime;}};
@@ -20,6 +21,66 @@ async function enterCharacter(surface, name, pin) {
  await form.waitFor({state:'hidden'});
 }
 async function login(p){try{await enterCharacter(p,'Ensayo de guardianes',key);await p.waitForFunction(()=>document.querySelector('#stage')?.textContent.trim().length>50);}catch(e){console.error('Estado de entrada:',p.url(),await p.locator('body').innerText());throw e;}}
+
+const goTo=(surface,page)=>surface.locator(`#route-dots :is([data-go="${page-1}"],[data-page="${page-1}"])`).click();
+const headingKey=text=>text.normalize('NFD').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+
+async function checkMissionEquipment(surface,mission) {
+ const before=await surface.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp}));
+ const pack=surface.locator('.mission-inventory[open]');
+ const prepare=surface.getByRole('button',{name:'Preparar mochila',exact:true});
+ if(await prepare.count())await prepare.click();
+ else await surface.locator('#mission-backpack').click();
+ assert.equal(await pack.getByRole('article').count(),3,mission.slug+' inventario');
+ await pack.locator('.mission-item-slot img').evaluateAll(images=>Promise.all(images.map(image=>image.decode())));
+ for(const perk of mission.perks){
+  const equip=pack.getByRole('button',{name:`Equipar ${perk.name}`,exact:true});
+  if(await equip.count())await equip.click();
+ }
+ assert.equal(await pack.locator('[data-item-state="equipped"]').count(),3);
+ await pack.getByRole('button',{name:/^(Entrar a|Volver a) la sesión$/}).click();
+ await goTo(surface,2);
+ assert.doesNotMatch(await surface.locator('#next').innerText(),/Entrar a la sesión|Entrar sin equipar/);
+ assert.equal(await surface.locator('[data-mission-cue]').count(),0,mission.slug+' sin pista fuera de contexto');
+
+ for(const perk of mission.perks){
+  const gear=journey[mission.slug].gear[perk.id];
+  for(const [index,moment] of gear.moments.entries()){
+   await goTo(surface,moment.page);
+   if(moment.tab)await surface.locator('#'+moment.tab).click();
+   const contextHeading=moment.tab?surface.locator('#'+moment.tab):surface.locator('#stage .section-title h2').first();
+   assert.ok(headingKey(await contextHeading.innerText()).includes(headingKey(moment.label)),`${perk.id} aparece en ${moment.label}`);
+   const cue=surface.locator(`[data-mission-cue="${perk.id}"]`);
+   const use=cue.getByRole('button',{name:`Usar ${gear.title||perk.name}`,exact:true});
+   await use.waitFor();
+   assert.equal(await surface.locator('[data-mission-cue]').count(),1,mission.slug+' objeto de la actividad');
+   assert.equal(await surface.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,mission.slug+' ancho de actividad');
+   if(index)continue;
+
+   await use.click();
+   const help=surface.locator('.ludaria-cloud-dialog[open]');
+   const close=help.getByRole('button',{name:'Continuar mi misión'});
+   await close.waitFor();
+   assert.equal(await help.getByRole('heading',{name:perk.name,exact:true}).count(),1);
+   assert.ok((await help.innerText()).includes(perk.text));
+   assert.equal(await help.evaluate(dialog=>dialog.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
+   await close.press('ArrowRight');
+   assert.equal(Number((await surface.locator('#page-count,#page-number').innerText()).split('/')[0]),moment.page,'Las flechas de la ayuda no avanzan la misión');
+   if(perk.kind==='accion'){
+    const form=help.locator('[data-rpg-form]');
+    await form.locator('select').selectOption({label:perk.options[0]});
+    await form.locator('[name=work]').fill('Ensayo contextual de '+mission.slug);
+    await form.locator('[name=reflection]').fill('Elegí esta ruta para comparar sus consecuencias.');
+    await form.locator('button[type=submit]').click();
+    await help.getByText('Decisión confirmada en tu bitácora.',{exact:true}).waitFor();
+   }
+   await close.click();
+   await surface.waitForFunction(id=>document.activeElement?.closest('[data-mission-cue]')?.dataset.missionCue===id,perk.id);
+  }
+ }
+ assert.deepEqual(await surface.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp})),before);
+ await goTo(surface,2);
+}
 
 async function checkGemaJourney(browser, base) {
  const name='Buscadora de la Gema de prueba';
@@ -67,15 +128,15 @@ async function checkGemaJourney(browser, base) {
   assert.equal(await milestones.count(),4);
   assert.match(await step.innerText(),/Explora/);
   await mission.getByRole('button',{name:'Preparar mochila'}).click();
-  const preparation=mission.locator('#modal[open]');
+  const preparation=mission.locator('.mission-inventory[open]');
   assert.equal(await preparation.getByRole('button',{name:/^Equipar/}).count(),0);
   assert.equal(await preparation.getByText('Bloqueado',{exact:true}).count(),3);
-  assert.deepEqual(await preparation.locator('.gema-item-effect > strong').allTextContents(),[
+  assert.deepEqual(await preparation.locator('.mission-item-effect > strong').allTextContents(),[
    '3 preguntas para leer el caso','2 formas de abordar el dilema','1 prueba de inclusión'
   ]);
   assert.match(await preparation.getByRole('article',{name:'Tres facetas'}).innerText(),/Requiere Sabiduría 3 · Tienes 1/);
   assert.match(await preparation.getByRole('article',{name:'Ensayo del cuidado'}).innerText(),/Requiere Evaluación 8 · Tienes 1/);
-  const itemImages=preparation.locator('.gema-item-slot img');
+  const itemImages=preparation.locator('.mission-item-slot img');
   assert.equal(await itemImages.count(),3);
   await itemImages.evaluateAll(images=>Promise.all(images.map(image=>image.decode())));
   assert.equal(await preparation.evaluate(dialog=>dialog.getBoundingClientRect().bottom<=innerHeight),true);
@@ -99,7 +160,7 @@ async function checkGemaJourney(browser, base) {
   assert.match(await milestones.nth(0).innerText(),/3\/3 facetas/);
   await go(4);
   assert.match(await step.innerText(),/Interpreta/);
-  assert.equal(await mission.locator('.gema-use-item').count(),0,'Sin equipo no aparece una ventaja en el dilema');
+  assert.equal(await mission.locator('.mission-use-item').count(),0,'Sin equipo no aparece una ventaja en el dilema');
   await mission.getByRole('button',{name:'Hay una tensión',exact:true}).click();
   assert.match(await mission.locator('.gema-reading').innerText(),/Elegiste «Hay una tensión»/);
   await saveDraft();
@@ -211,45 +272,45 @@ try{
    const before=await p.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp}));
    await p.setViewportSize({width:390,height:568});
    await p.getByRole('button',{name:'Preparar mochila'}).click();
-   const pack=p.locator('#modal.gema-inventory[open]');
+   const pack=p.locator('.mission-inventory[open]');
    const keepEntryVisible=await pack.evaluate(dialog=>{
-    const items=dialog.querySelector('.gema-items');
-    const entry=dialog.querySelector('[data-action=enter-session]');
+    const items=dialog.querySelector('.mission-items');
+    const entry=dialog.querySelector('[data-pack-action=continue]');
     const before=entry.getBoundingClientRect();
     items.scrollTop=items.scrollHeight;
     const after=entry.getBoundingClientRect();
     return items.scrollTop>0 && items.scrollWidth<=items.clientWidth+1 && before.top===after.top && after.bottom<=innerHeight;
    });
    assert.equal(keepEntryVisible,true,'La acción de entrada sigue a la vista mientras se desplazan las fichas');
-   await pack.locator('.gema-items').focus();
-   assert.equal(await pack.locator('.gema-items').evaluate(items=>{
+   await pack.locator('.mission-items').focus();
+   assert.equal(await pack.locator('.mission-items').evaluate(items=>{
     window.dispatchEvent(new Event('ludaria:profile'));
     return items===document.activeElement;
    }),true,'Una actualización de atributos conserva el foco del inventario');
    await p.getByRole('button',{name:'Equipar Tres facetas'}).click();
    const remove=p.getByRole('button',{name:'Quitar Tres facetas'});
    assert.equal(await remove.evaluate(button=>button===document.activeElement),true);
-   assert.equal(await pack.locator('.gema-pack-footer [role=status]').innerText(),'1 objeto equipado');
+   assert.equal(await pack.locator('.mission-pack-footer [role=status]').innerText(),'1 objeto equipado');
    assert.equal(await pack.getByRole('article',{name:'Tres facetas'}).getByText('Equipado',{exact:true}).count(),1);
    await p.getByRole('button',{name:'Equipar Ensayo del cuidado'}).click();
-   assert.equal(await pack.locator('.gema-pack-footer [role=status]').innerText(),'2 objetos equipados');
+   assert.equal(await pack.locator('.mission-pack-footer [role=status]').innerText(),'2 objetos equipados');
    await p.getByRole('button',{name:'Quitar Ensayo del cuidado'}).click();
-   await p.getByRole('button',{name:'Entrar a la sesión',exact:true}).click();
+   await pack.getByRole('button',{name:'Entrar a la sesión',exact:true}).click();
    await p.setViewportSize({width:390,height:844});
    await p.getByRole('button',{name:'Mochila de ventajas, 3 disponibles y 1 equipada'}).click();
    assert.equal(await pack.getByRole('button',{name:/^Usar/}).count(),1);
    await p.getByRole('button',{name:'Usar Tres facetas',exact:true}).click();
    await p.locator('.ludaria-cloud-dialog[open] h2').getByText('Tres facetas',{exact:true}).waitFor();
    await p.keyboard.press('Escape');
-   const cue=p.locator('#stage .gema-use-item');
+   const cue=p.locator('#stage .mission-use-item');
    const go=number=>p.locator(`#route-dots [data-page="${number-1}"]`).click();
    assert.equal(await cue.count(),0,'El encargo todavía no requiere equipo');
    await go(4);
    const potion=p.getByRole('button',{name:'Usar Poción de enfoque'});
    await potion.waitFor();
-   const icon=cue.locator('.gema-use-icon');
+   const icon=cue.locator('.mission-use-icon');
    const animation=()=>icon.evaluate(element=>getComputedStyle(element).animationName);
-   assert.equal(await animation(),'gema-perk-pulse');
+   assert.equal(await animation(),'mission-perk-pulse');
    await p.emulateMedia({reducedMotion:'reduce'});
    assert.equal(await animation(),'none');
    await p.emulateMedia({reducedMotion:'no-preference'});
@@ -261,12 +322,12 @@ try{
    await go(6);
    assert.equal(await cue.count(),0,'Una ventaja disponible sin equipar no aparece');
    await p.getByRole('button',{name:'Ver pista del candado'}).waitFor();
-   await p.locator('#gema-backpack').click();
+   await p.locator('#mission-backpack').click();
    await pack.getByRole('button',{name:'Equipar Contraluz de la gema'}).click();
    await pack.getByRole('button',{name:'Equipar Ensayo del cuidado'}).click();
    await pack.getByRole('button',{name:'Volver a la sesión'}).click();
    await cue.getByText('Usar Prisma de contraste',{exact:true}).waitFor();
-   assert.equal(await animation(),'gema-perk-pulse','El pulso comienza al volver a la actividad');
+   assert.equal(await animation(),'mission-perk-pulse','El pulso comienza al volver a la actividad');
    await go(8);
    const panel=p.getByRole('tabpanel');
    for (const [tab, object] of [['Diagnóstico','Poción de enfoque'],['Rediseño','Prisma de contraste'],['Contraste','Corazón del cuidado']]) {
@@ -276,18 +337,14 @@ try{
    }
    await go(9);
    await p.getByRole('button',{name:'Usar Corazón del cuidado'}).waitFor();
-   await p.locator('#gema-backpack').click();
+   await p.locator('#mission-backpack').click();
    await pack.getByRole('button',{name:'Quitar Ensayo del cuidado'}).click();
    await pack.getByRole('button',{name:'Volver a la sesión'}).click();
    assert.equal(await cue.count(),0,'Quitar el objeto retira su acceso directo');
    assert.deepEqual(await p.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp})),before);
   }
+  await checkMissionEquipment(p,mission);
   await p.locator('[data-cloud-advantage]').click();await p.locator('[data-rpg-open]').first().waitFor();assert.equal(await p.locator('[data-rpg-open]').count(),3);
-  for(const perk of mission.perks){
-   await p.locator('[data-rpg-open="'+perk.id+'"]').click();await p.locator('.ludaria-cloud-dialog[open] h2').getByText(perk.name,{exact:true}).waitFor();assert.ok((await p.locator('.ludaria-cloud-dialog').innerText()).includes(perk.text));assert.equal(await p.evaluate(()=>document.querySelector('dialog[open]')?.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
-   if(perk.kind==='accion'){const f=p.locator('[data-rpg-form]');await f.locator('select').selectOption({label:perk.options[0]});await f.locator('[name=work]').fill('Ensayo contextual de '+mission.slug);await f.locator('[name=reflection]').fill('Elegí esta ruta para comparar sus consecuencias.');await f.locator('button[type=submit]').click();await p.getByText('Decisión confirmada en tu bitácora.',{exact:true}).waitFor();}
-   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,mission.slug+' ancho RPG');await p.keyboard.press('Escape');await p.locator('[data-cloud-advantage]').click();await p.locator('[data-rpg-open]').first().waitFor();
-  }
   if(mission.egg){await p.locator('[data-rpg-egg]').click();await p.locator('.rpg-lore').waitFor();}
   await p.keyboard.press('Escape');
   let field=null;for(let step=0;step<35;step++){const candidate=p.locator('#stage textarea[data-field]:visible').first();if(await candidate.count()){field=await candidate.getAttribute('data-field');await candidate.fill('Cuaderno recuperable de '+mission.slug);break;}if(await p.locator('#next').isDisabled())break;await p.locator('#next').click();}
@@ -306,7 +363,37 @@ try{
  }
  // Las 13 entradas en escritorio y en un marco local de 720px. No es Genially.
  const desktop=await browser.newContext({viewport:{width:1280,height:960}});await desktop.addInitScript(setup);
- for(const mission of catalog.missions){for(const framed of [false,true]){const p=await desktop.newPage();p.on('pageerror',e=>errors.push(mission.slug+': '+e.message));await p.exposeFunction('mockApi',send);await p.route('https://fonts.googleapis.com/**',r=>r.abort());await p.route('https://fonts.gstatic.com/**',r=>r.abort());await p.goto(base+(framed?'/frame?mision=':'/cloud?mision=')+mission.slug+'#pantalla-1');const surface=framed?p.frames().find(f=>f.url().includes('/cloud?')):p;assert.ok(surface,mission.slug+' marco');await login(surface);await surface.locator('[data-cloud-advantage]').click();await surface.locator('[data-rpg-open]').first().waitFor();assert.equal(await surface.evaluate(()=>document.querySelector('dialog[open]')?.contains(document.activeElement)),true);await surface.locator('[data-rpg-open]').first().click();await surface.getByText(mission.perks[0].name,{exact:true}).waitFor();assert.equal(await surface.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);await surface.locator('dialog[open]').press('Escape');assert.equal(await surface.evaluate(()=>document.activeElement?.hasAttribute('data-cloud-advantage')),true);if(framed&&mission.slug==='yunque')await p.screenshot({path:__dirname+'/preview-rpg-iframe-yunque.png',fullPage:true});await p.close();}console.log('ESCRITORIO/IFRAME preparado: '+mission.slug);}
+ for(const mission of catalog.missions){
+  for(const framed of [false,true]){
+   const p=await desktop.newPage();
+   p.on('pageerror',e=>errors.push(mission.slug+': '+e.message));
+   await p.exposeFunction('mockApi',send);
+   await p.route('https://fonts.googleapis.com/**',r=>r.abort());
+   await p.route('https://fonts.gstatic.com/**',r=>r.abort());
+   await p.goto(base+(framed?'/frame?mision=':'/cloud?mision=')+mission.slug+'#pantalla-1');
+   const surface=framed?p.frames().find(f=>f.url().includes('/cloud?')):p;
+   assert.ok(surface,mission.slug+' marco');
+   await login(surface);
+   assert.equal(await surface.evaluate(()=>{
+    const stage=document.querySelector('#stage'), nav=document.querySelector('.navigation');
+    const header=document.querySelector('.hud');
+    return stage.clientHeight>=500 && getComputedStyle(stage).overflowY==='auto' &&
+      nav.getBoundingClientRect().bottom<=innerHeight+1 && header.getBoundingClientRect().height<=50 &&
+      !!nav.querySelector('[data-ludaria-effects]');
+   }),true,mission.slug+' recorrido compacto y contenido visible');
+   await surface.locator('[data-cloud-advantage]').click();
+   await surface.locator('[data-rpg-open]').first().waitFor();
+   assert.equal(await surface.evaluate(()=>document.querySelector('dialog[open]')?.contains(document.activeElement)),true);
+   await surface.locator('[data-rpg-open]').first().click();
+   await surface.getByText(mission.perks[0].name,{exact:true}).waitFor();
+   assert.equal(await surface.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+   await surface.locator('dialog[open]').press('Escape');
+   assert.equal(await surface.evaluate(()=>document.activeElement?.hasAttribute('data-cloud-advantage')),true);
+   if(framed&&mission.slug==='yunque')await p.screenshot({path:__dirname+'/preview-rpg-iframe-yunque.png',fullPage:true});
+   await p.close();
+  }
+  console.log('ESCRITORIO/IFRAME preparado: '+mission.slug);
+ }
  // La invitación se mantiene legible dentro del iframe y con movimiento reducido.
  const reduced=await browser.newContext({viewport:{width:1280,height:960},reducedMotion:'reduce'});await reduced.addInitScript(setup);const end=await reduced.newPage();await end.exposeFunction('mockApi',send);await end.route('https://fonts.googleapis.com/**',r=>r.abort());await end.route('https://fonts.gstatic.com/**',r=>r.abort());await end.goto(base+'/frame?mision=yunque');const finale=end.frames().find(f=>f.url().includes('/cloud?'));await login(finale);const last=Number((await finale.locator('#page-count').innerText()).split('/')[1]);
  // Un cuaderno compartido puede reabrirse en la última pantalla: volver a la portada

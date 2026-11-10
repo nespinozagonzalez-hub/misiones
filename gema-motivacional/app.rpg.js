@@ -38,177 +38,16 @@ const quizNext = [
 
 function missionRoute(pageIndex) {
   const current = phases.filter(phase => phase.start <= pageIndex).length - 1;
-  return `<section class="gema-route" aria-label="Ruta de práctica de la Gema">
-    <div class="gema-route-heading"><strong>Ruta de la Gema</strong><span>Tramo ${current + 1} de ${phases.length}</span></div>
-    <ol class="gema-milestones">${phases.map((phase, index) => `
-      <li class="gema-milestone" ${index === current ? 'aria-current="step"' : ''}>
-        <span class="gema-milestone-mark" aria-hidden="true">${index + 1}</span>
-        <span><strong>${phase.name}</strong><small class="gema-milestone-note"></small></span>
+  return `<section class="mission-route" aria-label="Ruta de práctica de la Gema">
+    <div class="mission-route-heading"><strong>Ruta de la Gema</strong><span>Tramo ${current + 1} de ${phases.length}</span></div>
+    <ol class="mission-milestones">${phases.map((phase, index) => `
+      <li class="mission-milestone" ${index === current ? 'aria-current="step"' : ''}>
+        <span class="mission-milestone-mark" aria-hidden="true">${index + 1}</span>
+        <span><strong>${phase.name}</strong><small class="mission-milestone-note"></small></span>
       </li>`).join('')}
     </ol>
   </section>`;
 }
-
-const equipped = new Set();
-const shownPerkMoments = new Set();
-const itemGear = {
-  'gema-motivacional_0': {
-    art: 'pocion', type: 'Poción de enfoque', effect: '3 preguntas para leer el caso',
-    benefit: 'Detecta si hay elección, apoyo para avanzar y sentido de pertenencia.',
-    when: 'En el primer dilema y en Diagnóstico',
-    page: 3, workshopTab: 0
-  },
-  'gema-motivacional_1': {
-    art: 'prisma', type: 'Prisma de contraste', effect: '2 formas de abordar el dilema',
-    benefit: 'Compara dar más opciones con ofrecer más apoyo o fortalecer al equipo.',
-    when: 'En «Los puntos arbitrarios» y en Rediseño',
-    page: 5, workshopTab: 1
-  },
-  'gema-motivacional_2': {
-    art: 'corazon', type: 'Corazón del cuidado', effect: '1 prueba de inclusión',
-    benefit: 'Ensaya una forma de participar sin competir ni exponerse.',
-    when: 'En Contraste y al compartir tu rediseño',
-    page: 8, workshopTab: 2
-  }
-};
-
-function missionPerks() {
-  const profile = window.LudariaCloud?.profile;
-  const mission = window.LudariaRPG?.find('gema-motivacional');
-  if (!$('gema-backpack') || !profile || !mission || !window.LudariaRPGUI?.openPerk) return [];
-  return mission.perks.map(perk => {
-    const current = profile.skills?.[perk.attribute] ?? 1;
-    return {...perk, current, available: current >= perk.minimum};
-  });
-}
-
-function updateBackpack() {
-  const perks = missionPerks();
-  const available = perks.filter(perk => perk.available);
-  for (const id of equipped) {
-    if (!available.some(perk => perk.id === id)) equipped.delete(id);
-  }
-  const button = $('gema-backpack');
-  if (!button) return perks;
-  button.hidden = !perks.length;
-  $('gema-backpack-count').textContent = available.length;
-  button.dataset.equipped = String(equipped.size > 0);
-  const availableLabel = available.length === 1 ? '1 disponible' : `${available.length} disponibles`;
-  button.setAttribute('aria-label', `Mochila de ventajas, ${availableLabel} y ${equipped.size} ${equipped.size === 1 ? 'equipada' : 'equipadas'}`);
-  updatePerkCue(available);
-  return perks;
-}
-
-function updatePerkCue(available) {
-  const slot = $('stage').querySelector('[data-gema-perk-cue]');
-  if (!slot) return;
-  const perk = available.find(({id}) => {
-    const gear = itemGear[id];
-    return equipped.has(id) && gear && (state.page === 7 ? gear.workshopTab === state.tab : gear.page === state.page);
-  });
-  if (slot.dataset.perk === (perk?.id || '')) return;
-  slot.dataset.perk = perk?.id || '';
-  slot.hidden = !perk;
-  if (!perk) {
-    slot.replaceChildren();
-    return;
-  }
-  const gear = itemGear[perk.id];
-  const moment = `${state.page}:${perk.id}`;
-  const firstAppearance = !$('modal').open && !shownPerkMoments.has(moment);
-  if (firstAppearance) shownPerkMoments.add(moment);
-  const pulse = firstAppearance ? ' is-new' : '';
-  slot.innerHTML = `<button type="button" class="gema-use-item${pulse}" data-item-art="${gear.art}"
-      data-action="use-perk" data-perk="${esc(perk.id)}" aria-labelledby="gema-use-name" aria-describedby="gema-use-effect">
-    <span class="gema-use-icon"><img src="assets/objeto-${gear.art}.svg" alt="" width="32" height="32"></span>
-    <span class="gema-use-copy">
-      <span class="gema-use-kicker">De tu mochila · Úsalo aquí</span>
-      <strong id="gema-use-name">Usar ${gear.type}</strong>
-      <span id="gema-use-effect">${gear.effect}</span>
-    </span>
-    <span class="gema-use-arrow" aria-hidden="true">›</span>
-  </button>`;
-}
-
-const perkCue = '<div data-gema-perk-cue hidden></div>';
-
-function inventoryCard(perk, preparing) {
-  const gear = itemGear[perk.id];
-  const selected = equipped.has(perk.id);
-  const id = esc(perk.id);
-  const name = esc(perk.name);
-  const attribute = esc(window.LudariaRPG.attributes[perk.attribute]);
-  const itemState = selected ? 'equipped' : perk.available ? 'available' : 'locked';
-  const stateLabel = selected ? 'Equipado' : perk.available ? 'Disponible' : 'Bloqueado';
-  const lock = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5a3 3 0 0 1 6 0v2M3 7h10v7H3z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
-  return `<article class="gema-item" data-item-art="${gear?.art || ''}" data-item-state="${itemState}" aria-labelledby="gema-item-${id}">
-    <div class="gema-item-heading">
-      ${gear ? `<div class="gema-item-slot"><img src="assets/objeto-${gear.art}.svg" alt="" width="64" height="64"></div>` : ''}
-      <div>${gear ? `<span class="gema-item-type">${gear.type}</span>` : ''}<h3 id="gema-item-${id}">${name}</h3></div>
-    </div>
-    <div class="gema-item-effect">
-      <strong>${gear?.effect || name}</strong>
-      <p>${gear?.benefit || esc(perk.text)}</p>
-      ${gear ? `<p class="gema-item-when">${gear.when}</p>` : ''}
-    </div>
-    <div class="gema-item-controls">
-      <span class="gema-item-status">${perk.available ? '' : lock}${stateLabel}</span>
-      ${perk.available ? `<div class="gema-item-buttons">
-        ${b('equip-perk', selected ? 'Quitar' : 'Equipar', `data-perk="${id}" aria-label="${selected ? 'Quitar' : 'Equipar'} ${name}"`, true)}
-        ${selected && !preparing ? b('use-perk','Usar',`data-perk="${id}" aria-label="Usar ${name}"`) : ''}
-      </div>` : `<p class="gema-item-requirement">Requiere ${attribute} <strong>${esc(perk.minimum)}</strong> · Tienes ${esc(perk.current)}</p>`}
-    </div>
-  </article>`;
-}
-
-function backpack(preparing = false) {
-  const perks = updateBackpack();
-  const dialog = $('modal');
-  let pack = dialog.open && dialog.querySelector('.gema-pack');
-  if (!perks.length) {
-    if (pack) close();
-    return;
-  }
-  if (!pack) {
-    modal(preparing ? 'Prepara tu mochila' : 'Mochila de ventajas', `
-      <div class="gema-pack" data-gema-preparing="${preparing}">
-        <p class="gema-pack-intro" id="gema-pack-intro">${preparing ? 'Equipa lo que quieras llevar. Verás su icono junto a la actividad donde te ayuda.' : 'Elige <strong>Usar</strong> en un objeto equipado para abrir su ayuda.'}</p>
-        <div class="gema-items" role="region" aria-label="Objetos de la mochila" tabindex="0"></div>
-        <footer class="gema-pack-footer">
-          <div><strong role="status"></strong><small>Sin costo · Durante esta visita</small></div>
-          ${preparing ? b('enter-session','Entrar sin equipar') : b('close','Volver a la sesión','',true)}
-        </footer>
-      </div>`, true);
-    pack = dialog.querySelector('.gema-pack');
-  }
-  const cards = pack.querySelector('.gema-items');
-  const scrollTop = cards.scrollTop;
-  const active = document.activeElement;
-  const focused = active !== cards && cards.contains(active) ? active.dataset : null;
-  cards.innerHTML = perks.map(perk => inventoryCard(perk, preparing)).join('');
-  cards.scrollTop = scrollTop;
-  if (focused) {
-    const nextFocus = [...cards.querySelectorAll('button')].find(button =>
-      button.dataset.perk === focused.perk && button.dataset.action === focused.action);
-    (nextFocus || $('modal-title')).focus({preventScroll:true});
-  }
-  const count = pack.querySelector('[role=status]');
-  const summary = equipped.size === 1 ? '1 objeto equipado' : `${equipped.size} objetos equipados`;
-  if (count.textContent !== summary) count.textContent = summary;
-  const enter = pack.querySelector('[data-action=enter-session]');
-  if (enter) enter.textContent = equipped.size ? 'Entrar a la sesión' : 'Entrar sin equipar';
-}
-
-function prepareSession() {
-  if (missionPerks().length) backpack(true);
-  else go(1);
-}
-
-window.addEventListener('ludaria:profile', () => {
-  const bag = $('modal-body').querySelector('[data-gema-preparing]');
-  if ($('modal').open && bag) backpack(bag.dataset.gemaPreparing === 'true');
-  else updateBackpack();
-});
 
 function updateMilestones() {
   const facets = new Set(state.lenses).size;
@@ -223,10 +62,10 @@ function updateMilestones() {
     [hasRule && hasEvidence, designNote],
     [hasReflection, hasReflection ? 'Reflexión anotada' : 'Reflexión pendiente']
   ];
-  ($('gema-route-rail') || $('stage')).querySelectorAll('.gema-milestone').forEach((node, index) => {
+  ($('gema-route-rail') || $('stage')).querySelectorAll('.mission-milestone').forEach((node, index) => {
     const [earned, label] = evidence[index];
     node.classList.toggle('has-evidence', earned);
-    const note = node.querySelector('.gema-milestone-note');
+    const note = node.querySelector('.mission-milestone-note');
     if (note.textContent !== label) note.textContent = label;
   });
 }
@@ -243,7 +82,7 @@ function notebookStatus() {
 }
 
 const title=n=>`<div class="section-title"><div><span class="eyebrow">LA CANTERA · MAESTRA BRYN · MAESTRÍA</span><h2>${C.pages[n].title}</h2></div><span class="time-label">${C.pages[n].time} min · ${n===8?'entre equipos':'en grupo'}</span></div><p class="lead"><strong class="gema-now">Ahora</strong> ${C.pages[n].prompt}</p>`;
-const scene=(n,body)=>`<section class="scene"><div class="scene-content wide">${title(n)}${n === 7 ? '' : perkCue}${body}<p class="note product">Producto: ${C.pages[n].product}</p></div></section>`;
+const scene=(n,body)=>`<section class="scene"><div class="scene-content wide">${title(n)}${body}<p class="note product">Producto: ${C.pages[n].product}</p></div></section>`;
 const source=()=>`<div class="source-line">${t('sources','Fuentes y alcance')}<span class="note inline-note">Casos y pautas: elaboración didáctica propia.</span></div>`;
 const caseBox=i=>`<div class="case-panel"><span class="eyebrow">CASO FICTICIO · PARA ANALIZAR</span><p>${C.cases[i].text}</p></div>`;
 const clock=()=>`${String(Math.floor(state.timer/60)).padStart(2,'0')}:${String(state.timer%60).padStart(2,'0')}`;
@@ -307,14 +146,14 @@ function finale() {
 
 const groups=[['situation','purpose','diagnosis'],['risk','rule','participation'],['evidence','peer','revision']];
 function page(n){switch(n){
-case 0:return `<section class="scene"><div class="cover-content"><span class="eyebrow">MISIÓN SECUNDARIA 2 · MÓDULO 2 · CIERRE</span><h1 class="cover-title">La Gema<br><span>Motivacional</span></h1><p class="lead">La luz de una aventura depende de quienes la recorren. Rediseñemos las reglas que invitan a aprender.</p><div class="cover-meta"><span class="small-line"></span><span>Cantera de los Elementos · Maestra Bryn</span></div><div class="actions">${b('begin', missionPerks().length ? 'Preparar mochila' : 'Entrar a la Cantera')}</div><p class="note">90 minutos sincrónicos · Maestría · Fragmento II</p></div></section>`;
+case 0:return `<section class="scene"><div class="cover-content"><span class="eyebrow">MISIÓN SECUNDARIA 2 · MÓDULO 2 · CIERRE</span><h1 class="cover-title">La Gema<br><span>Motivacional</span></h1><p class="lead">La luz de una aventura depende de quienes la recorren. Rediseñemos las reglas que invitan a aprender.</p><div class="cover-meta"><span class="small-line"></span><span>Cantera de los Elementos · Maestra Bryn</span></div><div class="actions">${b('begin', 'Entrar a la Cantera')}</div><p class="note">90 minutos sincrónicos · Maestría · Fragmento II</p></div></section>`;
 case 1:return scene(n,`<blockquote class="mentor">“Antes de pulir una regla, escuchen lo que provoca en quienes la viven.”<small>BRYN · VOZ NARRATIVA DE ESTA MISIÓN</small></blockquote><div class="three-column">${[['01','Escuchar','Una persona reconoce la tensión; otra pregunta por una evidencia.'],['02','Rediseñar','Conserven el propósito y hagan explícita una regla distinta.'],['03','Contrastar','Intercambien roles y revisen el efecto que necesitan comprobar.']].map(([num,h,p])=>`<article class="panel"><span class="num">${num}</span><h3>${h}</h3><p>${p}</p></article>`).join('')}</div><p class="note">Misión secundaria optativa; presentación disponible para todos. Los tres candados abren pautas, no acreditan aprendizaje.</p>`);
 case 2:return scene(n,`<div class="split facets"><div>${gem()}<p class="note"><strong class="gema-choice-label">Tú eliges</strong> Abre las facetas en el orden que prefieras. Escoge una y explica a tu equipo qué te ayuda a observar.</p></div><div class="lens-buttons">${C.lenses.map(l=>`<button class="evidence-card ${state.lenses.includes(l.id)?'seen':''}" data-action="lens" data-lens="${l.id}"><small>FACETA ${C.lenses.indexOf(l)+1}</small><strong>${l.title}</strong></button>`).join('')}<p class="note">Lentes de Ryan y Deci (2020). Pueden intervenir varias necesidades en una misma situación.</p>${source()}</div></div>`);
 case 3:return scene(n,`<div class="split"><div>${caseBox(0)}<div class="vote-row"><span class="note"><strong class="gema-choice-label">Tú eliges</strong> ¿Cuál es tu primera lectura?</span>${readings.map((v,i)=>`<button class="button secondary small ${state.vote===i?'selected':''}" data-action="vote" data-option="${i}" aria-pressed="${state.vote===i}">${v}</button>`).join('')}</div><p class="note gema-reading" role="status">${state.vote===null ? 'La lectura que elijas será el punto de partida de tu anotación.' : `Elegiste «${readings[state.vote]}». Anota la regla y la señal que sostienen tu lectura.`}</p></div><div>${field('initial')}${notebookStatus()}</div></div>`);
 case 4:return scene(n,'<p class="note gema-case-reminder"><strong>El dilema.</strong> Una actividad cooperativa termina con una clasificación individual por rapidez.</p>'+quiz(0)+source());
 case 5:return scene(n,`<div class="compact-case">${caseBox(1)}</div>${quiz(1)}<div class="actions">${t('points-note','Registrar una regla que revisaríamos')}</div>`);
 case 6:return scene(n,`<div class="ethics-grid">${C.ethics.map((e,i)=>`<button class="panel ethics-card" data-action="ethics" data-option="${i}"><span class="num">0${i+1}</span><h3>${e.title}</h3><p>${e.question}</p></button>`).join('')}</div><div class="actions">${b('risk-note','Registrar nuestro riesgo','',true)}${t('sources','Kim y Werbach · referencia y límites')}</div><p class="note">Adaptación didáctica de un marco organizacional. No sustituye la escucha de quienes participan.</p>`);
-case 7:return scene(n,`<p class="note"><strong class="gema-choice-label">Tú eliges</strong> Decidan qué regla del caso quieren cambiar. Propongan una alternativa y decidan qué observarían para saber si mejora la experiencia.</p><div class="worksheet-tabs" role="tablist" aria-label="Etapa del rediseño">${['Diagnóstico','Rediseño','Contraste'].map((name,i)=>`<button role="tab" id="tab-${i}" aria-controls="worksheet-panel" aria-selected="${state.tab===i}" tabindex="${state.tab===i?0:-1}" data-action="tab" data-option="${i}">${name}</button>`).join('')}</div><div class="worksheet" id="worksheet-panel" role="tabpanel" aria-labelledby="tab-${state.tab}">${perkCue}<div class="work-grid gema-fields">${groups[state.tab].map(id=>field(id)).join('')}</div></div>${notebookStatus()}<p class="note">Revisen el rediseño entre pares y con el facilitador.</p><div class="actions">${t('record','Ver nuestro registro completo')}${t('model','Ver un ejemplo de rediseño')}</div>`);
+case 7:return scene(n,`<p class="note"><strong class="gema-choice-label">Tú eliges</strong> Decidan qué regla del caso quieren cambiar. Propongan una alternativa y decidan qué observarían para saber si mejora la experiencia.</p><div class="worksheet-tabs" role="tablist" aria-label="Etapa del rediseño">${['Diagnóstico','Rediseño','Contraste'].map((name,i)=>`<button role="tab" id="tab-${i}" aria-controls="worksheet-panel" aria-selected="${state.tab===i}" tabindex="${state.tab===i?0:-1}" data-action="tab" data-option="${i}">${name}</button>`).join('')}</div><div class="worksheet" id="worksheet-panel" role="tabpanel" aria-labelledby="tab-${state.tab}"><div class="work-grid gema-fields">${groups[state.tab].map(id=>field(id)).join('')}</div></div>${notebookStatus()}<p class="note">Revisen el rediseño entre pares y con el facilitador.</p><div class="actions">${t('record','Ver nuestro registro completo')}${t('model','Ver un ejemplo de rediseño')}</div>`);
 case 8:return scene(n,`<div class="split peer-split"><div><div class="steps">${[['1','Presentar · 4 min','Cada equipo explica propósito, regla y evidencia prevista.'],['2','Preguntar · 4 min','¿Quién podría quedar fuera? ¿Qué ayudaría a contrastar el ajuste?'],['3','Revisar · 2 min','El equipo conserva una pregunta y precisa su propuesta.']].map(([num,h,p])=>`<div class="step"><span class="num">${num}</span><div><strong>${h}</strong><p>${p}</p></div></div>`).join('')}</div><div class="work-grid peer-fields">${field('peer')}${field('revision')}</div></div><aside class="timer-box"><span class="eyebrow">TIEMPO ORIENTATIVO</span><div class="timer" id="timer" role="timer" aria-label="Tiempo restante">${clock()}</div><div class="actions">${b('timer',running?'Pausar':'Iniciar')}${t('timer-reset','Reiniciar')}</div><p class="note">No cambia de pantalla. Pueden seguir conversando.</p></aside></div>`);
 case 9:return scene(n,quiz(2));
 case 10:{const url=window.GEMA_CONFIG?.formularioCierre,valid=typeof url==='string'&&/^https:\/\//.test(url);return scene(n,`<div class="split"><div>${field('exit')}<div class="actions">${b('record','Conservar nuestro registro')}${b('notebook','Abrir cuaderno','',true)}</div>${notebookStatus()}</div><aside class="panel"><span class="eyebrow">CIERRE DEL MÓDULO 2</span><h3>Una huella para la Forja</h3><p>Compartan el rediseño y la reflexión por el canal que indique el facilitador.</p>${valid?`<a class="button secondary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Abrir formulario de cierre</a><p class="note">El envío se realiza en ese formulario. El HTML no lo verifica.</p>`:'<p class="note">El enlace de formulario está pendiente de configurar. Mientras tanto, el registro local permite conservar y compartir la respuesta.</p>'}</aside></div>`);}
@@ -327,22 +166,15 @@ function render(focus=false){
   if(rail) rail.innerHTML=missionRoute(state.page);
   else $('stage').querySelector('.scene-content, .cover-content')?.insertAdjacentHTML('afterbegin',missionRoute(state.page));
   updateMilestones();
-  updateBackpack();
   $('page-count').textContent = `${state.page + 1} / 12`;
   $('previous').disabled = state.page === 0;
   $('next-label').textContent = 'Siguiente';
   if (state.page === 11) $('next-label').textContent = 'Mi registro';
-  if (state.page === 0 && $('gema-backpack')?.hidden === false) {
-    $('next-label').textContent = equipped.size ? 'Entrar a la sesión' : 'Entrar sin equipar';
-  }
   $('route-dots').innerHTML=C.pages.map((p,i)=>`<button class="route-dot ${state.visited.includes(i)?'visited':''} ${i===state.page?'current':''}" data-action="go" data-page="${i}" aria-label="Pantalla ${i+1}: ${p.title}" ${i===state.page?'aria-current="step"':''}></button>`).join('');$('seal-status').innerHTML=C.quizzes.map((q,i)=>`<button class="seal-dot ${state.seals[i]}" data-action="seal" data-quiz="${i}" aria-label="Candado ${q.name}: ${status(state.seals[i])}">${i+1}</button>`).join('');if(focus)$('stage').focus({preventScroll:true});}
 function go(n){if(!Number.isInteger(n)||n<0||n>=12)return;if($('modal').open)$('modal').close();state.page=n;if(!state.visited.includes(n))state.visited.push(n);save();setPageHistory(null,'',`#pantalla-${n+1}`);render(true);$('stage').scrollTop=0;window.scrollTo({top:0,behavior:'instant'});}
-function modal(h, body, inventory = false) {
+function modal(h, body) {
   const dialog = $('modal');
   if (!dialog.open) opener = document.activeElement;
-  dialog.classList.toggle('gema-inventory', inventory);
-  if (inventory) dialog.setAttribute('aria-describedby', 'gema-pack-intro');
-  else dialog.removeAttribute('aria-describedby');
   $('modal-body').innerHTML = `<h2 id="modal-title" tabindex="-1">${h}</h2>${body}`;
   if (!dialog.open) dialog.showModal();
   $('modal-title').focus({preventScroll:true});
@@ -355,29 +187,7 @@ function textRecord(){return ['BUSCADORES DE LA GAMIFICACIÓN PERDIDA','La Gema 
 function record(){modal('Registro de La Gema Motivacional',`<p>Conserva el rediseño y compártelo por el canal indicado en clase.</p><label class="field" for="export-text">Registro completo<textarea id="export-text" readonly rows="12">${esc(textRecord())}</textarea></label><div class="actions">${b('copy','Copiar registro')}${b('download','Descargar TXT','',true)}</div><p class="note">Si el marco restringe la copia o descarga, selecciona el texto o abre la misión en otra pestaña.</p>`);}
 function notebook(){modal('Cuaderno de la Gema',`<div class="work-grid">${Object.keys(C.fields).map(id=>field(id,'book')).join('')}</div><div class="actions">${b('record','Ver registro completo')}</div><p class="note">Borrador por dispositivo. Sin envío ni calificación automática.</p>`);}
 document.addEventListener('click',async e=>{const el=e.target.closest('[data-action]');if(!el||el.disabled)return;const a=el.dataset.action,i=Number(el.dataset.quiz),o=Number(el.dataset.option);switch(a){
-case 'begin':prepareSession();break;
-case 'backpack':backpack(state.page===0);break;
-case 'equip-perk': {
-  const id = el.dataset.perk;
-  if (!missionPerks().some(perk => perk.id === id && perk.available)) break;
-  if (equipped.has(id)) equipped.delete(id);
-  else equipped.add(id);
-  backpack(el.closest('[data-gema-preparing]').dataset.gemaPreparing === 'true');
-  break;
-}
-case 'enter-session':go(1);break;
-case 'use-perk': {
-  const id = el.dataset.perk;
-  if (!equipped.has(id) || !missionPerks().some(perk => perk.id === id && perk.available)) break;
-  if ($('modal').open) {
-    $('modal').close();
-    $('gema-backpack').focus({preventScroll:true});
-  } else {
-    el.focus({preventScroll:true});
-  }
-  window.LudariaRPGUI.openPerk(id);
-  break;
-}
+case 'begin':go(1);break;
 case 'go':go(Number(el.dataset.page));break;case 'close':close();break;
 case 'map':modal('Los pasos de la Gema',`<p>Elige una pantalla para volver al punto que quieras revisar. ${state.visited.length}/12 pantallas visitadas. Registra las etapas de la aventura con las runas de la Forja.</p><div class="modal-grid">${C.pages.map((p,n)=>`<button class="map-item" data-action="go" data-page="${n}"><span>${n+1}</span>${p.title}</button>`).join('')}</div><div class="actions">${t('reset-ask','Reiniciar esta misión')}</div>`);break;
 case 'sources':references();break;case 'notebook':notebook();break;case 'record':record();break;
@@ -435,12 +245,6 @@ const start=/^#pantalla-(\d+)$/.exec(missionHash());
 const requestedPage=start ? Number(start[1])-1 : 0;
 if(requestedPage>0&&requestedPage<C.pages.length)state.page=requestedPage;
 if(!state.visited.includes(state.page))state.visited.push(state.page);
-function dockEffects() {
-  const effects = document.querySelector('body > [data-ludaria-effects]');
-  if (effects) document.querySelector('.navigation')?.append(effects);
-}
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dockEffects, {once:true});
-else dockEffects();
 save();
 render();
 startingMission=false;

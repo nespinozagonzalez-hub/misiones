@@ -41,4 +41,4 @@ La prueba de incrustaciones compara los 16 iframe originales. Las pruebas conect
 - [x] La «Pista del candado» se distingue de los objetos equipados. La navegación y los controles de sesión usan franjas compactas, con el ajuste de animaciones integrado al pie.
 - [x] En escritorio, la ruta, la mochila y los botones de navegación quedan fijos. El panel de actividades se desplaza cuando necesita espacio. En pantallas pequeñas, la página conserva el desplazamiento habitual.
 
-El piloto sigue en La Gema. La preparación se valida con personajes de prueba, incluido un personaje sin ventajas desbloqueadas.
+El piloto de la Gema dio origen al recorrido común de Ludaria. La preparación se valida con personajes de prueba, incluido un personaje sin ventajas desbloqueadas. [Recorrido y mochila en las misiones](RESUMEN_PARA_INCRUSTAR.md#recorrido-y-mochila--10-de-noviembre-de-2026)
