@@ -119,9 +119,6 @@
     if (next) next.textContent = equipped.size ? 'Entrar a la sesión' : 'Entrar sin equipar';
   }
 
-  const artURL = art => new URL(art === 'pocion' || art === 'prisma' || art === 'corazon'
-    ? `../gema-motivacional/assets/objeto-${art}.svg` : `../ludaria/assets/objeto-${art}.svg`, document.baseURI).href;
-
   function card(perk) {
     const {gear, id, name} = perk;
     const selected = equipped.has(id);
@@ -132,8 +129,8 @@
     const places = gear.moments.map(moment => `Pantalla ${moment.page} · ${moment.label}`).join(' / ');
     return `<article class="mission-item" data-item-art="${esc(gear.art)}" data-item-state="${state}" aria-labelledby="mission-item-${esc(id)}">
       <div class="mission-item-heading">
-        <div class="mission-item-slot"><img src="${esc(artURL(gear.art))}" alt="" width="64" height="64"></div>
-        <div><span class="mission-item-type">${esc(gear.title || (perk.kind === 'accion' ? 'Ruta del guardián' : 'Apoyo del guardián'))}</span><h3 id="mission-item-${esc(id)}">${esc(name)}</h3></div>
+        <div class="mission-item-slot"><img src="${esc(gear.image)}" alt="" width="64" height="64"></div>
+        <div><span class="mission-item-type">${esc([gear.type, gear.title].filter(Boolean).join(' · '))}</span><h3 id="mission-item-${esc(id)}">${esc(name)}</h3></div>
       </div>
       <div class="mission-item-effect"><strong>${esc(gear.effect)}</strong><p>${esc(gear.benefit)}</p><p class="mission-item-when">${esc(places)}</p></div>
       <div class="mission-item-controls">
@@ -231,8 +228,8 @@
       cue.className = 'mission-cue';
       cue.innerHTML = `<button type="button" class="mission-use-item${first ? ' is-new' : ''}" data-item-art="${esc(gear.art)}"
           aria-labelledby="mission-use-name" aria-describedby="mission-use-effect">
-        <span class="mission-use-icon"><img src="${esc(artURL(gear.art))}" alt="" width="32" height="32"></span>
-        <span class="mission-use-copy"><span class="mission-use-kicker">De tu mochila · Úsalo aquí</span>
+        <span class="mission-use-icon"><img src="${esc(gear.image)}" alt="" width="32" height="32"></span>
+        <span class="mission-use-copy"><span class="mission-use-kicker">${esc(gear.type)} de tu mochila · Úsalo aquí</span>
           <strong id="mission-use-name">Usar ${esc(gear.title || perk.name)}</strong><span id="mission-use-effect">${esc(gear.effect)}</span></span>
         <span class="mission-use-arrow" aria-hidden="true">›</span>
       </button>`;
@@ -244,6 +241,63 @@
     if (!cue.querySelector('[data-mission-omission]')) {
       const omit = window.LudariaMissionExperience?.omissionControl(perk, page);
       if (omit) cue.append(omit);
+    }
+  }
+
+  function showBonusGuides() {
+    for (const help of body.querySelectorAll('.ludaria-cloud-dialog[open]')) {
+      for (const button of help.querySelectorAll('.rpg-perk [data-rpg-open]')) {
+        const gear = config.gear[button.dataset.rpgOpen];
+        if (!gear || button.previousElementSibling?.hasAttribute('data-bonus-preview')) continue;
+        const preview = document.createElement('p');
+        preview.dataset.bonusPreview = '';
+        preview.textContent = `${gear.type} · ${gear.effect}. ${gear.benefit}`;
+        button.before(preview);
+        if (!button.disabled) {
+          button.textContent = `Ver ${gear.type.toLowerCase()}`;
+          button.setAttribute('aria-label', `${button.textContent} · ${gear.title || button.closest('article').querySelector('h3').textContent}`);
+        }
+      }
+
+      const title = help.querySelector('h2')?.textContent;
+      const perk = mission.perks.find(p => p.name === title);
+      const gear = perk && config.gear[perk.id];
+      if (!gear) continue;
+      const preview = help.querySelector('[data-rpg-preview] > .rpg-threshold')?.nextElementSibling;
+      if (preview && preview.textContent !== gear.benefit) preview.textContent = gear.benefit;
+
+      // El cliente desplegado usa un umbral directo y una nota al confirmar el acceso.
+      const description = help.querySelector(':scope > .rpg-threshold')?.nextElementSibling;
+      if (!description?.matches('p') || !help.querySelector(':scope > .rpg-note')) continue;
+
+      const guide = document.createElement('section');
+      guide.className = 'mission-bonus-guide';
+      guide.dataset.missionBonus = perk.id;
+      guide.dataset.itemArt = gear.art;
+      guide.innerHTML = `<header>
+        <img src="${esc(gear.image)}" alt="" width="48" height="48">
+        <div><span class="mission-item-type">${esc([gear.type, gear.title].filter(Boolean).join(' · '))}</span><h3>${esc(gear.effect)}</h3></div>
+      </header>
+      <p>${esc(gear.benefit)}</p>
+      <ol>${gear.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
+      <div class="mission-bonus-template"><strong>Plantilla para aplicar</strong><p>${esc(gear.template)}</p></div>`;
+      const work = help.querySelector('[data-rpg-form] textarea[name="work"]');
+      if (work) {
+        const insert = document.createElement('button');
+        insert.type = 'button';
+        insert.textContent = 'Poner plantilla en mi ensayo';
+        const updateInsert = () => { insert.hidden = Boolean(work.value); };
+        work.addEventListener('input', updateInsert);
+        insert.addEventListener('click', () => {
+          if (work.value) return;
+          work.value = gear.template;
+          work.dispatchEvent(new Event('input', {bubbles:true}));
+          work.focus();
+        });
+        updateInsert();
+        guide.append(insert);
+      }
+      description.replaceWith(guide);
     }
   }
 
@@ -280,6 +334,12 @@
   const observer = new MutationObserver(sync);
   observer.observe(stage, {childList:true});
   observer.observe(counter, {childList:true, characterData:true, subtree:true});
+  if (backpack) {
+    const guideObserver = new MutationObserver(showBonusGuides);
+    guideObserver.observe(body, {childList:true, subtree:true});
+    window.addEventListener('pagehide', () => guideObserver.disconnect(), {once:true});
+    showBonusGuides();
+  }
   window.addEventListener('ludaria:profile', sync);
   window.addEventListener('ludaria:omission-ready', sync);
   // Las flechas del diálogo no deben pasar a los atajos de cambio de pantalla.

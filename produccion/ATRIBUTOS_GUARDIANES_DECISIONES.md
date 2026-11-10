@@ -134,7 +134,13 @@ Presenta el prototipo, reflexiona sobre el recorrido y completa los instrumentos
 
 ## Mochi y redistribución
 
-Cada atributo explica sus apoyos en 3, 5 y 8, identifica la misión y permite una demostración previa. Las tarjetas y la confirmación muestran qué umbrales se cruzarán con la compra. Un punto compra +1, máximo 10; la XP y las recompensas originales se conservan. Se puede devolver todo a 1, o definir otra distribución válida. El saldo, los valores anteriores/nuevos y el motivo opcional quedan en el historial.
+Cada atributo muestra los objetos que desbloquea en 3, 5 y 8, el beneficio de cada uno y en qué parte de la misión se usa. Las tarjetas y la confirmación muestran qué objetos se habilitan con la selección. Un punto compra +1 en un atributo, con un máximo de 10. Se puede devolver todo a 1 o definir otra distribución válida. El saldo, los valores anteriores y nuevos y el motivo opcional quedan en el historial.
+
+## Objetos de mochila
+
+Una **pista** indica qué observar para avanzar. Una **plantilla** da una estructura que se completa con el propio caso. Un **comodín** ofrece otra forma de ensayar o contrastar una decisión dentro de la misma actividad. Al abrir un objeto con el atributo requerido, aparecen pasos y un texto de partida. Si el objeto admite un ensayo, se puede insertar el texto de partida en un campo vacío y editarlo antes de guardar.
+
+La pestaña **Bonos de mochila** de la planilla privada documenta los 39 objetos por ID con su requisito, momento, guía y plantilla. Apps Script mantiene `CatalogoVentajas` como registro técnico de los umbrales. Para publicar cambios de contenido en Mochi y las misiones, actualiza el mismo ID en `ludaria/mission-journey-data.js` y publica esa versión.
 
 ## Evidencias para analizar
 
