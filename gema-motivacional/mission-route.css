@@ -1,10 +1,9 @@
 .gema-route {
-  margin: 0 0 20px;
-  padding: 12px 14px;
-  border: 1px solid #b99c634d;
-  border-radius: 12px;
-  background: linear-gradient(120deg, #163122f5, #08170ff5);
-  box-shadow: 0 10px 28px #0003;
+  margin: 0 0 12px;
+  padding: 6px 8px;
+  border: 1px solid #b99c633d;
+  border-radius: 8px;
+  background: #0d2118e8;
 }
 
 .cover-content .gema-route { margin: 18px 0 0; }
@@ -16,7 +15,7 @@
   gap: 4px 12px;
   align-items: center;
   color: #e7cd94;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .gema-route-heading > span { color: #c8d6c8; }
@@ -24,25 +23,25 @@
 .gema-milestones {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  gap: 5px;
   list-style: none;
   padding: 0;
-  margin: 8px 0 0;
+  margin: 5px 0 0;
 }
 
 .gema-milestone {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 9px;
+  gap: 7px;
   min-width: 0;
-  padding: 8px 10px;
+  padding: 4px 7px;
   border: 1px solid #8db19630;
   border-radius: 8px;
   background: #0a1912;
   color: #e9eadd;
-  font-size: 14px;
-  line-height: 1.35;
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 .gema-milestone[aria-current="step"] {
@@ -54,8 +53,8 @@
 .gema-milestone-mark {
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border: 1px solid #8db19661;
   border-radius: 6px;
   color: #d1dfca;
@@ -99,6 +98,50 @@
 .gema-reading, .gema-save-note { color: #c7e4ce; }
 .gema-case-reminder { max-width: 800px; }
 .feedback.success { border-color: #80ca95; background: #193e29; }
+
+.gema-use-item {
+  --item-accent: #eed49f;
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  margin-block: 6px 10px;
+  padding: 6px 12px 6px 8px;
+  border: 1px solid #c9a66b68;
+  border-inline-start: 3px solid var(--item-accent);
+  border-radius: 8px;
+  background: linear-gradient(110deg, #1b3729, #10231a);
+  color: #f2efde;
+  text-align: left;
+}
+.gema-use-item:hover { background: #244534; border-color: var(--item-accent); }
+.gema-use-item:focus-visible { outline: 2px solid var(--item-accent); outline-offset: 3px; }
+.gema-use-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #bfa37370;
+  border-radius: 7px;
+  background: #0a1912;
+}
+.gema-use-icon img { display: block; image-rendering: pixelated; }
+.gema-use-copy { display: grid; gap: 2px; font-size: 13px; line-height: 1.22; }
+.gema-use-copy strong { color: var(--item-accent); font-size: 15px; }
+.gema-use-kicker { color: #e0d4b6; font: 700 10px/1.2 system-ui, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.gema-use-arrow { color: var(--item-accent); font-size: 24px; line-height: 1; }
+.worksheet .gema-use-item { margin-top: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  body:not([data-ludaria-motion="off"]) .gema-use-item.is-new .gema-use-icon {
+    animation: gema-perk-pulse 1.2s ease-in-out 2;
+  }
+}
+@keyframes gema-perk-pulse {
+  0%, 100% { box-shadow: 0 0 0 #0000; }
+  50% { box-shadow: 0 0 12px 2px var(--item-accent); }
+}
 
 .gema-finale {
   display: grid;
@@ -154,15 +197,80 @@
 }
 
 @media (max-width: 620px) {
-  .gema-route { margin-bottom: 14px; padding: 10px; }
-  .gema-milestones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
-  .gema-milestone { gap: 6px; padding: 7px; font-size: 13px; }
-  .gema-milestone-mark { width: 22px; height: 22px; }
+  .gema-milestones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gema-ritual-heading { grid-template-columns: 64px minmax(0, 1fr); }
 }
 
-#gema-route-rail { padding: 10px 5vw 0; }
-#gema-route-rail .gema-route { max-width: 1350px; margin: 0 auto; }
+body[data-gema-loadout] {
+  --gema-content-width: 1120px;
+  --gema-gutter: max(5vw, calc((100vw - var(--gema-content-width)) / 2));
+}
+body[data-gema-loadout] > .ludaria-cloud-bar {
+  gap: 4px 7px;
+  padding: 4px var(--gema-gutter);
+  border-color: #c9a66b44;
+  background: #0c1c14;
+  color: #dbe5d7;
+  font-size: 12px;
+}
+body[data-gema-loadout] > .ludaria-cloud-bar button {
+  min-height: 29px;
+  padding: 3px 8px;
+  border-color: #7ba18c6b;
+  border-radius: 5px;
+  background: #13291e;
+  color: #e3ebe0;
+  line-height: 1.25;
+}
+body[data-gema-loadout] > .ludaria-cloud-bar button:hover { border-color: #accdb5; }
+body[data-gema-loadout] > .ludaria-cloud-bar [data-cloud-advantage] img { width: 16px; height: 16px; }
+
+.hud { height: 46px; padding-inline: var(--gema-gutter); }
+.hud .brand { font-size: 13px; gap: 8px; }
+.hud .brand-mark { font-size: 24px; }
+.hud .brand small { display: none; }
+.hud-right { gap: 6px; }
+.hud-right .icon-button { width: 33px; height: 33px; }
+.hud-right .icon-button svg { width: 17px; height: 17px; }
+.hud .seal-dot { width: 25px; height: 25px; font-size: 11px; }
+
+#gema-route-rail { padding: 5px 5vw 0; }
+#gema-route-rail .gema-route { max-width: var(--gema-content-width); margin: 0 auto; }
+#stage .scene-content.wide { max-width: var(--gema-content-width); margin-inline: auto; }
+
+.navigation { min-height: 47px; gap: 10px; padding: 4px var(--gema-gutter); }
+.navigation .nav-button { min-height: 36px; min-width: 0; gap: 6px; padding: 2px 7px; font-size: 12px; }
+.navigation .nav-button > span[aria-hidden] { font-size: 23px; }
+.navigation .route-label { font-size: 11px; line-height: 1.2; }
+.navigation .ludaria-effects { flex-shrink: 0; padding: 0; border: 0; background: transparent; }
+.navigation .ludaria-effects button { min-height: 29px; padding: 3px 8px; color: #e4e3cf; font-size: 11px; }
+
+@media (min-width: 1000px) {
+  #gema-route-rail .gema-route { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 10px; }
+  #gema-route-rail .gema-route-heading { display: grid; gap: 2px; }
+  #gema-route-rail .gema-milestones { margin: 0; }
+}
+
+@media screen and (max-width: 760px) {
+  body[data-gema-loadout] > .ludaria-cloud-bar [data-cloud-identity] { flex-basis: auto; }
+  body[data-gema-loadout] > .ludaria-cloud-bar [data-cloud-status] { flex: 1 1 150px; min-width: 0; }
+  body[data-gema-loadout] > .ludaria-cloud-bar button { padding-inline: 5px; font-size: 11px; }
+  .navigation { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 8px; }
+  .navigation .route-progress { width: 100%; }
+  .navigation .ludaria-effects { grid-column: 1 / -1; justify-self: end; }
+}
+
+@media screen and (max-width: 620px) {
+  body[data-gema-loadout] > .ludaria-cloud-bar:not([hidden]) {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px 5px;
+  }
+  body[data-gema-loadout] > .ludaria-cloud-bar :is([data-cloud-identity], [data-cloud-status]) { grid-column: span 2; }
+  body[data-gema-loadout] > .ludaria-cloud-bar button { min-height: 33px; padding-inline: 3px; }
+  body[data-gema-loadout] > .ludaria-cloud-bar [data-cloud-advantage] img { display: none; }
+}
+
 .gema-backpack { position: relative; flex-shrink: 0; }
 .gema-backpack[hidden] { display: none; }
 .gema-backpack-label { display: none; }
@@ -232,9 +340,9 @@
   background: linear-gradient(145deg, #203629, #102219 68%);
 }
 
-.gema-item[data-item-art="pocion"] { --item-accent: #9debc5; }
-.gema-item[data-item-art="prisma"] { --item-accent: #dfc6fb; }
-.gema-item[data-item-art="corazon"] { --item-accent: #ffc1af; }
+:is(.gema-item, .gema-use-item)[data-item-art="pocion"] { --item-accent: #9debc5; }
+:is(.gema-item, .gema-use-item)[data-item-art="prisma"] { --item-accent: #dfc6fb; }
+:is(.gema-item, .gema-use-item)[data-item-art="corazon"] { --item-accent: #ffc1af; }
 .gema-item[data-item-state="locked"] { border-color: #92856970; background: #15261e; }
 .gema-item[data-item-state="equipped"] { border-color: #92d9ab; box-shadow: inset 0 0 0 1px #92d9ab55; }
 
@@ -325,7 +433,7 @@
   .gema-pack-footer .button { padding-inline: 10px; font-size: 14px; }
 }
 
-@media screen and (min-width: 1000px) and (min-height: 620px) {
+@media screen and (min-width: 1000px) and (min-height: 540px) {
   body[data-gema-loadout] { display: flex; flex-direction: column; height: 100dvh; min-height: 0; overflow: hidden; }
   body[data-gema-loadout] > :is(.ludaria-cloud-bar, .hud, #gema-route-rail, .navigation, .ludaria-effects) { flex: 0 0 auto; }
   body[data-gema-loadout] > #stage {
@@ -335,6 +443,6 @@
     min-height: 0;
     overflow: auto;
     overscroll-behavior-y: contain;
-    scrollbar-gutter: stable;
+    scrollbar-gutter: stable both-edges;
   }
 }

@@ -42,21 +42,25 @@ function missionRoute(pageIndex) {
 }
 
 const equipped = new Set();
+const shownPerkMoments = new Set();
 const itemGear = {
   'gema-motivacional_0': {
     art: 'pocion', type: 'Poción de enfoque', effect: '3 preguntas para leer el caso',
     benefit: 'Detecta si hay elección, apoyo para avanzar y sentido de pertenencia.',
-    when: 'Úsala al analizar un dilema'
+    when: 'En el primer dilema y en Diagnóstico',
+    page: 3, workshopTab: 0
   },
   'gema-motivacional_1': {
     art: 'prisma', type: 'Prisma de contraste', effect: '2 formas de abordar el dilema',
     benefit: 'Compara dar más opciones con ofrecer más apoyo o fortalecer al equipo.',
-    when: 'Úsalo al decidir qué atender primero'
+    when: 'En «Los puntos arbitrarios» y en Rediseño',
+    page: 5, workshopTab: 1
   },
   'gema-motivacional_2': {
     art: 'corazon', type: 'Corazón del cuidado', effect: '1 prueba de inclusión',
     benefit: 'Ensaya una forma de participar sin competir ni exponerse.',
-    when: 'Úsalo antes de compartir tu rediseño'
+    when: 'En Contraste y al compartir tu rediseño',
+    page: 8, workshopTab: 2
   }
 };
 
@@ -83,8 +87,42 @@ function updateBackpack() {
   button.dataset.equipped = String(equipped.size > 0);
   const availableLabel = available.length === 1 ? '1 disponible' : `${available.length} disponibles`;
   button.setAttribute('aria-label', `Mochila de ventajas, ${availableLabel} y ${equipped.size} ${equipped.size === 1 ? 'equipada' : 'equipadas'}`);
+  updatePerkCue(available);
   return perks;
 }
+
+function updatePerkCue(available) {
+  const slot = $('stage').querySelector('[data-gema-perk-cue]');
+  if (!slot) return;
+  const perk = available.find(({id}) => {
+    const gear = itemGear[id];
+    return equipped.has(id) && gear && (state.page === 7 ? gear.workshopTab === state.tab : gear.page === state.page);
+  });
+  if (slot.dataset.perk === (perk?.id || '')) return;
+  slot.dataset.perk = perk?.id || '';
+  slot.hidden = !perk;
+  if (!perk) {
+    slot.replaceChildren();
+    return;
+  }
+  const gear = itemGear[perk.id];
+  const moment = `${state.page}:${perk.id}`;
+  const firstAppearance = !$('modal').open && !shownPerkMoments.has(moment);
+  if (firstAppearance) shownPerkMoments.add(moment);
+  const pulse = firstAppearance ? ' is-new' : '';
+  slot.innerHTML = `<button type="button" class="gema-use-item${pulse}" data-item-art="${gear.art}"
+      data-action="use-perk" data-perk="${esc(perk.id)}" aria-labelledby="gema-use-name" aria-describedby="gema-use-effect">
+    <span class="gema-use-icon"><img src="assets/objeto-${gear.art}.svg" alt="" width="32" height="32"></span>
+    <span class="gema-use-copy">
+      <span class="gema-use-kicker">De tu mochila · Úsalo aquí</span>
+      <strong id="gema-use-name">Usar ${gear.type}</strong>
+      <span id="gema-use-effect">${gear.effect}</span>
+    </span>
+    <span class="gema-use-arrow" aria-hidden="true">›</span>
+  </button>`;
+}
+
+const perkCue = '<div data-gema-perk-cue hidden></div>';
 
 function inventoryCard(perk, preparing) {
   const gear = itemGear[perk.id];
@@ -126,7 +164,7 @@ function backpack(preparing = false) {
   if (!pack) {
     modal(preparing ? 'Prepara tu mochila' : 'Mochila de ventajas', `
       <div class="gema-pack" data-gema-preparing="${preparing}">
-        <p class="gema-pack-intro" id="gema-pack-intro">${preparing ? 'Equipa lo que quieras llevar. En la sesión, abre <strong>Mochila</strong> y elige <strong>Usar</strong>.' : 'Elige <strong>Usar</strong> en un objeto equipado para abrir su ayuda.'}</p>
+        <p class="gema-pack-intro" id="gema-pack-intro">${preparing ? 'Equipa lo que quieras llevar. Verás su icono junto a la actividad donde te ayuda.' : 'Elige <strong>Usar</strong> en un objeto equipado para abrir su ayuda.'}</p>
         <div class="gema-items" role="region" aria-label="Objetos de la mochila" tabindex="0"></div>
         <footer class="gema-pack-footer">
           <div><strong role="status"></strong><small>Sin costo · Durante esta visita</small></div>
@@ -197,7 +235,7 @@ function notebookStatus() {
 }
 
 const title=n=>`<div class="section-title"><div><span class="eyebrow">LA CANTERA · MAESTRA BRYN · MAESTRÍA</span><h2>${C.pages[n].title}</h2></div><span class="time-label">${C.pages[n].time} min · ${n===8?'entre equipos':'en grupo'}</span></div><p class="lead"><strong class="gema-now">Ahora</strong> ${C.pages[n].prompt}</p>`;
-const scene=(n,body)=>`<section class="scene"><div class="scene-content wide">${title(n)}${body}<p class="note product">Producto: ${C.pages[n].product}</p></div></section>`;
+const scene=(n,body)=>`<section class="scene"><div class="scene-content wide">${title(n)}${n === 7 ? '' : perkCue}${body}<p class="note product">Producto: ${C.pages[n].product}</p></div></section>`;
 const source=()=>`<div class="source-line">${t('sources','Fuentes y alcance')}<span class="note inline-note">Casos y pautas: elaboración didáctica propia.</span></div>`;
 const caseBox=i=>`<div class="case-panel"><span class="eyebrow">CASO FICTICIO · PARA ANALIZAR</span><p>${C.cases[i].text}</p></div>`;
 const clock=()=>`${String(Math.floor(state.timer/60)).padStart(2,'0')}:${String(state.timer%60).padStart(2,'0')}`;
@@ -215,9 +253,9 @@ function quiz(i) {
     <div>
       <h3 class="question-title">${q.question}</h3>
       <div class="options">${q.options.map((option, index) => `<button class="choice ${state.choices[i]===index?'selected':''}" data-action="choice" data-quiz="${i}" data-option="${index}" aria-pressed="${state.choices[i]===index}"><span class="choice-mark">${String.fromCharCode(65+index)}</span><span>${option.text}</span></button>`).join('')}</div>
-      <div class="actions">${b('check','Revisar mi decisión',`data-quiz="${i}"`)}${t('hint','Pedir una pista',`data-quiz="${i}"`)}</div>
+      <div class="actions">${b('check','Revisar mi decisión',`data-quiz="${i}"`)}${t('hint','Ver pista del candado',`data-quiz="${i}"`)}</div>
       ${message ? `<div class="feedback ${message.kind}" role="status" tabindex="-1" data-gema-feedback>${message.text}</div>` : ''}
-      ${state.hints[i] ? `<p class="note">Pista: ${q.hint}</p>` : ''}
+      ${state.hints[i] ? `<p class="note"><strong>Pista del candado.</strong> ${q.hint}</p>` : ''}
       <p class="note">${t('assist','Abrir con acompañamiento',`data-quiz="${i}"`)} · Puedes seguir sin resolver.</p>
     </div>
     <aside class="lock-panel ${seal!=='pending'?'open':''}">
@@ -268,7 +306,7 @@ case 3:return scene(n,`<div class="split"><div>${caseBox(0)}<div class="vote-row
 case 4:return scene(n,'<p class="note gema-case-reminder"><strong>El dilema.</strong> Una actividad cooperativa termina con una clasificación individual por rapidez.</p>'+quiz(0)+source());
 case 5:return scene(n,`<div class="compact-case">${caseBox(1)}</div>${quiz(1)}<div class="actions">${t('points-note','Registrar una regla que revisaríamos')}</div>`);
 case 6:return scene(n,`<div class="ethics-grid">${C.ethics.map((e,i)=>`<button class="panel ethics-card" data-action="ethics" data-option="${i}"><span class="num">0${i+1}</span><h3>${e.title}</h3><p>${e.question}</p></button>`).join('')}</div><div class="actions">${b('risk-note','Registrar nuestro riesgo','',true)}${t('sources','Kim y Werbach · referencia y límites')}</div><p class="note">Adaptación didáctica de un marco organizacional. No sustituye la escucha de quienes participan.</p>`);
-case 7:return scene(n,`<p class="note"><strong class="gema-choice-label">Tú eliges</strong> Decidan qué regla del caso quieren cambiar. Propongan una alternativa y decidan qué observarían para saber si mejora la experiencia.</p><div class="worksheet-tabs" role="tablist" aria-label="Etapa del rediseño">${['Diagnóstico','Rediseño','Contraste'].map((name,i)=>`<button role="tab" id="tab-${i}" aria-controls="worksheet-panel" aria-selected="${state.tab===i}" tabindex="${state.tab===i?0:-1}" data-action="tab" data-option="${i}">${name}</button>`).join('')}</div><div class="worksheet" id="worksheet-panel" role="tabpanel" aria-labelledby="tab-${state.tab}"><div class="work-grid gema-fields">${groups[state.tab].map(id=>field(id)).join('')}</div></div>${notebookStatus()}<p class="note">Revisen el rediseño entre pares y con el facilitador.</p><div class="actions">${t('record','Ver nuestro registro completo')}${t('model','Ver un ejemplo de rediseño')}</div>`);
+case 7:return scene(n,`<p class="note"><strong class="gema-choice-label">Tú eliges</strong> Decidan qué regla del caso quieren cambiar. Propongan una alternativa y decidan qué observarían para saber si mejora la experiencia.</p><div class="worksheet-tabs" role="tablist" aria-label="Etapa del rediseño">${['Diagnóstico','Rediseño','Contraste'].map((name,i)=>`<button role="tab" id="tab-${i}" aria-controls="worksheet-panel" aria-selected="${state.tab===i}" tabindex="${state.tab===i?0:-1}" data-action="tab" data-option="${i}">${name}</button>`).join('')}</div><div class="worksheet" id="worksheet-panel" role="tabpanel" aria-labelledby="tab-${state.tab}">${perkCue}<div class="work-grid gema-fields">${groups[state.tab].map(id=>field(id)).join('')}</div></div>${notebookStatus()}<p class="note">Revisen el rediseño entre pares y con el facilitador.</p><div class="actions">${t('record','Ver nuestro registro completo')}${t('model','Ver un ejemplo de rediseño')}</div>`);
 case 8:return scene(n,`<div class="split peer-split"><div><div class="steps">${[['1','Presentar · 4 min','Cada equipo explica propósito, regla y evidencia prevista.'],['2','Preguntar · 4 min','¿Quién podría quedar fuera? ¿Qué ayudaría a contrastar el ajuste?'],['3','Revisar · 2 min','El equipo conserva una pregunta y precisa su propuesta.']].map(([num,h,p])=>`<div class="step"><span class="num">${num}</span><div><strong>${h}</strong><p>${p}</p></div></div>`).join('')}</div><div class="work-grid peer-fields">${field('peer')}${field('revision')}</div></div><aside class="timer-box"><span class="eyebrow">TIEMPO ORIENTATIVO</span><div class="timer" id="timer" role="timer" aria-label="Tiempo restante">${clock()}</div><div class="actions">${b('timer',running?'Pausar':'Iniciar')}${t('timer-reset','Reiniciar')}</div><p class="note">No cambia de pantalla. Pueden seguir conversando.</p></aside></div>`);
 case 9:return scene(n,quiz(2));
 case 10:{const url=window.GEMA_CONFIG?.formularioCierre,valid=typeof url==='string'&&/^https:\/\//.test(url);return scene(n,`<div class="split"><div>${field('exit')}<div class="actions">${b('record','Conservar nuestro registro')}${b('notebook','Abrir cuaderno','',true)}</div>${notebookStatus()}</div><aside class="panel"><span class="eyebrow">CIERRE DEL MÓDULO 2</span><h3>Una huella para la Forja</h3><p>Compartan el rediseño y la reflexión por el canal que indique el facilitador.</p>${valid?`<a class="button secondary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Abrir formulario de cierre</a><p class="note">El envío se realiza en ese formulario. El HTML no lo verifica.</p>`:'<p class="note">El enlace de formulario está pendiente de configurar. Mientras tanto, el registro local permite conservar y compartir la respuesta.</p>'}</aside></div>`);}
@@ -323,8 +361,12 @@ case 'enter-session':go(1);break;
 case 'use-perk': {
   const id = el.dataset.perk;
   if (!equipped.has(id) || !missionPerks().some(perk => perk.id === id && perk.available)) break;
-  $('modal').close();
-  $('gema-backpack').focus({preventScroll:true});
+  if ($('modal').open) {
+    $('modal').close();
+    $('gema-backpack').focus({preventScroll:true});
+  } else {
+    el.focus({preventScroll:true});
+  }
   window.LudariaRPGUI.openPerk(id);
   break;
 }
@@ -385,6 +427,12 @@ const start=/^#pantalla-(\d+)$/.exec(location.hash);
 const requestedPage=start ? Number(start[1])-1 : 0;
 if(requestedPage>0&&requestedPage<C.pages.length)state.page=requestedPage;
 if(!state.visited.includes(state.page))state.visited.push(state.page);
+function dockEffects() {
+  const effects = document.querySelector('body > [data-ludaria-effects]');
+  if (effects) document.querySelector('.navigation')?.append(effects);
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dockEffects, {once:true});
+else dockEffects();
 save();
 render();
 })();
