@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07120d">
+  <meta name="robots" content="noindex">
+  <title>Ludaria · Buscadores de la Gamificación Perdida</title>
+  <style>
+    html, body { height: 100%; margin: 0; background: #07120d; color: #f2ebdd; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    #marco { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+    #aviso { position: fixed; inset: 0; display: grid; place-content: center; gap: 10px; padding: 24px; text-align: center; }
+    #aviso[hidden] { display: none; }
+    #aviso strong { color: #d8ba7a; font: 400 26px Georgia, 'Times New Roman', serif; }
+    #aviso a { color: #d8ff68; }
+  </style>
+  <script src="gateway-config.js?v=20261011-identidad2"></script>
+</head>
+<body>
+  <div id="aviso" role="status"><strong>Ludaria</strong><span id="aviso-texto">Abriendo tu aventura…</span></div>
+  <script>
+  /** Marco de pestaña propia. Solo abre la implementación /exec declarada y rutas conocidas; no reenvía identidad ni otros parámetros. */
+  (() => {
+    'use strict';
+    const config = window.LUDARIA_GATEWAY, here = new URL(location.href), text = document.getElementById('aviso-texto');
+    const slug = here.searchParams.get('mision') || 'forja';
+    const fail = () => { text.innerHTML = 'No se pudo abrir esta etapa. <a href="../">Volver al mapa de Ludaria</a>'; };
+    if (!config || config.enabled !== true || config.verified !== true || !Array.isArray(config.routes) || !config.routes.includes(slug) ||
+        typeof config.deployment !== 'string' || !/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]{20,}\/exec$/.test(config.deployment)) { fail(); return; }
+    const target = new URL(config.deployment);
+    if (slug !== 'forja') target.searchParams.set('mision', slug);
+    else if (here.searchParams.get('entrada') === 'mochi') target.searchParams.set('entrada', 'mochi');
+    if (/^#pantalla-(?:[1-9]|[1-4][0-9]|50)$/.test(here.hash)) target.hash = here.hash;
+    const frame = document.createElement('iframe');
+    frame.id = 'marco';
+    frame.title = 'Ludaria';
+    frame.allow = 'fullscreen; clipboard-write';
+    frame.setAttribute('allowfullscreen', '');
+    frame.addEventListener('load', () => { document.getElementById('aviso').hidden = true; });
+    frame.src = target.href;
+    document.body.append(frame);
+  })();
+  </script>
+</body>
+</html>

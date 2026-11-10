@@ -19,5 +19,16 @@
   }
   if (/^#pantalla-(?:[1-9]|[1-4][0-9]|50)$/.test(current.hash)) target.hash = current.hash;
   // No reenviar PIN, clave, token, nombre, URLs arbitrarias ni estado del navegador.
+  // En una pestaña propia, el marco de Ludaria aloja la aplicación para que el aviso
+  // de Google Apps Script no ocupe la parte superior. Dentro de Genially u otro iframe
+  // se conserva la navegación directa ya comprobada.
+  if (window.top === window.self) {
+    const frame = new URL('/misiones/ludaria/marco.html', location.origin);
+    frame.searchParams.set('mision', match[1]);
+    if (target.searchParams.get('entrada') === 'mochi') frame.searchParams.set('entrada', 'mochi');
+    frame.hash = target.hash;
+    location.replace(frame.href);
+    return;
+  }
   location.replace(target.href);
 })();

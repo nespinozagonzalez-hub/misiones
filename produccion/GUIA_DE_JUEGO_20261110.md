@@ -53,3 +53,11 @@ Las pruebas usan servicios simulados. La comprobación en `/exec` y en Genially 
 - [ ] Revisar la redacción de las preguntas formativas de las demás misiones por contexto, acción y evidencia esperada.
 - [ ] Llevar la mochila de ventajas de La Gema a las demás misiones.
 - [ ] Revisar título, contador y transiciones en el editor de Genially.
+
+## Marco de pestaña propia
+
+Al abrir una misión, la Forja o Mochi desde su enlace de GitHub Pages en una pestaña propia, `ludaria/gateway.js` lleva a `ludaria/marco.html`. Esa página aloja la misma implementación `/exec` en un marco a pantalla completa, para que el aviso «Un usuario de Google Apps Script creó esta aplicación» no ocupe la parte superior y la dirección visible siga siendo de Ludaria. Dentro de Genially u otro iframe se conserva la navegación directa ya comprobada.
+
+El marco solo abre la implementación declarada en `gateway-config.js` y las rutas de su lista. No reenvía nombre, clave ni otros parámetros. Un enlace `/exec` abierto directamente sigue mostrando el aviso de Google: para compartir, usar los enlaces de GitHub Pages del catálogo.
+
+- [ ] Comprobar en un navegador real, después de integrar en `main`, que el aviso no aparece y que la sesión de la pestaña se conserva al pasar entre misiones.

@@ -9,9 +9,20 @@ function run(path, config = active, extra = {}) {
   let redirected;
   const href = 'https://nespinozagonzalez-hub.github.io/misiones/' + path;
   const location = {href, origin: new URL(href).origin, replace: value => { redirected = value; }};
-  vm.runInNewContext(source, {window: {LUDARIA_GATEWAY: config, ...extra}, location, URL});
+  // Por defecto simula la entrada incrustada (Genially); topLevel simula una pestaña propia.
+  const {topLevel, ...globals} = extra;
+  const win = {LUDARIA_GATEWAY: config, ...globals};
+  win.self = win; win.top = topLevel ? win : {};
+  vm.runInNewContext(source, {window: win, location, URL});
   return redirected;
 }
+const frame = 'https://nespinozagonzalez-hub.github.io/misiones/ludaria/marco.html';
+assert.equal(run('forja/', active, {topLevel: true}), frame + '?mision=forja');
+assert.equal(run('forja/?entrada=mochi&key=private', active, {topLevel: true}), frame + '?mision=forja&entrada=mochi');
+assert.equal(run('vetas-diseno/presentacion.html?v=old&name=private#pantalla-5', active, {topLevel: true}), frame + '?mision=vetas-diseno#pantalla-5');
+assert.equal(run('vetas-diseno/?prueba=1', active, {topLevel: true}), undefined);
+assert.equal(run('mision-0/presentacion.html', {...active, routes: ['forja', 'mision-0']}, {topLevel: true}), undefined);
+assert.equal(run('forja/', {...active, enabled: false}, {topLevel: true}), undefined);
 assert.equal(run('forja/'), deployment);
 assert.equal(run('forja/index.html?entrada=mochi'), deployment + '?entrada=mochi');
 assert.equal(run('forja/?mochi=1'), deployment + '?entrada=mochi');
@@ -48,4 +59,4 @@ for (const file of ['forja/index.html', ...published.routes.filter(slug => slug 
   const gatewayAt = html.indexOf('../ludaria/gateway.js');
   assert.ok(configAt > 0 && gatewayAt > configAt && gatewayAt < html.indexOf('</head>'));
 }
-console.log('Entrada estable: defensas, Forja/Mochi, 13 misiones y todas sus URLs originales conectadas OK con dobles; Misión 0 excluida.');
+console.log('Entrada estable: marco de pestaña propia, defensas, Forja/Mochi, 13 misiones y todas sus URLs originales conectadas OK con dobles; Misión 0 excluida.');
