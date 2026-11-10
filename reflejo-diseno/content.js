@@ -10,7 +10,7 @@ window.REFLEJO = {
     {
       "title": "El umbral de una evaluación justa",
       "time": 5,
-      "prompt": "Acordad qué diferencia una impresión de una valoración apoyada en evidencia observable.",
+      "prompt": "Acuerden qué diferencia una impresión de una valoración apoyada en evidencia observable.",
       "product": "Tres condiciones compartidas: criterio, evidencia y argumento."
     },
     {
@@ -28,43 +28,43 @@ window.REFLEJO = {
     {
       "title": "Coherencia pedagógica",
       "time": 7,
-      "prompt": "Localizad objetivos y comprobad si misiones y mecánicas pueden justificarse desde ellos.",
+      "prompt": "Localicen objetivos y comprueben si misiones y mecánicas pueden justificarse desde ellos.",
       "product": "Una evidencia y una cautela interpretativa."
     },
     {
       "title": "Dinámicas y narrativa",
       "time": 7,
-      "prompt": "Comprobad si narrativa y progresión sostienen la experiencia o aparecen solo como decoración.",
+      "prompt": "Comprueben si narrativa y progresión sostienen la experiencia o aparecen solo como decoración.",
       "product": "Una evidencia y una cautela interpretativa."
     },
     {
       "title": "Mecánicas",
       "time": 7,
-      "prompt": "Observad reglas, comportamientos esperados y relación con las dinámicas previstas.",
+      "prompt": "Observen reglas, comportamientos esperados y relación con las dinámicas previstas.",
       "product": "Una evidencia y una cautela interpretativa."
     },
     {
       "title": "Componentes",
       "time": 7,
-      "prompt": "Preguntad qué función cumple cada componente dentro del sistema.",
+      "prompt": "Pregunten qué función cumple cada componente dentro del sistema.",
       "product": "Una evidencia y una cautela interpretativa."
     },
     {
       "title": "Motivación y ética",
       "time": 7,
-      "prompt": "Revisad autonomía, competencia, vinculación y riesgos éticos sin inferir motivación real.",
+      "prompt": "Revisen autonomía, competencia, vinculación y riesgos éticos sin inferir motivación real.",
       "product": "Una evidencia y una cautela interpretativa."
     },
     {
       "title": "Un caso ante el espejo",
       "time": 14,
-      "prompt": "Aplicad conjuntamente la rúbrica al caso ficticio. Elegid un nivel y justificadlo con evidencia.",
+      "prompt": "Apliquen conjuntamente la rúbrica al caso ficticio. Elijan un nivel y justifíquenlo con evidencia.",
       "product": "Cinco valoraciones argumentadas del caso modelo."
     },
     {
       "title": "Acuerdos de interpretación",
       "time": 12,
-      "prompt": "Comparad discrepancias y escribid acuerdos para aplicar los descriptores de forma consistente.",
+      "prompt": "Comparen discrepancias y escriban acuerdos para aplicar los descriptores de forma consistente.",
       "product": "Tres acuerdos compartidos de interpretación."
     },
     {

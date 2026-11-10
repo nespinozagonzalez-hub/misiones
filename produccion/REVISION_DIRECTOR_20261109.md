@@ -19,6 +19,7 @@
 - [x] Compra con explicación del próximo apoyo, umbral y efecto de la selección.
 - [x] Piloto de claridad y exploración en La Gema Motivacional.
 - [ ] Revisar la publicación de Genially con su editor: título, contador y transiciones.
-- [ ] Revisar las demás preguntas formativas y señalar decisiones reales en las otras misiones.
+- [x] Señalar exploración libre, decisiones del jugador y experimentación guiada en las otras 11 misiones con actividades, junto a cada consigna. Detalle en `GUIA_DE_JUEGO_20261110.md`.
+- [ ] Revisar la redacción de las demás preguntas formativas por contexto, acción y evidencia esperada.
 - [ ] Implementar recuperación por correo después de definir y probar el canal.
 - [ ] Revisar por separado el capítulo NODOS cuando esté disponible.

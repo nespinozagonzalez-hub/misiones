@@ -70,3 +70,7 @@
   .journey-region .mission { gap: 8px; padding: 12px; }
   .journey-region .mission > .small { font-size: 11px; }
 }
+/* Portada en móvil: el texto queda sobre un fondo oscuro uniforme y la ilustración se aclara hacia abajo. */
+@media(max-width:760px){.welcome{background:linear-gradient(180deg,#07120df2 0%,#07120de0 42%,#07120d40 78%),url('assets/valle.webp') center/cover}}
+/* Creación del personaje: los retratos se acotan para que el nombre, la elección y el botón de inicio queden a la vista en el marco de 850 px. */
+@media(min-width:761px){.creation{margin-top:22px}.creation .section-heading h1{font-size:clamp(30px,3.6vw,44px);margin:8px 0}.creation .avatar-options{margin:16px 0}.creation .avatar-card{min-height:0}.creation .avatar-art{height:clamp(220px,32vh,300px)}}

@@ -1,0 +1,153 @@
+/* Ruta de hitos y momentos de juego compartidos. Sigue el piloto de La Gema Motivacional. */
+.ld-route {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  max-width: 1280px;
+  margin: 6px auto 0;
+  padding: 4px 6px;
+  width: calc(100% - 10vw);
+  border: 1px solid #b99c633d;
+  border-radius: 8px;
+  background: #0d2118e8;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.ld-route-heading {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0 6px;
+  color: #e7cd94;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.ld-route-heading strong { font-weight: 700; }
+.ld-route-heading span { color: #c8d6c8; }
+
+.ld-milestones {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ld-milestone {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 30px;
+  padding: 3px 7px;
+  border: 1px solid #8db19630;
+  border-radius: 8px;
+  background: #0a1912;
+  color: #e9eadd;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ld-milestone:hover { border-color: #8db19688; background: #12261b; }
+.ld-milestone:focus-visible { outline: 2px solid #e0c181; outline-offset: 2px; }
+
+.ld-milestone[aria-current="step"] {
+  border-color: #d8ba7a;
+  background: #2b3424;
+  box-shadow: inset 0 -2px #d8ba7a;
+}
+
+.ld-milestone-mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #8db19661;
+  border-radius: 6px;
+  color: #d1dfca;
+  font: 700 12px/1 system-ui, sans-serif;
+}
+
+.ld-milestone[aria-current="step"] .ld-milestone-mark {
+  color: #132319;
+  border-color: #d8ba7a;
+  background: #e0c181;
+}
+
+.ld-milestone.is-complete:not([aria-current="step"]) .ld-milestone-mark {
+  border-color: #76c996;
+  background: #275139;
+  color: #e1f5df;
+}
+
+.ld-milestone-copy { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; min-width: 0; }
+.ld-milestone-copy strong { font-weight: 650; overflow-wrap: anywhere; }
+.ld-milestone-copy small { color: #c0cbbb; font-size: 11px; }
+.ld-milestone.is-complete .ld-milestone-copy small { color: #a6e7b7; }
+
+.ld-now,
+.ld-move-label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 7px;
+  border: 1px solid #c9a66b66;
+  border-radius: 5px;
+  color: #f0d498;
+  background: #243021;
+  font: 700 11px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+
+.stage .ld-move {
+  max-width: 1100px;
+  margin: 8px 0 0;
+  color: #d5e2d2;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.ld-move-explora .ld-move-label { color: #bfe6ee; border-color: #7fc3d166; background: #16303a; }
+.ld-move-prueba .ld-move-label { color: #c9efc6; border-color: #7fcf8a66; background: #17361f; }
+
+@media (max-width: 760px) {
+  .ld-route {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    width: calc(100% - 28px);
+    margin-top: 4px;
+    padding: 5px;
+  }
+  .ld-route-heading { display: flex; justify-content: space-between; gap: 8px; padding: 0 2px; }
+  .ld-milestones { gap: 4px; }
+  .ld-milestone { grid-template-columns: 1fr; justify-items: center; min-height: 40px; padding: 3px 4px; font-size: 12px; text-align: center; }
+  .ld-milestone-mark, .ld-milestone-copy small { display: none; }
+  .ld-milestone-copy { justify-content: center; }
+  .ld-milestone.is-complete:not([aria-current="step"]) { border-color: #76c99677; color: #c9efc6; }
+  .stage .ld-move { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ld-milestone { transition: border-color .15s, background .15s; }
+}
+
+@media print {
+  .ld-route { display: none; }
+}
+
+/* Las tablas de comparación caben en pantallas estrechas sin recortar su texto. */
+@media (max-width: 760px) {
+  .stage .comparison { min-width: 0; table-layout: fixed; }
+  .stage .comparison th, .stage .comparison td { overflow-wrap: anywhere; }
+}

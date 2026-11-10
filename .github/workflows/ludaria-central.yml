@@ -9,6 +9,9 @@ on:
       - 'vetas-diseno/**'
       - 'pergaminos-dispersos/**'
       - 'mision-0/**'
+      - '*/index.html'
+      - '*/presentacion.html'
+      - 'reflejo-diseno/**'
       - 'defensa-orbe/**'
       - '**/app.rpg.js'
       - '.github/workflows/ludaria-central.yml'
@@ -55,6 +58,7 @@ jobs:
       - run: node ludaria/test-rpg-browser.cjs
       - run: node ludaria/test-aid-browser.cjs
       - run: node ludaria/test-orbe-browser.cjs
+      - run: node ludaria/test-mission-route.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

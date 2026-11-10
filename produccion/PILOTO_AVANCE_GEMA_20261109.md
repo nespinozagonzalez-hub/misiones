@@ -28,7 +28,7 @@ La prueba de incrustaciones compara los 16 iframe originales. Las pruebas conect
 ## Siguiente ronda
 
 - [ ] Probar en clase si los jugadores se ubican, encuentran una decisión propia y explican cómo registrar su logro sin ayuda adicional.
-- [ ] Adaptar los hitos y las consignas de las demás misiones a sus actividades reales.
+- [x] Adaptar los hitos y las consignas de las demás misiones a sus actividades reales. Ver `GUIA_DE_JUEGO_20261110.md`.
 - [ ] Evaluar la visualización del avance autenticado directamente en el mapa y la revisión específica de Genially. La consulta vigente del mapa independiente abre «Mi viaje» en la Forja.
 
 ## Preparación de la sesión sincrónica
