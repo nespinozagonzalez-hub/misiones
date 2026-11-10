@@ -55,12 +55,52 @@
   }
 
 
-  // Cada tramo del recorrido propone una de las tres ventajas según el personaje.
-  // No cambia la evaluación, no revela ayudas bloqueadas y no registra clics pasivos.
-  const skipped = new Set(), skipRequests = new Map();
+  // La omisión solo se registra por elección explícita. El mismo ID se conserva al reintentar.
+  const omissions = new Map();
   let supportsOmission = false;
+  function updateOmission(control, choice) {
+    const button = control.querySelector('button');
+    button.disabled = choice.state === 'pending' || choice.state === 'done';
+    button.textContent = choice.state === 'done' ? 'Continuaste sin esta ayuda' : 'Seguir sin esta ayuda';
+    control.querySelector('[role="status"]').textContent = choice.message;
+  }
+
+  function omissionControl(perk, page) {
+    if (!supportsOmission) return null;
+    const key = `${perk.id}:${page}`;
+    const control = document.createElement('div');
+    control.dataset.missionOmission = key;
+    control.className = 'mission-omission';
+    control.innerHTML = '<button type="button" class="contextual-skip">Seguir sin esta ayuda</button><p role="status" data-contextual-status></p>';
+    const choice = omissions.get(key) || {requestId:null, state:'idle', message:''};
+    updateOmission(control, choice);
+    control.querySelector('button').addEventListener('click', async () => {
+      if (choice.state === 'pending' || choice.state === 'done') return;
+      if (!choice.requestId) choice.requestId = crypto.randomUUID();
+      omissions.set(key, choice);
+      choice.state = 'pending';
+      choice.message = 'Registrando tu elección…';
+      updateOmission(control, choice);
+      try {
+        await window.LudariaCloud.api('accionRpg', {type:'omitir_ventaja',mission:perk.mission,id:perk.id,page,reason:'continuar_sin_ayuda'}, choice.requestId);
+        choice.state = 'done';
+        choice.message = 'Elección confirmada. Puedes continuar sin penalizaciones.';
+      } catch (error) {
+        choice.state = 'error';
+        choice.message = 'Sin confirmar. Puedes reintentar. ' + error.message;
+      }
+      for (const node of stage.querySelectorAll('[data-mission-omission]')) {
+        if (node.dataset.missionOmission === key) updateOmission(node, choice);
+      }
+    });
+    return control;
+  }
+
+  window.LudariaMissionExperience = {omissionControl};
+
+  // El recorrido compartido coloca la ayuda junto a su actividad. Se conserva la tarjeta de la vista de revisión.
   function contextualAdvantage() {
-    if (document.body.hasAttribute('data-gema-loadout')) return;
+    if (document.body.hasAttribute('data-mission-journey') || document.body.hasAttribute('data-gema-loadout')) return;
     const cloud = window.LudariaCloud;
     const mission = window.LudariaRPG?.find(window.LUDARIA_CLOUD_CONFIG?.route);
     const match = counter.textContent.match(/(\d+)\s*\/\s*(\d+)/);
@@ -77,7 +117,7 @@
     panel.dataset.contextSkill = String(current);
     panel.className = 'ludaria-contextual-perk' + (available ? ' is-unlocked' : ' is-locked');
     panel.setAttribute('aria-label', 'Encuentro opcional con el guardián');
-    panel.innerHTML = '<div class="ludaria-contextual-perk-emblem" aria-hidden="true"><img alt="" width="112" height="112" src="'+new URL('../ludaria/assets/brujula-guardian-v1.png',document.baseURI).href+'"></div><div class="ludaria-contextual-perk-copy"><span class="ludaria-contextual-perk-kicker">'+(perk.kind==='accion'?'Ruta del guardián':'Pista del guardián')+' · opcional</span><span class="ludaria-contextual-perk-state">'+(available?'Ayuda disponible':'Por desbloquear')+'</span><h3 data-contextual-name></h3><p class="ludaria-contextual-guardian"></p><p data-contextual-threshold></p><p data-contextual-explanation></p><div class="ludaria-contextual-perk-actions"></div><p data-contextual-status role="status"></p></div>';
+    panel.innerHTML = '<div class="ludaria-contextual-perk-emblem" aria-hidden="true"><img alt="" width="112" height="112" src="'+new URL('../ludaria/assets/brujula-guardian-v1.png',document.baseURI).href+'"></div><div class="ludaria-contextual-perk-copy"><span class="ludaria-contextual-perk-kicker">'+(perk.kind==='accion'?'Ruta del guardián':'Pista del guardián')+' · opcional</span><span class="ludaria-contextual-perk-state">'+(available?'Ayuda disponible':'Por desbloquear')+'</span><h3 data-contextual-name></h3><p class="ludaria-contextual-guardian"></p><p data-contextual-threshold></p><p data-contextual-explanation></p><div class="ludaria-contextual-perk-actions"></div></div>';
     panel.querySelector('.ludaria-contextual-guardian').textContent = mission.guardian;
     panel.querySelector('[data-contextual-name]').textContent = perk.name;
     panel.querySelector('[data-contextual-threshold]').textContent = window.LudariaRPG.attributes[perk.attribute] + ' ' + current + ' / requisito ' + perk.minimum;
@@ -91,31 +131,8 @@
       consult.textContent = perk.kind === 'accion' ? 'Explorar otra ruta' : 'Invocar pista';
       consult.addEventListener('click', () => window.LudariaRPGUI?.openPerk(perk.id));
       actions.append(consult);
-      if (supportsOmission) {
-      const omit = document.createElement('button');
-      omit.type = 'button';
-      omit.className = 'contextual-skip';
-      omit.textContent = skipped.has(perk.id) ? 'Continuaste sin esta ayuda' : 'Seguir sin esta ayuda';
-      omit.disabled = skipped.has(perk.id);
-      omit.addEventListener('click', async () => {
-        if (skipped.has(perk.id) || omit.disabled) return;
-        omit.disabled = true;
-        const status = panel.querySelector('[data-contextual-status]');
-        status.textContent = 'Registrando tu elección…';
-        const key = perk.id + ':' + page;
-        if (!skipRequests.has(key)) skipRequests.set(key, crypto.randomUUID());
-        try {
-          await cloud.api('accionRpg', {type:'omitir_ventaja',mission:mission.slug,id:perk.id,page,reason:'continuar_sin_ayuda'},skipRequests.get(key));
-          skipped.add(perk.id);
-          omit.textContent = 'Continuaste sin esta ayuda';
-          status.textContent = 'Elección confirmada. Puedes continuar sin penalizaciones.';
-        } catch (error) {
-          omit.disabled = false;
-          status.textContent = 'Sin confirmar: ' + error.message + '. Puedes reintentar.';
-        }
-      });
-      actions.append(omit);
-      }
+      const omit = omissionControl(perk, page);
+      if (omit) actions.append(omit);
     }
     const mochi = container.querySelector('[data-mochi-visit]');
     if (mochi) container.insertBefore(panel, mochi);
@@ -143,12 +160,12 @@
   });
   window.addEventListener('ludaria:savestatus', updateNotebookStatus);
   window.LudariaCloud?.ready?.then(async () => {
-    if (document.body.hasAttribute('data-gema-loadout')) return;
     contextualAdvantage();
     try {
       const catalogue = await window.LudariaCloud.api('catalogoRpg', {mission:window.LUDARIA_CLOUD_CONFIG.route});
       supportsOmission = catalogue.capabilities?.omitAdvantage === true;
       refreshContext();
+      if (supportsOmission) window.dispatchEvent(new Event('ludaria:omission-ready'));
     } catch { /* Compatibilidad: la tarjeta permanece útil sin telemetría. */ }
   });
   document.addEventListener('ludaria:confirmed', event => {

@@ -7,6 +7,12 @@
 
 Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques de esta guía conservan las URL originales del catálogo, con sus rutas, parámetros, fragmentos y alturas. Son una referencia para comprobar las incrustaciones existentes: no sustituir en masa los iframe de Genially.
 
+## Recorrido y mochila · 10 de noviembre de 2026
+
+Las 14 sesiones tienen navegación compacta. En las 13 con personaje, «Preparar mochila» presenta los tres objetos de la misión, su beneficio y el atributo requerido. Se pueden equipar antes de entrar o durante la visita. Cada objeto equipado aparece junto a la actividad correspondiente con un pulso breve que respeta las preferencias de movimiento. La mochila también permite consultar una ayuda equipada desde otra pantalla.
+
+Los momentos de uso se revisan por misión en [el catálogo de recorrido](../ludaria/mission-journey-data.js). Las pistas de práctica conservan su acción y llevan un rótulo propio. El diagnóstico inicial mantiene su receptor independiente. En la Defensa, los objetos acompañan el prototipo, la devolución y el cierre narrativo. El registro comparable y los instrumentos se recorren sin accesos contextuales al equipo.
+
 ## Cierre de revisión · 16 de octubre de 2026
 
 La revisión periódica queda cerrada por solicitud del propietario. El cliente público v0.4.3 ya está instalado y el gateway continúa activo. El paquete de mantenimiento v0.4.4 retira únicamente una rutina antigua de prueba del editor; requiere actualizar el Código.gs completo en el MISMO proyecto e implementación `/exec` para aplicar esa corrección. No consta instalado y no añade funciones al cliente. Informe final, archivo actualizado y pendientes: [CIERRE_REVISION_20261016.md](CIERRE_REVISION_20261016.md). Los bloques siguientes permanecen exactamente iguales; la tabla del 13 de octubre documenta la instalación pública comprobada.
@@ -139,7 +145,7 @@ Necesidades psicológicas y riesgos éticos mediante dilemas y rediseño.
 
 Producto: Rediseño argumentado y Fragmento II.
 
-Interacción: Tres facetas, candados, cuaderno y ruta visual de cuatro hitos. El cierre orienta el canje de la runa en la Forja. [Checklist del piloto](PILOTO_AVANCE_GEMA_20261109.md)
+Interacción: Tres facetas, candados, cuaderno y ruta visual de cuatro hitos. El cierre orienta el canje de la runa en la Forja. [Registro del piloto de la mochila](PILOTO_AVANCE_GEMA_20261109.md)
 
 [Presentación](https://nespinozagonzalez-hub.github.io/misiones/gema-motivacional/presentacion.html?v=20261004-epic1#pantalla-1)
 
