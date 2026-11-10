@@ -42,7 +42,18 @@ for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.
  assert.match(d.querySelector('[data-contextual-status]').textContent,/Elección confirmada/,mission.slug+' diagnóstico de omisión');
  go(2);
  await until(()=>!d.querySelector('[data-mission-cue]'),'objeto fuera de contexto');
- for(const perk of mission.perks){await w.LudariaRPGUI.openPerk(perk.id);assert.ok(d.querySelector('.ludaria-cloud-dialog').textContent.includes(perk.text),perk.id);if(perk.kind==='accion'){const f=d.querySelector('[data-rpg-form]');f.elements.choice.value=perk.options[0];f.elements.work.value='Ensayo de '+mission.slug;f.elements.reflection.value='Para contrastar consecuencias';f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await until(()=>d.querySelector('[data-rpg-status]')?.textContent.includes('confirmada'),'decisión '+perk.id);}d.querySelector('[data-rpg-close]').click();}
+ for(const perk of mission.perks){
+  await w.LudariaRPGUI.openPerk(perk.id);
+  await until(()=>d.querySelector('[data-mission-bonus]')?.dataset.missionBonus===perk.id,'guía '+perk.id);
+  assert.equal(d.querySelector('.mission-bonus-template p').textContent,gear[perk.id].template);
+  if(perk.kind==='accion'){
+   const f=d.querySelector('[data-rpg-form]');
+   f.elements.choice.value=perk.options[0];f.elements.work.value='Ensayo de '+mission.slug;f.elements.reflection.value='Para contrastar consecuencias';
+   f.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
+   await until(()=>d.querySelector('[data-rpg-status]')?.textContent.includes('confirmada'),'decisión '+perk.id);
+  }
+  d.querySelector('[data-rpg-close]').click();
+ }
  if(mission.egg){await w.LudariaRPGUI.open();d.querySelector('[data-rpg-egg]').click();await until(()=>d.querySelector('.rpg-lore'),'secreto');d.querySelector('[data-rpg-close]').click();}
  let selected;for(let n=0;n<35;n++){const field=d.querySelector('#stage textarea[data-field]');if(field){selected=field.dataset.field;field.value='Cuaderno '+mission.slug;field.dispatchEvent(new w.Event('input',{bubbles:true}));break;}const next=d.querySelector('#next');if(next.disabled)break;next.click();}
  assert.ok(selected,'campo '+mission.slug);assert.equal(w.location.pathname,'/cloud','ruta central '+mission.slug);await w.LudariaCloud.flushMission();assert.equal(w.LudariaCloud.hasPending,false);dom.window.close();

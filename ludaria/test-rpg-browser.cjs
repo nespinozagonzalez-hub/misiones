@@ -62,12 +62,21 @@ async function checkMissionEquipment(surface,mission) {
    const close=help.getByRole('button',{name:'Continuar mi misión'});
    await close.waitFor();
    assert.equal(await help.getByRole('heading',{name:perk.name,exact:true}).count(),1);
-   assert.ok((await help.innerText()).includes(perk.text));
+   const guide=help.locator(`[data-mission-bonus="${perk.id}"]`);
+   await guide.waitFor();
+   assert.equal(await guide.locator('h3').innerText(),gear.effect);
+   assert.deepEqual(await guide.locator('li').allTextContents(),gear.steps);
+   assert.equal(await guide.locator('.mission-bonus-template p').textContent(),gear.template);
+   assert.equal(await help.evaluate(dialog=>dialog.scrollWidth<=dialog.clientWidth+1),true,mission.slug+' ancho de guía');
    assert.equal(await help.evaluate(dialog=>dialog.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
    await close.press('ArrowRight');
    assert.equal(Number((await surface.locator('#page-count,#page-number').innerText()).split('/')[0]),moment.page,'Las flechas de la ayuda no avanzan la misión');
    if(perk.kind==='accion'){
     const form=help.locator('[data-rpg-form]');
+    const insert=guide.getByRole('button',{name:'Poner plantilla en mi ensayo'});
+    await insert.click();
+    assert.equal(await form.locator('[name=work]').inputValue(),gear.template);
+    assert.equal(await insert.isHidden(),true);
     await form.locator('select').selectOption({label:perk.options[0]});
     await form.locator('[name=work]').fill('Ensayo contextual de '+mission.slug);
     await form.locator('[name=reflection]').fill('Elegí esta ruta para comparar sus consecuencias.');
@@ -131,8 +140,9 @@ async function checkGemaJourney(browser, base) {
   const preparation=mission.locator('.mission-inventory[open]');
   assert.equal(await preparation.getByRole('button',{name:/^Equipar/}).count(),0);
   assert.equal(await preparation.getByText('Bloqueado',{exact:true}).count(),3);
+  assert.equal(await preparation.locator('.mission-bonus-template').count(),0);
   assert.deepEqual(await preparation.locator('.mission-item-effect > strong').allTextContents(),[
-   '3 preguntas para leer el caso','2 formas de abordar el dilema','1 prueba de inclusión'
+   'Tres preguntas para diagnosticar el dilema','Dos caminos para reescribir una regla','Una prueba para encontrar quién queda fuera'
   ]);
   assert.match(await preparation.getByRole('article',{name:'Tres facetas'}).innerText(),/Requiere Sabiduría 3 · Tienes 1/);
   assert.match(await preparation.getByRole('article',{name:'Ensayo del cuidado'}).innerText(),/Requiere Evaluación 8 · Tienes 1/);
@@ -142,6 +152,11 @@ async function checkGemaJourney(browser, base) {
   assert.equal(await preparation.evaluate(dialog=>dialog.getBoundingClientRect().bottom<=innerHeight),true);
   await preparation.getByRole('button',{name:'Entrar sin equipar'}).click();
   assert.equal(await mission.locator('#page-count').innerText(),'2 / 12');
+  const denied=mission.locator('.ludaria-cloud-dialog[open]');
+  await mission.locator('#stage').evaluate(()=>window.LudariaRPGUI.openPerk('gema-motivacional_0'));
+  await denied.getByRole('status').filter({hasText:'requiere Sabiduría 3'}).waitFor();
+  assert.equal(await denied.locator('[data-mission-bonus], [data-rpg-preview]').count(),0);
+  await denied.getByRole('button',{name:'Volver',exact:true}).click();
   await go(12);
   assert.match(await step.innerText(),/Cierra/);
   assert.equal(await route.locator('.has-evidence').count(),0,'Visitar el cierre solo cambia la ubicación');

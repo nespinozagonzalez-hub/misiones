@@ -64,6 +64,10 @@
 .journey-region .mission.done { background: #24422c80; }
 .journey-region .mission > div { min-width: 0; flex: 1; }
 .journey-region .mission > .small { text-align: right; }
+.market-bonus summary { cursor: pointer; }
+.market-bonus summary > span { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; vertical-align: middle; }
+.market-bonus summary img { flex: none; }
+.market-bonus summary small { color: #c9d8bb; }
 @media (max-width: 480px) {
   .journey-region summary { gap: 10px; padding: 14px 12px; }
   .journey-region-meter { max-width: 92px; text-align: right; }

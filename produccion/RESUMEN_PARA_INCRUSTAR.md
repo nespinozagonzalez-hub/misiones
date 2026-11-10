@@ -11,6 +11,8 @@ Las 14 sesiones están publicadas; la producción está completa. Los 16 bloques
 
 Las 14 sesiones tienen navegación compacta. En las 13 con personaje, «Preparar mochila» presenta los tres objetos de la misión, su beneficio y el atributo requerido. Se pueden equipar antes de entrar o durante la visita. Cada objeto equipado aparece junto a la actividad correspondiente con un pulso breve que respeta las preferencias de movimiento. La mochila también permite consultar una ayuda equipada desde otra pantalla.
 
+Al usar un objeto se abre una pista, una plantilla o un comodín con instrucciones y un texto de partida para la actividad. En Mochi, «Ver objetos y requisitos» permite revisar el beneficio y el momento de uso antes de invertir puntos. La pestaña privada «Bonos de mochila» reúne las 39 guías por ID.
+
 Los momentos de uso se revisan por misión en [el catálogo de recorrido](../ludaria/mission-journey-data.js). Las pistas de práctica conservan su acción y llevan un rótulo propio. El diagnóstico inicial mantiene su receptor independiente. En la Defensa, los objetos acompañan el prototipo, la devolución y el cierre narrativo. El registro comparable y los instrumentos se recorren sin accesos contextuales al equipo.
 
 ## Cierre de revisión · 16 de octubre de 2026
