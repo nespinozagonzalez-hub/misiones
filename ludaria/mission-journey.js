@@ -255,7 +255,8 @@
         button.before(preview);
         if (!button.disabled) {
           button.textContent = `Ver ${gear.type.toLowerCase()}`;
-          button.setAttribute('aria-label', `${button.textContent} · ${gear.title || button.closest('article').querySelector('h3').textContent}`);
+          const name = gear.title || button.closest('.rpg-perk').querySelector('h3')?.textContent;
+          if (name) button.setAttribute('aria-label', `${button.textContent} · ${name}`);
         }
       }
 
@@ -335,9 +336,7 @@
   observer.observe(stage, {childList:true});
   observer.observe(counter, {childList:true, characterData:true, subtree:true});
   if (backpack) {
-    const guideObserver = new MutationObserver(showBonusGuides);
-    guideObserver.observe(body, {childList:true, subtree:true});
-    window.addEventListener('pagehide', () => guideObserver.disconnect(), {once:true});
+    new MutationObserver(showBonusGuides).observe(body, {childList:true, subtree:true});
     showBonusGuides();
   }
   window.addEventListener('ludaria:profile', sync);
