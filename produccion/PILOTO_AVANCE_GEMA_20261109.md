@@ -37,6 +37,8 @@ La prueba de incrustaciones compara los 16 iframe originales. Las pruebas conect
 - [x] El icono superior indica cuántas ventajas de la misión están desbloqueadas por los atributos del personaje.
 - [x] Las fichas de la poción, el prisma y el corazón muestran qué aporta cada objeto, cuándo usarlo y qué atributo pide aunque todavía esté bloqueado. La [tabla de beneficios](ATRIBUTOS_GUARDIANES_DECISIONES.md#la-gema-motivacional) relaciona los objetos con las ayudas del catálogo.
 - [x] Equipar y quitar organiza los objetos durante la visita. El botón «Usar» abre la ayuda correspondiente durante la sesión. El contador y la acción para entrar quedan visibles mientras se revisan los objetos.
+- [x] Cada objeto equipado se anuncia junto a la actividad donde ayuda. La poción aparece en el primer dilema y en Diagnóstico, el prisma en Los puntos arbitrarios y en Rediseño, y el corazón en Contraste y en el intercambio entre equipos. Su icono da un pulso breve la primera vez que aparece en cada actividad.
+- [x] La «Pista del candado» se distingue de los objetos equipados. La navegación y los controles de sesión usan franjas compactas, con el ajuste de animaciones integrado al pie.
 - [x] En escritorio, la ruta, la mochila y los botones de navegación quedan fijos. El panel de actividades se desplaza cuando necesita espacio. En pantallas pequeñas, la página conserva el desplazamiento habitual.
 
 El piloto sigue en La Gema. La preparación se valida con personajes de prueba, incluido un personaje sin ventajas desbloqueadas.

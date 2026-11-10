@@ -99,6 +99,7 @@ async function checkGemaJourney(browser, base) {
   assert.match(await milestones.nth(0).innerText(),/3\/3 facetas/);
   await go(4);
   assert.match(await step.innerText(),/Interpreta/);
+  assert.equal(await mission.locator('.gema-use-item').count(),0,'Sin equipo no aparece una ventaja en el dilema');
   await mission.getByRole('button',{name:'Hay una tensión',exact:true}).click();
   assert.match(await mission.locator('.gema-reading').innerText(),/Elegiste «Hay una tensión»/);
   await saveDraft();
@@ -157,6 +158,10 @@ async function checkGemaJourney(browser, base) {
      before[0]===bar.getBoundingClientRect().top && before[1]===footer.getBoundingClientRect().top;
   });
   assert.equal(fixedLayout,true,'El contenido se desplaza y la ruta y navegación permanecen fijas');
+  assert.equal(await frame.evaluate(()=>{
+   const height=selector=>document.querySelector(selector).getBoundingClientRect().height;
+   return height('.hud')<=50 && height('#gema-route-rail')<=65 && height('.navigation')<=55 && height('#stage')>=500;
+  }),true,'La navegación compacta deja espacio para el contenido dentro del marco');
   await forgeLink.scrollIntoViewIfNeeded();
   await page.screenshot({path:__dirname+'/preview-gema-cierre-720.png'});
   await page.setViewportSize({width:390,height:844});
@@ -236,6 +241,45 @@ try{
    await p.getByRole('button',{name:'Usar Tres facetas',exact:true}).click();
    await p.locator('.ludaria-cloud-dialog[open] h2').getByText('Tres facetas',{exact:true}).waitFor();
    await p.keyboard.press('Escape');
+   const cue=p.locator('#stage .gema-use-item');
+   const go=number=>p.locator(`#route-dots [data-page="${number-1}"]`).click();
+   assert.equal(await cue.count(),0,'El encargo todavía no requiere equipo');
+   await go(4);
+   const potion=p.getByRole('button',{name:'Usar Poción de enfoque'});
+   await potion.waitFor();
+   const icon=cue.locator('.gema-use-icon');
+   const animation=()=>icon.evaluate(element=>getComputedStyle(element).animationName);
+   assert.equal(await animation(),'gema-perk-pulse');
+   await p.emulateMedia({reducedMotion:'reduce'});
+   assert.equal(await animation(),'none');
+   await p.emulateMedia({reducedMotion:'no-preference'});
+   await potion.click();
+   const help=p.locator('.ludaria-cloud-dialog[open]');
+   await help.getByRole('heading',{name:'Tres facetas',exact:true}).waitFor();
+   await help.getByRole('button',{name:'Continuar mi misión'}).click();
+   assert.equal(await potion.evaluate(element=>document.activeElement===element),true,'El foco vuelve al objeto usado');
+   await go(6);
+   assert.equal(await cue.count(),0,'Una ventaja disponible sin equipar no aparece');
+   await p.getByRole('button',{name:'Ver pista del candado'}).waitFor();
+   await p.locator('#gema-backpack').click();
+   await pack.getByRole('button',{name:'Equipar Contraluz de la gema'}).click();
+   await pack.getByRole('button',{name:'Equipar Ensayo del cuidado'}).click();
+   await pack.getByRole('button',{name:'Volver a la sesión'}).click();
+   await cue.getByText('Usar Prisma de contraste',{exact:true}).waitFor();
+   assert.equal(await animation(),'gema-perk-pulse','El pulso comienza al volver a la actividad');
+   await go(8);
+   const panel=p.getByRole('tabpanel');
+   for (const [tab, object] of [['Diagnóstico','Poción de enfoque'],['Rediseño','Prisma de contraste'],['Contraste','Corazón del cuidado']]) {
+    await p.getByRole('tab',{name:tab,exact:true}).click();
+    await panel.getByRole('button',{name:`Usar ${object}`}).waitFor();
+    assert.equal(await cue.count(),1);
+   }
+   await go(9);
+   await p.getByRole('button',{name:'Usar Corazón del cuidado'}).waitFor();
+   await p.locator('#gema-backpack').click();
+   await pack.getByRole('button',{name:'Quitar Ensayo del cuidado'}).click();
+   await pack.getByRole('button',{name:'Volver a la sesión'}).click();
+   assert.equal(await cue.count(),0,'Quitar el objeto retira su acceso directo');
    assert.deepEqual(await p.evaluate(()=>({points:LudariaCloud.profile.points,xp:LudariaCloud.profile.xp})),before);
   }
   await p.locator('[data-cloud-advantage]').click();await p.locator('[data-rpg-open]').first().waitFor();assert.equal(await p.locator('[data-rpg-open]').count(),3);
