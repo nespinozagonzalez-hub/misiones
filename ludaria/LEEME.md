@@ -1,16 +1,20 @@
-# Ludaria · paquete v0.4.4, cliente instalado v0.4.3
+# Ludaria · paquete v0.5.0
 
-## Ajuste final del 16 de octubre
+## Recuperación de acceso
 
-v0.4.4 retira la prueba histórica `probarLudaria_`, que creaba un DEMO y persistía su PIN en texto. La función ahora solo explica su retirada; no toca datos ni propiedades. Las pruebas actuales se ejecutan en CI con servicios aislados. No cambian la interfaz, recuperación, API de participantes ni ventajas.
+En la Forja, «Ya tengo un personaje» abre el acceso a «Recuperar clave». Con el correo habilitado, cada personaje nuevo escribe una dirección y la verifica con un código de seis dígitos. Quienes ya tienen un personaje pueden agregar o cambiar su correo desde «Mi nombre y mi clave». Para verificarlo se comprueba la clave actual.
 
-Este ajuste cambia el Código.gs completo y aún no está instalado en Google. Para aplicarlo, reemplaza el archivo por `Code-Ludaria-Conectado.gs` y actualiza la MISMA implementación `/exec` del proyecto original. No ejecutes otra preparación ni la prueba antigua. Si existe `LUDARIA_DEMO_PIN` de una ejecución anterior, elimina únicamente esa propiedad histórica, sin mostrar su valor y sin tocar el secreto original, respaldos o datos. El cliente v0.4.3 ya está instalado y sigue siendo compatible. Detalle y límites en [el informe final](../produccion/CIERRE_REVISION_20261016.md).
+Para renovar la clave, la persona indica su nombre y su correo verificado, escribe el código que recibe y elige otra clave de seis dígitos. El código dura 15 minutos y se usa una vez. El respaldo privado que comienza con `RES-` también abre la opción de elegir una nueva clave.
+
+## Actualizar la implementación original
+
+El archivo `Code-Ludaria-Conectado.gs` reúne el servidor y el cliente. Después de guardarlo en el proyecto original, ejecuta `activarRecuperacionPorCorreoLudaria` desde el editor con la cuenta propietaria. Google pide autorización para enviar correos con MailApp. Esta función comprueba la autorización y la cuota, y habilita la recuperación. Actualiza la implementación web activa a una nueva versión mediante «Administrar las implementaciones», usando el mismo ID del `/exec`.
 
 La base del paso 1 ya está instalada. Este piloto utiliza **el mismo proyecto Apps Script y la misma planilla privada**. Conserva las propiedades del proyecto, el secreto y los personajes existentes.
 
 ## Inicio de la Forja
 
-La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forjar mi personaje». La creación usa sus tarjetas visuales y permite elegir nombre y clave de seis dígitos; no exige una clave existente. «Ya tengo un personaje» abre una pantalla secundaria con solo «Cargar mi personaje» y «Volver a la Forja».
+La Forja abre con las ilustraciones originales de Kael y Kira y el botón «Forjar mi personaje». La creación usa sus tarjetas visuales y permite elegir nombre y clave de seis dígitos; no exige una clave existente. «Ya tengo un personaje» abre la pantalla para cargar el perfil o recuperar la clave.
 
 El adaptador y la implementación original de Google ya sirven esa bienvenida. La clave elegida y su respaldo están disponibles desde el mismo `/exec`; las escrituras autenticadas todavía deben comprobarse con un personaje autorizado. La compatibilidad no crea personajes con claves aleatorias ni acredita progreso local como central.
 

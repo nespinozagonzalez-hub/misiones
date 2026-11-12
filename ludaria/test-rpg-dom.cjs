@@ -45,7 +45,7 @@ for(const mission of catalog.missions){const dom=await load(mission.slug),w=dom.
  for(const perk of mission.perks){
   await w.LudariaRPGUI.openPerk(perk.id);
   await until(()=>d.querySelector('[data-mission-bonus]')?.dataset.missionBonus===perk.id,'guía '+perk.id);
-  assert.equal(d.querySelector('.mission-bonus-template p').textContent,gear[perk.id].template);
+  assert.equal(d.querySelector('[data-bonus-template]').value,gear[perk.id].template);
   if(perk.kind==='accion'){
    const f=d.querySelector('[data-rpg-form]');
    f.elements.choice.value=perk.options[0];f.elements.work.value='Ensayo de '+mission.slug;f.elements.reflection.value='Para contrastar consecuencias';

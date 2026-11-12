@@ -229,7 +229,7 @@
       cue.innerHTML = `<button type="button" class="mission-use-item${first ? ' is-new' : ''}" data-item-art="${esc(gear.art)}"
           aria-labelledby="mission-use-name" aria-describedby="mission-use-effect">
         <span class="mission-use-icon"><img src="${esc(gear.image)}" alt="" width="32" height="32"></span>
-        <span class="mission-use-copy"><span class="mission-use-kicker">${esc(gear.type)} de tu mochila · Úsalo aquí</span>
+        <span class="mission-use-copy"><span class="mission-use-kicker">${esc(bonusAction[gear.type])} · De tu mochila</span>
           <strong id="mission-use-name">Usar ${esc(gear.title || perk.name)}</strong><span id="mission-use-effect">${esc(gear.effect)}</span></span>
         <span class="mission-use-arrow" aria-hidden="true">›</span>
       </button>`;
@@ -244,6 +244,123 @@
     }
   }
 
+  const bonusAction = {Pista:'Revelar pista', Plantilla:'Completar plantilla', 'Comodín':'Elegir una ruta'};
+
+  function currentNotebookField(gear) {
+    const tab = stage.querySelector('[role="tab"][aria-selected="true"]')?.id;
+    const moment = gear.moments.find(item => item.page === page && (!item.tab || item.tab === tab));
+    return moment?.field && stage.querySelector(`textarea[data-field="${moment.field}"]:not([readonly]):not([disabled])`);
+  }
+
+  function bonusGuide(help, perk, gear) {
+    const guide = document.createElement('section');
+    guide.className = 'mission-bonus-guide';
+    guide.dataset.missionBonus = perk.id;
+    guide.dataset.itemArt = gear.art;
+    const pista = gear.type === 'Pista', routes = gear.routes;
+    const form = help.querySelector('[data-rpg-form]');
+    const work = form?.elements.work;
+    const notebook = currentNotebookField(gear);
+    guide.innerHTML = `
+      <header>
+        <img src="${esc(gear.image)}" alt="" width="52" height="52">
+        <div><span class="mission-item-type">${esc(gear.type)}</span><h3>${esc(gear.effect)}</h3></div>
+      </header>
+      <p>${esc(gear.benefit)}</p>
+      ${pista ? `<ol class="mission-hint-steps">${gear.steps.map(step => `<li tabindex="-1" hidden>${esc(step)}</li>`).join('')}</ol>
+        <button type="button" class="mission-bonus-primary" data-bonus-reveal>Revelar primera pista</button>` : ''}
+      ${routes ? `<div class="mission-bonus-routes" role="group" aria-label="Rutas del comodín">
+        ${routes.map(([label], index) => `<button type="button" data-bonus-route="${index}" aria-pressed="false">${esc(label)}</button>`).join('')}
+        </div><p data-bonus-direction hidden></p>` : ''}
+      <div class="mission-bonus-template" ${pista || routes ? 'hidden' : ''}>
+        <label><strong>${routes ? 'Borrador de la ruta' : 'Completa los espacios con tus ideas'}</strong>
+          <textarea data-bonus-template rows="4" maxlength="6000">${esc(gear.template)}</textarea>
+        </label>
+        <div class="mission-bonus-actions">
+          ${notebook ? '<button type="button" class="mission-bonus-primary" data-bonus-notebook>Añadir a mi cuaderno</button>' : ''}
+          ${work ? '<button type="button" data-bonus-essay>Añadir al ensayo</button>' : ''}
+          <button type="button" data-bonus-copy>Copiar texto</button>
+        </div>
+      </div>
+      ${!pista && !routes ? `<details class="mission-bonus-help"><summary>Cómo usar la plantilla</summary>
+        <ol>${gear.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol></details>` : ''}
+      <p class="mission-bonus-status" role="status"></p>`;
+
+    const template = guide.querySelector('[data-bonus-template]');
+    const panel = guide.querySelector('.mission-bonus-template');
+    const status = guide.querySelector('[role="status"]');
+    let selectedRoute = null;
+    const reveal = guide.querySelector('[data-bonus-reveal]');
+    if (reveal) {
+      const clues = [...guide.querySelectorAll('.mission-hint-steps li')];
+      let count = 0;
+      reveal.onclick = () => {
+        const clue = clues[count++];
+        clue.hidden = false;
+        clue.focus();
+        panel.hidden = false;
+        status.textContent = `Pista ${count} de ${clues.length}`;
+        reveal.hidden = count === clues.length;
+        reveal.textContent = 'Revelar segunda pista';
+      };
+    }
+
+    const choices = guide.querySelectorAll('[data-bonus-route]');
+    const direction = guide.querySelector('[data-bonus-direction]');
+    choices.forEach(button => button.onclick = () => {
+      selectedRoute = routes[Number(button.dataset.bonusRoute)];
+      choices.forEach(choice => choice.setAttribute('aria-pressed', String(choice === button)));
+      direction.textContent = selectedRoute[1];
+      direction.hidden = false;
+      panel.hidden = false;
+      status.textContent = 'Ruta elegida. Puedes adaptar el borrador antes de usarlo.';
+    });
+
+    function transfer(target) {
+      const text = template.value.trim();
+      if (!text) { status.textContent = 'Escribe algo en el borrador antes de añadirlo.'; return false; }
+      const note = selectedRoute ? selectedRoute[0] + '\n' + text : text;
+      const value = target.value ? target.value + '\n\n' + note : note;
+      if (target.maxLength >= 0 && value.length > target.maxLength) {
+        status.textContent = 'El texto completo supera el espacio disponible. Puedes copiar una parte.';
+        return false;
+      }
+      target.value = value;
+      target.dispatchEvent(new Event('input', {bubbles:true}));
+      return true;
+    }
+
+    guide.querySelector('[data-bonus-notebook]')?.addEventListener('click', () => {
+      if (currentNotebookField(gear) !== notebook || !transfer(notebook)) return;
+      help.addEventListener('close', () => requestAnimationFrame(() => { if (notebook.isConnected) notebook.focus(); }), {once:true});
+      help.close();
+      cloud.notify('Texto añadido a tu cuaderno. Puedes seguir editándolo.');
+    });
+
+    guide.querySelector('[data-bonus-essay]')?.addEventListener('click', () => {
+      if (!transfer(work)) return;
+      if (selectedRoute) {
+        const choice = form.elements.choice;
+        choice.selectedIndex = selectedRoute[2] + 1;
+        choice.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      status.textContent = 'Texto añadido al ensayo. Puedes editarlo y conservar tu decisión.';
+      work.focus();
+    });
+
+    guide.querySelector('[data-bonus-copy]').onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(template.value);
+        status.textContent = 'Texto copiado.';
+      } catch {
+        template.focus();
+        template.select();
+        status.textContent = 'Texto seleccionado. Usa la opción Copiar de tu dispositivo.';
+      }
+    };
+    return guide;
+  }
+
   function showBonusGuides() {
     for (const help of body.querySelectorAll('.ludaria-cloud-dialog[open]')) {
       for (const button of help.querySelectorAll('.rpg-perk [data-rpg-open]')) {
@@ -254,7 +371,7 @@
         preview.textContent = `${gear.type} · ${gear.effect}. ${gear.benefit}`;
         button.before(preview);
         if (!button.disabled) {
-          button.textContent = `Ver ${gear.type.toLowerCase()}`;
+          button.textContent = bonusAction[gear.type];
           const name = gear.title || button.closest('.rpg-perk').querySelector('h3')?.textContent;
           if (name) button.setAttribute('aria-label', `${button.textContent} · ${name}`);
         }
@@ -271,34 +388,8 @@
       const description = help.querySelector(':scope > .rpg-threshold')?.nextElementSibling;
       if (!description?.matches('p') || !help.querySelector(':scope > .rpg-note')) continue;
 
-      const guide = document.createElement('section');
-      guide.className = 'mission-bonus-guide';
-      guide.dataset.missionBonus = perk.id;
-      guide.dataset.itemArt = gear.art;
-      guide.innerHTML = `<header>
-        <img src="${esc(gear.image)}" alt="" width="48" height="48">
-        <div><span class="mission-item-type">${esc([gear.type, gear.title].filter(Boolean).join(' · '))}</span><h3>${esc(gear.effect)}</h3></div>
-      </header>
-      <p>${esc(gear.benefit)}</p>
-      <ol>${gear.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
-      <div class="mission-bonus-template"><strong>Plantilla para aplicar</strong><p>${esc(gear.template)}</p></div>`;
-      const work = help.querySelector('[data-rpg-form] textarea[name="work"]');
-      if (work) {
-        const insert = document.createElement('button');
-        insert.type = 'button';
-        insert.textContent = 'Poner plantilla en mi ensayo';
-        const updateInsert = () => { insert.hidden = Boolean(work.value); };
-        work.addEventListener('input', updateInsert);
-        insert.addEventListener('click', () => {
-          if (work.value) return;
-          work.value = gear.template;
-          work.dispatchEvent(new Event('input', {bubbles:true}));
-          work.focus();
-        });
-        updateInsert();
-        guide.append(insert);
-      }
-      description.replaceWith(guide);
+      help.classList.add('ludaria-object-active');
+      description.replaceWith(bonusGuide(help, perk, gear));
     }
   }
 

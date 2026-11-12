@@ -1,7 +1,7 @@
 /** La Forja conserva su bienvenida y sus tarjetas; el acceso es secundario. */
 (() => {
   'use strict';
-  if(!document.getElementById('ludaria-access-scenery')){const script=document.createElement('script');script.id='ludaria-access-scenery';script.src=new URL('../ludaria/access-scenery.js?v=20261012-acceso1',document.baseURI);document.head.append(script);}
+  if(!document.getElementById('ludaria-access-scenery')){const script=document.createElement('script');script.id='ludaria-access-scenery';script.src=new URL('../ludaria/access-scenery.js?v=20261112-prueba1',document.baseURI);document.head.append(script);}
   const cloud = window.LudariaCloud;
   const form = document.getElementById('create-form');
   if (!cloud?.active || !form || window.FORJA_ENTRY) return;
@@ -9,6 +9,10 @@
   const status = document.getElementById('creation-status');
   access.hidden = false;
   for (const name of ['key', 'keyConfirm']) form.elements[name].required = true;
+  const email = form.elements.email;
+  const hasEmailRecovery = window.LUDARIA_CLOUD_CONFIG?.emailRecovery === true;
+  email.closest('label').hidden = !hasEmailRecovery;
+  email.required = hasEmailRecovery;
   let legacyDialog = null, welcomeObserver = null, busy = false, requestId = crypto.randomUUID(), signature = '';
   function preserveWelcome() {
     if (cloud.openAccess || cloud.profile) return;
@@ -36,12 +40,27 @@
   document.querySelector('[data-action=resume]').addEventListener('click', () => {
     if (cloud.openAccess) cloud.openAccess();
     else if (legacyDialog) { legacyDialog.hidden = false; legacyDialog.showModal(); }
+    // El cliente instalado antes de la recuperación por correo quitaba este acceso en la Forja.
+    const d = document.querySelector('.ludaria-welcome[open]');
+    const login = d?.querySelector('#cloud-login'), recovery = d?.querySelector('#cloud-recover');
+    if (!login || !recovery || login.querySelector('[data-access-panel="recover"]')) return;
+    const link = document.createElement('button');
+    link.type = 'button'; link.className = 'cloud-text-button'; link.textContent = 'Recuperar clave';
+    link.onclick = () => {
+      recovery.elements.name.value = login.elements.name.value;
+      login.hidden = true; recovery.hidden = false;
+      d.classList.add('is-recovering');
+      d.querySelector('#cloud-error').textContent = '';
+      recovery.elements.name.focus();
+    };
+    login.append(link);
   });
   form.addEventListener('submit', async e => {
     e.preventDefault(); e.stopImmediatePropagation();
     if (busy) return;
     const data = {name:form.querySelector('#name').value.trim(), class:form.querySelector('[name=avatar]:checked')?.value,
       key:form.elements.key.value, keyConfirm:form.elements.keyConfirm.value};
+    if (hasEmailRecovery) data.email = email.value.trim();
     if (!data.name || !data.class) return;
     if (!/^\d{6}$/.test(data.key)) {status.textContent='Elige una clave de seis dígitos.';return;}
     if (data.key !== data.keyConfirm) {status.textContent='Las claves no coinciden. Escríbelas otra vez.';return;}
@@ -61,7 +80,7 @@
     }
     const next=JSON.stringify(data);if(signature&&signature!==next)requestId=crypto.randomUUID();signature=next;
     busy=true;const button=form.querySelector('[type=submit]');button.disabled=true;status.textContent='Forjando tu identidad…';
-    try {await cloud.registerCharacter(data,requestId);status.textContent='Tu identidad está forjada. Guarda tu acceso para continuar.';}
+    try {await cloud.registerCharacter(data,requestId);status.textContent='Tu identidad está forjada. Revisa tu acceso para continuar.';}
     catch(error) {status.textContent=error.message;}
     finally {busy=false;button.disabled=false;}
   });

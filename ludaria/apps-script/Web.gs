@@ -1,4 +1,4 @@
-/** LUDARIA · Conexión central v0.4.4. Cliente compatible v0.4.3; rutina DEMO retirada. */
+/** LUDARIA · Conexión central v0.5.0. */
 const LUDARIA_WEB = Object.freeze({
   pages: 'https://nespinozagonzalez-hub.github.io/misiones/',
   raw: 'https://raw.githubusercontent.com/nespinozagonzalez-hub/misiones/main/',
@@ -65,7 +65,7 @@ function prepararConexionLudaria() {
   const response = UrlFetchApp.fetch(LUDARIA_WEB.raw + 'forja/index.html');
   if (response.getResponseCode() !== 200) throw new Error('No se pudo comprobar la interfaz de Forja.');
   console.log('Conexión preparada. Implementa como aplicación web, ejecutada como propietario. La planilla sigue privada.');
-  return { ok: true, version: '0.4.4' };
+  return { ok: true, version: '0.5.0' };
 }
 
 function doGet(e) {
@@ -89,13 +89,13 @@ function doGet(e) {
   }
   const entry = params.entrada === 'mochi';
   html = html.replace(/<base\b[^>]*>/gi, '');
-  const config = JSON.stringify({ route: route, market: entry, rpgVersion: LudariaRPG.version }).replace(/</g, '\\u003c');
+  const config = JSON.stringify({route:route, market:entry, rpgVersion:LudariaRPG.version, emailRecovery:correoHabilitado_()}).replace(/</g, '\\u003c');
   const insertion = '<base href="' + LUDARIA_WEB.pages + route + '/" target="_self">' +
     '<script>window.LUDARIA_CLOUD_CONFIG=' + config + ';window.FORJA_ENTRY=' + entry + ';</script>' +
     '<script>' + LUDARIA_CATALOG_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
     '<script>' + LUDARIA_RPG_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
     '<script>' + LUDARIA_CLIENT_SOURCE.replace(/<\/script/gi, '<\\/script') + '</script>' +
-    '<script defer id="ludaria-access-scenery" src="../ludaria/access-scenery.js?v=20261012-acceso1"></script>';
+    '<script defer id="ludaria-access-scenery" src="../ludaria/access-scenery.js?v=20261112-prueba1"></script>';
   html = html.replace(/<head[^>]*>/i, function (head) { return head + insertion; });
   return HtmlService.createHtmlOutput(html).setTitle('Ludaria · ' + (entry ? 'Mercadito de Mochi' : route === 'forja' ? 'Forja del Buscador' : contextoRpg_(route).name))
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
@@ -119,9 +119,21 @@ function ludariaApi(request) {
       }
       if (request.action === 'registrar') return inicioPerfil_(ss, registrarPublico_(ss, request), data.mission);
       if (request.action === 'recuperarClave') return inicioPerfil_(ss, recuperarClavePublica_(ss, request), data.mission);
+      if (request.action === 'enviarCodigoRecuperacion' || request.action === 'recuperarClavePorCorreo') {
+        if (!correoHabilitado_()) throw new Error(LUDARIA_EMAIL_DISABLED);
+        return request.action === 'enviarCodigoRecuperacion'
+          ? enviarCodigoRecuperacion_(ss, request)
+          : inicioPerfil_(ss, recuperarClavePorCorreo_(ss, request), data.mission);
+      }
       const id = validarSesion_(request.access);
       const record = filas_(ss, 'Personajes').find(function (r) { return r[0] === id && r[8] === 'ACTIVO'; });
       if (!record) throw new Error('Acceso cerrado. Vuelve a identificarte.');
+      if (['estadoCorreoRecuperacion', 'enviarVerificacionCorreo', 'confirmarCorreoRecuperacion'].includes(request.action)) {
+        if (!correoHabilitado_()) throw new Error(LUDARIA_EMAIL_DISABLED);
+        if (request.action === 'estadoCorreoRecuperacion') return {ok:true, verified:Boolean(correoGuardado_(id).value.email)};
+        if (request.action === 'enviarVerificacionCorreo') return enviarVerificacionCorreo_(ss, record, request);
+        return confirmarCorreoRecuperacion_(id, data);
+      }
       if (request.action === 'cargarInicio') return inicioPerfil_(ss, respuestaPerfil_(ss, id), data.mission);
       if (request.action === 'cargar') return respuestaPerfil_(ss, id);
       if (request.action === 'cargarMision') {
@@ -251,22 +263,38 @@ function recuperarClavePublica_(ss, request) {
   const signature = firma_(JSON.stringify({alias:alias,key:key,code:code}));
   if (backup.requestId === request.requestId) {
     if (!iguales_(backup.signature, signature)) throw new Error('Esta solicitud ya se usó para otro cambio de clave.');
-    const response = respuestaPerfil_(ss, previous[0], tokenSesion_(previous[0])); response.key = key; return response;
+    if (versionAcceso_(previous[0]) !== request.requestId) throw new Error('La clave se renovó después de esta solicitud. Usa la clave actual o inicia una nueva recuperación.');
+    return respuestaClaveRenovada_(ss, previous[0], key);
   }
+  const response = reemplazarClavePublica_(ss, index, previous, request, key, 'RESPALDO', property, backupRaw,
+    {digest:backup.digest, requestId:request.requestId, signature:signature});
+  props.deleteProperty(attemptProperty);
+  return response;
+}
+
+function respuestaClaveRenovada_(ss, id, key) {
+  const response = respuestaPerfil_(ss, id, tokenSesion_(id));
+  response.key = key;
+  return response;
+}
+
+/** Conserva el personaje, el progreso y la bitácora al cambiar el verificador. */
+function reemplazarClavePublica_(ss, index, previous, request, key, source, proofProperty, previousProof, nextProof) {
+  const props = PropertiesService.getScriptProperties();
   const next = previous.slice(), versionProperty = 'LUDARIA_ACCESS_VERSION_' + previous[0], previousVersion = props.getProperty(versionProperty);
   next[4] = Utilities.getUuid(); next[5] = firma_(previous[0] + '|' + next[4] + '|' + key);
   const row = ss.getSheetByName('Personajes').getRange(index + 2, 1, 1, LUDARIA.headers.Personajes.length);
   try {
     row.setValues([next]); props.setProperty(versionProperty, request.requestId);
-    props.setProperty(property, JSON.stringify({digest:backup.digest,requestId:request.requestId,signature:signature}));
-    registrarEventoRpg_(ss, previous[0], request, 'RECUPERACION_ACCESO', 'forja', '', {source:'RESPALDO',previousSessionsRevoked:true});
+    props.setProperty(proofProperty, JSON.stringify(nextProof));
+    registrarEventoRpg_(ss, previous[0], request, 'RECUPERACION_ACCESO', 'forja', '', {source:source,previousSessionsRevoked:true});
   } catch(error) {
-    row.setValues([previous]); props.setProperty(property, backupRaw);
+    row.setValues([previous]); props.setProperty(proofProperty, previousProof);
     if (previousVersion) props.setProperty(versionProperty, previousVersion); else props.deleteProperty(versionProperty);
     throw error;
   }
-  props.deleteProperty(attemptProperty); props.deleteProperty(claveIntentos_(alias));
-  const response = respuestaPerfil_(ss, previous[0], tokenSesion_(previous[0])); response.key = key; return response;
+  props.deleteProperty(claveIntentos_(previous[2]));
+  return respuestaClaveRenovada_(ss, previous[0], key);
 }
 function tokenSesion_(id) {
   const version = PropertiesService.getScriptProperties().getProperty('LUDARIA_ACCESS_VERSION_' + id);
@@ -279,7 +307,7 @@ function validarSesion_(token) {
   const parts = token.split('.'), value = parts.slice(0, 3).join('.');
   if (parts.length !== 4 || !iguales_(firma_('sesion|' + value), parts[3]) || !/^\d+$/.test(parts[1]) || Number(parts[1]) <= Date.now()) throw new Error('Tu sesión terminó. Vuelve a entrar con tu nombre y clave.');
   const version = PropertiesService.getScriptProperties().getProperty('LUDARIA_ACCESS_VERSION_' + parts[0]);
-  if (version && !parts[2].startsWith(version + '~')) throw new Error('El facilitador renovó tu acceso. Entra con tu nueva clave personal.');
+  if (version && !parts[2].startsWith(version + '~')) throw new Error('Tu acceso se renovó. Entra con tu nueva clave personal.');
   return parts[0];
 }
 

@@ -383,14 +383,26 @@ body[data-ludaria-mission]:has(> .ludaria-cloud-bar:not([hidden])) > #store { di
 }
 .mission-bonus-guide header { display: flex; align-items: center; gap: 10px; }
 .mission-bonus-guide header img { flex: none; }
+.ludaria-object-active .ludaria-aid-heading { display: none; }
 .mission-bonus-guide h3 { margin: 0; color: var(--item-accent); font: 700 19px/1.2 Georgia, serif; }
 .mission-bonus-guide p { margin: 8px 0; }
 .mission-bonus-guide ol { margin-block: 8px 12px; padding-inline-start: 1.45em; }
 .mission-bonus-guide li + li { margin-top: 5px; }
-.mission-bonus-template { padding: 9px 11px; border-radius: 5px; background: #091a12; }
+.mission-bonus-guide .mission-hint-steps { margin-block: 0 10px; }
+.mission-hint-steps li { padding: 8px 10px; border-inline-start: 2px solid var(--item-accent); background: #0d1f16; }
+.mission-bonus-guide .mission-bonus-primary { background: var(--item-accent); color: #132117; border-color: var(--item-accent); font-weight: 700; }
+.mission-bonus-routes { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,180px),1fr)); gap: 8px; margin-block: 12px; }
+.mission-bonus-routes button { text-align: left; }
+.mission-bonus-routes button[aria-pressed="true"] { border-color: var(--item-accent); background: #304c37; color: #fff3d5; box-shadow: inset 0 0 0 1px var(--item-accent); }
+.mission-bonus-guide [data-bonus-direction] { margin-block: 8px; color: #f7e5bc; }
+.mission-bonus-template { margin-block: 10px; padding: 10px 12px; border-radius: 7px; background: #091a12; }
 .mission-bonus-template strong { color: var(--item-accent); }
-.mission-bonus-template p { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
-.mission-bonus-guide button { margin-top: 9px; }
+.mission-bonus-guide .mission-bonus-template label { display: block; margin: 0; }
+.mission-bonus-guide textarea[data-bonus-template] { min-height: 106px; margin-top: 6px; resize: vertical; }
+.mission-bonus-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.mission-bonus-help summary { cursor: pointer; color: #cfddc9; }
+.mission-bonus-guide .mission-bonus-status { color: #cde9c9; }
+.mission-bonus-status:empty { display: none; }
 
 @media (min-width: 761px) {
   .hud .mission-backpack { display: inline-flex; width: auto; align-items: center; gap: 7px; padding: 0 9px; }
