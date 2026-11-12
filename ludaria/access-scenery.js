@@ -27,7 +27,7 @@
       const back=[...d.querySelectorAll('button')].find(b=>b.textContent==='Volver a la Forja');if(back)panel.append(back);
       d.replaceChildren(grid);
     }
-    d.querySelector('.cloud-access-tabs')?.remove();
+    d.querySelector('.cloud-access-tabs:not([data-email-methods])')?.remove();
     const register=d.querySelector('#cloud-register');if(register)register.hidden=true;
     const portrait=d.querySelector('.cloud-portrait');
     portrait.style.backgroundPosition=(index%4/3*100)+'% '+(Math.floor(index/4)/3*100)+'%';
@@ -40,10 +40,6 @@
       if(input)input.placeholder=name==='name'?'El nombre que elegiste':'Tu código personal';
     }
     const submit=login.querySelector('[type=submit],button');submit.classList.add('cloud-primary');submit.textContent=forja?'Cargar mi personaje':'Entrar a la misión →';
-    if(forja){
-      d.querySelector('[data-access-panel=recover]')?.remove();
-      const recovery=d.querySelector('#cloud-recover');if(recovery)recovery.hidden=true;
-    }
     if(!d.querySelector('.cloud-access-note')){const note=document.createElement('p');note.className='cloud-access-note';note.textContent='Un personaje. Una historia. El mismo acceso durante todo el viaje.';d.querySelector('.cloud-access').append(note);}
     if(d.open && !d.contains(document.activeElement))login.elements.name.focus({preventScroll:true});
   }

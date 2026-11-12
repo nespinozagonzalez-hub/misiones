@@ -55,7 +55,7 @@ async function checkMissionEquipment(surface,mission) {
    await use.waitFor();
    assert.equal(await surface.locator('[data-mission-cue]').count(),1,mission.slug+' objeto de la actividad');
    assert.equal(await surface.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,mission.slug+' ancho de actividad');
-   if(index)continue;
+   if(index&&!moment.field)continue;
 
    await use.click();
    const help=surface.locator('.ludaria-cloud-dialog[open]');
@@ -65,23 +65,44 @@ async function checkMissionEquipment(surface,mission) {
    const guide=help.locator(`[data-mission-bonus="${perk.id}"]`);
    await guide.waitFor();
    assert.equal(await guide.locator('h3').innerText(),gear.effect);
-   assert.deepEqual(await guide.locator('li').allTextContents(),gear.steps);
-   assert.equal(await guide.locator('.mission-bonus-template p').textContent(),gear.template);
+   const template=guide.locator('[data-bonus-template]');
+   if(gear.type==='Pista'){
+    assert.equal(await guide.locator('.mission-hint-steps li:visible').count(),0);
+    await guide.getByRole('button',{name:'Revelar primera pista'}).click();
+    assert.equal(await guide.locator('.mission-hint-steps li:visible').innerText(),gear.steps[0]);
+    await guide.getByRole('button',{name:'Revelar segunda pista'}).click();
+    assert.deepEqual(await guide.locator('.mission-hint-steps li:visible').allTextContents(),gear.steps);
+   }else if(gear.routes){
+    assert.equal(await template.isHidden(),true);
+    await guide.getByRole('button',{name:gear.routes[1][0],exact:true}).click();
+    assert.equal(await guide.locator('[data-bonus-direction]').innerText(),gear.routes[1][1]);
+   }
+   assert.equal(await template.inputValue(),gear.template);
    assert.equal(await help.evaluate(dialog=>dialog.scrollWidth<=dialog.clientWidth+1),true,mission.slug+' ancho de guía');
    assert.equal(await help.evaluate(dialog=>dialog.contains(document.activeElement)),true,mission.slug+' foco de ayuda cargada');
    await close.press('ArrowRight');
    assert.equal(Number((await surface.locator('#page-count,#page-number').innerText()).split('/')[0]),moment.page,'Las flechas de la ayuda no avanzan la misión');
    if(perk.kind==='accion'){
     const form=help.locator('[data-rpg-form]');
-    const insert=guide.getByRole('button',{name:'Poner plantilla en mi ensayo'});
-    await insert.click();
-    assert.equal(await form.locator('[name=work]').inputValue(),gear.template);
-    assert.equal(await insert.isHidden(),true);
+    await form.locator('[name=work]').fill('Borrador anterior');
+    await guide.getByRole('button',{name:'Añadir al ensayo'}).click();
+    assert.equal(await form.locator('[name=work]').inputValue(),'Borrador anterior\n\n'+(gear.routes?gear.routes[1][0]+'\n':'')+gear.template);
+    if(gear.routes)assert.equal(await form.locator('select').inputValue(),perk.options[gear.routes[1][2]]);
     await form.locator('select').selectOption({label:perk.options[0]});
     await form.locator('[name=work]').fill('Ensayo contextual de '+mission.slug);
     await form.locator('[name=reflection]').fill('Elegí esta ruta para comparar sus consecuencias.');
     await form.locator('button[type=submit]').click();
     await help.getByText('Decisión confirmada en tu bitácora.',{exact:true}).waitFor();
+   }
+   if(moment.field){
+    const field=surface.locator(`#stage textarea[data-field="${moment.field}"]`);
+    const previous=await field.inputValue();
+    await template.fill('Texto de práctica para '+perk.id);
+    await guide.getByRole('button',{name:'Añadir a mi cuaderno'}).click();
+    const expected=(previous?previous+'\n\n':'')+(gear.routes?gear.routes[1][0]+'\n':'')+'Texto de práctica para '+perk.id;
+    assert.equal(await field.inputValue(),expected);
+    await surface.waitForFunction(key=>document.activeElement?.dataset.field===key,moment.field);
+    continue;
    }
    await close.click();
    await surface.waitForFunction(id=>document.activeElement?.closest('[data-mission-cue]')?.dataset.missionCue===id,perk.id);
